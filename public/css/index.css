@@ -48,13 +48,12 @@ body {
 	font-family: var(--font-family);
 	color: var(--text-color);
 	background-color: var(--background-color);
-	/* background-color: green; */
 }
 html {
 	overflow-y: scroll;
 }
 body {
-	max-width: 40em;
+	max-width: 80%;
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
