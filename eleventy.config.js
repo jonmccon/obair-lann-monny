@@ -25,6 +25,9 @@ module.exports = function(eleventyConfig) {
 	// Watch content images for the image pipeline.
 	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg}");
 
+	// Watch css for hotlreload.
+	eleventyConfig.addWatchTarget("public/**/*.css");
+
 	// App plugins
 	eleventyConfig.addPlugin(pluginDrafts);
 	eleventyConfig.addPlugin(pluginImages);
