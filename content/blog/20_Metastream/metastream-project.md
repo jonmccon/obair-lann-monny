@@ -6,7 +6,6 @@ tags:
     - second tag
 ---
 
-[] captions
 [] anchor to imags?
 
 Strengthening our spatial citizenship

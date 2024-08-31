@@ -23,3 +23,38 @@ https://www.carbondesignsystem.com/
 https://www.carbondesignsystem.com/
 https://apps.apple.com/us/app/lumedic-connect/id1519412921
 https://play.google.com/store/apps/details?id=io.lumedicidconnect.lumedicid
+
+
+{% image "./lum-10.png", "000" %}
+
+<div class="two-column">
+
+{% image "./lum-80.png", "000" %}
+
+{% image "./lum-90.png", "000" %}
+
+</div>
+
+<div class="three-column">
+
+{% image "./lum-110.png", "000" %}
+
+{% image "./lum-120.png", "000" %}
+
+{% image "./lum-130.png", "000" %}
+
+</div>
+
+{% image "./lum-20.png", "000" %}
+
+{% image "./lum-30.png", "000" %}
+
+{% image "./lum-40.png", "000" %}
+
+{% image "./lum-70.png", "000" %}
+
+{% image "./lum-55.png", "000" %}
+
+
+
+

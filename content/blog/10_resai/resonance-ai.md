@@ -33,21 +33,21 @@ https://twitter.com/stopitdan
   </label>
 </div> -->
 
-{% image "./res-10.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-10.png", "000" %}
 
-{% image "./res-20.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-20.png", "000" %}
 
-{% image "./res-30.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-30.png", "000" %}
 
-{% image "./res-40.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-40.png", "000" %}
 
-{% image "./res-50.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-50.png", "000" %}
 
 <div class="two-column">
 
-{% image "./res-60.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-60.png", "000" %}
 
-{% image "./res-70.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-70.png", "000" %}
 
 </div>
 
