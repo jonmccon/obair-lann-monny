@@ -317,6 +317,7 @@ img {
 .two-column {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
 	gap: 1em;
 }
 
@@ -328,4 +329,5 @@ img {
 
 .two-column p, .three-column p {
 	margin-top: 0;
+	margin-bottom: 0;
 }
