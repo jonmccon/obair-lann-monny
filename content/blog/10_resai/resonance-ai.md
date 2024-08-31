@@ -26,17 +26,28 @@ https://twitter.com/stopitdan
 
 ## Section Header
 
+<!-- <div class="click-zoom">
+  <label>
+  <input type="checkbox">
+  
+  </label>
+</div> -->
+
 {% image "./res-10.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
 
 {% image "./res-20.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
 
 {% image "./res-30.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
 
+{% image "./res-40.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+
+{% image "./res-50.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+
 <div class="two-column">
 
-{% image "./res-10.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-60.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
 
-{% image "./res-10.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
+{% image "./res-70.png", "A possum parent and two possum kids hanging from the iconic red balloon" %}
 
 </div>
 

@@ -55,7 +55,7 @@ html {
 }
 
 body {
-	max-width: 80%;
+	max-width: 95%;
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -290,15 +290,30 @@ h2 + .header-anchor {
 }
 
 /* Image styling */
- img { 
+img { 
 	max-width: 100%;
   	height: auto;
   	display: block;
   	margin: 0 auto;
 }
 
-/* Project Page */
 
+.click-zoom input[type=checkbox] {
+	/* display: none */
+}
+  
+.click-zoom img {
+	transition: transform 0.25s ease;
+	cursor: zoom-in
+}
+  
+.click-zoom input[type=checkbox]:checked ~ img {
+	transform: scale(2);
+	cursor: zoom-out
+}
+
+
+/* Project Page */
 .two-column {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
