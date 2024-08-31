@@ -10,7 +10,7 @@
 	--color-gray-50: #C0C0C0;
 	--color-gray-90: #333;
 
-	--background-color: #fff;
+	--background-color: #e6e6e6;
 
 	--text-color: var(--color-gray-90);
 	--text-color-link: #082840;
@@ -31,7 +31,7 @@
 		--text-color-link-active: #6969f7;
 		--text-color-link-visited: #a6a6f8;
 
-		--background-color: #15202b;
+		--background-color: #292929;
 	}
 }
 
@@ -320,6 +320,12 @@ img {
 	gap: 1em;
 }
 
-.two-column p {
+.three-column {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 1em;
+}
+
+.two-column p, .three-column p {
 	margin-top: 0;
 }
