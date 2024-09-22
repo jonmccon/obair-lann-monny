@@ -23,3 +23,23 @@ https://www.makeblock.com/project/xy-plotter-robot-kit
 https://www.arduino.cc/
 https://synthetos.myshopify.com/products/gshield-v5
 
+
+{% image "./plot-30.png", "000" %}
+
+{% image "./plot-110.png", "000" %}
+
+<div class="two-column">
+
+{% image "./plot-02.jpeg", "000" %}
+
+{% image "./plot-15.jpeg", "000" %}
+
+{% image "./plot-01.jpg", "000" %}
+
+{% image "./plot-00.jpg", "000" %}
+
+</div>
+
+
+
+
