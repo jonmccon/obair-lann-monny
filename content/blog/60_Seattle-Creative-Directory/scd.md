@@ -1,5 +1,5 @@
 ---
-title: Your Creative Phonebook 
+title: Seattle Creative Directory 
 description: Learning react for fun
 date: 2018-09-30
 tags: 
@@ -22,3 +22,16 @@ https://bit.ly/New-Sea-Directory
 https://github.com/jonmccon/seattle-creative-directory
 https://seattlecreative.directory/
 https://seattlecreative.show/
+
+
+{% image "./scd-01.png", "000" %}
+
+{% image "./scd-02.png", "000" %}
+
+{% image "./scd-03.png", "000" %}
+
+{% image "./scd-04.png", "000" %}
+
+{% image "./scd-05.png", "000" %}
+
+
