@@ -23,3 +23,25 @@ http://aiga.org/
 http://www.calvinkcarter.com/
 http://www.benbusy.com/
 http://kissmeimpolish.com/work/aiga-membership-initiatives/
+
+
+<div class="two-column">
+
+{% image "./aiga-01.png", "000" %}
+
+{% image "./aiga-02.png", "000" %}
+
+{% image "./aiga-03.png", "000" %}
+
+{% image "./aiga-04.png", "000" %}
+
+{% image "./aiga-05.png", "000" %}
+
+{% image "./aiga-06.png", "000" %}
+
+{% image "./aiga-07.png", "000" %}
+
+</div>
+
+
+

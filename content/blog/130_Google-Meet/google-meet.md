@@ -20,3 +20,20 @@ https://material.io/design
 https://material.io/design/color/dark-theme.
 https://support.google.com/meet/answer/9518557
 https://apps.google.com/meet/
+
+
+<div class="two-column">
+
+{% image "./goog-01.png", "000" %}
+
+{% image "./goog-02.png", "000" %}
+
+{% image "./goog-03.png", "000" %}
+
+{% image "./goog-04.png", "000" %}
+
+{% image "./goog-05.png", "000" %}
+
+{% image "./goog-06.png", "000" %}
+
+</div>

@@ -14,3 +14,18 @@ Design and production in collaboration with Riley Hoonan, Glenn Newcomer, photog
 
 https://g.page/copalseattle?share
 https://tether.com/
+
+
+<div class="two-column">
+
+{% image "./afew-01.png", "000" %} 
+
+{% image "./afew-02.png", "000" %} 
+
+{% image "./afew-03.png", "000" %} 
+
+{% image "./afew-04.png", "000" %} 
+
+</div>
+
+{% image "./afew-00.jpg", "000" %} 

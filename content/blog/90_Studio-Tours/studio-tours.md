@@ -16,3 +16,16 @@ To keep the neighborhood tradition alive, I helped produce the Capitol Hill & Pi
 https://www.flickr.com/photos/aiga_seattle/sets/72157641575143395/
 https://www.flickr.com/photos/aiga_seattle/sets/72157644638789788/
 https://www.linkedin.com/pub/neil-palmer/48/215/245
+
+
+
+
+<div class="two-column">
+
+{% image "./tours-01.png", "000" %}
+
+{% image "./tours-02.png", "000" %}
+
+{% image "./tours-03.png", "000" %}
+
+</div>

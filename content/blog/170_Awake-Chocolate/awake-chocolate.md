@@ -10,3 +10,17 @@ Digital cartography platforms are notably difficult to theme visually due to the
 
 https://mapstyle.withgoogle.com/
 https://www.dwzone-it.com/StyledMapWizard/StyledMapWizard.asp
+
+
+<div class="two-column">
+
+{% image "./awake-04.png", "000" %}
+
+{% image "./awake-05.png", "000" %}
+
+{% image "./awake-02.png", "000" %}
+
+{% image "./awake-03.png", "000" %}
+
+
+</div>

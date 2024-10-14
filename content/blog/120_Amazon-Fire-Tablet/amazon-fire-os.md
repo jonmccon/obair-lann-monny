@@ -15,3 +15,29 @@ Available on Amazon
 https://amazon.design/
 https://developer.amazon.com/docs/fire-tv/fire-os-overview.html
 https://www.amazon.com/dp/B07FKR6KXF/ref=cm_sw_r_tw_dp_U_x_zBX5EbR8RPXWF
+
+
+<div class="two-column">
+
+{% image "./ama-01.png", "000" %}
+
+{% image "./ama-02.png", "000" %}
+
+{% image "./ama-03.png", "000" %}
+
+{% image "./ama-04.png", "000" %}
+
+{% image "./ama-05.png", "000" %}
+
+{% image "./ama-06.png", "000" %}
+
+{% image "./ama-07.png", "000" %}
+
+{% image "./ama-08.png", "000" %}
+
+</div>
+
+{% image "./ama-09.png", "000" %}
+
+
+
