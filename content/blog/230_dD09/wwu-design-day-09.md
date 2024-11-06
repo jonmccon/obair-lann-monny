@@ -12,3 +12,9 @@ My favorite part was a simple signage system based around the idea of simply let
 -
 
 https://www.vanderbyl.com/
+
+
+
+<div class="two-column">
+
+{% image "./bs-01.png", "000" %} 

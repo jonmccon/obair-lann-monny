@@ -30,6 +30,7 @@
 
 - research
 - process
+- event
 
 
 

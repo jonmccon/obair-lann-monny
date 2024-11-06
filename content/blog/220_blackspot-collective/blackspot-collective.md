@@ -22,3 +22,26 @@ http://glennnewcomer.com/
 http://rileyhoonan.com/
 http://simkinsphotography.com/
 https://twitter.com/seanmorroww
+
+
+
+<div class="two-column">
+
+{% image "./bs-01.png", "000" %} 
+
+{% image "./bs-02.png", "000" %} 
+
+{% image "./bs-03.png", "000" %} 
+
+{% image "./bs-04.png", "000" %} 
+
+{% image "./bs-05.png", "000" %} 
+
+{% image "./bs-06.png", "000" %} 
+
+{% image "./bs-07.png", "000" %} 
+
+{% image "./bs-08.png", "000" %} 
+
+
+</div>
