@@ -1,3 +1,42 @@
+
+# Tag list from notes
+
+-- Graphic Design
+-- the Plot Quickens
+-- Creative Diectory
+
+
+- generative
+- illustration
+- branding
+- uxui
+- product
+- dataviz
+- system
+
+- p5
+- python
+- arduino
+- rpi
+- midi
+- html
+- javascript
+- 
+
+- art
+- design
+- classroom
+- podcast
+
+- research
+- process
+
+
+
+
+
+
+
 # eleventy-base-blog v8
 
 A starter repository showing how to build a blog with the [Eleventy](https://www.11ty.dev/) site generator (using the [v2.0 release](https://www.11ty.dev/blog/eleventy-v2/)).
