@@ -1,3 +1,4 @@
+const Image = require("@11ty/eleventy-img");
 const { DateTime } = require("luxon");
 const markdownItAnchor = require("markdown-it-anchor");
 
@@ -81,6 +82,54 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
 		return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
 	});
+
+	// custom shuffle filter
+	eleventyConfig.addFilter("shuffle", (array) => {
+	let currentIndex = array.length, temporaryValue, randomIndex;
+
+	// While there remain elements to shuffle...
+	while (0 !== currentIndex) {
+		// Pick a remaining element...
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		// And swap it with the current element.
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+
+	return array;
+	});
+
+	// Return all the content images as a collection from frontmatter
+	eleventyConfig.addCollection("images", async function(collectionApi) {
+		const images = [];
+		const items = collectionApi.getAll();
+	
+		for (const item of items) {
+		  if (item.data.images) {
+			for (const image of item.data.images) {
+			  let metadata = await Image(image.src, {
+				widths: [null],
+				formats: ["avif", "jpeg"],
+				urlPath: "/img/",
+				outputDir: "./_site/img/"
+			  });
+	
+			  let imageUrl = metadata.jpeg[0].url; // or metadata.avif[0].url for AVIF format
+	
+			  images.push({
+				url: item.url,
+				src: imageUrl,
+				alt: image.alt || item.data.title
+			  });
+			}
+		  }
+		}
+	
+		return images;
+	  });
 
 	// Customize Markdown library settings:
 	eleventyConfig.amendLibrary("md", mdLib => {

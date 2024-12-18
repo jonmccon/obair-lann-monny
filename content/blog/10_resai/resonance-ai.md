@@ -4,6 +4,14 @@ description: Teaching the machine to watch TV
 date: 2018-09-30
 tags: 
     - second tag
+images:
+    - src: "./content/blog/10_resai/res-10.png"
+    - src: "./content/blog/10_resai/res-20.png"
+    - src: "./content/blog/10_resai/res-30.png"
+    - src: "./content/blog/10_resai/res-40.png"
+    - src: "./content/blog/10_resai/res-50.png"
+    - src: "./content/blog/10_resai/res-60.png"
+    - src: "./content/blog/10_resai/res-70.png"
 ---
 
 [] two versions of the copy

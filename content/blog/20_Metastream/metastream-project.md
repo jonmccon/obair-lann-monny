@@ -4,6 +4,29 @@ description: Rich Location Based Media
 date: 2018-09-30
 tags: 
     - second tag
+images: 
+- src: "./content/blog/20_Metastream/ms-20.png"
+- src: "./content/blog/20_Metastream/ms-21.png"
+- src: "./content/blog/20_Metastream/ms-23.png"
+- src: "./content/blog/20_Metastream/ms-24.png"
+- src: "./content/blog/20_Metastream/ms-30.png"
+- src: "./content/blog/20_Metastream/ms-35.png"
+- src: "./content/blog/20_Metastream/ms-40.png"
+- src: "./content/blog/20_Metastream/ms-50.png"
+- src: "./content/blog/20_Metastream/ms-60.png"
+- src: "./content/blog/20_Metastream/ms-70.png"
+- src: "./content/blog/20_Metastream/ms-75.png"
+- src: "./content/blog/20_Metastream/ms-80.png"
+- src: "./content/blog/20_Metastream/ms-85.png"
+- src: "./content/blog/20_Metastream/ms-86.png"
+- src: "./content/blog/20_Metastream/ms-90.png"
+- src: "./content/blog/20_Metastream/ms-95.png"
+- src: "./content/blog/20_Metastream/ms-100.png"
+- src: "./content/blog/20_Metastream/ms-110.png"
+- src: "./content/blog/20_Metastream/ms-120.png"
+- src: "./content/blog/20_Metastream/ms-125.png"
+- src: "./content/blog/20_Metastream/ms-130.png"
+
 ---
 
 [] anchor to imags?

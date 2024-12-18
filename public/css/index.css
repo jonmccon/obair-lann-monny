@@ -297,6 +297,20 @@ img {
   	margin: 0 auto;
 }
 
+/* Landing image grid */
+.image-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-auto-flow: row dense;
+	gap: 1em;
+  }
+  
+  .image-item img {
+	width: 100%;
+	height: auto;
+	display: block;
+  }
+
 
 .click-zoom input[type=checkbox] {
 	/* display: none */

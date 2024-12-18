@@ -13,4 +13,14 @@ layout: layouts/base.njk
 </div>
 <!-- Stop deleting --> #}
 
+<div class="image-grid">
+  {% for item in collections.images | shuffle %}
+    <div class="image-item">
+      <a href="{{ item.url }}">
+        <img src="{{ item.src }}" alt="{{ item.alt }}">
+      </a>
+    </div>
+  {% endfor %}
+</div>
+
 {{ content | safe }}
