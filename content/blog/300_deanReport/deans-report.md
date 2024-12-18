@@ -15,4 +15,5 @@ Served as the design lead in collaboration with a handful of designers and an ed
 
 <div class="two-column">
 
-{% image "./bs-01.png", "000" %} 
+
+</div>
