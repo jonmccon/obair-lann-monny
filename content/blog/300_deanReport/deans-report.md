@@ -15,5 +15,18 @@ Served as the design lead in collaboration with a handful of designers and an ed
 
 <div class="two-column">
 
+{% image "./dr-01.jpeg", "000" %} 
+
+{% image "./dr-02.jpeg", "000" %} 
+
+{% image "./dr-03.jpeg", "000" %} 
+
+{% image "./dr-04.jpeg", "000" %} 
+
+{% image "./dr-05.jpeg", "000" %} 
+
+{% image "./dr-06.jpeg", "000" %} 
 
 </div>
+
+{% image "./dr-07.png", "000" %} 

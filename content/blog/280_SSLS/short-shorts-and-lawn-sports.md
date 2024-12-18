@@ -13,3 +13,20 @@ Once the inch of ice on the inside of my Bellingham bedroom had subsided, spring
 
 http://glennnewcomer.com/
 http://lookatthisfuckinghipster.tumblr.com/post/613915076/dude-nice-shuttlecock
+
+
+<div class="two-column">
+
+{% image "./ssls-05.png", "000" %} 
+
+{% image "./ssls-06.png", "000" %} 
+
+{% image "./ssls-01.png", "000" %} 
+
+{% image "./ssls-02.png", "000" %} 
+
+{% image "./ssls-03.png", "000" %} 
+
+{% image "./ssls-04.png", "000" %} 
+
+</div>

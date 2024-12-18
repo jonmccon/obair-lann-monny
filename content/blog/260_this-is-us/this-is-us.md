@@ -11,3 +11,5 @@ Tumblr design and skinning in php, css, html for a Portland based director that 
 -
 
 http://meredithadelaide.com/
+
+{% image "./thisUs-01.png", "000" %} 
