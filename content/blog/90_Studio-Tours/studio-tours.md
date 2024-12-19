@@ -4,6 +4,10 @@ description: Open the doors & let the people in
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/90_Studio-Tours/tours-01.png"
+- src: "content/blog/90_Studio-Tours/tours-02.png"
+- src: "content/blog/90_Studio-Tours/tours-03.png"
 ---
 
 [] better presentation of 

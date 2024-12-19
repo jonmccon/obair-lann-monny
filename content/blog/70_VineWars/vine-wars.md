@@ -4,6 +4,15 @@ description: Hacking twitter into a game
 date: 2018-09-30
 tags: 
     - second tag
+images: 
+- src: "content/blog/70_VineWars/vw-02.png"
+- src: "content/blog/70_VineWars/vw-03.png"
+- src: "content/blog/70_VineWars/vw-04.png"
+- src: "content/blog/70_VineWars/vw-06.png"
+- src: "content/blog/70_VineWars/vw-05.png"
+- src: "content/blog/70_VineWars/vw-08.png"
+- src: "content/blog/70_VineWars/vw-07.png"
+
 ---
 
 

@@ -4,6 +4,16 @@ description: Live design fights & the magic of cardboard
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/100_PoF/pof-01.png"
+- src: "content/blog/100_PoF/pof-02.jpeg"
+- src: "content/blog/100_PoF/pof-03.jpeg"
+- src: "content/blog/100_PoF/pof-04.jpeg"
+- src: "content/blog/100_PoF/pof-05.jpg"
+- src: "content/blog/100_PoF/pof-06.jpg"
+- src: "content/blog/100_PoF/pof-07.jpeg"
+- src: "content/blog/100_PoF/pof-08.jpeg"
+- src: "content/blog/100_PoF/pof-09.jpeg"
 ---
 
 [] 2012 not listed on the shutterstock page! reach out to them

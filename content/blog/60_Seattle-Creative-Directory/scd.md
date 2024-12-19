@@ -4,6 +4,13 @@ description: Learning react for fun
 date: 2018-09-30
 tags: 
     - second tag
+images: 
+- src: "content/blog/60_Seattle-Creative-Directory/scd-01.png"
+- src: "content/blog/60_Seattle-Creative-Directory/scd-02.png"
+- src: "content/blog/60_Seattle-Creative-Directory/scd-03.png"
+- src: "content/blog/60_Seattle-Creative-Directory/scd-04.png"
+- src: "content/blog/60_Seattle-Creative-Directory/scd-05.png"
+
 ---
 
 [] update images 
