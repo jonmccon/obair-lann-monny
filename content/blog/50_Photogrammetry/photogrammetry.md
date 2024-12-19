@@ -4,6 +4,13 @@ description: Photoshopping in three dimensions
 date: 2018-09-30
 tags: 
     - second tag
+images: 
+- src: "content/blog/50_Photogrammetry/plot-30.png"
+- src: "content/blog/50_Photogrammetry/plot-110.png"
+- src: "content/blog/50_Photogrammetry/plot-02.jpeg"
+- src: "content/blog/50_Photogrammetry/plot-15.jpeg"
+- src: "content/blog/50_Photogrammetry/plot-01.jpg"
+- src: "content/blog/50_Photogrammetry/plot-00.jpg"
 ---
 
 

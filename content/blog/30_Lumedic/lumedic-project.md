@@ -3,6 +3,18 @@ title: Lumedic
 description: Onchain medical records
 date: 2018-09-30
 tags: second tag
+images: 
+- src: "./content/blog/30_Lumedic/lum-10.png"
+- src: "./content/blog/30_Lumedic/lum-80.png"
+- src: "./content/blog/30_Lumedic/lum-90.png"
+- src: "./content/blog/30_Lumedic/lum-110.png"
+- src: "./content/blog/30_Lumedic/lum-120.png"
+- src: "./content/blog/30_Lumedic/lum-130.png"
+- src: "./content/blog/30_Lumedic/lum-20.png"
+- src: "./content/blog/30_Lumedic/lum-30.png"
+- src: "./content/blog/30_Lumedic/lum-40.png"
+- src: "./content/blog/30_Lumedic/lum-70.png"
+- src: "./content/blog/30_Lumedic/lum-55.png"
 ---
 
 Covid-19 Passport
