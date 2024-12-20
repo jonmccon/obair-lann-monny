@@ -4,6 +4,8 @@ description: A visual study on the process of shooting a film
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/260_this-is-us/thisUs-01.png"
 ---
 
 

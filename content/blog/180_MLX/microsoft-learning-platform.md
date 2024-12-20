@@ -4,6 +4,12 @@ description: Creating a lovechild from youtube, khan academy & wikipedia
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/180_MLX/MLX-01.png"
+- src: "content/blog/180_MLX/MLX-02.png"
+- src: "content/blog/180_MLX/MLX-03.png"
+- src: "content/blog/180_MLX/MLX-04.png"
+- src: "content/blog/180_MLX/MLX-05.png"
 ---
 
 

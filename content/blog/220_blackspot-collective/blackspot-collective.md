@@ -4,6 +4,15 @@ description: screenprinting x an antique shop = artshow!
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/220_blackspot-collective/bs-01.png"
+- src: "content/blog/220_blackspot-collective/bs-02.png"
+- src: "content/blog/220_blackspot-collective/bs-03.png"
+- src: "content/blog/220_blackspot-collective/bs-04.png"
+- src: "content/blog/220_blackspot-collective/bs-05.png"
+- src: "content/blog/220_blackspot-collective/bs-06.png"
+- src: "content/blog/220_blackspot-collective/bs-07.png"
+- src: "content/blog/220_blackspot-collective/bs-08.png"
 ---
 
 

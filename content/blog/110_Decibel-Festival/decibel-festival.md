@@ -4,6 +4,19 @@ description: Apparently the best shows aren't photographed
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/110_Decibel-Festival/db-04.png"
+- src: "content/blog/110_Decibel-Festival/db-05.png"
+- src: "content/blog/110_Decibel-Festival/db-01.png"
+- src: "content/blog/110_Decibel-Festival/db-02.png"
+- src: "content/blog/110_Decibel-Festival/db-03.png"
+- src: "content/blog/110_Decibel-Festival/db-06.png"
+- src: "content/blog/110_Decibel-Festival/db-07.png"
+- src: "content/blog/110_Decibel-Festival/db-08.png"
+- src: "content/blog/110_Decibel-Festival/db-09.png"
+- src: "content/blog/110_Decibel-Festival/db-10.png"
+- src: "content/blog/110_Decibel-Festival/db-11.png"
+- src: "content/blog/110_Decibel-Festival/db-12.jpeg"
 ---
 
 [] rewrite that subtitle

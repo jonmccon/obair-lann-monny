@@ -4,6 +4,17 @@ description: I like to put myself in my work
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/210_posters/post-01.png"
+- src: "content/blog/210_posters/post-02.png"
+- src: "content/blog/210_posters/post-03.png"
+- src: "content/blog/210_posters/post-10.jpeg"
+- src: "content/blog/210_posters/post-06.png"
+- src: "content/blog/210_posters/post-07.png"
+- src: "content/blog/210_posters/post-05.png"
+- src: "content/blog/210_posters/post-04.png"
+- src: "content/blog/210_posters/post-08.jpeg"
+- src: "content/blog/210_posters/post-09.jpeg"
 ---
 
 Posters

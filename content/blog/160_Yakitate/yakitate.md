@@ -4,7 +4,12 @@ description: Dwell on design with designboom
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/160_Yakitate/yaki-01.jpeg"
+- src: "content/blog/160_Yakitate/yaki-02.jpeg"
+- src: "content/blog/160_Yakitate/yaki-03.png"
 ---
+
 
 
 Identity system for an exhibition of emerging Japanese product designers at Dwell Magazine's 2011 Dwell on Design Conference in the LA Convention Center

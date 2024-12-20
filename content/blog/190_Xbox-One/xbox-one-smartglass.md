@@ -4,6 +4,10 @@ description: Second screen ftw
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/190_Xbox-One/xbox-01.png"
+- src: "content/blog/190_Xbox-One/xbox-02.png"
+- src: "content/blog/190_Xbox-One/xbox-03.jpeg"
 ---
 
 

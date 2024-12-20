@@ -4,6 +4,14 @@ description: Never skimp on details - Dean of Student Life
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/300_deanReport/dr-01.jpeg"
+- src: "content/blog/300_deanReport/dr-02.jpeg"
+- src: "content/blog/300_deanReport/dr-03.jpeg"
+- src: "content/blog/300_deanReport/dr-04.jpeg"
+- src: "content/blog/300_deanReport/dr-05.jpeg"
+- src: "content/blog/300_deanReport/dr-06.jpeg"
+- src: "content/blog/300_deanReport/dr-07.png"
 ---
 
 Months of investigative journalism into the history and trends of culture at the student union building on WWU's north campus, scouring photo archives and directing additional photo shoots 

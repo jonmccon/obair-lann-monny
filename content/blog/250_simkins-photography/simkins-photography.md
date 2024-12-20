@@ -4,6 +4,8 @@ description: Photographer & genius
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/250_simkins-photography/sim-01.png"
 ---
 
 Compiled the entire collection of a photography show into a Processing algorithm, teasing out varying channels of histograms as a simple promotional for Erik Simkins.

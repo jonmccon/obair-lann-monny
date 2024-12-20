@@ -14,7 +14,9 @@ layout: layouts/base.njk
 <!-- Stop deleting --> #}
 
 <div class="image-grid">
-  {% for item in collections.images | shuffle %}
+  {# Random order filter #}
+  {# {% for item in collections.images | shuffle %} #} 
+  {% for item in collections.images %}
     <div class="image-item">
       <a href="{{ item.url }}">
         <img src="{{ item.src }}" alt="{{ item.alt }}">

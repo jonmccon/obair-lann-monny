@@ -4,6 +4,13 @@ description: Art students with cabin fever
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/280_SSLS/ssls-01.png"
+- src: "content/blog/280_SSLS/ssls-02.png"
+- src: "content/blog/280_SSLS/ssls-03.png"
+- src: "content/blog/280_SSLS/ssls-04.png"
+- src: "content/blog/280_SSLS/ssls-05.png"
+- src: "content/blog/280_SSLS/ssls-06.png"
 ---
 
 The culture of design school is often described as immersion training. No one going in knows what's going to happen and the results are quite relieving & stunning if you join the club.

@@ -4,6 +4,16 @@ description: Translating material features for fire tablet
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-01.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-02.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-03.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-04.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-05.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-06.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-07.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-08.png"
+- src: "content/blog/120_Amazon-Fire-Tablet/ama-09.png"
 ---
 
 As a member of the Digital Devices Group, I helped migrate the release of Android P into Amazon’s Kindle tablet os. Developed ux adaptations & updated visual treatments of existing and net new system level features including the architecture of the home app launcher, content organization & recommendations, search results, top toggle, status alerts, and dark theme treatments.

@@ -4,6 +4,12 @@ description: Graduating showcase in the Tether Gallery
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/200_a-few-from-western/afew-01.png"
+- src: "content/blog/200_a-few-from-western/afew-02.png"
+- src: "content/blog/200_a-few-from-western/afew-03.png"
+- src: "content/blog/200_a-few-from-western/afew-04.png"
+- src: "content/blog/200_a-few-from-western/afew-00.jpg"
 ---
 
 In the North, near an arboretum strewn with brick, was a small tower dedicated to learning the craft of applied design thinking. Problem was, no one ventured up there much.

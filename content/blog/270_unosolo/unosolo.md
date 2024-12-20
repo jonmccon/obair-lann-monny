@@ -4,6 +4,9 @@ description: The FDA is spot on with pasta
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/270_unosolo/un-01.png"
+- src: "content/blog/270_unosolo/un-02.png"
 ---
 
 Packaging 101: a professor hands you a gallon of dry spaghetti and says "you figure it out." 

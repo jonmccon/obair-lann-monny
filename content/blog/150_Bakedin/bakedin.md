@@ -4,6 +4,11 @@ description: An image wrapper for sharing
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/150_Bakedin/bi-01.png"
+- src: "content/blog/150_Bakedin/bi-02.png"
+- src: "content/blog/150_Bakedin/bi-03.png"
+
 ---
 
 

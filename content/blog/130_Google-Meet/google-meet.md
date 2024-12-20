@@ -4,6 +4,13 @@ description: The web meets the desktop meets the telephone
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/130_Google-Meet/goog-01.png"
+- src: "content/blog/130_Google-Meet/goog-02.png"
+- src: "content/blog/130_Google-Meet/goog-03.png"
+- src: "content/blog/130_Google-Meet/goog-04.png"
+- src: "content/blog/130_Google-Meet/goog-05.png"
+- src: "content/blog/130_Google-Meet/goog-06.png"
 ---
 
 [] probably rewrite this

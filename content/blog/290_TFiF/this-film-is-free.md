@@ -4,6 +4,17 @@ description: BFA Thesis / How to learn Wordpress
 date: 2018-09-30
 tags: 
     - xxxxxxxxx
+images: 
+- src: "content/blog/290_TFiF/TFiF-01.png"
+- src: "content/blog/290_TFiF/TFiF-02.png"
+- src: "content/blog/290_TFiF/TFiF-03.png"
+- src: "content/blog/290_TFiF/TFiF-06.png"
+- src: "content/blog/290_TFiF/TFiF-04.png"
+- src: "content/blog/290_TFiF/TFiF-05.png"
+- src: "content/blog/290_TFiF/TFiF-07.png"
+- src: "content/blog/290_TFiF/TFiF-08.png"
+- src: "content/blog/290_TFiF/TFiF-09.png"
+- src: "content/blog/290_TFiF/TFiF-10.png"
 ---
 
 After finishing my BA courses in graphic design and branding ahead of my class, I set off on an additional year of independent study focusing on the interplay of  traditional and new media. 
