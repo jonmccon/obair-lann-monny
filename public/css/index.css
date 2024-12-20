@@ -305,15 +305,17 @@ img {
 	gap: 0px;
   }
   
+  /* remove img for tiny photos that jump to a normal thumbnail */
   .image-item img {
 	width: auto;
 	height: 100%;
+	max-height: 80vh;
 	display: block;
   }
 
   .image-item:hover {
-	width: 100px;
-	background-color: #1493fb;
+	width: 30vw;
+	/* background-color: #1493fb; */
   }
 
 

@@ -13,10 +13,13 @@ layout: layouts/base.njk
 </div>
 <!-- Stop deleting --> #}
 
+
+{# Break out this into a component, so it doesn't load on every page #}
+{# Make it configurable so that the organization is better, kinda random right now #}
 <div class="image-grid">
   {# Random order filter #}
   {# {% for item in collections.images | shuffle %} #} 
-  {% for item in collections.images %}
+  {% for item in collections.images | reverse %}
     <div class="image-item">
       <a href="{{ item.url }}">
         <img src="{{ item.src }}" alt="{{ item.alt }}">
@@ -24,5 +27,7 @@ layout: layouts/base.njk
     </div>
   {% endfor %}
 </div>
+
+
 
 {{ content | safe }}

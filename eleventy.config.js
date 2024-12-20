@@ -79,6 +79,15 @@ module.exports = function(eleventyConfig) {
 		return Array.from(tagSet);
 	});
 
+	// Return all categories used in a collection
+	eleventyConfig.addFilter("getAllCategories", collection => {
+		let categorySet = new Set();
+		for(let item of collection) {
+			(item.data.categories || []).forEach(category => categorySet.add(category));
+		}
+		return Array.from(categorySet);
+	});
+
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
 		return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
 	});

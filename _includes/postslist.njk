@@ -4,6 +4,26 @@
 	<li class="postlist-item{% if post.url == url %} postlist-item-active{% endif %}">
 		<a href="{{ post.url }}" class="postlist-link">{% if post.data.title %}{{ post.data.title }}{% else %}<code>{{ post.url }}</code>{% endif %}</a>
 		<time class="postlist-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate("LLLL yyyy") }}</time>
+		
+		{{ post.data.description | safe }}
+		
+		{# not getting cats here to denote studio name #}
+		{% if post.data.categories %}
+			<ul class="postlist-categories">
+			{% for category in post.data.categories %}
+				<li class="postlist-category">{{ category }}</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+		
+		{# getting a mix of tags here, one for posts one for the thing listed #}
+		{% if post.data.tags %}
+			<ul class="postlist-tags">
+			{% for tag in post.data.tags %}
+				<li class="postlist-tag">{{ tag }}</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
 	</li>
 {% endfor %}
 </ol>
