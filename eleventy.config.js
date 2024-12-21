@@ -111,6 +111,15 @@ module.exports = function(eleventyConfig) {
 	return array;
 	});
 
+	// Return all categories as a collection of unique categories
+	eleventyConfig.addCollection("categories", collection => {
+		let categories = new Set();
+		collection.getAll().forEach(item => {
+			(item.data.categories || []).forEach(category => categories.add(category));
+		});
+		return Array.from(categories);
+	});
+
 	// Return all the content images as a collection from frontmatter
 	eleventyConfig.addCollection("images", async function(collectionApi) {
 		const images = [];
@@ -131,7 +140,8 @@ module.exports = function(eleventyConfig) {
 			  images.push({
 				url: item.url,
 				src: imageUrl,
-				alt: image.alt || item.data.title
+				alt: image.alt || item.data.title,
+				date: item.date
 			  });
 			}
 		  }
