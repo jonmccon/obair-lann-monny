@@ -1,6 +1,6 @@
 {
 	"name": "obair-lann-monny",
-	"version": "0.1",
+	"version": "1.0",
 	"description": "a design & art studio",
 	"scripts": {
 		"build": "npx @11ty/eleventy",

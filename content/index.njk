@@ -6,7 +6,7 @@ eleventyNavigation:
 numberOfLatestPostsToShow: 31
 ---
 
-{% include "imageBlend.njk" %}
+{# {% include "imageBlend.njk" %} #}
 
 {% set postsCount = collections.posts | length %}
 {% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}

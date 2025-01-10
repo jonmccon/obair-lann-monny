@@ -1,7 +1,5 @@
 
 <div class="image-grid">
-  {# Random order filter #}
-  {# {% for item in collections.images | shuffle %} #} 
   {% for item in collections.images | reverse %}
     <div class="image-item">
       <a href="{{ item.url }}">
