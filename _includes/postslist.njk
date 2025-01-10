@@ -6,14 +6,11 @@
 		<time class="postlist-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate("LLLL yyyy") }}</time>
 		
 		{{ post.data.description | safe }}
-		
-		{# not getting cats here to denote studio name #}
-		{% if post.data.categories %}
-			<ul class="postlist-categories">
-			{% for category in post.data.categories %}
-				<li class="postlist-category">{{ category }}</li>
+				
+		{% if post.data.category %}			
+			{% for category in post.data.category %}
+				<p class="postlist-category">{{ category }}</p>
 			{% endfor %}
-			</ul>
 		{% endif %}
 		
 		{# getting a mix of tags here, one for posts one for the thing listed #}

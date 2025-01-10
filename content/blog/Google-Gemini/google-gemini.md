@@ -4,7 +4,7 @@ description: AI, pixel 9 stuff
 category: Buck
 date: 
 tags: 
-    - xxxxxxxxx
+    - boopbboop
 draft: true
 images: 
 # - src: "content/blog/140_Google-Gemini/#####"

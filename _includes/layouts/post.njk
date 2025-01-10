@@ -12,6 +12,11 @@ layout: layouts/base.njk
 	{%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
 	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
 	{%- endfor %}
+
+	{# {%- for category in category | filterCategoryList %}
+	{%- set categoryUrl %}/category/{{ category | slugify }}/{% endset %}
+	<li><a href="{{ categoryUrl }}" class="post-category">{{ category }}</a>{%- if not loop.last %}, {% endif %}</li>
+	{%- endfor %} #}
 </ul>
 
 {{ content | safe }}

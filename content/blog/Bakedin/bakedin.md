@@ -1,7 +1,7 @@
 ---
 title: Bakedin
 description: An image wrapper for sharing
-category:  Stripes
+category: Stripes
 date: 2012-03-01
 tags: 
     - xxxxxxxxx

@@ -80,17 +80,21 @@ module.exports = function(eleventyConfig) {
 	});
 
 	// Return all categories used in a collection
-	eleventyConfig.addFilter("getAllCategories", collection => {
-		let categorySet = new Set();
-		for(let item of collection) {
-			(item.data.categories || []).forEach(category => categorySet.add(category));
-		}
-		return Array.from(categorySet);
-	});
+	// eleventyConfig.addFilter("getAllCategories", collection => {
+	// 	let categorySet = new Set();
+	// 	for(let item of collection) {
+	// 		(item.data.category || []).forEach(category => categorySet.add(category));
+	// 	}
+	// 	return Array.from(categorySet);
+	// });
 
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
 		return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
 	});
+
+	// eleventyConfig.addFilter("filterCategoryList", function filterCategoryList(category) {
+	// 	return (category || []).filter(category => ["all", "nav", "post", "posts"].indexOf(category) === -1);
+	// });
 
 	// custom shuffle filter
 	eleventyConfig.addFilter("shuffle", (array) => {
@@ -133,7 +137,7 @@ module.exports = function(eleventyConfig) {
 				src: imageUrl,
 				alt: image.alt || item.data.title,
 				date: item.data.date,
-				category: item.data.category
+				// category: item.data.categorys
 			  });
 			}
 		  }
