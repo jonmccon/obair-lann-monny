@@ -11,11 +11,14 @@ images:
 
 ## Current list of plotting work, in order of most to least finished.
 
-Pattern Layering, midi wiggle gen
+_roughed out in shopify_
+Pattern Layering, midi wiggle gen, Bayview gen
 5 Lines
 Growth gen
 Tree Rings
 RGB fields
+
+_in progress_
 Weaving & Cross Stitch patterns
 Portrait of a Place
 Shell Generation
