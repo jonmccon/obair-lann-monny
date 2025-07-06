@@ -12,19 +12,20 @@ images:
 ## Current list of plotting work, in order of most to least finished.
 
 _roughed out in shopify_
-Pattern Layering, midi wiggle gen, Bayview gen
-5 Lines
-Growth gen
-Tree Rings
-RGB fields
+- Pattern Layering, midi wiggle gen, bayview gen
+- 5 Lines
+- Growth gen
+- Tree Rings
+- RGB fields
 
 _in progress_
-Weaving & Cross Stitch patterns
-Portrait of a Place
-Shell Generation
-Spirals & Patterned fills
-Color Separation
-Light Printing
+- Weaving & Cross Stitch patterns
+- Portrait of a Place
+- Shell Generation
+- fishing bouies
+- Spirals & Patterned fills
+- Color Separation
+- Light Printing
 -
 
 Also:
