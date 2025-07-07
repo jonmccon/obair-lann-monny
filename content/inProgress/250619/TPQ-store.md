@@ -22,11 +22,11 @@ _in progress_
 - Weaving & Cross Stitch patterns
 - Portrait of a Place
 - Shell Generation
-- fishing bouies
+- Fishing bouies
 - Spirals & Patterned fills
 - Color Separation
 - Light Printing
--
+
 
 Also:
 replace power supply and wiring
