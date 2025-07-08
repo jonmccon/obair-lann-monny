@@ -11,7 +11,7 @@ images:
 
 ## Rebuilding
 
-For every workspace I've now built and rebuilt I find I lack he same discipline in my digital tooling. I'm working at getting better at this by understanding my own work patterns and then repeating that in each new effort. 
+For every workspace I've now built and rebuilt I find I lack the same discipline in my digital tooling. I'm working at getting better at this by understanding my own work patterns and then repeating that in each new effort. 
 
 Instead of every new plotter piece being a progression of what I learned before and tossing out however I implemented it before. vpype is the utility that is pushing me to approach my work more systemically. but really it started with the intech midi controller. first i had to figure out how to even get it setup, but then being able to quickly pull those parts out into a more universally recognized utility for any of my sketches. I can just reference it and swap in the variables and I have that immediate physical manipulation of a sketch. 
 

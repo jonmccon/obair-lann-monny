@@ -31,10 +31,8 @@ _in progress_
 Also:
 replace power supply and wiring
 redesign and implement z axis stepper print head
--
 
 The photogrammetry, generative plants, sand patterns, resin layering, and map projects will have to wait. It's a lot. And I often get lost in it because I'm the only one driving it. I feel more focused now than I have in a long time, for that I'm greatly appreciative of the individuals that have helped me get to this cabin in the woods and the brainwaves it's brought with it. 
-- 
 
 I know many people don't enjoy computer work, and there is an ephemerality inherent in that work. But it's a gardening more than an impermanence, or lacking of physicality. this may not be an award winning major deal situation, but it's mine. and I enjoy picking up the pieces and figuring out how they go together. 
 

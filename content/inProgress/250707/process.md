@@ -21,6 +21,7 @@ Cheers to listening to your gut, taking a breath, taking a step back. I picked u
 
 I digress. I seek my own timeline. For up to this point I've been unable to find the gravity in listening to my own. This in an effort for my health and for those near me. 
 
+So what does that schedule look like-
 
 
 
