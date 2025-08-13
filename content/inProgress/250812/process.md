@@ -1,5 +1,13 @@
-Missing some top bits here
-can fill in later
+---
+title: consumption 
+description: 
+category: inprogress
+date: 2025-08-12
+tags: 
+    - xxxxxxxxx
+images: 
+# - src: "content/blog/a-few-from-western/afew-01.png"
+---
 
 
 in process is about literal steps of action. 
@@ -11,27 +19,3 @@ It's me. I'm the problem, it's me. (I've really been finding the broader applica
 in conversation this week I heard the phrase "these lines are significant to me" and I wasn't sure to take it as crit or as a reflection of the speaker or as a reflection in general on perhaps all of artistic endeavors. that ones makes artistic efforts because it is truly significant to them. I had feelings on this statement, i was angry, i was sad, confused mostly. but also that while the lines i make may be significant to me as much as a brushstroke is to a painter, because I understand intimately the amount of repitition has gone into making that line. 
 
 the viewer, the audience, doesn't need that. in most cases, speakign for myself, when i see someone else's lines (read: brushstroke, keystoke, shutter timing, or sound) I am drawn in by the fact that I do not have the knowledge to make that. I am drawn in to the mystery that this other person has the deep knowledge to make something and that I get to enjoy the sum of its parts as a member of the audience. and that I'll only ever get to be on the edge of understanding how much truly went into that creation, that work. it's a beautiful edge of appreciation and awe for art. that I want to take it home and be continually pushed and engaged by it is awesome. 
-
-
---------
-
-[] images of pillar patterns
-[] plot of pillar
-
-recent lines in process-
-portrait of a place is an illustration born from environmental exposure. a landscape of sorts. originally i drew out a whole physical computing handhelf staff with sensors sticking out and realtime data rendering on a surface, responding to movement and place and sound- then i remembered my design brain and that I should prototype things. so i'm going to take this pillar shape and start feeding it data collected in the field but hold tight on building out the realtime aspect until I have proven it to myself. 
-
-also the pillar as a shape is so wonky that it needs some more time to simmer. 
-
-thru this process and thru invitations to do live plotting work I've gotten the opportunity to figure out vpype. the answer to many questions that have befuddled me for years and also speaks to my own growth as an engineer that can accept the recognition of a problem (thank you mike for first recognizign it), find the right tool, and learn how to use it. essentially it takes all the manual prepress work i'd been doing *every single time I wanted to print* and allowing me to figure it out once programmatically and apply that thinking in realtime. So- hit the button and let the computer be good at being a computer. Huge boon to process here, so much faster to engage the work onto the printer and makes the printer faster / more efficient itself. big smiles. 
-
-i am starting to be able to craft tools for myself. figuring out this piece of the puzzle has allowed me to fill in a gap in the performative plotting experiences i've been doing. no more hand waving, just being stoked about what's happening in front of you. 
-
-
-
-
-
-
-
-
-
