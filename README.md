@@ -1,162 +1,279 @@
+# Obair Lann Monny
 
-# Tag list from notes
+> A design & art studio portfolio and creative practice documentation site
 
--- Graphic Design
--- the Plot Quickens
--- Creative Diectory
+This repository contains the source code for [jonmccon.com](https://jonmccon.com), a portfolio and creative practice blog built with [Eleventy](https://www.11ty.dev/). The site showcases creative work, design projects, generative art, and process documentation from Jonny McConnell's design and art studio.
 
+## 🎯 Repository Purpose
 
-- generative
-- illustration
-- branding
-- uxui
-- product
-- dataviz
-- system
+This site serves as:
+- **Portfolio showcase** for design, art, and creative coding projects
+- **Process documentation** for ongoing creative work and studio practice
+- **Creative output** including generative art, data visualization, and interactive projects
+- **Professional presence** and contact point for collaborations
 
-- p5
-- python
-- arduino
-- rpi
-- midi
-- html
-- javascript
-- 
-
-- art
-- design
-- classroom
-- podcast
-
-- research
-- process
-- event
-
-
-
-
-
-
-
-# eleventy-base-blog v8
-
-A starter repository showing how to build a blog with the [Eleventy](https://www.11ty.dev/) site generator (using the [v2.0 release](https://www.11ty.dev/blog/eleventy-v2/)).
-
-## Getting Started
-
-* [Want a more generic/detailed getting started guide?](https://www.11ty.dev/docs/getting-started/)
-
-1. Make a directory and navigate to it:
+## 🏗️ Project Structure
 
 ```
-mkdir my-blog-name
-cd my-blog-name
+obair-lann-monny/
+├── _data/                  # Global data files
+│   └── metadata.js         # Site metadata and configuration
+├── _includes/              # Reusable templates and layouts
+├── content/                # All site content
+│   ├── blog/              # Completed project posts
+│   ├── inProgress/        # Work-in-progress documentation
+│   ├── about/             # About page content
+│   └── index.njk          # Homepage template
+├── public/                # Static assets
+│   ├── css/               # Stylesheets
+│   └── img/               # Images and media
+├── eleventy.config.js     # Main Eleventy configuration
+├── eleventy.config.drafts.js # Draft post handling
+├── eleventy.config.images.js # Image processing setup
+└── package.json           # Dependencies and scripts
 ```
 
-2. Clone this Repository
+### Key Components
 
+- **Blog Posts** (`content/blog/`): Completed projects with full documentation, images, and project details
+- **In Progress** (`content/inProgress/`): Ongoing work, experiments, and process documentation
+- **Image Processing**: Automated optimization and responsive image generation using `@11ty/eleventy-img`
+- **Draft System**: Development posts can be marked as drafts and shown only in development mode
+- **Navigation**: Automatic navigation generation using `@11ty/eleventy-navigation`
+
+## 🚀 Setup Instructions
+
+### Prerequisites
+
+- **Node.js** (version 14 or higher)
+- **npm** (comes with Node.js)
+- **Git** for version control
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jonmccon/obair-lann-monny.git
+   cd obair-lann-monny
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
+   The site will be available at `http://localhost:8080`
+
+### Available Commands
+
+- `npm start` - Start development server with hot reloading
+- `npm run build` - Build production site to `_site/` directory
+- `npm run debug` - Run build with debug information
+- `npm run debugstart` - Start dev server with debug output
+- `npm run benchmark` - Run performance benchmarking
+
+## ✨ Adding New Content
+
+### Creating a New Blog Post
+
+1. **Create a new folder** in `content/blog/` with your project name:
+   ```
+   content/blog/my-new-project/
+   ```
+
+2. **Add your main content file** as `project-name.md`:
+   ```markdown
+   ---
+   title: My New Project
+   description: Brief description of the project
+   category: Design
+   date: 2025-01-15
+   tags: 
+       - design
+       - creative-coding
+   images: 
+   - src: "./image1.png"
+   - src: "./image2.jpg"
+   ---
+
+   # Project content goes here
+   
+   Use markdown for your content...
+   
+   {% image "./local-image.jpg", "Alt text description" %}
+   ```
+
+3. **Add images** to the same folder as your markdown file
+
+### Creating Work-in-Progress Posts
+
+1. **Create a folder** in `content/inProgress/` with a date prefix:
+   ```
+   content/inProgress/250115/experiment-name.md
+   ```
+
+2. **Use the same frontmatter structure** but with `category: inprogress`
+
+### Working with Drafts
+
+- Add `draft: true` to your frontmatter to hide posts in production
+- Drafts are automatically shown in development mode (`npm start`)
+- Remove the draft flag when ready to publish
+
+### Image Handling
+
+- **Place images** in the same folder as your markdown file
+- **Use the image shortcode** for automatic optimization:
+  ```markdown
+  {% image "./my-image.jpg", "Descriptive alt text" %}
+  ```
+- **Images are automatically optimized** to multiple formats (AVIF, WebP, fallback)
+- **Responsive sizing** is handled automatically
+
+## 🎨 Design System & Styling
+
+### CSS Architecture
+
+- **Custom properties** for consistent theming (see `public/css/index.css`)
+- **Dark/light mode** support via CSS `prefers-color-scheme`
+- **Responsive grid layouts** with utility classes:
+  - `.two-column` - Two-column grid layout
+  - `.three-column` - Three-column grid layout
+
+### Typography & Colors
+
+```css
+/* Main theme colors */
+--color-gray-20: #e0e0e0;
+--color-gray-50: #C0C0C0;
+--color-gray-90: #333;
+--background-color: #e6e6e6;
+--text-color: var(--color-gray-90);
 ```
-git clone https://github.com/11ty/eleventy-base-blog.git .
-```
 
-_Optional:_ Review `eleventy.config.js` and `_data/metadata.js` to configure the site’s options and data.
+### Creative Disciplines & Tags
 
-3. Install dependencies
+The site organizes content around these creative areas:
+- **Visual Design**: generative, illustration, branding, uxui, product, dataviz, system
+- **Technology**: p5, python, arduino, rpi, midi, html, javascript  
+- **Context**: art, design, classroom, podcast, research, process, event
 
-```
-npm install
-```
+## 🔧 Development Workflow
 
-4. Run Eleventy
+### For New Features
 
-Generate a production-ready build to the `_site` folder:
+1. **Create a feature branch**
+   ```bash
+   git checkout -b feature/new-feature-name
+   ```
 
-```
-npx @11ty/eleventy
-```
+2. **Make your changes** following the code style guidelines below
 
-Or build and host on a local development server:
+3. **Test locally**
+   ```bash
+   npm start  # Test in development
+   npm run build  # Test production build
+   ```
 
-```
-npx @11ty/eleventy --serve
-```
+4. **Commit with descriptive messages**
+   ```bash
+   git add .
+   git commit -m "Add new feature: brief description"
+   ```
 
-Or you can run [debug mode](https://www.11ty.dev/docs/debugging/) to see all the internals.
+5. **Push and create pull request**
+   ```bash
+   git push origin feature/new-feature-name
+   ```
 
-## Features
+### For Content Updates
 
-- Using [Eleventy v2.0](https://www.11ty.dev/blog/eleventy-v2/) with zero-JavaScript output.
-	- Content is exclusively pre-rendered (this is a static site).
-	- Can easily [deploy to a subfolder without changing any content](https://www.11ty.dev/docs/plugins/html-base/)
-	- All URLs are decoupled from the content’s location on the file system.
-	- Configure templates via the [Eleventy Data Cascade](https://www.11ty.dev/docs/data-cascade/)
-- **Performance focused**: four-hundos Lighthouse score out of the box!
-	- [View the Lighthouse report for the latest build](https://eleventy-base-blog.netlify.app/reports/lighthouse/) courtesy of the [Netlify Lighthouse plugin](https://github.com/netlify/netlify-plugin-lighthouse).
-	- _0 Cumulative Layout Shift_
-	- _0ms Total Blocking Time_
-- Local development live reload provided by [Eleventy Dev Server](https://www.11ty.dev/docs/dev-server/).
-- Content-driven [navigation menu](https://www.11ty.dev/docs/plugins/navigation/)
-- [Image optimization](https://www.11ty.dev/docs/plugins/image/) via the `{% image %}` shortcode.
-	- Zero-JavaScript output.
-	- Support for modern image formats automatically (e.g. AVIF and WebP)
-	- Prefers `<img>` markup if possible (single image format) but switches automatically to `<picture>` for multiple image formats.
-	- Automated `<picture>` syntax markup with `srcset` and optional `sizes`
-	- Includes `width`/`height` attributes to avoid [content layout shift](https://web.dev/cls/).
-	- Includes `loading="lazy"` for native lazy loading without JavaScript.
-	- Includes [`decoding="async"`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/decoding)
-	- Images can be co-located with blog post files.
-	- View the [Image plugin source code](https://github.com/11ty/eleventy-base-blog/blob/main/eleventy.config.images.js)
-- Per page CSS bundles [via `eleventy-plugin-bundle`](https://github.com/11ty/eleventy-plugin-bundle).
-- Built-in [syntax highlighter](https://www.11ty.dev/docs/plugins/syntaxhighlight/) (zero-JavaScript output).
-- Blog Posts
-	- Draft posts: use `draft: true` to mark a blog post as a draft. Drafts are **only** included during `--serve`/`--watch` and are excluded from full builds. View the [Drafts plugin source code](https://github.com/11ty/eleventy-base-blog/blob/main/eleventy.config.drafts.js).
-	- Automated next/previous links
-	- Accessible deep links to headings
-- Generated Pages
-	- Home, Archive, and About pages.
-	- [Feeds for Atom and JSON](https://www.11ty.dev/docs/plugins/rss/)
-	- `sitemap.xml`
-	- Zero-maintenance tag pages ([View on the Demo](https://eleventy-base-blog.netlify.app/tags/))
-	- Content not found (404) page
+1. **Work directly on main branch** for content-only changes
+2. **Test content locally** before pushing
+3. **Use descriptive commit messages** like "Add new project: Project Name"
 
-## Demos
+## 📝 Contributing Guidelines
 
-- [Netlify](https://eleventy-base-blog.netlify.app/)
-- [Vercel](https://demo-base-blog.11ty.dev/)
-- [GitHub Pages](https://11ty.github.io/eleventy-base-blog/)
-- [Remix on Glitch](https://glitch.com/~11ty-eleventy-base-blog)
-- [Cloudflare Pages](https://eleventy-base-blog-d2a.pages.dev/)
+### Code Style
 
-## Deploy this to your own site
+- **JavaScript**: Use tabs for indentation, semicolons required
+- **CSS**: Use tabs, organize by specificity (global → components → utilities)
+- **Markdown**: Use consistent heading hierarchy, descriptive alt text for images
+- **Commit messages**: Use present tense, be specific ("Add project gallery" not "Updates")
 
-Deploy this Eleventy site in just a few clicks on these services:
+### File Naming
 
-- [Deploy this to **Netlify**](https://app.netlify.com/start/deploy?repository=https://github.com/11ty/eleventy-base-blog)
-- [Deploy this to **Vercel**](https://vercel.com/import/project?template=11ty%2Feleventy-base-blog)
-- Look in `.github/workflows/gh-pages.yml.sample` for information on Deploying to **GitHub Pages**.
-- [Try it out on **Stackblitz**](https://stackblitz.com/github/11ty/eleventy-base-blog)
-- If you run Eleventy locally you can drag your `_site` folder to [`netlify.com/drop`](https://netlify.com/drop) to upload it without using `git`.
-- Read more about [Deploying an Eleventy project](https://www.11ty.dev/docs/deployment/) to the web.
+- **Folders**: Use kebab-case (`my-project-name`)
+- **Files**: Use kebab-case for markdown, camelCase for JavaScript
+- **Images**: Descriptive names with project prefix (`project-screenshot-01.jpg`)
 
-### Implementation Notes
+### Content Guidelines
 
-- `content/about/index.md` is an example of a content page.
-- `content/blog/` has the blog posts but really they can live in any directory. They need only the `posts` tag to be included in the blog posts [collection](https://www.11ty.dev/docs/collections/).
-- Use the `eleventyNavigation` key (via the [Eleventy Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)) in your front matter to add a template to the top level site navigation. This is in use on `content/index.njk` and `content/about/index.md`.
-- Content can be in _any template format_ (blog posts needn’t exclusively be markdown, for example). Configure your project’s supported templates in `eleventy.config.js` -> `templateFormats`.
-- The `public` folder in your input directory will be copied to the output folder (via `addPassthroughCopy` in the `eleventy.config.js` file). This means `./public/css/*` will live at `./_site/css/*` after your build completes.
-- Provides two content feeds:
-	- `content/feed/feed.njk`
-	- `content/feed/json.njk`
-- This project uses three [Eleventy Layouts](https://www.11ty.dev/docs/layouts/):
-	- `_includes/layouts/base.njk`: the top level HTML structure
-	- `_includes/layouts/home.njk`: the home page template (wrapped into `base.njk`)
-	- `_includes/layouts/post.njk`: the blog post template (wrapped into `base.njk`)
-- `_includes/postslist.njk` is a Nunjucks include and is a reusable component used to display a list of all the posts. `content/index.njk` has an example of how to use it.
+- **Project posts**: Include process documentation, not just final results
+- **Image quality**: Use high-resolution images, Eleventy will optimize them
+- **Alt text**: Always provide descriptive alt text for accessibility
+- **Tags**: Use existing tags when possible, create new ones sparingly
 
-#### Content Security Policy
+### Pull Request Process
 
-If your site enforces a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (as public-facing sites should), you have a few choices (pick one):
+1. **Describe your changes** clearly in the PR description
+2. **Include screenshots** for visual changes
+3. **Test thoroughly** on multiple screen sizes if making layout changes
+4. **Reference issues** if applicable
 
-1. In `base.njk`, remove `<style>{% getBundle "css" %}</style>` and uncomment `<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">`
-2. Configure the server with the CSP directive `style-src: 'unsafe-inline'` (less secure).
+## 🛠️ Troubleshooting
+
+### Common Issues
+
+**Build takes a long time or hangs**
+- This is usually due to image processing. Eleventy optimizes all images on build.
+- For development, images are only processed once and cached.
+
+**Images not displaying**
+- Check file paths are relative to the markdown file
+- Ensure image files are committed to the repository
+- Verify the image shortcode syntax: `{% image "./path.jpg", "alt text" %}`
+
+**Drafts showing in production**
+- Remove `draft: true` from frontmatter
+- Check that `BUILD_DRAFTS` environment variable is not set in production
+
+**Styling issues**
+- Check browser dev tools for CSS errors
+- Verify custom property names are correctly defined
+- Test in both light and dark mode
+
+### Getting Help
+
+- **Eleventy Documentation**: [11ty.dev/docs](https://www.11ty.dev/docs/)
+- **Repository Issues**: Use GitHub issues for bugs and feature requests
+- **Contact**: [jonmccon@gmail.com](mailto:jonmccon@gmail.com)
+
+## 📚 Useful Resources
+
+### Eleventy Resources
+- [Eleventy Documentation](https://www.11ty.dev/docs/)
+- [Eleventy Plugins](https://www.11ty.dev/docs/plugins/)
+- [Eleventy Community](https://github.com/11ty/eleventy/discussions)
+
+### Design & Creative Coding
+- [p5.js Reference](https://p5js.org/reference/)
+- [Creative Coding Resources](https://github.com/terkelg/awesome-creative-coding)
+- [Generative Art Tools](https://github.com/kosmos/awesome-generative-art)
+
+### Web Development
+- [MDN Web Docs](https://developer.mozilla.org/)
+- [CSS Grid Guide](https://css-tricks.com/snippets/css/complete-guide-grid/)
+- [Web Accessibility Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+**Obair Lann Monny** is Irish Gaelic for "workshop" or "laboratory" - reflecting the experimental and process-focused nature of this creative practice.
