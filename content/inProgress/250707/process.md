@@ -29,7 +29,6 @@ So what does that schedule look like-
 
 <div class="three-column">
 
-<!-- {% image "./studio-ivar-desk.jpg", "000" %}  -->
 
 </div>
 

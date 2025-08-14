@@ -32,7 +32,6 @@ two sides to this process of art making and creative work. the creative part and
 
 <div class="three-column">
 
-<!-- {% image "./studio-ivar-desk.jpg", "000" %}  -->
 
 </div>
 
