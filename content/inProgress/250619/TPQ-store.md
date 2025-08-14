@@ -46,7 +46,7 @@ I know many people don't enjoy computer work, and there is an ephemerality inher
 
 <div class="three-column">
 
-<!-- {% image "./studio-ivar-desk.jpg", "000" %}  -->
+
 
 </div>
 

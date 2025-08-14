@@ -20,7 +20,6 @@ this new strategy also works for my brain a bit better. it's faster, it's cleane
 
 <div class="three-column">
 
-<!-- {% image "./studio-ivar-desk.jpg", "000" %}  -->
 
 </div>
 

@@ -35,7 +35,7 @@ TPQ store- yes. Not yet.
 
 {% image "./studio-ivar-speakers.jpg", "000" %} 
 
-{% image "./studio-ivar-newtiles.jpg", "000" %} 
+{% image "./studio-newtiles.jpg", "000" %} 
 
 </div>
 
