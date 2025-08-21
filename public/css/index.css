@@ -200,7 +200,9 @@ header {
 	flex-wrap: wrap;
 	align-items: baseline;
 	counter-increment: start-from -1;
-	margin-bottom: 1em;
+	margin-bottom: 2em; /* Increased from 1em */
+	padding-bottom: 1.5em; /* Add padding bottom */
+	border-bottom: 1px solid var(--color-gray-20); /* Add subtle separator */
 }
 
 .postlist-item:before {
@@ -262,6 +264,36 @@ header {
 
 .post-metadata time {
 	margin-right: 1em;
+}
+
+/* Postlist tags styling */
+.postlist-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25em;
+	list-style: none;
+	padding: 0;
+	margin: 0.5em 0 0 0;
+	width: 100%;
+}
+
+.postlist-tag {
+	background: var(--color-gray-20);
+	color: var(--text-color);
+	padding: 0.2em 0.5em;
+	border-radius: 3px;
+	font-size: 0.75em;
+	text-transform: capitalize;
+}
+
+.postlist-category {
+	background: var(--text-color-link);
+	color: var(--background-color);
+	padding: 0.2em 0.5em;
+	border-radius: 3px;
+	font-size: 0.75em;
+	margin: 0.5em 0 0 0;
+	display: inline-block;
 }
 
 /* Direct Links / Markdown Headers */

@@ -14,8 +14,8 @@ layout: layouts/base.njk
 <!-- Stop deleting --> #}
 
 
-{# Break out this into a component, so it doesn't load on every page #}
-{# Make it configurable so that the organization is better, kinda random right now #}
+{# Only show image grid on the actual homepage #}
+{% if page.url == "/" %}
 <div class="image-grid">
   {# Random order filter #}
   {# {% for item in collections.images | shuffle %} #} 
@@ -27,7 +27,6 @@ layout: layouts/base.njk
     </div>
   {% endfor %}
 </div>
-
-
+{% endif %}
 
 {{ content | safe }}

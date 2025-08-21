@@ -13,10 +13,10 @@
 			{% endfor %}
 		{% endif %}
 		
-		{# getting a mix of tags here, one for posts one for the thing listed #}
+		{# Filter out common tags like "post" #}
 		{% if post.data.tags %}
 			<ul class="postlist-tags">
-			{% for tag in post.data.tags %}
+			{% for tag in post.data.tags | filterTagList %}
 				<li class="postlist-tag">{{ tag }}</li>
 			{% endfor %}
 			</ul>
