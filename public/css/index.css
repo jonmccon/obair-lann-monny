@@ -278,22 +278,7 @@ header {
 }
 
 .postlist-tag {
-	background: var(--color-gray-20);
-	color: var(--text-color);
-	padding: 0.2em 0.5em;
-	border-radius: 3px;
-	font-size: 0.75em;
 	text-transform: capitalize;
-}
-
-.postlist-category {
-	background: var(--text-color-link);
-	color: var(--background-color);
-	padding: 0.2em 0.5em;
-	border-radius: 3px;
-	font-size: 0.75em;
-	margin: 0.5em 0 0 0;
-	display: inline-block;
 }
 
 /* Direct Links / Markdown Headers */
