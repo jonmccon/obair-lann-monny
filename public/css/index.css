@@ -385,10 +385,18 @@ img {
 	}
 	
 	.image-item:active {
-		/* Brief feedback for touch interaction */
-		transform: scale(0.98);
+		/* Enhanced feedback for touch interaction */
+		transform: scale(0.95);
 		transition: transform 0.1s ease;
+		filter: brightness(0.9);
 	}
+  }
+
+  /* Enhanced touch feedback simulation for desktop testing */
+  .image-item.touch-feedback {
+	transform: scale(0.95);
+	filter: brightness(0.9);
+	transition: transform 0.1s ease, filter 0.1s ease;
   }
 
 

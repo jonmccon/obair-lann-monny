@@ -167,6 +167,17 @@
 			// Enhanced Image Gallery Functionality
 			const imageGrid = document.querySelector('.image-grid');
 			if (imageGrid) {
+				// Check if this is a touch device
+				const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+				const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+				
+				// Add console logging for debugging
+				console.log('Touch interactions enabled:', {
+					isTouchDevice,
+					isDesktop,
+					hasGallery: true
+				});
+
 				// Lazy loading for gallery images
 				const lazyImages = imageGrid.querySelectorAll('img');
 				
@@ -207,6 +218,13 @@
 					startY = e.touches[0].clientY;
 					isDragging = false;
 					hasScrolled = false;
+					
+					// Visual feedback for touch start
+					const imageItem = e.target.closest('.image-item');
+					if (imageItem) {
+						imageItem.classList.add('touch-feedback');
+						console.log('Touch started on image item');
+					}
 				}, { passive: true });
 
 				imageGrid.addEventListener('touchmove', function(e) {
@@ -221,6 +239,12 @@
 					if (diffX > SCROLL_THRESHOLD || diffY > SCROLL_THRESHOLD) {
 						isDragging = true;
 						hasScrolled = true;
+						console.log('Touch scrubbing detected:', { diffX, diffY });
+						
+						// Remove touch feedback during scrubbing
+						const touchFeedbackItems = imageGrid.querySelectorAll('.touch-feedback');
+						touchFeedbackItems.forEach(item => item.classList.remove('touch-feedback'));
+						
 						// Allow native horizontal scrolling for scrubbing
 						if (diffX > diffY) {
 							// Horizontal scroll - prevent vertical scroll
@@ -230,6 +254,12 @@
 				}, { passive: false });
 
 				imageGrid.addEventListener('touchend', function(e) {
+					// Remove visual feedback
+					const touchFeedbackItems = imageGrid.querySelectorAll('.touch-feedback');
+					touchFeedbackItems.forEach(item => item.classList.remove('touch-feedback'));
+					
+					console.log('Touch ended:', { hasScrolled, isDragging });
+					
 					// Reset values
 					startX = 0;
 					startY = 0;
@@ -246,8 +276,11 @@
 					const imageItem = e.target.closest('.image-item');
 					const link = imageItem?.querySelector('a');
 					
+					console.log('Click detected:', { hasScrolled, isDragging, hasLink: !!link });
+					
 					if (link && !hasScrolled && !isDragging) {
 						// Only navigate if it was a genuine tap/click, not a scroll/drag
+						console.log('Navigating to:', link.href);
 						window.location.href = link.href;
 					}
 				});
@@ -260,6 +293,44 @@
 					});
 				});
 
+				// Desktop simulation for testing (shows touch interactions on desktop)
+				if (isDesktop && !isTouchDevice) {
+					// Add visual indicator for desktop users about touch interactions
+					const touchInfo = document.createElement('div');
+					touchInfo.innerHTML = `
+						<p style="font-size: 0.8em; color: #666; margin: 0.5em 0;">
+							💡 <strong>Touch interactions available:</strong> On touch devices, you can scroll horizontally through images without accidentally navigating to projects.
+						</p>
+					`;
+					touchInfo.style.cssText = 'margin: 1em 0; padding: 0.5em; background: #f5f5f5; border-radius: 4px; font-family: -apple-system, system-ui, sans-serif;';
+					
+					// Insert info after the gallery
+					imageGrid.parentNode.insertBefore(touchInfo, imageGrid.nextSibling);
+					
+					// Desktop simulation: Show touch feedback on mouse events for demonstration
+					const imageItems = imageGrid.querySelectorAll('.image-item');
+					imageItems.forEach(item => {
+						item.addEventListener('mousedown', function(e) {
+							// Simulate touch feedback on desktop
+							this.classList.add('touch-feedback');
+							console.log('Desktop touch simulation: mousedown');
+						});
+						
+						item.addEventListener('mouseup', function(e) {
+							// Remove touch feedback
+							setTimeout(() => {
+								this.classList.remove('touch-feedback');
+							}, 100);
+							console.log('Desktop touch simulation: mouseup');
+						});
+						
+						item.addEventListener('mouseleave', function(e) {
+							// Clean up if mouse leaves during press
+							this.classList.remove('touch-feedback');
+						});
+					});
+				}
+
 				// Cache management for performance
 				// Store scroll position for back navigation
 				if ('sessionStorage' in window) {
@@ -267,11 +338,13 @@
 					const savedScrollPos = sessionStorage.getItem('galleryScrollPos');
 					if (savedScrollPos) {
 						imageGrid.scrollLeft = parseInt(savedScrollPos, 10);
+						console.log('Restored scroll position:', savedScrollPos);
 					}
 
 					// Save scroll position when navigating away
 					window.addEventListener('beforeunload', function() {
 						sessionStorage.setItem('galleryScrollPos', imageGrid.scrollLeft);
+						console.log('Saved scroll position:', imageGrid.scrollLeft);
 					});
 				}
 			}
