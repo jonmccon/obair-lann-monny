@@ -355,50 +355,76 @@ img {
 	object-fit: cover;
 	/* Performance optimizations for images */
 	will-change: auto;
-	/* Prevent text selection on touch devices */
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	/* Prevent dragging on desktop */
-	-webkit-user-drag: none;
-	-khtml-user-drag: none;
-	-moz-user-drag: none;
-	-o-user-drag: none;
-	user-drag: none;
   }
 
-  /* Preserve hover effect for mouse users */
+  /* Desktop hover effect */
   @media (hover: hover) and (pointer: fine) {
 	.image-item:hover {
 		width: 30vw;
-		/* Slight scale effect for feedback */
 		transform: scale(1.02);
 	}
   }
 
-  /* Touch-specific optimizations */
+  /* Touch device selected state via slider control */
   @media (hover: none) and (pointer: coarse) {
-	.image-item {
-		/* Remove hover effects on touch devices */
-		width: auto;
-	}
-	
-	.image-item:active {
-		/* Enhanced feedback for touch interaction with width expansion */
+	.image-item.gallery-selected {
 		width: 30vw;
-		transform: scale(0.95);
-		transition: width 0.3s ease, transform 0.1s ease;
-		filter: brightness(0.9);
+		transform: scale(1.02);
+		transition: width 0.3s ease, transform 0.2s ease;
 	}
   }
 
-  /* Enhanced touch feedback simulation for desktop testing */
-  .image-item.touch-feedback {
-	width: 30vw;
-	transform: scale(0.95);
-	filter: brightness(0.9);
-	transition: width 0.3s ease, transform 0.1s ease, filter 0.1s ease;
+  /* Gallery slider control - only visible on touch devices */
+  .gallery-slider-container {
+	display: none;
+	margin: 1rem 0;
+	padding: 1rem;
+	text-align: center;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+	.gallery-slider-container {
+		display: block;
+	}
+  }
+
+  .gallery-slider {
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto;
+	display: block;
+	-webkit-appearance: none;
+	appearance: none;
+	height: 6px;
+	background: var(--color-gray-20);
+	border-radius: 3px;
+	outline: none;
+  }
+
+  .gallery-slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	background: var(--text-color-link);
+	border-radius: 50%;
+	cursor: pointer;
+  }
+
+  .gallery-slider::-moz-range-thumb {
+	width: 20px;
+	height: 20px;
+	background: var(--text-color-link);
+	border-radius: 50%;
+	cursor: pointer;
+	border: none;
+  }
+
+  .slider-label {
+	font-size: 0.9em;
+	color: var(--color-gray-90);
+	margin-top: 0.5rem;
+	font-style: italic;
   }
 
 
