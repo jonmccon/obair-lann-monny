@@ -33,6 +33,60 @@
 		{#- Renders the CSS bundle using a separate file, if you can't set CSP directive style-src: 'unsafe-inline' #}
 		{#- <link rel="stylesheet" href="{% getBundleFileUrl "css" %}"> #}
 
+		{#- Image lightbox CSS #}
+		<style>
+		/* Lightbox overlay */
+		.lightbox-overlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.9);
+			z-index: 1000;
+			cursor: pointer;
+		}
+		
+		.lightbox-overlay.active {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		
+		.lightbox-image {
+			max-width: 90%;
+			max-height: 90%;
+			object-fit: contain;
+			cursor: default;
+		}
+		
+		.lightbox-close {
+			position: absolute;
+			top: 20px;
+			right: 30px;
+			color: white;
+			font-size: 40px;
+			font-weight: bold;
+			cursor: pointer;
+			z-index: 1001;
+		}
+		
+		.lightbox-close:hover {
+			color: #ccc;
+		}
+		
+		/* Style for lightbox-enabled images */
+		.lightbox-trigger {
+			cursor: zoom-in;
+			transition: opacity 0.3s ease;
+		}
+		
+		.lightbox-trigger:hover {
+			opacity: 0.8;
+		}
+		</style>
+
 		<!-- Google tag (gtag.js) -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG"></script>
 		<script>
@@ -65,6 +119,52 @@
 		</main>
 
 		<footer></footer>
+
+		<!-- Image lightbox HTML structure -->
+		<div class="lightbox-overlay" id="lightbox">
+			<span class="lightbox-close" id="lightbox-close">&times;</span>
+			<img class="lightbox-image" id="lightbox-img" src="" alt="">
+		</div>
+
+		<!-- Image lightbox JavaScript -->
+		<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const lightbox = document.getElementById('lightbox');
+			const lightboxImg = document.getElementById('lightbox-img');
+			const lightboxClose = document.getElementById('lightbox-close');
+			
+			// Add click handlers to all lightbox trigger images
+			document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
+				img.addEventListener('click', function(e) {
+					e.preventDefault();
+					lightboxImg.src = this.src;
+					lightboxImg.alt = this.alt;
+					lightbox.classList.add('active');
+				});
+			});
+			
+			// Close lightbox when clicking overlay or close button
+			lightbox.addEventListener('click', function() {
+				lightbox.classList.remove('active');
+			});
+			
+			lightboxClose.addEventListener('click', function() {
+				lightbox.classList.remove('active');
+			});
+			
+			// Prevent closing when clicking the image itself
+			lightboxImg.addEventListener('click', function(e) {
+				e.stopPropagation();
+			});
+			
+			// Close lightbox with Escape key
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+					lightbox.classList.remove('active');
+				}
+			});
+		});
+		</script>
 
 		<!-- This page `{{ page.url | htmlBaseUrl }}` was built on {% currentBuildDate %} -->
 	</body>
