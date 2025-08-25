@@ -163,6 +163,118 @@
 					lightbox.classList.remove('active');
 				}
 			});
+
+			// Enhanced Image Gallery Functionality
+			const imageGrid = document.querySelector('.image-grid');
+			if (imageGrid) {
+				// Lazy loading for gallery images
+				const lazyImages = imageGrid.querySelectorAll('img');
+				
+				// Performance: Use Intersection Observer for lazy loading
+				if ('IntersectionObserver' in window) {
+					const imageObserver = new IntersectionObserver((entries, observer) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								const img = entry.target;
+								// Add performance hint for faster loading
+								img.loading = 'eager';
+								img.decoding = 'async';
+								// Cache images in browser
+								if (img.dataset.src) {
+									img.src = img.dataset.src;
+									img.removeAttribute('data-src');
+								}
+								observer.unobserve(img);
+							}
+						});
+					}, {
+						rootMargin: '100px' // Start loading 100px before image comes into view
+					});
+
+					lazyImages.forEach(img => imageObserver.observe(img));
+				}
+
+				// Touch and Mouse interaction handling
+				let startX = 0;
+				let startY = 0;
+				let isDragging = false;
+				let hasScrolled = false;
+				const SCROLL_THRESHOLD = 10; // px threshold for distinguishing tap vs swipe
+
+				// Touch event handlers
+				imageGrid.addEventListener('touchstart', function(e) {
+					startX = e.touches[0].clientX;
+					startY = e.touches[0].clientY;
+					isDragging = false;
+					hasScrolled = false;
+				}, { passive: true });
+
+				imageGrid.addEventListener('touchmove', function(e) {
+					if (!startX || !startY) return;
+					
+					const currentX = e.touches[0].clientX;
+					const currentY = e.touches[0].clientY;
+					const diffX = Math.abs(currentX - startX);
+					const diffY = Math.abs(currentY - startY);
+
+					// Detect horizontal scrolling (scrubbing)
+					if (diffX > SCROLL_THRESHOLD || diffY > SCROLL_THRESHOLD) {
+						isDragging = true;
+						hasScrolled = true;
+						// Allow native horizontal scrolling for scrubbing
+						if (diffX > diffY) {
+							// Horizontal scroll - prevent vertical scroll
+							e.preventDefault();
+						}
+					}
+				}, { passive: false });
+
+				imageGrid.addEventListener('touchend', function(e) {
+					// Reset values
+					startX = 0;
+					startY = 0;
+					isDragging = false;
+					
+					// Small delay to ensure scroll state is captured
+					setTimeout(() => {
+						hasScrolled = false;
+					}, 50);
+				}, { passive: true });
+
+				// Enhanced click/tap handling for navigation
+				imageGrid.addEventListener('click', function(e) {
+					const imageItem = e.target.closest('.image-item');
+					const link = imageItem?.querySelector('a');
+					
+					if (link && !hasScrolled && !isDragging) {
+						// Only navigate if it was a genuine tap/click, not a scroll/drag
+						window.location.href = link.href;
+					}
+				});
+
+				// Prevent default link behavior to handle it manually
+				const galleryLinks = imageGrid.querySelectorAll('.image-item a');
+				galleryLinks.forEach(link => {
+					link.addEventListener('click', function(e) {
+						e.preventDefault(); // We handle navigation manually above
+					});
+				});
+
+				// Cache management for performance
+				// Store scroll position for back navigation
+				if ('sessionStorage' in window) {
+					// Restore scroll position on page load
+					const savedScrollPos = sessionStorage.getItem('galleryScrollPos');
+					if (savedScrollPos) {
+						imageGrid.scrollLeft = parseInt(savedScrollPos, 10);
+					}
+
+					// Save scroll position when navigating away
+					window.addEventListener('beforeunload', function() {
+						sessionStorage.setItem('galleryScrollPos', imageGrid.scrollLeft);
+					});
+				}
+			}
 		});
 		</script>
 
