@@ -115,6 +115,15 @@ module.exports = function(eleventyConfig) {
 	return array;
 	});
 
+	// Create separate collections for projects and process posts
+	eleventyConfig.addCollection("projects", function(collectionApi) {
+		return collectionApi.getFilteredByTag("posts");
+	});
+
+	eleventyConfig.addCollection("process", function(collectionApi) {
+		return collectionApi.getFilteredByTag("process");
+	});
+
 	// Return all the content images as a collection from frontmatter
 	eleventyConfig.addCollection("images", async function(collectionApi) {
 		const images = [];
