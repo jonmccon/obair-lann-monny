@@ -122,9 +122,13 @@ module.exports = function(eleventyConfig) {
 		const Image = require("@11ty/eleventy-img");
 		const path = require("path");
 		
-		// Clean up the path - the src from frontmatter might have leading "./"
-		let cleanSrc = src.replace(/^\.\//, "");
-		let input = cleanSrc;
+		// Handle the path - frontmatter paths are absolute from project root
+		let input = src;
+		
+		// Clean up the path - remove leading "./" if present
+		if (input.startsWith("./")) {
+			input = input.substring(2);
+		}
 		
 		try {
 			let metadata = await Image(input, {

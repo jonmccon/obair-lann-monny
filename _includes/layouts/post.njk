@@ -5,13 +5,16 @@ layout: layouts/base.njk
 {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
 {%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %}
 
-{# Hero Image Section - TODO: Fix image path resolution #}
+{# Hero Image Section #}
 {%- set heroImageUrl = "" %}
-{# Temporarily disabled while fixing path issues
 {%- if images and images.length > 0 and images[0].src %}
-  {%- set heroImageUrl %}{% heroImage images[0].src %}{% endset %}
+  {# Find the processed image URL from the collections.images that matches our post #}
+  {%- for processedImage in collections.images %}
+    {%- if processedImage.url == page.url and processedImage.src and heroImageUrl == "" %}
+      {%- set heroImageUrl = processedImage.src %}
+    {%- endif %}
+  {%- endfor %}
 {%- endif %}
-#}
 
 <div class="post-hero"{% if heroImageUrl and heroImageUrl != "" %} style="background-image: url('{{ heroImageUrl }}')"{% endif %}>
   <div class="post-hero-overlay"></div>
