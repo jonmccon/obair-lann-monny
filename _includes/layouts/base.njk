@@ -163,6 +163,163 @@
 					lightbox.classList.remove('active');
 				}
 			});
+
+			// Enhanced Image Gallery Functionality
+			const imageGrid = document.querySelector('.image-grid');
+			if (imageGrid) {
+				// Check if this is a touch device
+				const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+				
+				// Lazy loading for gallery images
+				const lazyImages = imageGrid.querySelectorAll('img');
+				
+				// Performance: Use Intersection Observer for lazy loading
+				if ('IntersectionObserver' in window) {
+					const imageObserver = new IntersectionObserver((entries, observer) => {
+						entries.forEach(entry => {
+							if (entry.isIntersecting) {
+								const img = entry.target;
+								// Add performance hint for faster loading
+								img.loading = 'eager';
+								img.decoding = 'async';
+								// Cache images in browser
+								if (img.dataset.src) {
+									img.src = img.dataset.src;
+									img.removeAttribute('data-src');
+								}
+								observer.unobserve(img);
+							}
+						});
+					}, {
+						rootMargin: '100px' // Start loading 100px before image comes into view
+					});
+
+					lazyImages.forEach(img => imageObserver.observe(img));
+				}
+
+				// Gallery control slider for touch devices
+				if (isTouchDevice) {
+					const imageItems = imageGrid.querySelectorAll('.image-item');
+					const totalImages = imageItems.length;
+					const galleryImages = imageGrid.querySelectorAll('img');
+					
+					// Function to create and setup slider
+					function createSliderControl() {
+						// Create slider control
+						const sliderContainer = document.createElement('div');
+						sliderContainer.className = 'gallery-slider-container';
+						sliderContainer.innerHTML = `
+							<input type="range" 
+								   class="gallery-slider" 
+								   min="0" 
+								   max="${totalImages - 1}" 
+								   value="0" 
+								   step="1">
+							<div class="slider-label">Drag to preview images</div>
+						`;
+						
+						// Insert slider after the gallery
+						imageGrid.parentNode.insertBefore(sliderContainer, imageGrid.nextSibling);
+						
+						const slider = sliderContainer.querySelector('.gallery-slider');
+						let currentSelectedIndex = -1; // Track currently selected item
+						let rafId = null; // Request animation frame ID
+						
+						// Optimized slider update function
+						function updateGallerySelection(selectedIndex) {
+							// Cancel any pending animation frame
+							if (rafId) {
+								cancelAnimationFrame(rafId);
+							}
+							
+							rafId = requestAnimationFrame(() => {
+								// Only update if selection actually changed
+								if (currentSelectedIndex !== selectedIndex) {
+									// Remove class from previously selected item only
+									if (currentSelectedIndex >= 0 && imageItems[currentSelectedIndex]) {
+										imageItems[currentSelectedIndex].classList.remove('gallery-selected');
+									}
+									
+									// Add class to newly selected item
+									if (imageItems[selectedIndex]) {
+										imageItems[selectedIndex].classList.add('gallery-selected');
+										currentSelectedIndex = selectedIndex;
+									}
+								}
+								rafId = null;
+							});
+						}
+						
+						// Use throttled input handler for smooth performance
+						let throttleTimeout = null;
+						slider.addEventListener('input', function(e) {
+							const selectedIndex = parseInt(e.target.value);
+							
+							// Clear existing throttle
+							if (throttleTimeout) {
+								clearTimeout(throttleTimeout);
+							}
+							
+							// Throttle to 60fps for smooth performance
+							throttleTimeout = setTimeout(() => {
+								updateGallerySelection(selectedIndex);
+							}, 16); // ~60fps
+						});
+						
+						// Also handle change event for final position
+						slider.addEventListener('change', function(e) {
+							const selectedIndex = parseInt(e.target.value);
+							updateGallerySelection(selectedIndex);
+						});
+					}
+					
+					// Wait for all gallery images to load before creating slider
+					let loadedImages = 0;
+					const totalGalleryImages = galleryImages.length;
+					
+					function checkAllImagesLoaded() {
+						loadedImages++;
+						if (loadedImages === totalGalleryImages) {
+							// Small delay to ensure everything is rendered
+							setTimeout(createSliderControl, 100);
+						}
+					}
+					
+					// Check if images are already loaded or set up load listeners
+					galleryImages.forEach(img => {
+						if (img.complete && img.naturalHeight !== 0) {
+							// Image already loaded
+							checkAllImagesLoaded();
+						} else {
+							// Image still loading
+							img.addEventListener('load', checkAllImagesLoaded);
+							img.addEventListener('error', checkAllImagesLoaded); // Handle errors gracefully
+						}
+					});
+					
+					// Fallback: create slider after 2 seconds if images still haven't loaded
+					setTimeout(() => {
+						if (loadedImages < totalGalleryImages) {
+							createSliderControl();
+						}
+					}, 2000);
+				}
+
+				// Cache management for performance
+				// Store scroll position for back navigation
+				if ('sessionStorage' in window) {
+					// Restore scroll position on page load
+					const savedScrollPos = sessionStorage.getItem('galleryScrollPos');
+					if (savedScrollPos) {
+						imageGrid.scrollLeft = parseInt(savedScrollPos, 10);
+					}
+
+					// Save scroll position when navigating away
+					window.addEventListener('beforeunload', function() {
+						sessionStorage.setItem('galleryScrollPos', imageGrid.scrollLeft);
+					});
+				}
+			}
 		});
 		</script>
 
