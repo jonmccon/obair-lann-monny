@@ -340,11 +340,13 @@ img {
   
   /* remove img for tiny photos that jump to a normal thumbnail */
   .image-item {
-	/* Smooth transitions for hover effects */
-	transition: width 0.3s ease, transform 0.2s ease;
+	/* Fast, smooth transitions optimized for mobile performance */
+	transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 	/* Performance optimizations */
-	will-change: width;
+	will-change: width, transform;
 	contain: layout style paint;
+	/* Hardware acceleration */
+	transform: translateZ(0);
   }
 
   .image-item img {
@@ -370,7 +372,8 @@ img {
 	.image-item.gallery-selected {
 		width: 30vw;
 		transform: scale(1.02);
-		transition: width 0.3s ease, transform 0.2s ease;
+		/* Fast, responsive transitions for touch */
+		transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 	}
   }
 
@@ -399,6 +402,11 @@ img {
 	background: var(--color-gray-20);
 	border-radius: 3px;
 	outline: none;
+	/* Performance optimizations for smooth dragging */
+	cursor: pointer;
+	touch-action: manipulation;
+	user-select: none;
+	-webkit-user-select: none;
   }
 
   .gallery-slider::-webkit-slider-thumb {
@@ -409,6 +417,13 @@ img {
 	background: var(--text-color-link);
 	border-radius: 50%;
 	cursor: pointer;
+	/* Smooth thumb interaction */
+	transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .gallery-slider::-webkit-slider-thumb:hover {
+	transform: scale(1.1);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .gallery-slider::-moz-range-thumb {
@@ -418,6 +433,13 @@ img {
 	border-radius: 50%;
 	cursor: pointer;
 	border: none;
+	/* Smooth thumb interaction */
+	transition: transform 0.1s ease, box-shadow 0.1s ease;
+  }
+
+  .gallery-slider::-moz-range-thumb:hover {
+	transform: scale(1.1);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .slider-label {
