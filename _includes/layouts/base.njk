@@ -97,7 +97,7 @@
 			gtag('config', 'G-173P35S0MG');
 		</script>
 	</head>
-	<body>
+	<body{% if layout == "layouts/post.njk" %} class="post-page{% if not images or images.length == 0 %} no-hero-image{% endif %}"{% endif %}>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
 		<header>
