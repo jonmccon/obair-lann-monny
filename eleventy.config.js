@@ -115,6 +115,36 @@ module.exports = function(eleventyConfig) {
 	return array;
 	});
 
+	// Hero image shortcode to get processed image URL for backgrounds
+	eleventyConfig.addAsyncShortcode("heroImage", async function(src) {
+		if (!src) return "";
+		
+		const Image = require("@11ty/eleventy-img");
+		const path = require("path");
+		
+		// Handle the path - frontmatter paths are absolute from project root
+		let input = src;
+		
+		// Clean up the path - remove leading "./" if present
+		if (input.startsWith("./")) {
+			input = input.substring(2);
+		}
+		
+		try {
+			let metadata = await Image(input, {
+				widths: [1200],
+				formats: ["jpeg"],
+				outputDir: path.join(eleventyConfig.dir.output, "img"),
+				urlPath: "/img/"
+			});
+			
+			return metadata.jpeg[0].url;
+		} catch (error) {
+			console.warn(`Hero image processing failed for ${src}:`, error.message);
+			return "";
+		}
+	});
+
 	// Create separate collections for projects and process posts
 	eleventyConfig.addCollection("projects", function(collectionApi) {
 		return collectionApi.getFilteredByTag("posts");
