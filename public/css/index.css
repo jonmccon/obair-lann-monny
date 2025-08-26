@@ -93,7 +93,7 @@ a[href]:active {
 }
 
 main {
-	padding: 1rem;
+	padding: 0.75rem;
 }
 
 main :first-child {
@@ -154,7 +154,7 @@ header {
 	gap: 1em .5em;
 	flex-wrap: wrap;
 	align-items: center;
-	padding: 1em;
+	padding: 0.75em;
 }
 
 .home-link {
@@ -418,7 +418,17 @@ img {
 	
 	/* Improved mobile padding */
 	main {
-		padding: 0.75rem;
+		padding: 0.5rem;
+	}
+	
+	/* Adjust post content padding on mobile to maintain readability */
+	.post-content {
+		padding: 1rem;
+	}
+	
+	/* Reduce header padding on mobile */
+	header {
+		padding: 0.5em;
 	}
 }
 
@@ -451,7 +461,7 @@ img {
 	margin-top: -3rem; /* Overlap the hero */
 	background: var(--background-color);
 	border-radius: 1rem 1rem 0 0;
-	padding: 2rem;
+	padding: 1.5rem;
 	box-shadow: 0 -4px 6px rgba(0,0,0,0.1);
 	z-index: 2;
 }
