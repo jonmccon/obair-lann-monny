@@ -370,7 +370,7 @@ img {
   /* Touch device selected state via slider control */
   @media (hover: none) and (pointer: coarse) {
 	.image-item.gallery-selected {
-		width: 30vw;
+		width: 40vw;
 		transform: scale(1.02);
 		/* Fast, responsive transitions for touch */
 		transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -380,9 +380,11 @@ img {
   /* Gallery slider control - only visible on touch devices */
   .gallery-slider-container {
 	display: none;
-	margin: 1rem 0;
-	padding: 1rem;
+	margin: 1.5rem 0;
+	padding: 1.5rem;
 	text-align: center;
+	/* Larger touch area */
+	min-height: 80px;
   }
 
   @media (hover: none) and (pointer: coarse) {
@@ -398,27 +400,31 @@ img {
 	display: block;
 	-webkit-appearance: none;
 	appearance: none;
-	height: 6px;
+	height: 16px;
 	background: var(--color-gray-20);
-	border-radius: 3px;
+	border-radius: 8px;
 	outline: none;
 	/* Performance optimizations for smooth dragging */
 	cursor: pointer;
 	touch-action: manipulation;
 	user-select: none;
 	-webkit-user-select: none;
+	/* Larger touch target area */
+	padding: 8px 0;
   }
 
   .gallery-slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 20px;
-	height: 20px;
+	width: 36px;
+	height: 36px;
 	background: var(--text-color-link);
 	border-radius: 50%;
 	cursor: pointer;
 	/* Smooth thumb interaction */
 	transition: transform 0.1s ease, box-shadow 0.1s ease;
+	/* Larger touch target */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .gallery-slider::-webkit-slider-thumb:hover {
@@ -427,14 +433,16 @@ img {
   }
 
   .gallery-slider::-moz-range-thumb {
-	width: 20px;
-	height: 20px;
+	width: 36px;
+	height: 36px;
 	background: var(--text-color-link);
 	border-radius: 50%;
 	cursor: pointer;
 	border: none;
 	/* Smooth thumb interaction */
 	transition: transform 0.1s ease, box-shadow 0.1s ease;
+	/* Larger touch target */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .gallery-slider::-moz-range-thumb:hover {
