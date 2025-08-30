@@ -167,11 +167,61 @@
 			// Enhanced Image Gallery Functionality
 			const imageGrid = document.querySelector('.image-grid');
 			if (imageGrid) {
-				// Check if this is a touch device or small screen
-				const isTouchDevice = 'ontouchstart' in window || 
-									  navigator.maxTouchPoints > 0 ||
-									  window.innerWidth <= 768 ||
-									  (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
+				// Comprehensive touch device detection
+				// More aggressive detection to catch tablets requesting desktop sites
+				const isTouchDevice = (() => {
+					// Primary: Check for touch points (most reliable for modern devices)
+					if (navigator.maxTouchPoints > 0) return true;
+					
+					// Secondary: Legacy touch detection
+					if ('ontouchstart' in window) return true;
+					
+					// Tertiary: Check for touch-specific APIs
+					if ('ontouchend' in window || 'ontouchmove' in window) return true;
+					
+					// Quaternary: CSS media query checks
+					if (window.matchMedia) {
+						// Check for coarse pointer (touch)
+						if (window.matchMedia('(pointer: coarse)').matches) return true;
+						
+						// Check for hover capability - tablets often report 'none'
+						if (window.matchMedia('(hover: none)').matches) return true;
+						
+						// Check for any-pointer: coarse (covers secondary touch inputs)
+						if (window.matchMedia('(any-pointer: coarse)').matches) return true;
+						
+						// Check for any-hover: none (tablets requesting desktop often match this)
+						if (window.matchMedia('(any-hover: none)').matches) return true;
+					}
+					
+					// User agent detection for common tablet/mobile patterns
+					const userAgent = navigator.userAgent.toLowerCase();
+					const touchDevicePatterns = [
+						'android', 'iphone', 'ipad', 'ipod', 'blackberry', 
+						'windows phone', 'touch', 'mobile', 'tablet'
+					];
+					if (touchDevicePatterns.some(pattern => userAgent.includes(pattern))) return true;
+					
+					// Screen size checks - more comprehensive than before
+					const screenWidth = Math.max(window.innerWidth, screen.width);
+					const screenHeight = Math.max(window.innerHeight, screen.height);
+					
+					// Portrait tablets and phones
+					if (screenWidth <= 768) return true;
+					
+					// Landscape tablets (common resolutions)
+					if (screenWidth <= 1024 && screenHeight <= 768) return true;
+					
+					// Check for high DPI screens which are often touch devices
+					if (window.devicePixelRatio && window.devicePixelRatio > 1.5) {
+						// High DPI devices under certain size thresholds are likely touch
+						if (screenWidth <= 1366 || screenHeight <= 1024) return true;
+					}
+					
+					// As a final safeguard, err on the side of showing the slider
+					// Better to have a slider on a non-touch device than missing it on touch
+					return false;
+				})();
 				
 				// Lazy loading for gallery images
 				const lazyImages = imageGrid.querySelectorAll('img');
@@ -332,6 +382,37 @@
 							window.gallerySliderControl.enableSlider();
 						}
 					}, 2000);
+				} else {
+					// Mouse-based desktop device - add hover functionality
+					const imageItems = imageGrid.querySelectorAll('.image-item');
+					let currentHoveredIndex = -1;
+					
+					// Function to update gallery selection on hover
+					function updateGalleryHover(hoveredIndex) {
+						// Remove previous selection
+						if (currentHoveredIndex >= 0 && imageItems[currentHoveredIndex]) {
+							imageItems[currentHoveredIndex].classList.remove('selected');
+						}
+						
+						// Add new selection
+						if (hoveredIndex >= 0 && imageItems[hoveredIndex]) {
+							imageItems[hoveredIndex].classList.add('selected');
+							currentHoveredIndex = hoveredIndex;
+						} else {
+							currentHoveredIndex = -1;
+						}
+					}
+					
+					// Add mouse hover listeners to each image
+					imageItems.forEach((item, index) => {
+						item.addEventListener('mouseenter', () => {
+							updateGalleryHover(index);
+						});
+						
+						item.addEventListener('mouseleave', () => {
+							updateGalleryHover(-1);
+						});
+					});
 				}
 
 				// Cache management for performance

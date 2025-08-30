@@ -377,7 +377,7 @@ img {
 	}
   }
 
-  /* Gallery slider control - only visible on touch devices */
+  /* Gallery slider control - show on touch devices */
   .gallery-slider-container {
 	display: none;
 	margin: 1.5rem 0;
@@ -387,16 +387,22 @@ img {
 	min-height: 80px;
   }
 
-  @media (hover: none) and (pointer: coarse), 
-         (max-width: 768px), 
-         (orientation: portrait) {
+  /* Primary: Show on devices with coarse pointer (touch) */
+  @media (pointer: coarse) {
 	.gallery-slider-container {
 		display: block;
 	}
   }
 
-  /* Always show on very small screens regardless of touch capability */
-  @media (max-width: 480px) {
+  /* Secondary: Show on small screens (likely touch) */
+  @media (max-width: 768px) {
+	.gallery-slider-container {
+		display: block;
+	}
+  }
+
+  /* Tertiary: Fallback for older devices */
+  @media (hover: none) {
 	.gallery-slider-container {
 		display: block;
 	}
