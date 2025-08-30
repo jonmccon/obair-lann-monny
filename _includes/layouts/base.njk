@@ -167,8 +167,11 @@
 			// Enhanced Image Gallery Functionality
 			const imageGrid = document.querySelector('.image-grid');
 			if (imageGrid) {
-				// Check if this is a touch device
-				const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+				// Check if this is a touch device or small screen
+				const isTouchDevice = 'ontouchstart' in window || 
+									  navigator.maxTouchPoints > 0 ||
+									  window.innerWidth <= 768 ||
+									  (window.matchMedia && window.matchMedia('(orientation: portrait)').matches);
 				
 				// Lazy loading for gallery images
 				const lazyImages = imageGrid.querySelectorAll('img');
@@ -202,28 +205,45 @@
 					const imageItems = imageGrid.querySelectorAll('.image-item');
 					const totalImages = imageItems.length;
 					const galleryImages = imageGrid.querySelectorAll('img');
+					let sliderCreated = false; // Prevent double creation
 					
 					// Function to create and setup slider
 					function createSliderControl() {
+						// Prevent double creation
+						if (sliderCreated) return;
+						sliderCreated = true;
+						
 						// Create slider control
 						const sliderContainer = document.createElement('div');
 						sliderContainer.className = 'gallery-slider-container';
 						sliderContainer.innerHTML = `
 							<input type="range" 
-								   class="gallery-slider" 
+								   class="gallery-slider gallery-slider-disabled" 
 								   min="0" 
 								   max="${totalImages - 1}" 
 								   value="0" 
-								   step="1">
-							<div class="slider-label">Drag to preview images</div>
+								   step="1"
+								   disabled>
+							<div class="slider-label">Loading images...</div>
 						`;
 						
 						// Insert slider after the gallery
 						imageGrid.parentNode.insertBefore(sliderContainer, imageGrid.nextSibling);
 						
 						const slider = sliderContainer.querySelector('.gallery-slider');
+						const sliderLabel = sliderContainer.querySelector('.slider-label');
 						let currentSelectedIndex = -1; // Track currently selected item
 						let rafId = null; // Request animation frame ID
+						
+						// Function to enable slider when images are ready
+						function enableSlider() {
+							slider.disabled = false;
+							slider.classList.remove('gallery-slider-disabled');
+							sliderLabel.textContent = 'Drag to preview images';
+						}
+						
+						// Store reference for later enabling
+						window.gallerySliderControl = { slider, enableSlider };
 						
 						// Optimized slider update function
 						function updateGallerySelection(selectedIndex) {
@@ -253,6 +273,8 @@
 						// Use throttled input handler for smooth performance
 						let throttleTimeout = null;
 						slider.addEventListener('input', function(e) {
+							if (slider.disabled) return; // Don't respond when disabled
+							
 							const selectedIndex = parseInt(e.target.value);
 							
 							// Clear existing throttle
@@ -268,20 +290,27 @@
 						
 						// Also handle change event for final position
 						slider.addEventListener('change', function(e) {
+							if (slider.disabled) return; // Don't respond when disabled
+							
 							const selectedIndex = parseInt(e.target.value);
 							updateGallerySelection(selectedIndex);
 						});
 					}
 					
-					// Wait for all gallery images to load before creating slider
+					// Create slider immediately in disabled state
+					createSliderControl();
+					
+					// Track image loading to enable slider when ready
 					let loadedImages = 0;
 					const totalGalleryImages = galleryImages.length;
 					
 					function checkAllImagesLoaded() {
 						loadedImages++;
-						if (loadedImages === totalGalleryImages) {
+						if (loadedImages === totalGalleryImages && window.gallerySliderControl) {
 							// Small delay to ensure everything is rendered
-							setTimeout(createSliderControl, 100);
+							setTimeout(() => {
+								window.gallerySliderControl.enableSlider();
+							}, 100);
 						}
 					}
 					
@@ -297,10 +326,10 @@
 						}
 					});
 					
-					// Fallback: create slider after 2 seconds if images still haven't loaded
+					// Fallback: enable slider after 2 seconds if images still haven't loaded
 					setTimeout(() => {
-						if (loadedImages < totalGalleryImages) {
-							createSliderControl();
+						if (loadedImages < totalGalleryImages && window.gallerySliderControl) {
+							window.gallerySliderControl.enableSlider();
 						}
 					}, 2000);
 				}

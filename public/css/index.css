@@ -387,7 +387,16 @@ img {
 	min-height: 80px;
   }
 
-  @media (hover: none) and (pointer: coarse) {
+  @media (hover: none) and (pointer: coarse), 
+         (max-width: 768px), 
+         (orientation: portrait) {
+	.gallery-slider-container {
+		display: block;
+	}
+  }
+
+  /* Always show on very small screens regardless of touch capability */
+  @media (max-width: 480px) {
 	.gallery-slider-container {
 		display: block;
 	}
@@ -411,6 +420,38 @@ img {
 	-webkit-user-select: none;
 	/* Larger touch target area */
 	padding: 8px 0;
+	/* Smooth transition for enabling/disabling */
+	transition: opacity 0.3s ease, filter 0.3s ease;
+  }
+
+  /* Disabled state styling */
+  .gallery-slider:disabled {
+	opacity: 0.4;
+	filter: grayscale(1);
+	cursor: not-allowed;
+	pointer-events: none;
+  }
+
+  .gallery-slider:disabled + .slider-label {
+	opacity: 0.6;
+	color: var(--color-gray-50);
+  }
+
+  /* Disabled state for slider while images are loading */
+  .gallery-slider-disabled {
+	opacity: 0.5;
+	cursor: not-allowed !important;
+	background: var(--color-gray-50) !important;
+  }
+
+  .gallery-slider-disabled::-webkit-slider-thumb {
+	background: var(--color-gray-50) !important;
+	cursor: not-allowed !important;
+  }
+
+  .gallery-slider-disabled::-moz-range-thumb {
+	background: var(--color-gray-50) !important;
+	cursor: not-allowed !important;
   }
 
   .gallery-slider::-webkit-slider-thumb {
