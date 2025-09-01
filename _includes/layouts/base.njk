@@ -164,9 +164,30 @@
 				}
 			});
 
-			// Enhanced Image Gallery Functionality
+			// Enhanced Image Gallery Functionality with aggressive performance optimization
 			const imageGrid = document.querySelector('.image-grid');
 			if (imageGrid) {
+				// Performance monitoring to prevent black screen issues
+				let performanceIssueDetected = false;
+				const performanceThreshold = 100; // ms threshold for animation lag
+				
+				// Monitor performance and adjust accordingly
+				function monitorPerformance() {
+					const startTime = performance.now();
+					requestAnimationFrame(() => {
+						const endTime = performance.now();
+						const frameDuration = endTime - startTime;
+						
+						if (frameDuration > performanceThreshold) {
+							performanceIssueDetected = true;
+							// Reduce animation complexity
+							document.documentElement.style.setProperty('--reduced-animations', '1');
+						}
+					});
+				}
+				
+				// Start performance monitoring
+				monitorPerformance();
 				// Comprehensive touch device detection
 				// More aggressive detection to catch tablets requesting desktop sites
 				const isTouchDevice = (() => {
@@ -223,28 +244,53 @@
 					return false;
 				})();
 				
-				// Lazy loading for gallery images
+				// Aggressive performance optimizations for image loading
 				const lazyImages = imageGrid.querySelectorAll('img');
 				
-				// Performance: Use Intersection Observer for lazy loading
+				// Critical: Preload first few images immediately for instant interaction
+				const preloadCount = Math.min(3, lazyImages.length);
+				lazyImages.forEach((img, index) => {
+					if (index < preloadCount) {
+						// Eagerly load first few images
+						img.loading = 'eager';
+						img.decoding = 'async';
+						// Add performance hints
+						const link = document.createElement('link');
+						link.rel = 'preload';
+						link.as = 'image';
+						link.href = img.src;
+						document.head.appendChild(link);
+					} else {
+						// Lazy load remaining images
+						img.loading = 'lazy';
+						img.decoding = 'async';
+					}
+				});
+				
+				// Enhanced Intersection Observer for aggressive loading
 				if ('IntersectionObserver' in window) {
 					const imageObserver = new IntersectionObserver((entries, observer) => {
 						entries.forEach(entry => {
 							if (entry.isIntersecting) {
 								const img = entry.target;
-								// Add performance hint for faster loading
+								// Aggressive loading hints
 								img.loading = 'eager';
 								img.decoding = 'async';
-								// Cache images in browser
+								
+								// Cache images in browser with fetchpriority hint
 								if (img.dataset.src) {
 									img.src = img.dataset.src;
 									img.removeAttribute('data-src');
 								}
+								
+								// Add fetch priority for visible images
+								img.fetchPriority = 'high';
 								observer.unobserve(img);
 							}
 						});
 					}, {
-						rootMargin: '100px' // Start loading 100px before image comes into view
+						rootMargin: '200px', // More aggressive preloading - start 200px before visible
+						threshold: 0.1
 					});
 
 					lazyImages.forEach(img => imageObserver.observe(img));
@@ -295,24 +341,38 @@
 						// Store reference for later enabling
 						window.gallerySliderControl = { slider, enableSlider };
 						
-						// Optimized slider update function
+						// Highly optimized slider update function
 						function updateGallerySelection(selectedIndex) {
-							// Cancel any pending animation frame
+							// Use immediate scheduling for smoother performance
 							if (rafId) {
 								cancelAnimationFrame(rafId);
 							}
 							
+							// Batch DOM updates for better performance
 							rafId = requestAnimationFrame(() => {
 								// Only update if selection actually changed
 								if (currentSelectedIndex !== selectedIndex) {
-									// Remove class from previously selected item only
+									// Batch remove/add operations
+									const batch = document.createDocumentFragment();
+									
+									// Remove class from previously selected item
 									if (currentSelectedIndex >= 0 && imageItems[currentSelectedIndex]) {
 										imageItems[currentSelectedIndex].classList.remove('gallery-selected');
 									}
 									
-									// Add class to newly selected item
+									// Add class to newly selected item with performance hints
 									if (imageItems[selectedIndex]) {
-										imageItems[selectedIndex].classList.add('gallery-selected');
+										const selectedItem = imageItems[selectedIndex];
+										selectedItem.classList.add('gallery-selected');
+										
+										// Hint browser about upcoming animation
+										selectedItem.style.willChange = 'transform, width';
+										
+										// Remove will-change after animation completes
+										setTimeout(() => {
+											selectedItem.style.willChange = 'auto';
+										}, 200);
+										
 										currentSelectedIndex = selectedIndex;
 									}
 								}
@@ -320,10 +380,13 @@
 							});
 						}
 						
-						// Use throttled input handler for smooth performance
+						// Aggressive optimization: Use passive event listeners and debouncing
 						let throttleTimeout = null;
+						let isAnimating = false;
+						
+						// Passive event listener for better scroll performance
 						slider.addEventListener('input', function(e) {
-							if (slider.disabled) return; // Don't respond when disabled
+							if (slider.disabled || isAnimating) return;
 							
 							const selectedIndex = parseInt(e.target.value);
 							
@@ -332,19 +395,31 @@
 								clearTimeout(throttleTimeout);
 							}
 							
-							// Throttle to 60fps for smooth performance
+							// Optimized throttling - adjust to device capabilities
+							const throttleDelay = window.devicePixelRatio > 2 ? 20 : 16; // Slower on high-DPI
 							throttleTimeout = setTimeout(() => {
+								isAnimating = true;
 								updateGallerySelection(selectedIndex);
-							}, 16); // ~60fps
-						});
+								
+								// Reset animation flag after transition
+								setTimeout(() => {
+									isAnimating = false;
+								}, 200);
+							}, throttleDelay);
+						}, { passive: true });
 						
-						// Also handle change event for final position
+						// Immediate response on final position for better UX
 						slider.addEventListener('change', function(e) {
-							if (slider.disabled) return; // Don't respond when disabled
+							if (slider.disabled) return;
 							
 							const selectedIndex = parseInt(e.target.value);
+							// Clear any pending throttled updates
+							if (throttleTimeout) {
+								clearTimeout(throttleTimeout);
+								throttleTimeout = null;
+							}
 							updateGallerySelection(selectedIndex);
-						});
+						}, { passive: true });
 					}
 					
 					// Create slider immediately in disabled state
@@ -383,35 +458,71 @@
 						}
 					}, 2000);
 				} else {
-					// Mouse-based desktop device - add hover functionality
+					// Mouse-based desktop device - optimized hover functionality
 					const imageItems = imageGrid.querySelectorAll('.image-item');
 					let currentHoveredIndex = -1;
+					let hoverRafId = null;
 					
-					// Function to update gallery selection on hover
+					// Optimized function to update gallery selection on hover
 					function updateGalleryHover(hoveredIndex) {
-						// Remove previous selection
-						if (currentHoveredIndex >= 0 && imageItems[currentHoveredIndex]) {
-							imageItems[currentHoveredIndex].classList.remove('selected');
+						if (hoverRafId) {
+							cancelAnimationFrame(hoverRafId);
 						}
 						
-						// Add new selection
-						if (hoveredIndex >= 0 && imageItems[hoveredIndex]) {
-							imageItems[hoveredIndex].classList.add('selected');
-							currentHoveredIndex = hoveredIndex;
-						} else {
-							currentHoveredIndex = -1;
-						}
+						hoverRafId = requestAnimationFrame(() => {
+							// Remove previous selection
+							if (currentHoveredIndex >= 0 && imageItems[currentHoveredIndex]) {
+								const prevItem = imageItems[currentHoveredIndex];
+								prevItem.classList.remove('selected');
+								prevItem.style.willChange = 'auto';
+							}
+							
+							// Add new selection with performance hints
+							if (hoveredIndex >= 0 && imageItems[hoveredIndex]) {
+								const newItem = imageItems[hoveredIndex];
+								newItem.style.willChange = 'transform, width';
+								newItem.classList.add('selected');
+								currentHoveredIndex = hoveredIndex;
+								
+								// Remove will-change after animation
+								setTimeout(() => {
+									newItem.style.willChange = 'auto';
+								}, 150);
+							} else {
+								currentHoveredIndex = -1;
+							}
+							hoverRafId = null;
+						});
 					}
 					
-					// Add mouse hover listeners to each image
+					// Add optimized mouse hover listeners with debouncing
 					imageItems.forEach((item, index) => {
+						let enterTimeout = null;
+						let leaveTimeout = null;
+						
 						item.addEventListener('mouseenter', () => {
-							updateGalleryHover(index);
-						});
+							// Clear any pending leave timeout
+							if (leaveTimeout) {
+								clearTimeout(leaveTimeout);
+								leaveTimeout = null;
+							}
+							
+							// Slight delay to prevent excessive hovering
+							enterTimeout = setTimeout(() => {
+								updateGalleryHover(index);
+							}, 50);
+						}, { passive: true });
 						
 						item.addEventListener('mouseleave', () => {
+							// Clear any pending enter timeout
+							if (enterTimeout) {
+								clearTimeout(enterTimeout);
+								enterTimeout = null;
+							}
+							
+							// Immediate response on leave for better UX
 							updateGalleryHover(-1);
-						});
+						}, { passive: true });
 					});
 				}
 

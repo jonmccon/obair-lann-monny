@@ -314,10 +314,23 @@ img {
   	margin: 0 auto;
 }
 
+/* Performance fallback for devices with animation issues */
+:root[style*="--reduced-animations"] .image-item {
+	transition: none !important;
+	will-change: auto !important;
+}
+
+:root[style*="--reduced-animations"] .image-item:hover,
+:root[style*="--reduced-animations"] .image-item.gallery-selected {
+	transform: none !important;
+	width: 35vw !important;
+	z-index: 1;
+}
+
 /* Landing image grid */
 .image-grid {
 	display: grid;
-	grid-template-rows: repeat(auto-fill, minmax(50vh, 1fr));
+	grid-template-rows: repeat(auto-fill, minmax(80vh, 1fr));
 	grid-auto-flow: column;
 	gap: 0px;
 	/* Performance optimizations */
@@ -325,12 +338,13 @@ img {
 	overflow-y: hidden;
 	scroll-behavior: smooth;
 	-webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
-	/* GPU acceleration for smooth performance */
-	will-change: scroll-position;
+	/* Reduced GPU acceleration to prevent black screen issues */
 	transform: translateZ(0);
 	/* Hide scrollbar but keep functionality */
 	scrollbar-width: none; /* Firefox */
 	-ms-overflow-style: none; /* IE/Edge */
+	/* Better performance isolation */
+	contain: layout style paint;
   }
 
   /* Hide scrollbar in webkit browsers */
@@ -340,40 +354,56 @@ img {
   
   /* remove img for tiny photos that jump to a normal thumbnail */
   .image-item {
-	/* Fast, smooth transitions optimized for mobile performance */
-	transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+	/* Simplified, efficient transitions to prevent black screen issues */
+	transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	/* Performance optimizations */
-	will-change: width, transform;
 	contain: layout style paint;
-	/* Hardware acceleration */
-	transform: translateZ(0);
+	/* Hardware acceleration only when needed */
+	backface-visibility: hidden;
+	-webkit-backface-visibility: hidden;
+	/* Prevent content jumping during transitions */
+	transform-origin: center center;
   }
 
   .image-item img {
 	width: auto;
 	height: 100%;
-	max-height: 50vh;
+	max-height: 80vh;
 	display: block;
 	object-fit: cover;
 	/* Performance optimizations for images */
 	will-change: auto;
+	/* Faster image rendering */
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
   }
 
-  /* Desktop hover effect */
+  /* Desktop hover effect - optimized for performance */
   @media (hover: hover) and (pointer: fine) {
 	.image-item:hover {
+		transform: scale(1.05);
+		z-index: 1;
+		/* Temporarily increase width for better visual effect */
 		width: 30vw;
-		transform: scale(1.02);
+		/* Faster transition for better responsiveness */
+		transition: transform 0.15s ease-out, width 0.15s ease-out;
+	}
+	
+	/* Pre-optimize hover states */
+	.image-item {
+		/* Hint browser about potential transforms */
+		will-change: auto;
 	}
   }
 
-  /* Touch device selected state via slider control */
+  /* Touch device selected state via slider control - optimized */
   @media (hover: none) and (pointer: coarse) {
 	.image-item.gallery-selected {
+		transform: scale(1.05);
+		z-index: 1;
 		width: 40vw;
-		transform: scale(1.02);
-		/* Fast, responsive transitions for touch */
-		transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+		/* Optimized transitions for touch performance */
+		transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 	}
   }
 

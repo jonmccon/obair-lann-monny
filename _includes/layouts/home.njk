@@ -22,11 +22,17 @@ layout: layouts/base.njk
   {% for item in collections.images | reverse %}
     <div class="image-item">
       <a href="{{ item.url }}">
-        <img src="{{ item.src }}" alt="{{ item.alt }}">
+        <img src="{{ item.src }}" alt="{{ item.alt }}"{% if loop.first %} loading="eager" fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
       </a>
     </div>
   {% endfor %}
 </div>
+
+{# Preload first few critical images for instant interaction #}
+{% set criticalImages = collections.images | reverse | slice(0, 3) %}
+{% for item in criticalImages %}
+<link rel="preload" as="image" href="{{ item.src }}">
+{% endfor %}
 {% endif %}
 
 {{ content | safe }}
