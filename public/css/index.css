@@ -9,6 +9,11 @@
 	--color-gray-20: #e0e0e0;
 	--color-gray-50: #C0C0C0;
 	--color-gray-90: #333;
+	
+	/* RGB versions for rgba() usage */
+	--color-gray-20-rgb: 224, 224, 224;
+	--color-gray-50-rgb: 192, 192, 192;
+	--text-color-link-rgb: 8, 40, 64;
 
 	--background-color: #e6e6e6;
 
@@ -167,7 +172,17 @@ header {
 	text-decoration: none;
 }
 
-/* Nav */
+/* Nav - updated for two-line layout */
+nav {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+}
+
+.nav-line-1, .nav-line-2 {
+	display: flex;
+}
+
 .nav {
 	display: flex;
 	padding: 0;
@@ -330,7 +345,7 @@ img {
 /* Landing image grid */
 .image-grid {
 	display: grid;
-	grid-template-rows: repeat(auto-fill, minmax(80vh, 1fr));
+	grid-template-rows: repeat(auto-fill, minmax(calc(80vh - 20px), 1fr)); /* Account for scrollbar space */
 	grid-auto-flow: column;
 	gap: 0px;
 	/* Performance optimizations */
@@ -368,7 +383,7 @@ img {
   .image-item img {
 	width: auto;
 	height: 100%;
-	max-height: 80vh;
+	max-height: calc(80vh - 20px); /* Account for scrollbar space */
 	display: block;
 	object-fit: cover;
 	/* Performance optimizations for images */
@@ -381,12 +396,12 @@ img {
   /* Desktop hover effect - optimized for performance */
   @media (hover: hover) and (pointer: fine) {
 	.image-item:hover {
-		transform: scale(1.05);
+		transform: scale(1.02); /* Reduced from 1.05 to be less distracting */
 		z-index: 1;
-		/* Temporarily increase width for better visual effect */
-		width: 30vw;
+		/* Increased width for better visual effect */
+		width: 35vw; /* Increased from 30vw */
 		/* Faster transition for better responsiveness */
-		transition: transform 0.15s ease-out, width 0.15s ease-out;
+		transition: transform 0.1s ease-out, width 0.1s ease-out; /* Faster from 0.15s */
 	}
 	
 	/* Pre-optimize hover states */
@@ -399,11 +414,11 @@ img {
   /* Touch device selected state via slider control - optimized */
   @media (hover: none) and (pointer: coarse) {
 	.image-item.gallery-selected {
-		transform: scale(1.05);
+		transform: scale(1.02); /* Reduced from 1.05 to be less distracting */
 		z-index: 1;
-		width: 40vw;
+		width: 45vw; /* Increased from 40vw */
 		/* Optimized transitions for touch performance */
-		transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		transition: transform 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94), width 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Faster from 0.2s */
 	}
   }
 
@@ -411,10 +426,17 @@ img {
   .gallery-slider-container {
 	display: none;
 	margin: 1.5rem 0;
-	padding: 1.5rem;
+	padding: 2rem 1.5rem; /* Increased top/bottom padding for larger hit area */
 	text-align: center;
-	/* Larger touch area */
-	min-height: 80px;
+	/* Larger touch area with gradient from gallery bottom */
+	min-height: 120px; /* Increased from 80px */
+	position: relative;
+	/* Gradient extending from gallery bottom */
+	background: linear-gradient(to bottom, 
+		transparent 0%, 
+		rgba(var(--color-gray-20-rgb, 224, 224, 224), 0.1) 20%, 
+		rgba(var(--color-gray-20-rgb, 224, 224, 224), 0.3) 100%);
+	border-radius: 0 0 1rem 1rem;
   }
 
   /* Primary: Show on devices with coarse pointer (touch) */
@@ -445,19 +467,34 @@ img {
 	display: block;
 	-webkit-appearance: none;
 	appearance: none;
-	height: 16px;
-	background: var(--color-gray-20);
-	border-radius: 8px;
+	height: 4px; /* Reduced from 16px to just a few pixels for track */
+	background: rgba(var(--color-gray-50-rgb, 192, 192, 192), 0.3); /* Subtle track */
+	border-radius: 2px;
 	outline: none;
 	/* Performance optimizations for smooth dragging */
 	cursor: pointer;
 	touch-action: manipulation;
 	user-select: none;
 	-webkit-user-select: none;
-	/* Larger touch target area */
-	padding: 8px 0;
+	/* Larger invisible touch target area */
+	padding: 20px 0; /* Large padding for hit area */
+	margin: 10px auto; /* Center with spacing */
 	/* Smooth transition for enabling/disabling */
 	transition: opacity 0.3s ease, filter 0.3s ease;
+	/* Create larger hit area without visual change */
+	position: relative;
+  }
+  
+  /* Create invisible larger hit area */
+  .gallery-slider::before {
+	content: '';
+	position: absolute;
+	top: -20px;
+	left: -10px;
+	right: -10px;
+	bottom: -20px;
+	background: transparent;
+	cursor: pointer;
   }
 
   /* Disabled state styling */
@@ -493,38 +530,62 @@ img {
   .gallery-slider::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 36px;
-	height: 36px;
-	background: var(--text-color-link);
+	width: 40px; /* Slightly larger for better grip */
+	height: 40px;
+	/* Neo web aesthetic - counter-direction gradient */
+	background: linear-gradient(135deg, 
+		var(--text-color-link) 0%, 
+		var(--text-color-link-active) 50%, 
+		var(--text-color-link) 100%);
 	border-radius: 50%;
 	cursor: pointer;
-	/* Smooth thumb interaction */
-	transition: transform 0.1s ease, box-shadow 0.1s ease;
-	/* Larger touch target */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	/* Enhanced transitions */
+	transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+	/* Neo glow effect */
+	box-shadow: 
+		0 0 10px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.3),
+		0 2px 8px rgba(0, 0, 0, 0.2);
+	/* Subtle animation hint */
+	filter: brightness(1);
   }
 
   .gallery-slider::-webkit-slider-thumb:hover {
-	transform: scale(1.1);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	transform: scale(1.15); /* Slightly larger hover effect */
+	/* Enhanced neo glow on hover */
+	box-shadow: 
+		0 0 20px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.5),
+		0 4px 16px rgba(0, 0, 0, 0.3);
+	filter: brightness(1.1);
   }
 
   .gallery-slider::-moz-range-thumb {
-	width: 36px;
-	height: 36px;
-	background: var(--text-color-link);
+	width: 40px; /* Slightly larger for better grip */
+	height: 40px;
+	/* Neo web aesthetic - counter-direction gradient */
+	background: linear-gradient(135deg, 
+		var(--text-color-link) 0%, 
+		var(--text-color-link-active) 50%, 
+		var(--text-color-link) 100%);
 	border-radius: 50%;
 	cursor: pointer;
 	border: none;
-	/* Smooth thumb interaction */
-	transition: transform 0.1s ease, box-shadow 0.1s ease;
-	/* Larger touch target */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	/* Enhanced transitions */
+	transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+	/* Neo glow effect */
+	box-shadow: 
+		0 0 10px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.3),
+		0 2px 8px rgba(0, 0, 0, 0.2);
+	/* Subtle animation hint */
+	filter: brightness(1);
   }
 
   .gallery-slider::-moz-range-thumb:hover {
-	transform: scale(1.1);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	transform: scale(1.15); /* Slightly larger hover effect */
+	/* Enhanced neo glow on hover */
+	box-shadow: 
+		0 0 20px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.5),
+		0 4px 16px rgba(0, 0, 0, 0.3);
+	filter: brightness(1.1);
   }
 
   .slider-label {
