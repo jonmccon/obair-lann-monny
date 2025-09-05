@@ -352,7 +352,7 @@ img {
 /* Landing image grid */
 .image-grid {
 	display: grid;
-	grid-template-rows: repeat(auto-fill, minmax(calc(80vh - 20px), 1fr)); /* Account for scrollbar space */
+	grid-template-rows: repeat(auto-fill, minmax(calc(60vh - 20px), 1fr)); /* Reduced from 80vh */
 	grid-auto-flow: column;
 	gap: 0px;
 	/* Performance optimizations */
@@ -390,7 +390,7 @@ img {
   .image-item img {
 	width: auto;
 	height: 100%;
-	max-height: calc(80vh - 20px); /* Account for scrollbar space */
+	max-height: calc(60vh - 20px); /* Reduced from 80vh */
 	display: block;
 	object-fit: cover;
 	/* Performance optimizations for images */
@@ -540,23 +540,6 @@ img {
 	/* Enhanced transitions */
 	transition: transform 0.15s ease, box-shadow 0.15s ease;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Radial gradient overlay for slider */
-  .slider-gradient-overlay {
-	position: absolute;
-	top: -50px; /* Position above the slider */
-	left: 50%;
-	transform: translateX(-50%);
-	width: 10vw;
-	height: 50px; /* Half circle height */
-	background: radial-gradient(circle at bottom, 
-		rgba(var(--text-color-link-rgb, 8, 40, 64), 0.3) 0%, 
-		rgba(var(--text-color-link-rgb, 8, 40, 64), 0.1) 50%, 
-		transparent 100%);
-	border-radius: 10vw 10vw 0 0; /* Rounded top only for half circle */
-	pointer-events: none;
-	transition: transform 0.15s ease;
   }
 
   .gallery-slider::-webkit-slider-thumb:hover {
