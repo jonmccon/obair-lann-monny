@@ -33,6 +33,32 @@ layout: layouts/base.njk
 {% for item in criticalImages %}
 <link rel="preload" as="image" href="{{ item.src }}">
 {% endfor %}
+
+{# About section on homepage #}
+<section class="about-section">
+  <h1>About</h1>
+  
+  <p>I am a visual artist and designer exploring the intersection of digital and physical mediums. My work focuses on generative art, interactive installations, and experimental design processes that challenge traditional creative workflows.</p>
+
+  <h2>Contact</h2>
+  <ul>
+    <li>Email: hello@jonmccon.com</li>
+    <li>Location: Based in New York City</li>
+    <li>Social: <a href="https://www.instagram.com/jonmccon">@jonmccon</a></li>
+  </ul>
+
+  <h2>Resume & Experience</h2>
+  <p>Available upon request. Recent projects include collaborations with emerging tech companies, gallery installations, and digital art commissions.</p>
+
+  <h2>Recent Gallery Shows & Exhibitions</h2>
+  <ul>
+    <li><strong>2024</strong> - Digital Futures Collective, Brooklyn Gallery Space</li>
+    <li><strong>2023</strong> - Generative Art Exhibition, Manhattan Tech Center</li>
+    <li><strong>2023</strong> - Interactive Media Showcase, Lower East Side Gallery</li>
+  </ul>
+  
+  <p><em>Gallery show details and portfolio updates are continuously added as new projects are completed.</em></p>
+</section>
 {% endif %}
 
 {{ content | safe }}

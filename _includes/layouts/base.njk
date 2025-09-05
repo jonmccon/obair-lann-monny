@@ -100,6 +100,7 @@
 	<body{% if layout == "layouts/post.njk" %} class="post-page{% if not images or images.length == 0 %} no-hero-image{% endif %}"{% endif %}>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
+		<div class="site-wrapper">
 		<header>
 			<a href="/" class="home-link">{{ metadata.title }}</a>
 
@@ -110,7 +111,7 @@
 				<div class="nav-line-1">
 					<ul class="nav">
 					{%- for entry in collections.all | eleventyNavigation %}
-						{%- if entry.order <= 3 %}
+						{%- if entry.order <= 2 %}
 							<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
 						{%- endif %}
 					{%- endfor %}
@@ -119,7 +120,7 @@
 				<div class="nav-line-2">
 					<ul class="nav">
 					{%- for entry in collections.all | eleventyNavigation %}
-						{%- if entry.order > 3 %}
+						{%- if entry.order > 2 %}
 							<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
 						{%- endif %}
 					{%- endfor %}
@@ -131,6 +132,7 @@
 		<main id="skip">
 			{{ content | safe }}
 		</main>
+		</div>
 
 		<footer></footer>
 
@@ -327,6 +329,7 @@
 						const sliderContainer = document.createElement('div');
 						sliderContainer.className = 'gallery-slider-container';
 						sliderContainer.innerHTML = `
+							<div class="slider-gradient-overlay"></div>
 							<input type="range" 
 								   class="gallery-slider gallery-slider-disabled" 
 								   min="0" 
@@ -342,8 +345,21 @@
 						
 						const slider = sliderContainer.querySelector('.gallery-slider');
 						const sliderLabel = sliderContainer.querySelector('.slider-label');
+						const gradientOverlay = sliderContainer.querySelector('.slider-gradient-overlay');
 						let currentSelectedIndex = -1; // Track currently selected item
 						let rafId = null; // Request animation frame ID
+						
+						// Function to update gradient overlay position
+						function updateGradientPosition(value) {
+							const sliderRect = slider.getBoundingClientRect();
+							const sliderWidth = sliderRect.width;
+							const thumbWidth = 40; // Match CSS thumb width
+							const progress = value / (totalImages - 1);
+							const thumbPosition = progress * (sliderWidth - thumbWidth) + (thumbWidth / 2);
+							const gradientLeft = (thumbPosition / sliderWidth) * 100;
+							
+							gradientOverlay.style.left = `${gradientLeft}%`;
+						}
 						
 						// Function to enable slider when images are ready
 						function enableSlider() {
@@ -403,6 +419,7 @@
 							if (slider.disabled || isAnimating) return;
 							
 							const selectedIndex = parseInt(e.target.value);
+							updateGradientPosition(selectedIndex);
 							
 							// Clear existing throttle
 							if (throttleTimeout) {
@@ -427,6 +444,7 @@
 							if (slider.disabled) return;
 							
 							const selectedIndex = parseInt(e.target.value);
+							updateGradientPosition(selectedIndex);
 							// Clear any pending throttled updates
 							if (throttleTimeout) {
 								clearTimeout(throttleTimeout);

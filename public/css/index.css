@@ -63,6 +63,13 @@ body {
 	max-width: 95%;
 }
 
+/* Site wrapper - 100vh for full visible layout */
+.site-wrapper {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
 .visually-hidden {
 	clip: rect(0 0 0 0);
@@ -428,15 +435,9 @@ img {
 	margin: 1.5rem 0;
 	padding: 2rem 1.5rem; /* Increased top/bottom padding for larger hit area */
 	text-align: center;
-	/* Larger touch area with gradient from gallery bottom */
+	/* Larger touch area without gradient background */
 	min-height: 120px; /* Increased from 80px */
 	position: relative;
-	/* Gradient extending from gallery bottom */
-	background: linear-gradient(to bottom, 
-		transparent 0%, 
-		rgba(var(--color-gray-20-rgb, 224, 224, 224), 0.1) 20%, 
-		rgba(var(--color-gray-20-rgb, 224, 224, 224), 0.3) 100%);
-	border-radius: 0 0 1rem 1rem;
   }
 
   /* Primary: Show on devices with coarse pointer (touch) */
@@ -532,60 +533,53 @@ img {
 	appearance: none;
 	width: 40px; /* Slightly larger for better grip */
 	height: 40px;
-	/* Neo web aesthetic - counter-direction gradient */
-	background: linear-gradient(135deg, 
-		var(--text-color-link) 0%, 
-		var(--text-color-link-active) 50%, 
-		var(--text-color-link) 100%);
+	/* Simple circular controller */
+	background: var(--text-color-link);
 	border-radius: 50%;
 	cursor: pointer;
 	/* Enhanced transitions */
-	transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-	/* Neo glow effect */
-	box-shadow: 
-		0 0 10px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.3),
-		0 2px 8px rgba(0, 0, 0, 0.2);
-	/* Subtle animation hint */
-	filter: brightness(1);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Radial gradient overlay for slider */
+  .slider-gradient-overlay {
+	position: absolute;
+	top: -50px; /* Position above the slider */
+	left: 50%;
+	transform: translateX(-50%);
+	width: 10vw;
+	height: 50px; /* Half circle height */
+	background: radial-gradient(circle at bottom, 
+		rgba(var(--text-color-link-rgb, 8, 40, 64), 0.3) 0%, 
+		rgba(var(--text-color-link-rgb, 8, 40, 64), 0.1) 50%, 
+		transparent 100%);
+	border-radius: 10vw 10vw 0 0; /* Rounded top only for half circle */
+	pointer-events: none;
+	transition: transform 0.15s ease;
   }
 
   .gallery-slider::-webkit-slider-thumb:hover {
 	transform: scale(1.15); /* Slightly larger hover effect */
-	/* Enhanced neo glow on hover */
-	box-shadow: 
-		0 0 20px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.5),
-		0 4px 16px rgba(0, 0, 0, 0.3);
-	filter: brightness(1.1);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   }
 
   .gallery-slider::-moz-range-thumb {
 	width: 40px; /* Slightly larger for better grip */
 	height: 40px;
-	/* Neo web aesthetic - counter-direction gradient */
-	background: linear-gradient(135deg, 
-		var(--text-color-link) 0%, 
-		var(--text-color-link-active) 50%, 
-		var(--text-color-link) 100%);
+	/* Simple circular controller */
+	background: var(--text-color-link);
 	border-radius: 50%;
 	cursor: pointer;
 	border: none;
 	/* Enhanced transitions */
-	transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
-	/* Neo glow effect */
-	box-shadow: 
-		0 0 10px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.3),
-		0 2px 8px rgba(0, 0, 0, 0.2);
-	/* Subtle animation hint */
-	filter: brightness(1);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
 
   .gallery-slider::-moz-range-thumb:hover {
 	transform: scale(1.15); /* Slightly larger hover effect */
-	/* Enhanced neo glow on hover */
-	box-shadow: 
-		0 0 20px rgba(var(--text-color-link-rgb, 8, 40, 64), 0.5),
-		0 4px 16px rgba(0, 0, 0, 0.3);
-	filter: brightness(1.1);
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   }
 
   .slider-label {
@@ -594,6 +588,27 @@ img {
 	margin-top: 0.5rem;
 	font-style: italic;
   }
+
+/* About section styling */
+.about-section {
+	padding: 2rem 1.5rem;
+	margin: 2rem 0;
+	background: rgba(var(--color-gray-20-rgb, 224, 224, 224), 0.1);
+	border-radius: 1rem;
+}
+
+.about-section h1 {
+	margin-top: 0;
+	font-size: 1.5em;
+	margin-bottom: 1rem;
+}
+
+.about-section h2 {
+	font-size: 1.2em;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+	color: var(--text-color-link);
+}
 
 
 .click-zoom input[type=checkbox] {
