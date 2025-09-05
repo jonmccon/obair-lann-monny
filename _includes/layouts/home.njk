@@ -14,19 +14,9 @@ layout: layouts/base.njk
 <!-- Stop deleting --> #}
 
 
-{# Only show image grid on the actual homepage #}
+{# Only show projects list on the actual homepage #}
 {% if page.url == "/" %}
-<div class="image-grid">
-  {# Random order filter #}
-  {# {% for item in collections.images | shuffle %} #} 
-  {% for item in collections.images | reverse %}
-    <div class="image-item">
-      <a href="{{ item.url }}">
-        <img src="{{ item.src }}" alt="{{ item.alt }}">
-      </a>
-    </div>
-  {% endfor %}
-</div>
+  {% include "projectsList.njk" %}
 {% endif %}
 
 {{ content | safe }}
