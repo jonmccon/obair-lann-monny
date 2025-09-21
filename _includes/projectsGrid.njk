@@ -1,0 +1,27 @@
+{# Grid component for displaying projects with thumbnails and names #}
+{# Usage: {% include "projectsGrid.njk" %} #}
+
+<div class="projects-grid">
+  {% for post in collections.projects | reverse %}
+    {# Get the first image for this post as thumbnail #}
+    {% set thumbnail = "" %}
+    {% for image in collections.images %}
+      {% if image.url == post.url and thumbnail == "" %}
+        {% set thumbnail = image.src %}
+      {% endif %}
+    {% endfor %}
+    
+    {% if thumbnail %}
+      <div class="project-card">
+        <a href="{{ post.url }}" class="project-card-link">
+          <img src="{{ thumbnail }}" alt="{{ post.data.title }}" class="project-card-image">
+          <div class="project-card-content">
+            <h3 class="project-card-title">{{ post.data.title }}</h3>
+            <p class="project-card-description">{{ post.data.description }}</p>
+            <time class="project-card-date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate("yyyy") }}</time>
+          </div>
+        </a>
+      </div>
+    {% endif %}
+  {% endfor %}
+</div>
