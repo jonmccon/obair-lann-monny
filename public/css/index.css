@@ -58,6 +58,13 @@ body {
 	max-width: 95%;
 }
 
+/* Full width for mobile post pages */
+@media (max-width: 768px) {
+	body.post-page {
+		max-width: 100%;
+	}
+}
+
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
 .visually-hidden {
 	clip: rect(0 0 0 0);
@@ -542,6 +549,11 @@ img {
 		padding: 0.5rem;
 	}
 	
+	/* Full width main for mobile post pages */
+	body.post-page main {
+		padding: 0;
+	}
+	
 	/* Adjust post content padding on mobile to maintain readability */
 	.post-content {
 		padding: 1rem;
@@ -702,7 +714,7 @@ img {
 
 .post-content {
 	position: relative;
-	margin-top: -3rem; /* Overlap the hero */
+	margin-top: -1.5rem; /* Reduced overlap from -3rem to -1.5rem */
 	background: var(--background-color);
 	border-radius: 1rem 1rem 0 0;
 	padding: 1.5rem;
