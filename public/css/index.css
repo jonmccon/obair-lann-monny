@@ -384,13 +384,12 @@ img {
   }
 
   /* Touch device selected state via slider control */
-  @media (hover: none) and (pointer: coarse) {
-	.image-item.gallery-selected {
-		width: 40vw;
-		transform: scale(1.02);
-		/* Fast, responsive transitions for touch */
-		transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-	}
+  .image-item.gallery-selected {
+	width: 40vw;
+	transform: scale(1.02);
+	z-index: 1;
+	/* Fast, responsive transitions for touch */
+	transition: width 0.15s cubic-bezier(0.4, 0, 0.2, 1), transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Gallery slider control - show on touch devices */
