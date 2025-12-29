@@ -339,13 +339,7 @@ img {
 	width: 100%;
 }
 
-.svg-placeholder {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.svg-placeholder svg {
+.svg-placeholder-container svg {
 	max-width: 100%;
 	height: auto;
 }

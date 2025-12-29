@@ -18,13 +18,11 @@ layout: layouts/base.njk
 {% if page.url == "/" %}
 {# Centered SVG placeholder - to be replaced with actual SVG #}
 <div class="svg-placeholder-container">
-  <div class="svg-placeholder">
-    {# SVG content will be added here #}
-    <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <rect width="200" height="200" fill="#e0e0e0" />
-      <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-family="Arial, sans-serif" font-size="14" fill="#999">SVG Placeholder</text>
-    </svg>
-  </div>
+  {# SVG content will be added here #}
+  <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#e0e0e0" />
+    <text x="50%" y="50%" text-anchor="middle" dy=".3em" font-family="Arial, sans-serif" font-size="14" fill="#999">SVG Placeholder</text>
+  </svg>
 </div>
 
 <div class="image-grid">
