@@ -330,6 +330,26 @@ img {
   	margin: 0 auto;
 }
 
+/* SVG Placeholder Container */
+.svg-placeholder-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 2rem 0;
+	width: 100%;
+}
+
+.svg-placeholder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.svg-placeholder svg {
+	max-width: 100%;
+	height: auto;
+}
+
 /* Landing image grid */
 .image-grid {
 	display: grid;
