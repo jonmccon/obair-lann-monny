@@ -64,3 +64,8 @@ layout: layouts/base.njk
 {% endif %}
 
 {{ content | safe }}
+
+{# Add projects list below the main content #}
+{% if page.url == "/" %}
+  {% include "projectsList.njk" %}
+{% endif %}
