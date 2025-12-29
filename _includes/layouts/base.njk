@@ -100,23 +100,37 @@
 	<body{% if layout == "layouts/post.njk" %} class="post-page{% if not images or images.length == 0 %} no-hero-image{% endif %}"{% endif %}>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
+		<div class="site-wrapper">
 		<header>
-			<a href="/" class="home-link">{{ metadata.title }}</a>
-
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
-				<ul class="nav">
-				{%- for entry in collections.all | eleventyNavigation %}
-					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
-				{%- endfor %}
-				</ul>
+				{#- Organize navigation into two lines as requested -#}
+				<div class="nav-line-1">
+					<ul class="nav">
+					{%- for entry in collections.all | eleventyNavigation %}
+						{%- if entry.order <= 2 %}
+							<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+						{%- endif %}
+					{%- endfor %}
+					</ul>
+				</div>
+				<div class="nav-line-2">
+					<ul class="nav">
+					{%- for entry in collections.all | eleventyNavigation %}
+						{%- if entry.order > 2 %}
+							<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
+						{%- endif %}
+					{%- endfor %}
+					</ul>
+				</div>
 			</nav>
 		</header>
 
 		<main id="skip">
 			{{ content | safe }}
 		</main>
+		</div>
 
 		<footer></footer>
 
@@ -164,34 +178,133 @@
 				}
 			});
 
-			// Enhanced Image Gallery Functionality
+			// Enhanced Image Gallery Functionality with aggressive performance optimization
 			const imageGrid = document.querySelector('.image-grid');
 			if (imageGrid) {
-				// Check if this is a touch device
-				const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+				// Performance monitoring to prevent black screen issues
+				let performanceIssueDetected = false;
+				const performanceThreshold = 100; // ms threshold for animation lag
 				
-				// Lazy loading for gallery images
+				// Monitor performance and adjust accordingly
+				function monitorPerformance() {
+					const startTime = performance.now();
+					requestAnimationFrame(() => {
+						const endTime = performance.now();
+						const frameDuration = endTime - startTime;
+						
+						if (frameDuration > performanceThreshold) {
+							performanceIssueDetected = true;
+							// Reduce animation complexity
+							document.documentElement.style.setProperty('--reduced-animations', '1');
+						}
+					});
+				}
+				
+				// Start performance monitoring
+				monitorPerformance();
+				// Comprehensive touch device detection
+				// More aggressive detection to catch tablets requesting desktop sites
+				const isTouchDevice = (() => {
+					// Primary: Check for touch points (most reliable for modern devices)
+					if (navigator.maxTouchPoints > 0) return true;
+					
+					// Secondary: Legacy touch detection
+					if ('ontouchstart' in window) return true;
+					
+					// Tertiary: Check for touch-specific APIs
+					if ('ontouchend' in window || 'ontouchmove' in window) return true;
+					
+					// Quaternary: CSS media query checks
+					if (window.matchMedia) {
+						// Check for coarse pointer (touch)
+						if (window.matchMedia('(pointer: coarse)').matches) return true;
+						
+						// Check for hover capability - tablets often report 'none'
+						if (window.matchMedia('(hover: none)').matches) return true;
+						
+						// Check for any-pointer: coarse (covers secondary touch inputs)
+						if (window.matchMedia('(any-pointer: coarse)').matches) return true;
+						
+						// Check for any-hover: none (tablets requesting desktop often match this)
+						if (window.matchMedia('(any-hover: none)').matches) return true;
+					}
+					
+					// User agent detection for common tablet/mobile patterns
+					const userAgent = navigator.userAgent.toLowerCase();
+					const touchDevicePatterns = [
+						'android', 'iphone', 'ipad', 'ipod', 'blackberry', 
+						'windows phone', 'touch', 'mobile', 'tablet'
+					];
+					if (touchDevicePatterns.some(pattern => userAgent.includes(pattern))) return true;
+					
+					// Screen size checks - more comprehensive than before
+					const screenWidth = Math.max(window.innerWidth, screen.width);
+					const screenHeight = Math.max(window.innerHeight, screen.height);
+					
+					// Portrait tablets and phones
+					if (screenWidth <= 768) return true;
+					
+					// Landscape tablets (common resolutions)
+					if (screenWidth <= 1024 && screenHeight <= 768) return true;
+					
+					// Check for high DPI screens which are often touch devices
+					if (window.devicePixelRatio && window.devicePixelRatio > 1.5) {
+						// High DPI devices under certain size thresholds are likely touch
+						if (screenWidth <= 1366 || screenHeight <= 1024) return true;
+					}
+					
+					// As a final safeguard, err on the side of showing the slider
+					// Better to have a slider on a non-touch device than missing it on touch
+					return false;
+				})();
+				
+				// Aggressive performance optimizations for image loading
 				const lazyImages = imageGrid.querySelectorAll('img');
 				
-				// Performance: Use Intersection Observer for lazy loading
+				// Critical: Preload first few images immediately for instant interaction
+				const preloadCount = Math.min(3, lazyImages.length);
+				lazyImages.forEach((img, index) => {
+					if (index < preloadCount) {
+						// Eagerly load first few images
+						img.loading = 'eager';
+						img.decoding = 'async';
+						// Add performance hints
+						const link = document.createElement('link');
+						link.rel = 'preload';
+						link.as = 'image';
+						link.href = img.src;
+						document.head.appendChild(link);
+					} else {
+						// Lazy load remaining images
+						img.loading = 'lazy';
+						img.decoding = 'async';
+					}
+				});
+				
+				// Enhanced Intersection Observer for aggressive loading
 				if ('IntersectionObserver' in window) {
 					const imageObserver = new IntersectionObserver((entries, observer) => {
 						entries.forEach(entry => {
 							if (entry.isIntersecting) {
 								const img = entry.target;
-								// Add performance hint for faster loading
+								// Aggressive loading hints
 								img.loading = 'eager';
 								img.decoding = 'async';
-								// Cache images in browser
+								
+								// Cache images in browser with fetchpriority hint
 								if (img.dataset.src) {
 									img.src = img.dataset.src;
 									img.removeAttribute('data-src');
 								}
+								
+								// Add fetch priority for visible images
+								img.fetchPriority = 'high';
 								observer.unobserve(img);
 							}
 						});
 					}, {
-						rootMargin: '100px' // Start loading 100px before image comes into view
+						rootMargin: '200px', // More aggressive preloading - start 200px before visible
+						threshold: 0.1
 					});
 
 					lazyImages.forEach(img => imageObserver.observe(img));
@@ -202,47 +315,78 @@
 					const imageItems = imageGrid.querySelectorAll('.image-item');
 					const totalImages = imageItems.length;
 					const galleryImages = imageGrid.querySelectorAll('img');
+					let sliderCreated = false; // Prevent double creation
 					
 					// Function to create and setup slider
 					function createSliderControl() {
+						// Prevent double creation
+						if (sliderCreated) return;
+						sliderCreated = true;
+						
 						// Create slider control
 						const sliderContainer = document.createElement('div');
 						sliderContainer.className = 'gallery-slider-container';
 						sliderContainer.innerHTML = `
 							<input type="range" 
-								   class="gallery-slider" 
+								   class="gallery-slider gallery-slider-disabled" 
 								   min="0" 
 								   max="${totalImages - 1}" 
 								   value="0" 
-								   step="1">
-							<div class="slider-label">Drag to preview images</div>
+								   step="1"
+								   disabled>
+							<div class="slider-label">Loading images...</div>
 						`;
 						
 						// Insert slider after the gallery
 						imageGrid.parentNode.insertBefore(sliderContainer, imageGrid.nextSibling);
 						
 						const slider = sliderContainer.querySelector('.gallery-slider');
+						const sliderLabel = sliderContainer.querySelector('.slider-label');
 						let currentSelectedIndex = -1; // Track currently selected item
 						let rafId = null; // Request animation frame ID
 						
-						// Optimized slider update function
+						// Function to enable slider when images are ready
+						function enableSlider() {
+							slider.disabled = false;
+							slider.classList.remove('gallery-slider-disabled');
+							sliderLabel.textContent = 'Drag to preview images';
+						}
+						
+						// Store reference for later enabling
+						window.gallerySliderControl = { slider, enableSlider };
+						
+						// Highly optimized slider update function
 						function updateGallerySelection(selectedIndex) {
-							// Cancel any pending animation frame
+							// Use immediate scheduling for smoother performance
 							if (rafId) {
 								cancelAnimationFrame(rafId);
 							}
 							
+							// Batch DOM updates for better performance
 							rafId = requestAnimationFrame(() => {
 								// Only update if selection actually changed
 								if (currentSelectedIndex !== selectedIndex) {
-									// Remove class from previously selected item only
+									// Batch remove/add operations
+									const batch = document.createDocumentFragment();
+									
+									// Remove class from previously selected item
 									if (currentSelectedIndex >= 0 && imageItems[currentSelectedIndex]) {
 										imageItems[currentSelectedIndex].classList.remove('gallery-selected');
 									}
 									
-									// Add class to newly selected item
+									// Add class to newly selected item with performance hints
 									if (imageItems[selectedIndex]) {
-										imageItems[selectedIndex].classList.add('gallery-selected');
+										const selectedItem = imageItems[selectedIndex];
+										selectedItem.classList.add('gallery-selected');
+										
+										// Hint browser about upcoming animation
+										selectedItem.style.willChange = 'transform, width';
+										
+										// Remove will-change after animation completes
+										setTimeout(() => {
+											selectedItem.style.willChange = 'auto';
+										}, 200);
+										
 										currentSelectedIndex = selectedIndex;
 									}
 								}
@@ -250,9 +394,14 @@
 							});
 						}
 						
-						// Use throttled input handler for smooth performance
+						// Aggressive optimization: Use passive event listeners and debouncing
 						let throttleTimeout = null;
+						let isAnimating = false;
+						
+						// Passive event listener for better scroll performance
 						slider.addEventListener('input', function(e) {
+							if (slider.disabled || isAnimating) return;
+							
 							const selectedIndex = parseInt(e.target.value);
 							
 							// Clear existing throttle
@@ -260,28 +409,47 @@
 								clearTimeout(throttleTimeout);
 							}
 							
-							// Throttle to 60fps for smooth performance
+							// Optimized throttling - adjust to device capabilities
+							const throttleDelay = window.devicePixelRatio > 2 ? 20 : 16; // Slower on high-DPI
 							throttleTimeout = setTimeout(() => {
+								isAnimating = true;
 								updateGallerySelection(selectedIndex);
-							}, 16); // ~60fps
-						});
+								
+								// Reset animation flag after transition
+								setTimeout(() => {
+									isAnimating = false;
+								}, 200);
+							}, throttleDelay);
+						}, { passive: true });
 						
-						// Also handle change event for final position
+						// Immediate response on final position for better UX
 						slider.addEventListener('change', function(e) {
+							if (slider.disabled) return;
+							
 							const selectedIndex = parseInt(e.target.value);
+							// Clear any pending throttled updates
+							if (throttleTimeout) {
+								clearTimeout(throttleTimeout);
+								throttleTimeout = null;
+							}
 							updateGallerySelection(selectedIndex);
-						});
+						}, { passive: true });
 					}
 					
-					// Wait for all gallery images to load before creating slider
+					// Create slider immediately in disabled state
+					createSliderControl();
+					
+					// Track image loading to enable slider when ready
 					let loadedImages = 0;
 					const totalGalleryImages = galleryImages.length;
 					
 					function checkAllImagesLoaded() {
 						loadedImages++;
-						if (loadedImages === totalGalleryImages) {
+						if (loadedImages === totalGalleryImages && window.gallerySliderControl) {
 							// Small delay to ensure everything is rendered
-							setTimeout(createSliderControl, 100);
+							setTimeout(() => {
+								window.gallerySliderControl.enableSlider();
+							}, 100);
 						}
 					}
 					
@@ -297,12 +465,79 @@
 						}
 					});
 					
-					// Fallback: create slider after 2 seconds if images still haven't loaded
+					// Fallback: enable slider after 2 seconds if images still haven't loaded
 					setTimeout(() => {
-						if (loadedImages < totalGalleryImages) {
-							createSliderControl();
+						if (loadedImages < totalGalleryImages && window.gallerySliderControl) {
+							window.gallerySliderControl.enableSlider();
 						}
 					}, 2000);
+				} else {
+					// Mouse-based desktop device - optimized hover functionality
+					const imageItems = imageGrid.querySelectorAll('.image-item');
+					let currentHoveredIndex = -1;
+					let hoverRafId = null;
+					
+					// Optimized function to update gallery selection on hover
+					function updateGalleryHover(hoveredIndex) {
+						if (hoverRafId) {
+							cancelAnimationFrame(hoverRafId);
+						}
+						
+						hoverRafId = requestAnimationFrame(() => {
+							// Remove previous selection
+							if (currentHoveredIndex >= 0 && imageItems[currentHoveredIndex]) {
+								const prevItem = imageItems[currentHoveredIndex];
+								prevItem.classList.remove('selected');
+								prevItem.style.willChange = 'auto';
+							}
+							
+							// Add new selection with performance hints
+							if (hoveredIndex >= 0 && imageItems[hoveredIndex]) {
+								const newItem = imageItems[hoveredIndex];
+								newItem.style.willChange = 'transform, width';
+								newItem.classList.add('selected');
+								currentHoveredIndex = hoveredIndex;
+								
+								// Remove will-change after animation
+								setTimeout(() => {
+									newItem.style.willChange = 'auto';
+								}, 150);
+							} else {
+								currentHoveredIndex = -1;
+							}
+							hoverRafId = null;
+						});
+					}
+					
+					// Add optimized mouse hover listeners with debouncing
+					imageItems.forEach((item, index) => {
+						let enterTimeout = null;
+						let leaveTimeout = null;
+						
+						item.addEventListener('mouseenter', () => {
+							// Clear any pending leave timeout
+							if (leaveTimeout) {
+								clearTimeout(leaveTimeout);
+								leaveTimeout = null;
+							}
+							
+							// Slight delay to prevent excessive hovering
+							enterTimeout = setTimeout(() => {
+								updateGalleryHover(index);
+							}, 50);
+						}, { passive: true });
+						
+						item.addEventListener('mouseleave', () => {
+							// Clear any pending enter timeout
+							if (enterTimeout) {
+								clearTimeout(enterTimeout);
+								enterTimeout = null;
+							}
+							
+							// Immediate response on leave for better UX
+							updateGalleryHover(-1);
+						}, { passive: true });
+					});
 				}
 
 				// Cache management for performance

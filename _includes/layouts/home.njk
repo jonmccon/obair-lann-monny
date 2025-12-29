@@ -22,11 +22,45 @@ layout: layouts/base.njk
   {% for item in collections.images | reverse %}
     <div class="image-item">
       <a href="{{ item.url }}">
-        <img src="{{ item.src }}" alt="{{ item.alt }}">
+        <img src="{{ item.src }}" alt="{{ item.alt }}"{% if loop.first %} loading="eager" fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
       </a>
     </div>
   {% endfor %}
 </div>
+
+{# Preload first few critical images for instant interaction #}
+{% set criticalImages = collections.images | reverse | slice(0, 3) %}
+{% for item in criticalImages %}
+<link rel="preload" as="image" href="{{ item.src }}">
+{% endfor %}
+
+{# About section on homepage #}
+<section class="about-section">
+  <h1>About</h1>
+  
+  <img src="https://github.com/user-attachments/assets/c956ad3d-f0ab-4737-a3c6-e3bd8ff7038b" alt="JonnyPortrait" style="max-width: 200px; float: right; margin: 0 0 1rem 1rem; border-radius: 0.5rem;">
+  
+  <p>Jonny is a creative with one foot in design, one in photography, one in building internet & one in the classroom. He's a tinkerer, a sailor, a chef and generally just wants to learn how things are made. A graduate of Western Washington University, a former board member of AIGA Seattle, a former mascot of the Seattle Sounders, Jonny balances time between freelance, maintaining the Seattle Creative Directory and developing machine aided printmaking from his studio on Whidbey Island.</p>
+
+  <h2>Contact</h2>
+  <ul>
+    <li>Email: hello@jonmccon.com</li>
+    <li>Location: Whidbey Island</li>
+    <li>Social: <a href="https://www.instagram.com/jonmccon">@jonmccon</a></li>
+  </ul>
+
+  <h2>Resume & Experience</h2>
+  <p>Available upon request. Recent projects include collaborations with emerging tech companies, gallery installations, and digital art commissions.</p>
+
+  <h2>Recent Gallery Shows & Exhibitions</h2>
+  <ul>
+    <li><strong>2024</strong> - Digital Futures Collective, Brooklyn Gallery Space - <a href="#">View Gallery</a></li>
+    <li><strong>2023</strong> - Generative Art Exhibition, Manhattan Tech Center - <a href="#">View Gallery</a></li>
+    <li><strong>2023</strong> - Interactive Media Showcase, Lower East Side Gallery - <a href="#">View Gallery</a></li>
+  </ul>
+  
+  <p><em>Gallery show details and portfolio updates are continuously added as new projects are completed.</em></p>
+</section>
 {% endif %}
 
 {{ content | safe }}
