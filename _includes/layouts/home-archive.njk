@@ -1,8 +1,11 @@
 ---
 layout: layouts/base.njk
 ---
-{# Post listing, links list, and projects list have been archived in home-archive.njk #}
+{# ARCHIVED HOMEPAGE ELEMENTS - Preserved for later use #}
+{# This template contains the post listing, gallery view, and links list that were removed from the homepage #}
+{# Created: 2025-12-29 #}
 
+{# ========== IMAGE GRID / GALLERY VIEW ========== #}
 {# Only show image grid on the actual homepage #}
 {% if page.url == "/" %}
 <div class="image-grid">
@@ -24,7 +27,8 @@ layout: layouts/base.njk
 {% endfor %}
 
 {# About section on homepage #}
-<section class="about-section" style="margin-top: 3rem;">
+<section class="about-section">
+  <h1>About</h1>
   
   <img src="https://github.com/user-attachments/assets/c956ad3d-f0ab-4737-a3c6-e3bd8ff7038b" alt="JonnyPortrait" style="max-width: 200px; float: right; margin: 0 0 1rem 1rem; border-radius: 0.5rem;">
   
@@ -51,4 +55,31 @@ layout: layouts/base.njk
 </section>
 {% endif %}
 
-{{ content | safe }}
+{# ========== POST LISTING ========== #}
+{% set postsCount = collections.posts | length %}
+{% set latestPostsCount = postsCount | min(numberOfLatestPostsToShow) %}
+{# <h1>Latest {{ latestPostsCount }} Post{% if latestPostsCount != 1 %}s{% endif %}</h1> #}
+
+{% set postslist = collections.posts | head(-1 * numberOfLatestPostsToShow) %}
+{% set postslistCounter = postsCount %}
+{% include "postslist.njk" %}
+
+{% set morePosts = postsCount - numberOfLatestPostsToShow %}
+{% if morePosts > 0 %}
+<p>{{ morePosts }} more post{% if morePosts != 1 %}s{% endif %} can be found in <a href="/blog/">the projects</a>.</p>
+{% endif %}
+
+{# ========== LIST OF ALL CONTENT LINKS ========== #}
+{# List every content page in the project #}
+
+<ul>
+	{%- for entry in collections.all %}
+	<li><a href="{{ entry.url }}"><code>{{ entry.url }}</code></a></li>
+	{%- endfor %}
+</ul>
+
+{# ========== PROJECTS LIST (GALLERY AT BOTTOM) ========== #}
+{# Add projects list below the main content #}
+{% if page.url == "/" %}
+  {% include "projectsList.njk" %}
+{% endif %}
