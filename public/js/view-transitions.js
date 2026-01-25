@@ -110,9 +110,8 @@
     // Reinitialize stacked papers if on a stacked layout page
     const stackedPapers = document.querySelector('.stacked-papers');
     if (stackedPapers) {
-      // The stacked.js script should reinitialize automatically via DOMContentLoaded
-      // or we can dispatch a custom event
-      const event = new Event('DOMContentLoaded', {
+      // Dispatch custom event for stacked papers to reinitialize
+      const event = new CustomEvent('stackedReload', {
         bubbles: true,
         cancelable: true
       });

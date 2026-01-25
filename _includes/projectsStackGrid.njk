@@ -41,7 +41,7 @@
     {% set projectImages = [] %}
     {% for image in collections.images %}
       {% if image.url == post.url %}
-        {% set projectImages = (projectImages.push(image.src), projectImages) %}
+        {% set projectImages = projectImages.concat([image.src]) %}
       {% endif %}
     {% endfor %}
     
