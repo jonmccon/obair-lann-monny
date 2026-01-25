@@ -242,7 +242,9 @@
 
     // Remove after announcement
     setTimeout(() => {
-      document.body.removeChild(announcement);
+      if (announcement.parentNode) {
+        announcement.remove();
+      }
     }, 1000);
   }
 

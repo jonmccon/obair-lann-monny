@@ -257,6 +257,7 @@
 
   .stacked-papers {
     min-height: 400px;
+    --paper-offset: 15px;
   }
 
   .paper {
@@ -292,11 +293,6 @@
     padding: 0 0.75rem;
     order: -1;
     width: 60px;
-  }
-
-  /* Adjust paper offset for mobile */
-  :root {
-    --paper-offset: 15px;
   }
 }
 
