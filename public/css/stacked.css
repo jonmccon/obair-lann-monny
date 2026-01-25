@@ -130,26 +130,11 @@
 
 /* Paper states */
 
-/* Stacked papers (behind current) */
+/* Stacked papers (behind current) - visual depth effect */
 .paper.stacked {
   z-index: 0;
   pointer-events: none;
-}
-
-.paper.stacked:nth-child(1) {
-  transform: translateX(-50%) translateY(calc(var(--paper-offset) * -1)) rotate(-1deg);
-}
-
-.paper.stacked:nth-child(2) {
-  transform: translateX(-50%) translateY(calc(var(--paper-offset) * -2)) rotate(1deg);
-}
-
-.paper.stacked:nth-child(3) {
-  transform: translateX(-50%) translateY(calc(var(--paper-offset) * -3)) rotate(-0.5deg);
-}
-
-.paper.stacked:nth-child(n+4) {
-  transform: translateX(-50%) translateY(calc(var(--paper-offset) * -4)) rotate(0.5deg);
+  transform: translateX(-50%) translateY(calc(var(--paper-offset) * -2)) rotate(0.5deg);
 }
 
 /* Active (current) paper */

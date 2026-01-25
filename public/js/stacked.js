@@ -157,6 +157,9 @@
     papers.forEach((paper, index) => {
       // Remove all state classes
       paper.classList.remove('active', 'stacked', 'flipped', 'hidden');
+      
+      // Remove tabindex from all papers first
+      paper.removeAttribute('tabindex');
 
       if (flippedPapers.has(index)) {
         // Paper has been flipped aside
