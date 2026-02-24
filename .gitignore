@@ -3,3 +3,9 @@ node_modules/
 package-lock.json
 .cache
 .ds_store
+
+# Obsidian workspace state (personal, not shared)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+.obsidian/themes/

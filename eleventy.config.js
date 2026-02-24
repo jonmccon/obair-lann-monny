@@ -24,7 +24,7 @@ module.exports = function(eleventyConfig) {
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 
 	// Watch content images for the image pipeline.
-	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg}");
+	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpg,jpeg,gif}");
 
 	// Watch css for hotlreload.
 	eleventyConfig.addWatchTarget("public/**/*.css");
