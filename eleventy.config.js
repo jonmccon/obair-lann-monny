@@ -162,6 +162,7 @@ module.exports = function(eleventyConfig) {
 	const PORTRAIT_LIGHTBOX_IMAGE_WIDTH = 720;
 
 	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, name) {
+		// Newlines removed to prevent Markdown from wrapping output in <p> tags
 		return `
 			<div class="photo-gallery" id="gallery-${name}">
 				${content}
@@ -188,33 +189,33 @@ module.exports = function(eleventyConfig) {
 			input = src;
 		}
 
-		let lightboxImageWidth = LANDSCAPE_LIGHTBOX_IMAGE_WIDTH;
+		const altText = alt || "Gallery image";
 
-		// Use eleventy-img to get metadata for orientation detection
-		const metadata = await Image(input, {
-			widths: [GALLERY_IMAGE_WIDTH, lightboxImageWidth],
+		// First pass: generate thumbnail only to detect orientation
+		const thumbMetadata = await Image(input, {
+			widths: [GALLERY_IMAGE_WIDTH],
 			formats: ["jpeg"],
 			urlPath: "/img/",
 			outputDir: "./_site/img/"
 		});
 
-		const thumbMeta = metadata.jpeg[0];
-		const fullMeta = metadata.jpeg[metadata.jpeg.length - 1];
+		const thumbMeta = thumbMetadata.jpeg[0];
 
-		// If image is portrait, re-process with portrait width
-		if (fullMeta.height > fullMeta.width) {
-			const portraitMetadata = await Image(input, {
-				widths: [GALLERY_IMAGE_WIDTH, PORTRAIT_LIGHTBOX_IMAGE_WIDTH],
-				formats: ["jpeg"],
-				urlPath: "/img/",
-				outputDir: "./_site/img/"
-			});
-			const pThumb = portraitMetadata.jpeg[0];
-			const pFull = portraitMetadata.jpeg[portraitMetadata.jpeg.length - 1];
-			return `<a href="${pFull.url}" data-pswp-width="${pFull.width}" data-pswp-height="${pFull.height}" target="_blank"><img src="${pThumb.url}" alt="${alt || ''}" loading="lazy" decoding="async" /></a>`;
-		}
+		// Choose lightbox width based on orientation
+		const isPortrait = thumbMeta.height > thumbMeta.width;
+		const lightboxImageWidth = isPortrait ? PORTRAIT_LIGHTBOX_IMAGE_WIDTH : LANDSCAPE_LIGHTBOX_IMAGE_WIDTH;
 
-		return `<a href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" target="_blank"><img src="${thumbMeta.url}" alt="${alt || ''}" loading="lazy" decoding="async" /></a>`;
+		// Second pass: generate full-size image at the appropriate width
+		const fullMetadata = await Image(input, {
+			widths: [lightboxImageWidth],
+			formats: ["jpeg"],
+			urlPath: "/img/",
+			outputDir: "./_site/img/"
+		});
+
+		const fullMeta = fullMetadata.jpeg[0];
+
+		return `<a href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" target="_blank"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
 	});
 
 	// Create separate collections for projects and process posts
