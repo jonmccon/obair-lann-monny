@@ -785,3 +785,55 @@ img {
 .post-metadata {
 	margin-bottom: 2rem;
 }
+
+/* Password protection overlay */
+.password-overlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 60vh;
+}
+
+.password-form-container {
+	text-align: center;
+	max-width: 320px;
+	width: 100%;
+}
+
+.password-form-container p {
+	margin: 0 0 1rem;
+}
+
+#password-form {
+	display: flex;
+	gap: 0.5rem;
+}
+
+#password-input {
+	flex: 1;
+	padding: 0.5rem;
+	font-size: 1rem;
+	font-family: var(--font-family);
+	border: 1px solid var(--color-gray-50);
+	background: var(--background-color);
+	color: var(--text-color);
+}
+
+#password-form button {
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	font-family: var(--font-family);
+	cursor: pointer;
+	border: 1px solid var(--color-gray-50);
+	background: var(--background-color);
+	color: var(--text-color);
+}
+
+#password-form button:hover {
+	background: var(--color-gray-20);
+}
+
+.password-error {
+	color: #c00;
+	font-size: 0.875rem;
+}

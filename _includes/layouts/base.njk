@@ -128,7 +128,54 @@
 		</header>
 
 		<main id="skip">
+		{% if protected and password.enabled %}
+			<div id="password-overlay" class="password-overlay">
+				<div class="password-form-container">
+					<p>This page is password protected</p>
+					<form id="password-form">
+						<input type="password" id="password-input" placeholder="Enter password" autocomplete="off" required>
+						<button type="submit">Submit</button>
+					</form>
+					<p id="password-error" class="password-error" hidden>Incorrect password</p>
+				</div>
+			</div>
+			<div id="protected-content" hidden>
+				{{ content | safe }}
+			</div>
+			<script>
+			(function() {
+				var HASH = '{{ password.hash }}';
+				var STORAGE_KEY = 'page_unlocked_' + HASH;
+				var overlay = document.getElementById('password-overlay');
+				var content = document.getElementById('protected-content');
+
+				if (sessionStorage.getItem(STORAGE_KEY) === 'true') {
+					overlay.hidden = true;
+					content.hidden = false;
+				}
+
+				document.getElementById('password-form').addEventListener('submit', function(e) {
+					e.preventDefault();
+					var input = document.getElementById('password-input').value;
+					var encoder = new TextEncoder();
+					crypto.subtle.digest('SHA-256', encoder.encode(input)).then(function(buf) {
+						var arr = Array.from(new Uint8Array(buf));
+						var hex = arr.map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+						if (hex === HASH) {
+							sessionStorage.setItem(STORAGE_KEY, 'true');
+							overlay.hidden = true;
+							content.hidden = false;
+						} else {
+							document.getElementById('password-error').hidden = false;
+							document.getElementById('password-input').value = '';
+						}
+					});
+				});
+			})();
+			</script>
+		{% else %}
 			{{ content | safe }}
+		{% endif %}
 		</main>
 		</div>
 
