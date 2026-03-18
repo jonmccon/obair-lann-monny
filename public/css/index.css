@@ -777,6 +777,58 @@ img {
 	padding: 1.5rem;
 }
 
+/* Post background color variants - controlled by bgColor frontmatter */
+.post-content.bg-white {
+	background-color: #ffffff;
+	color: #333;
+}
+
+.post-content.bg-gray {
+	background-color: #e6e6e6;
+	color: #333;
+}
+
+.post-content.bg-black {
+	background-color: #000000;
+	color: #e0e0e0;
+}
+
+.post-content.bg-black a[href] {
+	color: #6db3f2;
+}
+
+.post-content.bg-black a[href]:visited {
+	color: #b0b0b0;
+}
+
+.post-content.bg-black a[href]:hover,
+.post-content.bg-black a[href]:active {
+	color: #9ad0ff;
+}
+
+/* View Transition API - fade effect for page navigation */
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-old(root) {
+	animation: fade-out 0.2s ease-in forwards;
+}
+
+::view-transition-new(root) {
+	animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-out {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+
+@keyframes fade-in {
+	from { opacity: 0; }
+	to { opacity: 1; }
+}
+
 .post-header h1 {
 	margin-top: 0;
 	margin-bottom: 1rem;
