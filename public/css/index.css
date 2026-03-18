@@ -336,32 +336,55 @@ img {
   	margin: 0 auto;
 }
 
-/* SVG Logo Overlay - positioned on top of gallery */
-.svg-logo-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: calc(60vh - 20px);
+/* Hero section: portrait + about description */
+.hero-section {
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+	gap: 3rem;
+	padding: 2rem 1.5rem;
+}
+
+.hero-portrait {
+	flex: 0 0 auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 10;
-	pointer-events: none;
 }
 
-.svg-logo-overlay svg {
-	max-width: 300px;
-	max-height: 200px;
-	width: auto;
+.portrait-photo {
+	width: 40vw;
+	max-width: 500px;
 	height: auto;
+	border-radius: 0.5rem;
+	object-fit: cover;
 }
 
-/* Landing image grid */
+.hero-about {
+	flex: 1;
+	text-align: justify;
+	font-size: 1.15rem;
+	line-height: 1.7;
+}
+
+.hero-about p {
+	text-align: justify;
+}
+
+/* Homepage projects section under the fold */
+.homepage-projects {
+	padding: 2rem 1.5rem;
+}
+
+.homepage-projects h2 {
+	margin-bottom: 1.5rem;
+}
+
+/* Landing image grid - thumbnail strip */
 .image-grid {
 	position: relative;
 	display: grid;
-	grid-template-rows: repeat(auto-fill, minmax(calc(80vh - 20px), 1fr));
+	grid-template-rows: 120px;
 	grid-auto-flow: column;
 	gap: 0px;
 	/* Performance optimizations */
@@ -396,7 +419,7 @@ img {
   .image-item img {
 	width: auto;
 	height: 100%;
-	max-height: calc(80vh - 20px);
+	max-height: 120px;
 	display: block;
 	object-fit: cover;
 	/* Performance optimizations for images */
@@ -704,6 +727,19 @@ img {
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Featured project card - spans 2 columns and is taller */
+.project-card-featured {
+	grid-column: span 2;
+}
+
+.project-card-featured .project-card-image {
+	height: 360px;
+}
+
+.project-card-featured .project-card-title {
+	font-size: 1.5rem;
+}
+
 .project-card:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -746,6 +782,41 @@ img {
 
 /* Mobile adjustments for projects */
 @media (max-width: 768px) {
+	/* Hide thumbnail gallery on mobile */
+	.image-grid {
+		display: none;
+	}
+
+	/* Hero section: stack portrait + about vertically on mobile */
+	.hero-section {
+		flex-direction: column;
+		min-height: auto;
+		gap: 1.5rem;
+		padding: 1.5rem 1rem;
+	}
+
+	.hero-portrait {
+		width: 100%;
+	}
+
+	.portrait-photo {
+		width: 80vw;
+		max-width: 400px;
+	}
+
+	.hero-about {
+		font-size: 1.1rem;
+	}
+
+	/* Featured cards go single column on mobile */
+	.project-card-featured {
+		grid-column: span 1;
+	}
+
+	.project-card-featured .project-card-image {
+		height: 200px;
+	}
+
 	.projects-list {
 		justify-content: center;
 		gap: 0.75rem;

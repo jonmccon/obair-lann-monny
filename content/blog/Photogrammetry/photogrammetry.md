@@ -3,6 +3,7 @@ title: Photogrammetry on a Pen Plotter
 description: Photoshopping in three dimensions
 category: Plot Quickens
 date: 2024-06-01
+featured: true
 tags: 
     - second tag
 images: 
