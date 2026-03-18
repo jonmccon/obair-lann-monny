@@ -36,7 +36,7 @@ module.exports = function(eleventyConfig) {
 		// https://www.11ty.dev/docs/plugins/image/#output-formats
 		let isGif = src.toLowerCase().endsWith(".gif");
 		let imageOptions = {
-			widths: isGif ? ["auto"] : (widths || ["auto"]),
+			widths: widths || ["auto"],
 			formats: isGif ? ["gif"] : formats,
 			outputDir: path.join(eleventyConfig.dir.output, "img"), // Advanced usage note: `eleventyConfig.dir` works here because we're using addPlugin.
 		};
