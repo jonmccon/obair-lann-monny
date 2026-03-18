@@ -59,6 +59,13 @@ layout: layouts/base.njk
 <link rel="preload" as="image" href="{{ item.src }}">
 {% endfor %}
 
+{# Embedded podcast player for Seattle Creative Directory #}
+<section class="embedded-player-section" style="margin-top: 3rem;">
+  <h2>Seattle Creative Show</h2>
+  <p>Audio interviews with creative professionals in Seattle. <a href="/projects/Seattle-Creative-Directory/scd/">View the Seattle Creative Directory project →</a></p>
+  <iframe height="200px" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/30dabfb8-c618-43a5-81c7-c5c83750983a?dark=false" title="Seattle Creative Show podcast player" loading="lazy" allow="autoplay"></iframe>
+</section>
+
 {# About section on homepage #}
 <section class="about-section" style="margin-top: 3rem;">
   
