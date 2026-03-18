@@ -24,7 +24,7 @@ module.exports = function(eleventyConfig) {
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 
 	// Watch content images for the image pipeline.
-	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg}");
+	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg,gif}");
 
 	// Watch css for hotlreload.
 	eleventyConfig.addWatchTarget("public/**/*.css");
@@ -131,14 +131,21 @@ module.exports = function(eleventyConfig) {
 		}
 		
 		try {
-			let metadata = await Image(input, {
+			let isGif = src.toLowerCase().endsWith(".gif");
+			let imageOptions = {
 				widths: [1200],
-				formats: ["jpeg"],
+				formats: isGif ? ["gif"] : ["jpeg"],
 				outputDir: path.join(eleventyConfig.dir.output, "img"),
 				urlPath: "/img/"
-			});
+			};
+			if (isGif) {
+				imageOptions.sharpOptions = { animated: true };
+			}
+
+			let metadata = await Image(input, imageOptions);
 			
-			return metadata.jpeg[0].url;
+			let format = isGif ? "gif" : "jpeg";
+			return metadata[format][0].url;
 		} catch (error) {
 			console.warn(`Hero image processing failed for ${src}:`, error.message);
 			return "";
@@ -162,14 +169,21 @@ module.exports = function(eleventyConfig) {
 		for (const item of items) {
 		  if (item.data.images) {
 			for (const image of item.data.images) {
-			  let metadata = await Image(image.src, {
+			  let isGif = image.src.toLowerCase().endsWith(".gif");
+			  let imageOptions = {
 				widths: [null],
-				formats: ["jpeg"], // Temporarily reduce to just JPEG for faster builds
+				formats: isGif ? ["gif"] : ["jpeg"], // Temporarily reduce to just JPEG for faster builds
 				urlPath: "/img/",
 				outputDir: "./_site/img/"
-			  });
+			  };
+			  if (isGif) {
+				imageOptions.sharpOptions = { animated: true };
+			  }
+
+			  let metadata = await Image(image.src, imageOptions);
 	
-			  let imageUrl = metadata.jpeg[0].url; // or metadata.avif[0].url for AVIF format
+			  let format = isGif ? "gif" : "jpeg";
+			  let imageUrl = metadata[format][0].url;
 	
 			  images.push({
 				url: item.url,
