@@ -834,6 +834,6 @@ img {
 }
 
 .password-error {
-	color: #c00;
+	color: var(--text-color-link-active);
 	font-size: 0.875rem;
 }

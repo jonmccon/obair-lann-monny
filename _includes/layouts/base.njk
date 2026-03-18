@@ -133,6 +133,7 @@
 				<div class="password-form-container">
 					<p>This page is password protected</p>
 					<form id="password-form">
+						<label for="password-input" class="visually-hidden">Password</label>
 						<input type="password" id="password-input" placeholder="Enter password" autocomplete="off" required>
 						<button type="submit">Submit</button>
 					</form>
@@ -145,7 +146,7 @@
 			<script>
 			(function() {
 				var HASH = '{{ password.hash }}';
-				var STORAGE_KEY = 'page_unlocked_' + HASH;
+				var STORAGE_KEY = 'page_unlocked_' + window.location.pathname;
 				var overlay = document.getElementById('password-overlay');
 				var content = document.getElementById('protected-content');
 
