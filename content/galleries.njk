@@ -1,0 +1,28 @@
+---
+layout: layouts/archive.njk
+permalink: /galleries/
+eleventyNavigation:
+  key: Photos
+  order: 6
+---
+{%- css %}{% include "public/css/photoswipe-gallery.css" %}{% endcss %}
+<h1>Photo Galleries</h1>
+
+<div class="galleries-grid">
+  {% for gallery in collections.galleries | reverse %}
+    <div class="gallery-card">
+      <a href="{{ gallery.url }}" class="gallery-card-link">
+        {% if gallery.data.thumbnail %}
+          <img src="{{ gallery.data.thumbnail }}" alt="{{ gallery.data.title }}" class="gallery-card-image" loading="lazy" decoding="async">
+        {% endif %}
+        <div class="gallery-card-content">
+          <h3 class="gallery-card-title">{{ gallery.data.title }}</h3>
+          {% if gallery.data.description %}
+          <p class="gallery-card-description">{{ gallery.data.description }}</p>
+          {% endif %}
+          <time class="gallery-card-date" datetime="{{ gallery.date | htmlDateString }}">{{ gallery.date | readableDate }}</time>
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>

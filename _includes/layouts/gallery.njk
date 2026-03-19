@@ -1,0 +1,35 @@
+---
+layout: layouts/base.njk
+---
+{#- Include PhotoSwipe CSS on gallery pages #}
+{%- css %}{% include "public/css/photoswipe-gallery.css" %}{% endcss %}
+<link rel="stylesheet" href="/css/photoswipe.css">
+
+<article class="gallery-page">
+  <header class="gallery-header">
+    <h1>{{ title }}</h1>
+
+    <ul class="post-metadata">
+      <li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
+    </ul>
+
+    {% if description %}
+    <p class="gallery-description">{{ description }}</p>
+    {% endif %}
+  </header>
+
+  <div class="gallery-body">
+    {{ content | safe }}
+  </div>
+
+  {%- if collections.galleries %}
+  {%- set previousGallery = collections.galleries | getPreviousCollectionItem %}
+  {%- set nextGallery = collections.galleries | getNextCollectionItem %}
+  {%- if nextGallery or previousGallery %}
+  <ul class="links-nextprev">
+    {%- if previousGallery %}<li>Previous: <a href="{{ previousGallery.url }}">{{ previousGallery.data.title }}</a></li>{% endif %}
+    {%- if nextGallery %}<li>Next: <a href="{{ nextGallery.url }}">{{ nextGallery.data.title }}</a></li>{% endif %}
+  </ul>
+  {%- endif %}
+  {%- endif %}
+</article>
