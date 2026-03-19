@@ -56,6 +56,25 @@
 	font-style: italic;
 }
 
+/* Gallery tags */
+.gallery-tags,
+.gallery-card-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin-bottom: 0.75rem;
+}
+
+.gallery-tag {
+	display: inline-block;
+	padding: 0.15rem 0.5rem;
+	background: #f0f0f0;
+	color: #555;
+	border-radius: 3px;
+	font-size: 0.75rem;
+	text-transform: lowercase;
+}
+
 /* Individual gallery page - masonry grid */
 .photo-gallery {
 	margin: 2rem 0;
@@ -145,5 +164,10 @@
 
 	.gallery-description {
 		color: #bbb;
+	}
+
+	.gallery-tag {
+		background: #333;
+		color: #ccc;
 	}
 }

@@ -20,6 +20,11 @@ eleventyNavigation:
           {% if gallery.data.description %}
           <p class="gallery-card-description">{{ gallery.data.description }}</p>
           {% endif %}
+          {% if gallery.data.tags %}
+          <div class="gallery-card-tags">
+            {%- for tag in gallery.data.tags %}{% if tag != "galleries" %}<span class="gallery-tag">{{ tag }}</span>{% endif %}{%- endfor %}
+          </div>
+          {% endif %}
           <time class="gallery-card-date" datetime="{{ gallery.date | htmlDateString }}">{{ gallery.date | readableDate }}</time>
         </div>
       </a>
