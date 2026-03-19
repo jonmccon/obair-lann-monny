@@ -27,7 +27,6 @@ Under the direction of Tether Labs & lots of 16-bit illustrations later, we had 
 https://www.linkedin.com/in/angelsamano/en
 
 
-<!-- This is a gif that loads but doesn't play -->
 {% image "./vw-00.gif", "000" %}
 
 <div class="two-column">
