@@ -1,0 +1,53 @@
+# Triggered by the content repo when new content is pushed.
+# See: https://docs.github.com/en/rest/repos/repos#create-a-repository-dispatch-event
+#
+# To fire this from the content repo, add a workflow like:
+#
+#   - name: Notify site repo
+#     run: |
+#       curl -X POST \
+#         -H "Authorization: Bearer ${{ secrets.SITE_REPO_TOKEN }}" \
+#         -H "Accept: application/vnd.github+json" \
+#         https://api.github.com/repos/jonmccon/obair-lann-monny/dispatches \
+#         -d '{"event_type":"content-updated"}'
+#
+# SITE_REPO_TOKEN needs repo scope. Create a fine-grained PAT in GitHub settings
+# with "Contents: read and write" on this repo, then add it as a secret in the
+# content repo.
+name: Pull latest content from Obsidian vault
+
+on:
+  # Fired by the content repo's push workflow via GitHub API
+  repository_dispatch:
+    types: [content-updated]
+
+  # Manual trigger from GitHub Actions UI (useful for debugging)
+  workflow_dispatch:
+
+jobs:
+  update-content:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          # Use a PAT so the push back to main triggers downstream Netlify build.
+          # If CONTENT_PAT is not set, falls back to the default GITHUB_TOKEN
+          # (which will NOT trigger Netlify – set the PAT for full automation).
+          token: ${{ secrets.CONTENT_PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Update content submodule to latest commit
+        run: |
+          git submodule update --remote content/blog
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add content/blog
+          # Only commit + push if the submodule pointer actually changed.
+          # The push triggers Netlify to rebuild with the updated content.
+          git diff --staged --quiet || (
+            git commit -m "chore: pull latest content from Obsidian vault" &&
+            git push
+          )
