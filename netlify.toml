@@ -1,6 +1,8 @@
 [build]
 	publish = "_site"
-	command = "npm run build"
+	# git submodule update is a no-op when content/blog is not a submodule,
+	# so this is safe both before and after adopting the external content repo.
+	command = "git submodule update --init --recursive && npm run build"
 
 [[plugins]]
 

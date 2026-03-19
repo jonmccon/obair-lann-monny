@@ -1,0 +1,10 @@
+{
+  "useMarkdownLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "content/blog",
+  "attachmentFolderPath": ".",
+  "defaultViewMode": "source",
+  "templatesPlugin": {
+    "folder": ".obsidian/templates"
+  }
+}
