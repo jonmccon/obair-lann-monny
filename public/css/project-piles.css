@@ -1,0 +1,231 @@
+/* Project Piles Layout - Tag-filtered randomly stacked images */
+
+/* Container for entire piles section */
+.projects-piles-container {
+  width: 100%;
+  padding: 2rem 1rem;
+}
+
+/* Tag filter bar */
+.tag-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 3rem;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tag-filter-bar {
+    background: rgba(26, 26, 26, 0.5);
+  }
+}
+
+.tag-filter-button {
+  padding: 0.5rem 1.25rem;
+  background: white;
+  border: 2px solid var(--color-gray-20);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+  text-transform: capitalize;
+}
+
+.tag-filter-button:hover {
+  border-color: var(--text-color-link);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tag-filter-button.active {
+  background: var(--text-color-link);
+  color: white;
+  border-color: var(--text-color-link);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tag-filter-button {
+    background: #2a2a2a;
+    border-color: var(--color-gray-50);
+  }
+  
+  .tag-filter-button.active {
+    background: var(--text-color-link);
+    border-color: var(--text-color-link);
+  }
+}
+
+/* Projects piles grid */
+.projects-piles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 4rem 3rem;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+@media (max-width: 768px) {
+  .projects-piles-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 3rem 2rem;
+  }
+}
+
+/* Individual project pile */
+.project-pile {
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+.pile-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.pile-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  perspective: 1000px;
+}
+
+/* Pile images container */
+.pile-images {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Individual piled image */
+.pile-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 85%;
+  height: 80%;
+  transform: 
+    translate(-50%, -50%)
+    translate(var(--offset-x), var(--offset-y))
+    rotate(var(--rotation))
+    scale(var(--scale));
+  z-index: var(--z-index);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+}
+
+/* Hover effect - spread the pile more */
+.pile-link:hover .pile-image {
+  transform: 
+    translate(-50%, -50%)
+    translate(calc(var(--offset-x) * 1.5), calc(var(--offset-y) * 1.5))
+    rotate(calc(var(--rotation) * 1.3))
+    scale(var(--scale));
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Belly band - horizontal strip with project name */
+.pile-belly-band {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  pointer-events: none;
+  text-align: center;
+  border-top: 2px solid var(--text-color-link);
+  border-bottom: 2px solid var(--text-color-link);
+}
+
+@media (prefers-color-scheme: dark) {
+  .pile-belly-band {
+    background: rgba(26, 26, 26, 0.95);
+  }
+}
+
+.pile-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color);
+  line-height: 1.2;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Hover effect on belly band */
+.pile-link:hover .pile-belly-band {
+  background: var(--text-color-link);
+  border-color: var(--text-color-link);
+}
+
+.pile-link:hover .pile-title {
+  color: white;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .tag-filter-bar {
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .tag-filter-button {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .pile-belly-band {
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .pile-title {
+    font-size: 0.8rem;
+  }
+  
+  .pile-image {
+    width: 90%;
+    height: 85%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .pile-image,
+  .tag-filter-button,
+  .pile-belly-band {
+    transition: none;
+  }
+  
+  .tag-filter-button:hover {
+    transform: none;
+  }
+}
+
+/* View Transition API support */
+@supports (view-transition-name: auto) {
+  .pile-link {
+    view-transition-name: var(--vt-name);
+  }
+}
