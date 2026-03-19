@@ -2,6 +2,12 @@
 title: "Landscapes & Horizons"
 description: "Where earth meets sky — sweeping vistas and quiet horizons shot on film."
 date: 2019-05-01
+subject: landscape
+dominantColor: cool
+period: "2014–2019"
+location:
+  - pacific-northwest
+  - iceland
 tags:
   - landscape
   - horizons

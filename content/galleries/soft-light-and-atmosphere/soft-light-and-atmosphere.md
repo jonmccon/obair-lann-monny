@@ -2,6 +2,12 @@
 title: "Soft Light & Atmosphere"
 description: "Gentle light, soft tones, and atmospheric moments captured through the lens."
 date: 2019-03-01
+subject: atmospheric
+dominantColor: neutral
+period: "2013–2017"
+location:
+  - budapest
+  - seattle
 tags:
   - atmosphere
   - light

@@ -8,6 +8,73 @@
 	margin: 2rem 0;
 }
 
+/* Gallery filters */
+.gallery-filters {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1.25rem;
+	margin: 1.5rem 0;
+	padding: 1.25rem;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.filter-group {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.filter-label {
+	font-size: 0.7rem;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #888;
+}
+
+.filter-options {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.3rem;
+}
+
+.filter-btn {
+	padding: 0.25rem 0.6rem;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	background: #fafafa;
+	color: #555;
+	font-size: 0.75rem;
+	cursor: pointer;
+	text-transform: lowercase;
+	transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.filter-btn:hover {
+	border-color: #aaa;
+	background: #f0f0f0;
+}
+
+.filter-btn.active {
+	background: #333;
+	color: #fff;
+	border-color: #333;
+}
+
+.gallery-no-results {
+	text-align: center;
+	color: #999;
+	font-style: italic;
+	margin: 2rem 0;
+}
+
+.gallery-tag--location {
+	background: #e8f4e8;
+	color: #3a6b3a;
+}
+
 .gallery-card {
 	background: #fff;
 	border-radius: 8px;
@@ -140,6 +207,15 @@
 	.gallery-page {
 		padding: 1rem;
 	}
+
+	.gallery-filters {
+		padding: 1rem;
+		gap: 1rem;
+	}
+
+	.filter-group {
+		width: 100%;
+	}
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -169,5 +245,40 @@
 	.gallery-tag {
 		background: #333;
 		color: #ccc;
+	}
+
+	.gallery-tag--location {
+		background: #1a3a1a;
+		color: #8fbc8f;
+	}
+
+	.gallery-filters {
+		background: #1a1a1a;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.filter-label {
+		color: #999;
+	}
+
+	.filter-btn {
+		background: #2a2a2a;
+		border-color: #444;
+		color: #bbb;
+	}
+
+	.filter-btn:hover {
+		background: #333;
+		border-color: #666;
+	}
+
+	.filter-btn.active {
+		background: #e0e0e0;
+		color: #111;
+		border-color: #e0e0e0;
+	}
+
+	.gallery-no-results {
+		color: #777;
 	}
 }

@@ -8,9 +8,81 @@ eleventyNavigation:
 {%- css %}{% include "public/css/photoswipe-gallery.css" %}{% endcss %}
 <h1>Photo Galleries</h1>
 
-<div class="galleries-grid">
+<div class="gallery-filters" id="gallery-filters">
+  <div class="filter-group">
+    <label class="filter-label">Subject</label>
+    <div class="filter-options" data-filter="subject">
+      <button class="filter-btn active" data-value="all">All</button>
+      {%- set subjects = [] %}
+      {%- for gallery in collections.galleries %}
+        {%- if gallery.data.subject and gallery.data.subject not in subjects %}
+          {%- set subjects = (subjects.push(gallery.data.subject), subjects) %}
+        {%- endif %}
+      {%- endfor %}
+      {%- for subject in subjects | sort %}
+      <button class="filter-btn" data-value="{{ subject }}">{{ subject }}</button>
+      {%- endfor %}
+    </div>
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">Dominant Color</label>
+    <div class="filter-options" data-filter="color">
+      <button class="filter-btn active" data-value="all">All</button>
+      {%- set colors = [] %}
+      {%- for gallery in collections.galleries %}
+        {%- if gallery.data.dominantColor and gallery.data.dominantColor not in colors %}
+          {%- set colors = (colors.push(gallery.data.dominantColor), colors) %}
+        {%- endif %}
+      {%- endfor %}
+      {%- for color in colors | sort %}
+      <button class="filter-btn" data-value="{{ color }}">{{ color }}</button>
+      {%- endfor %}
+    </div>
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">Period</label>
+    <div class="filter-options" data-filter="period">
+      <button class="filter-btn active" data-value="all">All</button>
+      {%- set periods = [] %}
+      {%- for gallery in collections.galleries %}
+        {%- if gallery.data.period and gallery.data.period not in periods %}
+          {%- set periods = (periods.push(gallery.data.period), periods) %}
+        {%- endif %}
+      {%- endfor %}
+      {%- for period in periods | sort %}
+      <button class="filter-btn" data-value="{{ period }}">{{ period }}</button>
+      {%- endfor %}
+    </div>
+  </div>
+  <div class="filter-group">
+    <label class="filter-label">Location</label>
+    <div class="filter-options" data-filter="location">
+      <button class="filter-btn active" data-value="all">All</button>
+      {%- set locations = [] %}
+      {%- for gallery in collections.galleries %}
+        {%- if gallery.data.location %}
+          {%- for loc in gallery.data.location %}
+            {%- if loc not in locations %}
+              {%- set locations = (locations.push(loc), locations) %}
+            {%- endif %}
+          {%- endfor %}
+        {%- endif %}
+      {%- endfor %}
+      {%- for loc in locations | sort %}
+      <button class="filter-btn" data-value="{{ loc }}">{{ loc }}</button>
+      {%- endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="galleries-grid" id="galleries-grid">
   {% for gallery in collections.galleries | reverse %}
-    <div class="gallery-card">
+    <div class="gallery-card"
+      data-subject="{{ gallery.data.subject }}"
+      data-color="{{ gallery.data.dominantColor }}"
+      data-period="{{ gallery.data.period }}"
+      data-location="{{ gallery.data.location | join(',') if gallery.data.location else '' }}"
+      data-tags="{{ gallery.data.tags | join(',') }}">
       <a href="{{ gallery.url }}" class="gallery-card-link">
         {% if gallery.data.thumbnail %}
           <img src="{{ gallery.data.thumbnail }}" alt="{{ gallery.data.title }}" class="gallery-card-image" loading="lazy" decoding="async">
@@ -25,9 +97,63 @@ eleventyNavigation:
             {%- for tag in gallery.data.tags %}{% if tag != "galleries" %}<span class="gallery-tag">{{ tag }}</span>{% endif %}{%- endfor %}
           </div>
           {% endif %}
+          {% if gallery.data.location %}
+          <div class="gallery-card-tags">
+            {%- for loc in gallery.data.location %}<span class="gallery-tag gallery-tag--location">📍 {{ loc }}</span>{%- endfor %}
+          </div>
+          {% endif %}
           <time class="gallery-card-date" datetime="{{ gallery.date | htmlDateString }}">{{ gallery.date | readableDate }}</time>
         </div>
       </a>
     </div>
   {% endfor %}
 </div>
+
+<p class="gallery-no-results" id="gallery-no-results" hidden>No galleries match the selected filters.</p>
+
+<script>
+(function() {
+  var filters = { subject: 'all', color: 'all', period: 'all', location: 'all' };
+  var filtersEl = document.getElementById('gallery-filters');
+  var gridEl = document.getElementById('galleries-grid');
+  var noResults = document.getElementById('gallery-no-results');
+
+  filtersEl.addEventListener('click', function(e) {
+    var btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+
+    var group = btn.closest('.filter-options');
+    var filterKey = group.getAttribute('data-filter');
+    var value = btn.getAttribute('data-value');
+
+    filters[filterKey] = value;
+
+    group.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+
+    applyFilters();
+  });
+
+  function applyFilters() {
+    var cards = gridEl.querySelectorAll('.gallery-card');
+    var visibleCount = 0;
+
+    cards.forEach(function(card) {
+      var show = true;
+
+      if (filters.subject !== 'all' && card.getAttribute('data-subject') !== filters.subject) show = false;
+      if (filters.color !== 'all' && card.getAttribute('data-color') !== filters.color) show = false;
+      if (filters.period !== 'all' && card.getAttribute('data-period') !== filters.period) show = false;
+      if (filters.location !== 'all') {
+        var locs = (card.getAttribute('data-location') || '').split(',');
+        if (locs.indexOf(filters.location) === -1) show = false;
+      }
+
+      card.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+
+    noResults.hidden = visibleCount > 0;
+  }
+})();
+</script>

@@ -2,6 +2,12 @@
 title: "Color & Light"
 description: "Vivid scenes where color takes center stage — warm tones, cool hues, and everything in between."
 date: 2019-07-01
+subject: color
+dominantColor: warm
+period: "2014–2019"
+location:
+  - budapest
+  - seattle
 tags:
   - color
   - light

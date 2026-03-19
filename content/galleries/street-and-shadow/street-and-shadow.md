@@ -2,6 +2,12 @@
 title: "Street & Shadow"
 description: "Moody street scenes and shadowy corners — the quiet drama of everyday life."
 date: 2019-04-01
+subject: street
+dominantColor: dark
+period: "2013–2019"
+location:
+  - budapest
+  - seattle
 tags:
   - street
   - shadow

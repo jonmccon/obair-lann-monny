@@ -2,6 +2,12 @@
 title: "Nature & Botanicals"
 description: "Close-up studies of plants, leaves, and flowers — the organic textures and colors of the natural world."
 date: 2019-08-01
+subject: nature
+dominantColor: warm
+period: "2015–2019"
+location:
+  - pacific-northwest
+  - budapest
 tags:
   - nature
   - botanicals

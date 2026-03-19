@@ -2,6 +2,12 @@
 title: "Skies & Waterscapes"
 description: "Wide open skies, reflective waters, and the interplay of light across expansive blue horizons."
 date: 2019-09-01
+subject: landscape
+dominantColor: cool
+period: "2014–2019"
+location:
+  - pacific-northwest
+  - iceland
 tags:
   - sky
   - water

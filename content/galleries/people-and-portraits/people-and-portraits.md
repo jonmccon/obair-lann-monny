@@ -2,6 +2,12 @@
 title: "People & Portraits"
 description: "Warm-toned photographs of people, capturing candid moments and intimate portraits on film."
 date: 2019-10-01
+subject: portrait
+dominantColor: warm
+period: "2014–2019"
+location:
+  - seattle
+  - budapest
 tags:
   - people
   - portraits

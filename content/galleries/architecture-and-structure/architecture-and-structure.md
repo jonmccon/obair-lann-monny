@@ -2,6 +2,12 @@
 title: "Architecture & Structure"
 description: "Geometric lines, textured facades, and the built environment captured in rich detail."
 date: 2019-06-01
+subject: architecture
+dominantColor: neutral
+period: "2014–2019"
+location:
+  - budapest
+  - seattle
 tags:
   - architecture
   - structure
