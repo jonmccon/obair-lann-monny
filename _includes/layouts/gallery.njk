@@ -16,6 +16,12 @@ layout: layouts/base.njk
     {% if description %}
     <p class="gallery-description">{{ description }}</p>
     {% endif %}
+
+    {% if tags %}
+    <div class="gallery-tags">
+      {%- for tag in tags %}{% if tag != "galleries" %}<span class="gallery-tag">{{ tag }}</span>{% endif %}{%- endfor %}
+    </div>
+    {% endif %}
   </header>
 
   <div class="gallery-body">

@@ -1,0 +1,145 @@
+---
+title: "Soft Light & Atmosphere"
+description: "Gentle light, soft tones, and atmospheric moments captured through the lens."
+date: 2019-03-01
+subject: atmospheric
+dominantColor: neutral
+period: "2013–2017"
+location:
+  - budapest
+  - seattle
+tags:
+  - atmosphere
+  - light
+  - film
+---
+
+{% gallery "soft-light-and-atmosphere" %}
+{% galleryImage "./0024.jpg", "Soft Light & Atmosphere photo 0024" %}
+{% galleryImage "./0047.jpg", "Soft Light & Atmosphere photo 0047" %}
+{% galleryImage "./0060.jpg", "Soft Light & Atmosphere photo 0060" %}
+{% galleryImage "./0061.jpg", "Soft Light & Atmosphere photo 0061" %}
+{% galleryImage "./0081.jpg", "Soft Light & Atmosphere photo 0081" %}
+{% galleryImage "./0124.jpg", "Soft Light & Atmosphere photo 0124" %}
+{% galleryImage "./0126.jpg", "Soft Light & Atmosphere photo 0126" %}
+{% galleryImage "./0146.jpg", "Soft Light & Atmosphere photo 0146" %}
+{% galleryImage "./0170.jpg", "Soft Light & Atmosphere photo 0170" %}
+{% galleryImage "./0171.jpg", "Soft Light & Atmosphere photo 0171" %}
+{% galleryImage "./0177.jpg", "Soft Light & Atmosphere photo 0177" %}
+{% galleryImage "./0179.jpg", "Soft Light & Atmosphere photo 0179" %}
+{% galleryImage "./0183.jpg", "Soft Light & Atmosphere photo 0183" %}
+{% galleryImage "./0187.jpg", "Soft Light & Atmosphere photo 0187" %}
+{% galleryImage "./0188.jpg", "Soft Light & Atmosphere photo 0188" %}
+{% galleryImage "./0189.jpg", "Soft Light & Atmosphere photo 0189" %}
+{% galleryImage "./0248.jpg", "Soft Light & Atmosphere photo 0248" %}
+{% galleryImage "./0270.jpg", "Soft Light & Atmosphere photo 0270" %}
+{% galleryImage "./0271.jpg", "Soft Light & Atmosphere photo 0271" %}
+{% galleryImage "./0277.jpg", "Soft Light & Atmosphere photo 0277" %}
+{% galleryImage "./0284.jpg", "Soft Light & Atmosphere photo 0284" %}
+{% galleryImage "./0287.jpg", "Soft Light & Atmosphere photo 0287" %}
+{% galleryImage "./0366.jpg", "Soft Light & Atmosphere photo 0366" %}
+{% galleryImage "./0367.jpg", "Soft Light & Atmosphere photo 0367" %}
+{% galleryImage "./0368.jpg", "Soft Light & Atmosphere photo 0368" %}
+{% galleryImage "./0369.jpg", "Soft Light & Atmosphere photo 0369" %}
+{% galleryImage "./0373.jpg", "Soft Light & Atmosphere photo 0373" %}
+{% galleryImage "./0376.jpg", "Soft Light & Atmosphere photo 0376" %}
+{% galleryImage "./0377.jpg", "Soft Light & Atmosphere photo 0377" %}
+{% galleryImage "./0381.jpg", "Soft Light & Atmosphere photo 0381" %}
+{% galleryImage "./0382.jpg", "Soft Light & Atmosphere photo 0382" %}
+{% galleryImage "./0383.jpg", "Soft Light & Atmosphere photo 0383" %}
+{% galleryImage "./0386.jpg", "Soft Light & Atmosphere photo 0386" %}
+{% galleryImage "./0391.jpg", "Soft Light & Atmosphere photo 0391" %}
+{% galleryImage "./0396.jpg", "Soft Light & Atmosphere photo 0396" %}
+{% galleryImage "./0398.jpg", "Soft Light & Atmosphere photo 0398" %}
+{% galleryImage "./0418.jpg", "Soft Light & Atmosphere photo 0418" %}
+{% galleryImage "./0436.jpg", "Soft Light & Atmosphere photo 0436" %}
+{% galleryImage "./0444.jpg", "Soft Light & Atmosphere photo 0444" %}
+{% galleryImage "./0446.jpg", "Soft Light & Atmosphere photo 0446" %}
+{% galleryImage "./0453.jpg", "Soft Light & Atmosphere photo 0453" %}
+{% galleryImage "./0454.jpg", "Soft Light & Atmosphere photo 0454" %}
+{% galleryImage "./0469.jpg", "Soft Light & Atmosphere photo 0469" %}
+{% galleryImage "./0474.jpg", "Soft Light & Atmosphere photo 0474" %}
+{% galleryImage "./0475.jpg", "Soft Light & Atmosphere photo 0475" %}
+{% galleryImage "./0476.jpg", "Soft Light & Atmosphere photo 0476" %}
+{% galleryImage "./0477.jpg", "Soft Light & Atmosphere photo 0477" %}
+{% galleryImage "./0478.jpg", "Soft Light & Atmosphere photo 0478" %}
+{% galleryImage "./0479.jpg", "Soft Light & Atmosphere photo 0479" %}
+{% galleryImage "./0481.jpg", "Soft Light & Atmosphere photo 0481" %}
+{% galleryImage "./0482.jpg", "Soft Light & Atmosphere photo 0482" %}
+{% galleryImage "./0483.jpg", "Soft Light & Atmosphere photo 0483" %}
+{% galleryImage "./0485.jpg", "Soft Light & Atmosphere photo 0485" %}
+{% galleryImage "./0486.jpg", "Soft Light & Atmosphere photo 0486" %}
+{% galleryImage "./0490.jpg", "Soft Light & Atmosphere photo 0490" %}
+{% galleryImage "./0491.jpg", "Soft Light & Atmosphere photo 0491" %}
+{% galleryImage "./0492.jpg", "Soft Light & Atmosphere photo 0492" %}
+{% galleryImage "./0496.jpg", "Soft Light & Atmosphere photo 0496" %}
+{% galleryImage "./0500.jpg", "Soft Light & Atmosphere photo 0500" %}
+{% galleryImage "./0505.jpg", "Soft Light & Atmosphere photo 0505" %}
+{% galleryImage "./0508.jpg", "Soft Light & Atmosphere photo 0508" %}
+{% galleryImage "./0516.jpg", "Soft Light & Atmosphere photo 0516" %}
+{% galleryImage "./0521.jpg", "Soft Light & Atmosphere photo 0521" %}
+{% galleryImage "./0522.jpg", "Soft Light & Atmosphere photo 0522" %}
+{% galleryImage "./0523.jpg", "Soft Light & Atmosphere photo 0523" %}
+{% galleryImage "./0530.jpg", "Soft Light & Atmosphere photo 0530" %}
+{% galleryImage "./0539.jpg", "Soft Light & Atmosphere photo 0539" %}
+{% galleryImage "./0540.jpg", "Soft Light & Atmosphere photo 0540" %}
+{% galleryImage "./0541.jpg", "Soft Light & Atmosphere photo 0541" %}
+{% galleryImage "./0542.jpg", "Soft Light & Atmosphere photo 0542" %}
+{% galleryImage "./0546.jpg", "Soft Light & Atmosphere photo 0546" %}
+{% galleryImage "./0616.jpg", "Soft Light & Atmosphere photo 0616" %}
+{% galleryImage "./0617.jpg", "Soft Light & Atmosphere photo 0617" %}
+{% galleryImage "./0619.jpg", "Soft Light & Atmosphere photo 0619" %}
+{% galleryImage "./0620.jpg", "Soft Light & Atmosphere photo 0620" %}
+{% galleryImage "./0624.jpg", "Soft Light & Atmosphere photo 0624" %}
+{% galleryImage "./0626.jpg", "Soft Light & Atmosphere photo 0626" %}
+{% galleryImage "./0640.jpg", "Soft Light & Atmosphere photo 0640" %}
+{% galleryImage "./0648.jpg", "Soft Light & Atmosphere photo 0648" %}
+{% galleryImage "./0665.jpg", "Soft Light & Atmosphere photo 0665" %}
+{% galleryImage "./0666.jpg", "Soft Light & Atmosphere photo 0666" %}
+{% galleryImage "./0669.jpg", "Soft Light & Atmosphere photo 0669" %}
+{% galleryImage "./0671.jpg", "Soft Light & Atmosphere photo 0671" %}
+{% galleryImage "./0672.jpg", "Soft Light & Atmosphere photo 0672" %}
+{% galleryImage "./0673.jpg", "Soft Light & Atmosphere photo 0673" %}
+{% galleryImage "./0674.jpg", "Soft Light & Atmosphere photo 0674" %}
+{% galleryImage "./0675.jpg", "Soft Light & Atmosphere photo 0675" %}
+{% galleryImage "./0676.jpg", "Soft Light & Atmosphere photo 0676" %}
+{% galleryImage "./0678.jpg", "Soft Light & Atmosphere photo 0678" %}
+{% galleryImage "./0679.jpg", "Soft Light & Atmosphere photo 0679" %}
+{% galleryImage "./0681.jpg", "Soft Light & Atmosphere photo 0681" %}
+{% galleryImage "./0689.jpg", "Soft Light & Atmosphere photo 0689" %}
+{% galleryImage "./0694.jpg", "Soft Light & Atmosphere photo 0694" %}
+{% galleryImage "./0697.jpg", "Soft Light & Atmosphere photo 0697" %}
+{% galleryImage "./0699.jpg", "Soft Light & Atmosphere photo 0699" %}
+{% galleryImage "./0700.jpg", "Soft Light & Atmosphere photo 0700" %}
+{% galleryImage "./0701.jpg", "Soft Light & Atmosphere photo 0701" %}
+{% galleryImage "./0702.jpg", "Soft Light & Atmosphere photo 0702" %}
+{% galleryImage "./0703.jpg", "Soft Light & Atmosphere photo 0703" %}
+{% galleryImage "./0704.jpg", "Soft Light & Atmosphere photo 0704" %}
+{% galleryImage "./0705.jpg", "Soft Light & Atmosphere photo 0705" %}
+{% galleryImage "./0707.jpg", "Soft Light & Atmosphere photo 0707" %}
+{% galleryImage "./0712.jpg", "Soft Light & Atmosphere photo 0712" %}
+{% galleryImage "./0714.jpg", "Soft Light & Atmosphere photo 0714" %}
+{% galleryImage "./0715.jpg", "Soft Light & Atmosphere photo 0715" %}
+{% galleryImage "./0716.jpg", "Soft Light & Atmosphere photo 0716" %}
+{% galleryImage "./0721.jpg", "Soft Light & Atmosphere photo 0721" %}
+{% galleryImage "./0726.jpg", "Soft Light & Atmosphere photo 0726" %}
+{% galleryImage "./0727.jpg", "Soft Light & Atmosphere photo 0727" %}
+{% galleryImage "./0764.jpg", "Soft Light & Atmosphere photo 0764" %}
+{% galleryImage "./0781.jpg", "Soft Light & Atmosphere photo 0781" %}
+{% galleryImage "./0782.jpg", "Soft Light & Atmosphere photo 0782" %}
+{% galleryImage "./0832.jpg", "Soft Light & Atmosphere photo 0832" %}
+{% galleryImage "./0838.jpg", "Soft Light & Atmosphere photo 0838" %}
+{% galleryImage "./0846.jpg", "Soft Light & Atmosphere photo 0846" %}
+{% galleryImage "./0864.jpg", "Soft Light & Atmosphere photo 0864" %}
+{% galleryImage "./0865.jpg", "Soft Light & Atmosphere photo 0865" %}
+{% galleryImage "./0878.jpg", "Soft Light & Atmosphere photo 0878" %}
+{% galleryImage "./0892.jpg", "Soft Light & Atmosphere photo 0892" %}
+{% galleryImage "./0893.jpg", "Soft Light & Atmosphere photo 0893" %}
+{% galleryImage "./0899.jpg", "Soft Light & Atmosphere photo 0899" %}
+{% galleryImage "./0901.jpg", "Soft Light & Atmosphere photo 0901" %}
+{% galleryImage "./0903.jpg", "Soft Light & Atmosphere photo 0903" %}
+{% galleryImage "./0955.jpg", "Soft Light & Atmosphere photo 0955" %}
+{% galleryImage "./0960.jpg", "Soft Light & Atmosphere photo 0960" %}
+{% galleryImage "./0962.jpg", "Soft Light & Atmosphere photo 0962" %}
+{% galleryImage "./0968.jpg", "Soft Light & Atmosphere photo 0968" %}
+{% endgallery %}

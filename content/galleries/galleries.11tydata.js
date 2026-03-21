@@ -3,5 +3,5 @@ module.exports = {
 		"galleries"
 	],
 	"layout": "layouts/gallery.njk",
-	"permalink": "/galleries/{{ page.filePathStem.replace('/galleries/', '/') }}/",
+	"permalink": "/galleries/{{ page.fileSlug }}/",
 };
