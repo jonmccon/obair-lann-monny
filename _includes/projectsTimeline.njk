@@ -3,6 +3,7 @@
 {# Self-initiated projects appear above the center line, client work below #}
 
 {% set sortedProjects = collections.projects | sort(false, false, 'date') %}
+{% set colNum = 1 %}
 
 <div class="timeline-wrapper">
   <div class="project-timeline">
@@ -17,6 +18,7 @@
           <div class="timeline-cell timeline-cell-top">
             {% if pType != 'client' %}
             <a href="{{ post.url }}" class="timeline-col-link">
+              <span class="timeline-col-num">{{ colNum }}</span>
               <span class="timeline-col-title">{{ post.data.title }}</span>
               {% for image in collections.images %}
                 {% if image.url == post.url %}
@@ -37,6 +39,7 @@
           <div class="timeline-cell timeline-cell-bottom">
             {% if pType == 'client' %}
             <a href="{{ post.url }}" class="timeline-col-link">
+              <span class="timeline-col-num">{{ colNum }}</span>
               <span class="timeline-col-title">{{ post.data.title }}</span>
               {% for image in collections.images %}
                 {% if image.url == post.url %}
@@ -48,7 +51,9 @@
             {% endif %}
           </div>
         </div>
+        {% set colNum = colNum + 1 %}
       {% endif %}
     {% endfor %}
   </div>
 </div>
+
