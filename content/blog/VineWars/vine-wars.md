@@ -5,14 +5,11 @@ category: Tether
 date: 2013-11-30
 tags: 
     - second tag
+projectType: self
 images: 
 - src: "content/blog/VineWars/vw-02.png"
 - src: "content/blog/VineWars/vw-03.png"
 - src: "content/blog/VineWars/vw-04.png"
-- src: "content/blog/VineWars/vw-06.png"
-- src: "content/blog/VineWars/vw-05.png"
-- src: "content/blog/VineWars/vw-08.png"
-- src: "content/blog/VineWars/vw-07.png"
 
 ---
 

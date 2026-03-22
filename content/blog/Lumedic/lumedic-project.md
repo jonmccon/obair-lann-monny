@@ -3,6 +3,7 @@ title: Lumedic
 description: Onchain medical records
 category: Lumedic
 bgColor: gray
+projectType: client
 date: 2021-01-01
 featured: true
 tags: second tag
@@ -10,14 +11,6 @@ images:
 - src: "./content/blog/Lumedic/lum-10.png"
 - src: "./content/blog/Lumedic/lum-80.png"
 - src: "./content/blog/Lumedic/lum-90.png"
-- src: "./content/blog/Lumedic/lum-110.png"
-- src: "./content/blog/Lumedic/lum-120.png"
-- src: "./content/blog/Lumedic/lum-130.png"
-- src: "./content/blog/Lumedic/lum-20.png"
-- src: "./content/blog/Lumedic/lum-30.png"
-- src: "./content/blog/Lumedic/lum-40.png"
-- src: "./content/blog/Lumedic/lum-70.png"
-- src: "./content/blog/Lumedic/lum-55.png"
 ---
 
 Covid-19 Passport

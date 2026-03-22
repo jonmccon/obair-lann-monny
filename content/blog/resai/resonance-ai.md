@@ -3,6 +3,7 @@ title: Resonance AI
 description: Teaching the machine to watch TV
 category: Resonance AI
 bgColor: black
+projectType: client
 date: 2021-08-01
 tags: 
     - second tag
@@ -10,10 +11,6 @@ images:
     - src: "./content/blog/resai/res-10.png"
     - src: "./content/blog/resai/res-20.png"
     - src: "./content/blog/resai/res-30.png"
-    - src: "./content/blog/resai/res-40.png"
-    - src: "./content/blog/resai/res-50.png"
-    - src: "./content/blog/resai/res-60.png"
-    - src: "./content/blog/resai/res-70.png"
 ---
 
 [] two versions of the copy

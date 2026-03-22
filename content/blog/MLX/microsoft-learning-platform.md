@@ -5,12 +5,11 @@ category: Tether
 date: 2013-06-01
 tags: 
     - xxxxxxxxx
+projectType: client
 images: 
 - src: "content/blog/MLX/MLX-01.png"
 - src: "content/blog/MLX/MLX-02.png"
 - src: "content/blog/MLX/MLX-03.png"
-- src: "content/blog/MLX/MLX-04.png"
-- src: "content/blog/MLX/MLX-05.png"
 ---
 
 

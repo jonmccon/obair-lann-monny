@@ -5,6 +5,7 @@ category: Stripes
 date: 2012-03-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/Bakedin/bi-01.png"
 - src: "content/blog/Bakedin/bi-02.png"

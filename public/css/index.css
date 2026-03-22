@@ -373,11 +373,183 @@ img {
 
 /* Homepage projects section under the fold */
 .homepage-projects {
-	padding: 2rem 1.5rem;
+	padding: 0;
 }
 
 .homepage-projects h2 {
 	margin-bottom: 1.5rem;
+}
+
+/* ===== Project Timeline ===== */
+.timeline-wrapper {
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: thin;
+	scrollbar-color: #ccc transparent;
+}
+
+.timeline-wrapper::-webkit-scrollbar {
+	height: 6px;
+}
+
+.timeline-wrapper::-webkit-scrollbar-thumb {
+	background: #ccc;
+	border-radius: 3px;
+}
+
+.project-timeline {
+	display: flex;
+	align-items: stretch;
+	min-width: min-content;
+}
+
+/* Each column in the timeline */
+.timeline-col {
+	flex: 0 0 auto;
+	display: grid;
+	grid-template-rows: 1fr auto 1fr;
+	min-width: 140px;
+	max-width: 240px;
+	width: min-content;
+	border-right: 1px solid #e0e0e0;
+	background: #fff;
+}
+
+.timeline-col:first-child {
+	border-left: 1px solid #e0e0e0;
+}
+
+/* Background color variants for timeline columns */
+.timeline-col.tl-bg-white {
+	background-color: #ffffff;
+}
+
+.timeline-col.tl-bg-gray {
+	background-color: #e6e6e6;
+}
+
+.timeline-col.tl-bg-black {
+	background-color: #1a1a1a;
+}
+
+.timeline-col.tl-bg-black .timeline-col-title,
+.timeline-col.tl-bg-black .timeline-col-synopsis {
+	color: #e0e0e0;
+}
+
+.timeline-col.tl-bg-black .timeline-axis-marker {
+	background: #333;
+	border-color: #555;
+}
+
+.timeline-col.tl-bg-black .timeline-year {
+	color: #ccc;
+}
+
+/* Top cell: self-initiated projects, content aligns to bottom (grows upward from axis) */
+.timeline-cell-top {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	min-height: 60px;
+}
+
+/* Bottom cell: client projects, content aligns to top (grows downward from axis) */
+.timeline-cell-bottom {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	min-height: 60px;
+}
+
+/* Center axis marker */
+.timeline-axis-marker {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.25rem 0.5rem;
+	background: #f5f5f5;
+	border-top: 2px solid #333;
+	border-bottom: 2px solid #333;
+	min-height: 24px;
+}
+
+.timeline-year {
+	font-size: 0.7rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	color: #555;
+	white-space: nowrap;
+}
+
+/* Link wrapper for project content */
+.timeline-col-link {
+	display: flex;
+	flex-direction: column;
+	text-decoration: none;
+	color: inherit;
+	padding: 0.5rem;
+	transition: background-color 0.15s ease;
+}
+
+.timeline-col-link:hover {
+	background-color: rgba(0, 0, 0, 0.03);
+}
+
+.tl-bg-black .timeline-col-link:hover {
+	background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Project title */
+.timeline-col-title {
+	display: block;
+	font-size: 0.75rem;
+	font-weight: 700;
+	line-height: 1.2;
+	margin-bottom: 0.35rem;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+}
+
+/* Project images */
+.timeline-col-img {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: 160px;
+	object-fit: cover;
+	margin-bottom: 0.25rem;
+}
+
+/* Synopsis text */
+.timeline-col-synopsis {
+	display: block;
+	font-size: 0.65rem;
+	line-height: 1.4;
+	color: #666;
+	margin-top: 0.25rem;
+}
+
+/* Mobile: timeline scrolls horizontally, columns shrink */
+@media (max-width: 768px) {
+	.timeline-col {
+		min-width: 110px;
+		max-width: 180px;
+	}
+
+	.timeline-col-img {
+		max-height: 100px;
+	}
+
+	.timeline-col-title {
+		font-size: 0.65rem;
+	}
+
+	.timeline-col-synopsis {
+		font-size: 0.6rem;
+	}
 }
 
 /* Landing image grid - thumbnail strip */

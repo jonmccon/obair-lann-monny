@@ -5,6 +5,7 @@ category: Designboom
 date: 2011-08-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/Yakitate/yaki-01.jpeg"
 - src: "content/blog/Yakitate/yaki-02.jpeg"

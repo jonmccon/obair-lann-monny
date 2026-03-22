@@ -5,6 +5,7 @@ category: WWU
 date: 2010-02-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/klipsun/klipsun-01.png"
 - src: "content/blog/klipsun/klipsun-02.jpeg"

@@ -3,6 +3,7 @@ title: Multimodal Video Chat Services
 description: The web meets the desktop meets the telephone
 category: Google
 bgColor: white
+projectType: client
 date: 2018-06-01
 tags: 
     - xxxxxxxxx
@@ -10,9 +11,6 @@ images:
 - src: "content/blog/Google-Meet/goog-01.png"
 - src: "content/blog/Google-Meet/goog-02.png"
 - src: "content/blog/Google-Meet/goog-03.png"
-- src: "content/blog/Google-Meet/goog-04.png"
-- src: "content/blog/Google-Meet/goog-05.png"
-- src: "content/blog/Google-Meet/goog-06.png"
 ---
 
 [] probably rewrite this

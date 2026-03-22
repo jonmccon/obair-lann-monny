@@ -5,15 +5,11 @@ category: Blackspot
 date: 2011-09-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/blackspot-collective/bs-01.png"
 - src: "content/blog/blackspot-collective/bs-02.png"
 - src: "content/blog/blackspot-collective/bs-03.png"
-- src: "content/blog/blackspot-collective/bs-04.png"
-- src: "content/blog/blackspot-collective/bs-05.png"
-- src: "content/blog/blackspot-collective/bs-06.png"
-- src: "content/blog/blackspot-collective/bs-07.png"
-- src: "content/blog/blackspot-collective/bs-08.png"
 ---
 
 
