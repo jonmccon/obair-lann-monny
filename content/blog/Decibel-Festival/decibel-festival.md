@@ -5,19 +5,11 @@ category: Decibel
 date: 2013-08-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/Decibel-Festival/db-04.png"
 - src: "content/blog/Decibel-Festival/db-05.png"
 - src: "content/blog/Decibel-Festival/db-01.png"
-- src: "content/blog/Decibel-Festival/db-02.png"
-- src: "content/blog/Decibel-Festival/db-03.png"
-- src: "content/blog/Decibel-Festival/db-06.png"
-- src: "content/blog/Decibel-Festival/db-07.png"
-- src: "content/blog/Decibel-Festival/db-08.png"
-- src: "content/blog/Decibel-Festival/db-09.png"
-- src: "content/blog/Decibel-Festival/db-10.png"
-- src: "content/blog/Decibel-Festival/db-11.png"
-- src: "content/blog/Decibel-Festival/db-12.jpeg"
 ---
 
 [] rewrite that subtitle

@@ -6,6 +6,8 @@ date:
 tags: 
     - boopbboop
 draft: true
+projectType: client
+timelineExclude: true
 images: 
 # - src: "content/blog/140_Google-Gemini/#####"
 ---

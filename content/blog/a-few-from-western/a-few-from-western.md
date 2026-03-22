@@ -5,12 +5,11 @@ category: WWU
 date: 2010-06-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/a-few-from-western/afew-01.png"
 - src: "content/blog/a-few-from-western/afew-02.png"
 - src: "content/blog/a-few-from-western/afew-03.png"
-- src: "content/blog/a-few-from-western/afew-04.png"
-- src: "content/blog/a-few-from-western/afew-00.jpg"
 ---
 
 ## In the North, near an arboretum strewn with brick, was a small tower dedicated to learning the craft of applied design thinking. Problem was, no one ventured up there much.

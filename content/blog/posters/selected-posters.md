@@ -5,17 +5,11 @@ category: Publicity Center
 date: 2010-01-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/posters/post-01.png"
 - src: "content/blog/posters/post-02.png"
 - src: "content/blog/posters/post-03.png"
-- src: "content/blog/posters/post-10.jpeg"
-- src: "content/blog/posters/post-06.png"
-- src: "content/blog/posters/post-07.png"
-- src: "content/blog/posters/post-05.png"
-- src: "content/blog/posters/post-04.png"
-- src: "content/blog/posters/post-08.jpeg"
-- src: "content/blog/posters/post-09.jpeg"
 ---
 
 Posters

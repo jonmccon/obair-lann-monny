@@ -5,32 +5,11 @@ category: Providence
 date: 2018-05-01
 tags: 
     - second tag
+projectType: client
 images: 
 - src: "content/blog/Providence/prov-01.png"
 - src: "content/blog/Providence/prov-02.png"
 - src: "content/blog/Providence/prov-03.png"
-- src: "content/blog/Providence/prov-04.png"
-- src: "content/blog/Providence/prov-05.png"
-- src: "content/blog/Providence/prov-06.png"
-- src: "content/blog/Providence/prov-07.png"
-- src: "content/blog/Providence/prov-08.png"
-- src: "content/blog/Providence/prov-09.png"
-- src: "content/blog/Providence/prov-10.png"
-- src: "content/blog/Providence/prov-11.png"
-- src: "content/blog/Providence/prov-29.png"
-- src: "content/blog/Providence/prov-12.png"
-- src: "content/blog/Providence/prov-13.png"
-- src: "content/blog/Providence/prov-16.png"
-- src: "content/blog/Providence/prov-17.png"
-- src: "content/blog/Providence/prov-20.png"
-- src: "content/blog/Providence/prov-21.png"
-- src: "content/blog/Providence/prov-25.png"
-- src: "content/blog/Providence/prov-26.png"
-- src: "content/blog/Providence/prov-28.jpg"
-- src: "content/blog/Providence/prov-27.jpg"
-- src: "content/blog/Providence/prov-30.jpg"
-- src: "content/blog/Providence/prov-31.jpg"
-- src: "content/blog/Providence/prov-32.jpg"
 ---
 
 Providence & Swedish

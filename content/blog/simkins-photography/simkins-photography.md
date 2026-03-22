@@ -5,6 +5,7 @@ category: WWU
 date: 2010-04-01
 tags: 
     - xxxxxxxxx
+projectType: client
 images: 
 - src: "content/blog/simkins-photography/sim-01.png"
 ---

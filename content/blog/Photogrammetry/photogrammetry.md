@@ -4,15 +4,13 @@ description: Photoshopping in three dimensions
 category: Plot Quickens
 date: 2024-06-01
 featured: true
+projectType: self
 tags: 
     - second tag
 images: 
 - src: "content/blog/Photogrammetry/plot-30.png"
 - src: "content/blog/Photogrammetry/plot-110.png"
 - src: "content/blog/Photogrammetry/plot-02.jpeg"
-- src: "content/blog/Photogrammetry/plot-15.jpeg"
-- src: "content/blog/Photogrammetry/plot-01.jpg"
-- src: "content/blog/Photogrammetry/plot-00.jpg"
 ---
 
 

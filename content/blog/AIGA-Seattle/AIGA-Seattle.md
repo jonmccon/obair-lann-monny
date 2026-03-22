@@ -5,15 +5,11 @@ category: AIGA
 date: 2014-09-30
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/AIGA-Seattle/aiga-01.png"
 - src: "content/blog/AIGA-Seattle/aiga-01.png"
 - src: "content/blog/AIGA-Seattle/aiga-02.png"
-- src: "content/blog/AIGA-Seattle/aiga-03.png"
-- src: "content/blog/AIGA-Seattle/aiga-04.png"
-- src: "content/blog/AIGA-Seattle/aiga-05.png"
-- src: "content/blog/AIGA-Seattle/aiga-06.png"
-- src: "content/blog/AIGA-Seattle/aiga-07.png"
 ---
 
 

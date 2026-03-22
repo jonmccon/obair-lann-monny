@@ -5,13 +5,11 @@ category: WWU
 date: 2010-05-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/SSLS/ssls-01.png"
 - src: "content/blog/SSLS/ssls-02.png"
 - src: "content/blog/SSLS/ssls-03.png"
-- src: "content/blog/SSLS/ssls-04.png"
-- src: "content/blog/SSLS/ssls-05.png"
-- src: "content/blog/SSLS/ssls-06.png"
 ---
 
 The culture of design school is often described as immersion training. No one going in knows what's going to happen and the results are quite relieving & stunning if you join the club.

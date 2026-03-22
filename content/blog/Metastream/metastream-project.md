@@ -5,28 +5,11 @@ category: Metastream
 date: 2019-08-01
 tags: 
     - second tag
+projectType: self
 images: 
 - src: "./content/blog/Metastream/ms-20.png"
 - src: "./content/blog/Metastream/ms-21.png"
 - src: "./content/blog/Metastream/ms-23.png"
-- src: "./content/blog/Metastream/ms-24.png"
-- src: "./content/blog/Metastream/ms-30.png"
-- src: "./content/blog/Metastream/ms-35.png"
-- src: "./content/blog/Metastream/ms-40.png"
-- src: "./content/blog/Metastream/ms-50.png"
-- src: "./content/blog/Metastream/ms-60.png"
-- src: "./content/blog/Metastream/ms-70.png"
-- src: "./content/blog/Metastream/ms-75.png"
-- src: "./content/blog/Metastream/ms-80.png"
-- src: "./content/blog/Metastream/ms-85.png"
-- src: "./content/blog/Metastream/ms-86.png"
-- src: "./content/blog/Metastream/ms-90.png"
-- src: "./content/blog/Metastream/ms-95.png"
-- src: "./content/blog/Metastream/ms-100.png"
-- src: "./content/blog/Metastream/ms-110.png"
-- src: "./content/blog/Metastream/ms-120.png"
-- src: "./content/blog/Metastream/ms-125.png"
-- src: "./content/blog/Metastream/ms-130.png"
 ---
 
 [] anchor to imags?

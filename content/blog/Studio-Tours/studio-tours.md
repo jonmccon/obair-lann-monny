@@ -5,6 +5,7 @@ category: AIGA
 date: 2014-05-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/Studio-Tours/tours-01.png"
 - src: "content/blog/Studio-Tours/tours-02.png"

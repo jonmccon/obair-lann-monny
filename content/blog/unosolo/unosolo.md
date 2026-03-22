@@ -5,6 +5,7 @@ category: WWU
 date: 2009-12-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/unosolo/un-01.png"
 - src: "content/blog/unosolo/un-02.png"

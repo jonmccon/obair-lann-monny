@@ -5,17 +5,11 @@ category: WWU
 date: 2010-06-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/TFiF/TFiF-01.png"
 - src: "content/blog/TFiF/TFiF-02.png"
 - src: "content/blog/TFiF/TFiF-03.png"
-- src: "content/blog/TFiF/TFiF-06.png"
-- src: "content/blog/TFiF/TFiF-04.png"
-- src: "content/blog/TFiF/TFiF-05.png"
-- src: "content/blog/TFiF/TFiF-07.png"
-- src: "content/blog/TFiF/TFiF-08.png"
-- src: "content/blog/TFiF/TFiF-09.png"
-- src: "content/blog/TFiF/TFiF-10.png"
 ---
 
 After finishing my BA courses in graphic design and branding ahead of my class, I set off on an additional year of independent study focusing on the interplay of  traditional and new media. 

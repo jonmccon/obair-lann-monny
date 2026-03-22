@@ -5,6 +5,7 @@ category: XBOX
 date: 2014-04-01
 tags: 
     - xxxxxxxxx
+projectType: client
 images: 
 - src: "content/blog/Xbox-One/xbox-01.png"
 - src: "content/blog/Xbox-One/xbox-02.png"

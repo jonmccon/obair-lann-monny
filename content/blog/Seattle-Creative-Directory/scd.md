@@ -5,12 +5,11 @@ category: Directory
 date: 2021-06-01
 tags: 
     - second tag
+projectType: self
 images: 
 - src: "content/blog/Seattle-Creative-Directory/scd-01.png"
 - src: "content/blog/Seattle-Creative-Directory/scd-02.png"
 - src: "content/blog/Seattle-Creative-Directory/scd-03.png"
-- src: "content/blog/Seattle-Creative-Directory/scd-04.png"
-- src: "content/blog/Seattle-Creative-Directory/scd-05.png"
 
 ---
 

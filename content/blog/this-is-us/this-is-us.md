@@ -5,6 +5,7 @@ category: WWU
 date: 2009-06-01
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/this-is-us/thisUs-01.png"
 ---

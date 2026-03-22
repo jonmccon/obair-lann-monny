@@ -5,14 +5,11 @@ category: Publicity Center
 date: 2010-03-01
 tags: 
     - xxxxxxxxx
+projectType: client
 images: 
 - src: "content/blog/deanReport/dr-01.jpeg"
 - src: "content/blog/deanReport/dr-02.jpeg"
 - src: "content/blog/deanReport/dr-03.jpeg"
-- src: "content/blog/deanReport/dr-04.jpeg"
-- src: "content/blog/deanReport/dr-05.jpeg"
-- src: "content/blog/deanReport/dr-06.jpeg"
-- src: "content/blog/deanReport/dr-07.png"
 ---
 
 Months of investigative journalism into the history and trends of culture at the student union building on WWU's north campus, scouring photo archives and directing additional photo shoots 

@@ -5,16 +5,11 @@ category: AIGA
 date: 2012-11-15
 tags: 
     - xxxxxxxxx
+projectType: self
 images: 
 - src: "content/blog/PoF/pof-01.png"
 - src: "content/blog/PoF/pof-02.jpeg"
 - src: "content/blog/PoF/pof-03.jpeg"
-- src: "content/blog/PoF/pof-04.jpeg"
-- src: "content/blog/PoF/pof-05.jpg"
-- src: "content/blog/PoF/pof-06.jpg"
-- src: "content/blog/PoF/pof-07.jpeg"
-- src: "content/blog/PoF/pof-08.jpeg"
-- src: "content/blog/PoF/pof-09.jpeg"
 ---
 
 [] 2012 not listed on the shutterstock page! reach out to them
