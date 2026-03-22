@@ -2,6 +2,20 @@
 {# Projects are arranged as vertical columns in a horizontal timeline #}
 {# Self-initiated projects appear above the center line, client work below #}
 
+{# Macro for rendering project content inside a timeline cell #}
+{% macro projectContent(post, images, num) %}
+<a href="{{ post.url }}" class="timeline-col-link">
+  <span class="timeline-col-num">{{ num }}</span>
+  <span class="timeline-col-title">{{ post.data.title }}</span>
+  {% for image in images %}
+    {% if image.url == post.url %}
+      <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy" class="timeline-col-img">
+    {% endif %}
+  {% endfor %}
+  <span class="timeline-col-synopsis">{{ post.data.description }}</span>
+</a>
+{% endmacro %}
+
 {% set sortedProjects = collections.projects | sort(false, false, 'date') %}
 {% set colNum = 1 %}
 
@@ -17,16 +31,7 @@
           {# Top cell — self-initiated project content grows upward from the axis #}
           <div class="timeline-cell timeline-cell-top">
             {% if pType != 'client' %}
-            <a href="{{ post.url }}" class="timeline-col-link">
-              <span class="timeline-col-num">{{ colNum }}</span>
-              <span class="timeline-col-title">{{ post.data.title }}</span>
-              {% for image in collections.images %}
-                {% if image.url == post.url %}
-                  <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy" class="timeline-col-img">
-                {% endif %}
-              {% endfor %}
-              <span class="timeline-col-synopsis">{{ post.data.description }}</span>
-            </a>
+              {{ projectContent(post, collections.images, colNum) }}
             {% endif %}
           </div>
 
@@ -38,16 +43,7 @@
           {# Bottom cell — client project content grows downward from the axis #}
           <div class="timeline-cell timeline-cell-bottom">
             {% if pType == 'client' %}
-            <a href="{{ post.url }}" class="timeline-col-link">
-              <span class="timeline-col-num">{{ colNum }}</span>
-              <span class="timeline-col-title">{{ post.data.title }}</span>
-              {% for image in collections.images %}
-                {% if image.url == post.url %}
-                  <img src="{{ image.src }}" alt="{{ image.alt }}" loading="lazy" class="timeline-col-img">
-                {% endif %}
-              {% endfor %}
-              <span class="timeline-col-synopsis">{{ post.data.description }}</span>
-            </a>
+              {{ projectContent(post, collections.images, colNum) }}
             {% endif %}
           </div>
         </div>

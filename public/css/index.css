@@ -399,7 +399,7 @@ img {
 	display: flex;
 	align-items: stretch;
 	min-width: min-content;
-	min-height: 80vh;
+	min-height: 720px;
 }
 
 /* Each column in the timeline */
@@ -539,7 +539,7 @@ img {
 /* Mobile: timeline scrolls horizontally, columns shrink */
 @media (max-width: 768px) {
 	.project-timeline {
-		min-height: 60vh;
+		min-height: 480px;
 	}
 
 	.timeline-col {
