@@ -1,0 +1,220 @@
+/* Stacked Papers Preview Component for Project Listings */
+
+/* Grid layout for stacked previews */
+.projects-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 3rem 2rem;
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .projects-stack-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 2rem 1.5rem;
+  }
+}
+
+/* Individual stack preview link */
+.project-stack-preview {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.project-stack-preview:hover {
+  transform: translateY(-4px);
+}
+
+/* Container for mini stack */
+.stack-mini-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Mini papers container */
+.stack-mini-papers {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3/4;
+  perspective: 600px;
+}
+
+/* Individual mini paper */
+.mini-paper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 100%;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .mini-paper {
+    background: #1a1a1a;
+    border: 1px solid var(--color-gray-20);
+  }
+}
+
+/* Stacking effect - each paper slightly offset */
+.mini-paper-1 {
+  z-index: 4;
+  transform: translateX(-50%) translateY(0) rotate(0deg);
+}
+
+.mini-paper-2 {
+  z-index: 3;
+  transform: translateX(-50%) translateY(-8px) rotate(-2deg);
+}
+
+.mini-paper-3 {
+  z-index: 2;
+  transform: translateX(-50%) translateY(-16px) rotate(1deg);
+}
+
+.mini-paper-4 {
+  z-index: 1;
+  transform: translateX(-50%) translateY(-24px) rotate(-1deg);
+  opacity: 0.8;
+  background: var(--color-gray-20);
+}
+
+/* Hover effect - spread papers slightly */
+.project-stack-preview:hover .mini-paper-1 {
+  transform: translateX(-50%) translateY(0) rotate(-1deg);
+}
+
+.project-stack-preview:hover .mini-paper-2 {
+  transform: translateX(-50%) translateY(-10px) rotate(-3deg);
+}
+
+.project-stack-preview:hover .mini-paper-3 {
+  transform: translateX(-50%) translateY(-20px) rotate(2deg);
+}
+
+.project-stack-preview:hover .mini-paper-4 {
+  transform: translateX(-50%) translateY(-30px) rotate(-2deg);
+}
+
+/* Mini paper content */
+.mini-paper-content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mini-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  color: var(--text-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.mini-date {
+  font-size: 0.75rem;
+  color: var(--color-gray-50);
+  font-style: italic;
+}
+
+.mini-description {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: var(--text-color);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.mini-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.mini-tag {
+  font-size: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  background: var(--text-color-link);
+  color: white;
+  border-radius: 3px;
+  text-transform: capitalize;
+}
+
+.mini-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Title below stack */
+.stack-preview-title {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-color);
+  line-height: 1.3;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.project-stack-preview:hover .stack-preview-title {
+  color: var(--text-color-link-active);
+}
+
+/* Demo stack special styling */
+.project-stack-demo .mini-paper {
+  box-shadow: 0 3px 10px rgba(33, 150, 243, 0.3);
+}
+
+.project-stack-demo:hover .mini-paper {
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.4);
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .mini-paper,
+  .project-stack-preview {
+    transition: none;
+  }
+  
+  .project-stack-preview:hover {
+    transform: none;
+  }
+}
+
+/* View Transition API support */
+@supports (view-transition-name: auto) {
+  .project-stack-preview {
+    view-transition-name: var(--vt-name);
+  }
+}

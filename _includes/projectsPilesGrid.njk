@@ -1,0 +1,107 @@
+{# Piled projects component with tag filtering #}
+{# Displays projects as randomly stacked piles grouped by tags #}
+
+{# Predefined rotation, scale, and offset patterns for visual variety #}
+{# These create a pseudo-random organic stacking effect #}
+{% set rotationPattern = [2, -3, 1, -2, 3, -1, 4, -4] %}
+{% set scalePattern = [0.85, 0.9, 0.95, 1.0, 0.88, 0.92] %}
+{% set offsetPattern = [5, -5, 8, -8, 3, -3, 10, -10] %}
+
+<div class="projects-piles-container">
+  {# Tag filter buttons #}
+  <div class="tag-filter-bar">
+    <button class="tag-filter-button active" data-tag="all">All Projects</button>
+    {% set allTags = collections.projects | getAllTags | filterTagList | sort %}
+    {% for tag in allTags %}
+      <button class="tag-filter-button" data-tag="{{ tag | slugify }}">{{ tag }}</button>
+    {% endfor %}
+  </div>
+
+  {# Projects piles grid #}
+  <div class="projects-piles-grid">
+    {% for post in collections.projects | reverse %}
+      {# Gather images for this post #}
+      {% set projectImages = [] %}
+      {% for image in collections.images %}
+        {% if image.url == post.url %}
+          {% set projectImages = projectImages.concat([image.src]) %}
+        {% endif %}
+      {% endfor %}
+      
+      {% if projectImages.length > 0 %}
+        {# Get tags for filtering #}
+        {% set postTags = post.data.tags | filterTagList %}
+        {% set tagClasses = "" %}
+        {% for tag in postTags %}
+          {% set tagClasses = tagClasses + " tag-" + (tag | slugify) %}
+        {% endfor %}
+        
+        <div class="project-pile" data-tags="{{ tagClasses }}">
+          <a href="{{ post.url }}" class="pile-link" data-project-link>
+            <div class="pile-container">
+              {# Stack images using pattern arrays for visual variety #}
+              {# Shows up to 5 images to create a substantial pile #}
+              <div class="pile-images">
+                {% for img in projectImages | head(5) %}
+                  {% set rotIdx = loop.index0 % 8 %}
+                  {% set scaleIdx = loop.index0 % 6 %}
+                  {% set offsetIdx = loop.index0 % 8 %}
+                  
+                  <div class="pile-image" 
+                       style="
+                         --rotation: {{ rotationPattern[rotIdx] }}deg;
+                         --scale: {{ scalePattern[scaleIdx] }};
+                         --offset-x: {{ offsetPattern[offsetIdx] }}px;
+                         --offset-y: {{ offsetPattern[(offsetIdx + 3) % 8] }}px;
+                         --z-index: {{ 10 - loop.index0 }};
+                       ">
+                    <img src="{{ img }}" alt="{{ post.data.title }}" loading="lazy">
+                  </div>
+                {% endfor %}
+              </div>
+              
+              {# Belly band with project name #}
+              <div class="pile-belly-band">
+                <span class="pile-title">{{ post.data.title }}</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+// Tag filtering functionality
+(function() {
+  'use strict';
+  
+  const filterButtons = document.querySelectorAll('.tag-filter-button');
+  const projectPiles = document.querySelectorAll('.project-pile');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const selectedTag = this.dataset.tag;
+      
+      // Update active button
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Filter projects
+      projectPiles.forEach(pile => {
+        if (selectedTag === 'all') {
+          pile.style.display = '';
+        } else {
+          const pileTags = pile.dataset.tags;
+          if (pileTags.includes('tag-' + selectedTag)) {
+            pile.style.display = '';
+          } else {
+            pile.style.display = 'none';
+          }
+        }
+      });
+    });
+  });
+})();
+</script>

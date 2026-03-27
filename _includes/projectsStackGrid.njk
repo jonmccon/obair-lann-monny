@@ -1,0 +1,52 @@
+{# Grid component for displaying projects as stacked papers #}
+{# Usage: {% include "projectsStackGrid.njk" %} #}
+
+{% from "projectStackPreview.njk" import stackPreview %}
+
+<div class="projects-stack-grid">
+  {# First, add the demo stack as the first item #}
+  <a href="/stacks/demo/" class="project-stack-preview project-stack-demo" data-project-link>
+    <div class="stack-mini-container">
+      <div class="stack-mini-papers">
+        <div class="mini-paper mini-paper-1">
+          <div class="mini-paper-content">
+            <h3 class="mini-title">Stacked Layout Demo</h3>
+            <time class="mini-date">2026</time>
+          </div>
+        </div>
+        <div class="mini-paper mini-paper-2">
+          <div class="mini-paper-content">
+            <p class="mini-description">Interactive stacked papers presentation system</p>
+          </div>
+        </div>
+        <div class="mini-paper mini-paper-3">
+          <div class="mini-paper-content">
+            <div class="mini-tags">
+              <span class="mini-tag">layout</span>
+              <span class="mini-tag">interactive</span>
+            </div>
+          </div>
+        </div>
+        <div class="mini-paper mini-paper-4"></div>
+      </div>
+      <div class="stack-preview-title">
+        Stacked Layout Demo
+      </div>
+    </div>
+  </a>
+  
+  {# Then add all projects #}
+  {% for post in collections.projects | reverse %}
+    {# Gather images for this post #}
+    {% set projectImages = [] %}
+    {% for image in collections.images %}
+      {% if image.url == post.url %}
+        {% set projectImages = projectImages.concat([image.src]) %}
+      {% endif %}
+    {% endfor %}
+    
+    {% if projectImages.length > 0 or post.data.description %}
+      {{ stackPreview(post, projectImages) }}
+    {% endif %}
+  {% endfor %}
+</div>

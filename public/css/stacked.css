@@ -1,0 +1,323 @@
+/* Stacked Papers Layout CSS */
+
+:root {
+  --paper-width: min(800px, 90vw);
+  --paper-offset: 20px;
+  --paper-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Screen reader only class for accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Main container */
+.stacked-container {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Papers container */
+.stacked-papers {
+  position: relative;
+  width: var(--paper-width);
+  min-height: 500px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+/* Individual paper */
+.paper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: var(--paper-shadow);
+  padding: 2rem;
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center center;
+  z-index: 1;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .paper {
+    background: #1a1a1a;
+    border: 1px solid var(--color-gray-20);
+  }
+}
+
+/* Paper header */
+.paper-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--color-gray-20);
+  padding-bottom: 1rem;
+}
+
+.paper-header h2 {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+}
+
+.paper-date {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-gray-50);
+  font-style: italic;
+}
+
+/* Paper content */
+.paper-body {
+  margin-bottom: 3rem;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.paper-body p {
+  margin-bottom: 1rem;
+}
+
+.paper-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+  border-radius: 4px;
+}
+
+/* Flip button */
+.flip-button {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--text-color-link);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.flip-button:hover {
+  background: var(--text-color-link-active);
+  transform: scale(1.05);
+}
+
+.flip-button:focus {
+  outline: 2px solid var(--text-color-link-active);
+  outline-offset: 2px;
+}
+
+/* Paper states */
+
+/* Stacked papers (behind current) - visual depth effect */
+.paper.stacked {
+  z-index: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(calc(var(--paper-offset) * -2)) rotate(0.5deg);
+}
+
+/* Active (current) paper */
+.paper.active {
+  z-index: 100;
+  transform: translateX(-50%) translateY(0) rotate(0deg);
+  pointer-events: auto;
+}
+
+/* Flipped papers */
+.paper.flipped {
+  transform: translateX(-150%) translateY(-50px) rotate(-15deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hidden papers (already viewed) */
+.paper.hidden {
+  transform: translateX(-200%) translateY(0) rotate(0deg);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Navigation controls */
+.stacked-controls {
+  position: fixed;
+  top: 120px;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--paper-shadow);
+  z-index: 1000;
+}
+
+@media (prefers-color-scheme: dark) {
+  .stacked-controls {
+    background: rgba(26, 26, 26, 0.95);
+    border: 1px solid var(--color-gray-20);
+  }
+}
+
+/* Control buttons */
+.control-button {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: var(--text-color-link);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.control-button:hover:not(:disabled) {
+  background: var(--text-color-link-active);
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-button:focus {
+  outline: 2px solid var(--text-color-link-active);
+  outline-offset: 2px;
+}
+
+.control-button:disabled {
+  background: var(--color-gray-50);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.control-button.reset {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+}
+
+/* Position indicator */
+.position-indicator {
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--text-color);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .stacked-container {
+    padding: 1rem 0.5rem;
+    min-height: 70vh;
+  }
+
+  .stacked-papers {
+    min-height: 400px;
+    --paper-offset: 15px;
+  }
+
+  .paper {
+    padding: 1.5rem;
+  }
+
+  .paper-header h2 {
+    font-size: 1.5rem;
+  }
+
+  /* Move controls to bottom on mobile */
+  .stacked-controls {
+    position: fixed;
+    top: auto;
+    bottom: 1rem;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: row;
+    padding: 0.75rem;
+  }
+
+  .control-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .control-button.reset {
+    margin-top: 0;
+    margin-left: 0.5rem;
+  }
+
+  .position-indicator {
+    padding: 0 0.75rem;
+    order: -1;
+    width: 60px;
+  }
+}
+
+/* Animations for smooth transitions */
+@keyframes slideIn {
+  from {
+    transform: translateX(-50%) translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+.paper.active {
+  animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .paper {
+    border: 2px solid currentColor;
+  }
+  
+  .control-button:disabled {
+    opacity: 0.3;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .paper,
+  .control-button,
+  .flip-button {
+    transition: none;
+    animation: none;
+  }
+  
+  .paper.active {
+    animation: none;
+  }
+}
