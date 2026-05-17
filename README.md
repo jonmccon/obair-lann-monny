@@ -160,3 +160,100 @@ If your site enforces a [Content Security Policy](https://developer.mozilla.org/
 
 1. In `base.njk`, remove `<style>{% getBundle "css" %}</style>` and uncomment `<link rel="stylesheet" href="{% getBundleFileUrl "css" %}">`
 2. Configure the server with the CSP directive `style-src: 'unsafe-inline'` (less secure).
+
+## Obsidian publishing workflow
+
+This repository now includes an Obsidian bridge so your vault can be your authoring source.
+
+### 1) Vault folder mapping
+
+In your Obsidian vault root, create:
+
+- `blog/` for published projects/pages
+- `inProgress/` for process or draft notes
+
+Set:
+
+```bash
+export OBSIDIAN_VAULT_PATH=/absolute/path/to/your/vault
+```
+
+If `OBSIDIAN_VAULT_PATH` is not set, scripts default to `./obsidian/vault`.
+
+### 2) Required frontmatter for every note
+
+Every markdown note must include:
+
+- `title`
+- `description`
+- `date`
+- `tags` (array)
+- `category`
+- `draft` (`true` or `false`)
+- optional `images` metadata
+
+Templates are provided in:
+
+- `obsidian/templates/blog-project.md`
+- `obsidian/templates/inprogress-process.md`
+- `obsidian/templates/category-tags-reference.md`
+
+### 3) Sync from Obsidian into Eleventy content
+
+Run one-time sync:
+
+```bash
+npm run obsidian:sync
+```
+
+Or specify a vault path directly:
+
+```bash
+node scripts/obsidian-bridge.cjs sync --vault /absolute/path/to/vault
+```
+
+Mapping:
+
+- `vault/blog/*.md` → `content/blog/<slug>/<slug>.md`
+- `vault/inProgress/*.md` → `content/inProgress/<slug>/<slug>.md`
+
+Slug rules are enforced from filename (lowercase kebab-case).
+
+### 4) Save-to-publish automation
+
+Watch for local note changes and continuously sync:
+
+```bash
+npm run obsidian:watch
+```
+
+Enable auto-publish (git add/commit/push after successful sync):
+
+```bash
+npm run obsidian:watch:publish
+```
+
+Optional branch pinning:
+
+```bash
+node scripts/obsidian-bridge.cjs watch --autopublish --branch main
+```
+
+### 5) Safety guardrails
+
+Sync is blocked when validation fails:
+
+- missing required frontmatter fields
+- invalid `draft` value
+- non-array style `tags`
+- missing images referenced in `images:` metadata
+- missing files referenced in `{% image %}` shortcodes
+
+When blocked, errors are printed with exact file paths.
+
+### 6) Draft vs published behavior
+
+- `draft: true` notes are excluded from production builds (`npm run build`)
+- drafts are included in serve/watch mode (`npm run start`)
+
+This behavior is already implemented by `eleventy.config.drafts.js`.
