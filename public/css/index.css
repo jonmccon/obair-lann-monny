@@ -380,6 +380,22 @@ img {
 	margin-bottom: 1.5rem;
 }
 
+.homepage-podcast {
+	padding: 2rem 1.5rem 0;
+}
+
+.homepage-podcast h2 {
+	margin-bottom: 1rem;
+}
+
+.homepage-podcast iframe {
+	display: block;
+	width: 100%;
+	height: 200px;
+	max-width: 100%;
+	border: 0;
+}
+
 /* Landing image grid - thumbnail strip */
 .image-grid {
 	position: relative;
