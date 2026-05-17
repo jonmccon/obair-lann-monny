@@ -1,0 +1,21 @@
+{# Thumbnail grid for displaying project images in a dense, image-focused layout #}
+{# Usage: {% include "projectsThumbGrid.njk" %} #}
+
+<div class="thumb-grid">
+  {% for post in collections.projects | reverse %}
+    {# Get the first image for this post as thumbnail #}
+    {% set thumbnail = "" %}
+    {% for image in collections.images %}
+      {% if image.url == post.url and thumbnail == "" %}
+        {% set thumbnail = image.src %}
+      {% endif %}
+    {% endfor %}
+
+    {% if thumbnail %}
+      <a href="{{ post.url }}" class="thumb-grid-item">
+        <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async">
+        <span class="thumb-grid-title">{{ post.data.title }}</span>
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
