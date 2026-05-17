@@ -26,6 +26,21 @@
           {# Get tags for filtering #}
           {% set postTags = post.data.tags | filterTagList %}
           {% set wordCount = post.templateContent | wordCount %}
+          {% set orderedImages = projectImages %}
+          {% if post.data.pileOrder and post.data.pileOrder.length %}
+            {% set orderedImages = [] %}
+            {% for i in post.data.pileOrder %}
+              {% set imageIndex = i | int %}
+              {% if projectImages[imageIndex] %}
+                {% set orderedImages = orderedImages.concat([projectImages[imageIndex]]) %}
+              {% endif %}
+            {% endfor %}
+            {% for img in projectImages %}
+              {% if not (loop.index0 in post.data.pileOrder) %}
+                {% set orderedImages = orderedImages.concat([img]) %}
+              {% endif %}
+            {% endfor %}
+          {% endif %}
           {% set tagClasses = "" %}
           {% for tag in postTags %}
             {% set tagClasses = tagClasses + " tag-" + (tag | slugify) %}
@@ -34,6 +49,17 @@
         <div class="project-pile" data-tags="{{ tagClasses }}">
           <a href="{{ post.url }}" class="pile-link" data-project-link>
             <div class="pile-container">
+              <div class="pile-images"
+                   data-image-count="{{ orderedImages.length }}">
+                {% for img in orderedImages | head(5) %}
+                  <div class="pile-image"
+                       data-layer-index="{{ loop.index0 }}"
+                       style="--z-index: {{ 10 - loop.index0 }};">
+                    <img src="{{ img }}" alt="{{ post.data.title }}" loading="lazy">
+                  </div>
+                {% endfor %}
+              </div>
+
               <div class="pile-meta-band">
                 <span class="pile-title">{{ post.data.title }}</span>
                 <div class="pile-meta-line">
@@ -43,17 +69,6 @@
                   <span class="meta-item"><span class="meta-label">Type</span> <span class="meta-value">{{ post.data.category or "project" }}</span></span>
                   <span class="meta-item"><span class="meta-label">Tags</span> <span class="meta-value">{% if postTags.length %}{{ postTags | head(2) | join(", ") }}{% else %}none{% endif %}</span></span>
                 </div>
-              </div>
-
-              <div class="pile-images"
-                   data-image-count="{{ projectImages.length }}">
-                {% for img in projectImages | head(5) %}
-                  <div class="pile-image"
-                       data-layer-index="{{ loop.index0 }}"
-                       style="--z-index: {{ 10 - loop.index0 }};">
-                    <img src="{{ img }}" alt="{{ post.data.title }}" loading="lazy">
-                  </div>
-                {% endfor %}
               </div>
             </div>
           </a>
@@ -85,6 +100,8 @@
   const HEIGHT_SEED_OFFSET = 13;
   const POS_X_SEED_OFFSET = 17;
   const POS_Y_SEED_OFFSET = 19;
+  const JITTER_X_SEED_OFFSET = 29;
+  const JITTER_Y_SEED_OFFSET = 31;
   const ROTATION_MIN = -14;
   const ROTATION_SPREAD = 28;
   const SCALE_MIN = 0.75;
@@ -126,6 +143,8 @@
       }
 
       const imageCount = Number(group.dataset.imageCount || frames.length);
+      const visibleCount = Math.max(1, Math.min(frames.length, 5));
+      const sparseCountBoost = Math.max(0, 4 - visibleCount) * 8;
       let sizeSeed = imageCount * IMAGE_COUNT_SEED_MULTIPLIER;
       frames.forEach((frame, idx) => {
         const img = frame.querySelector('img');
@@ -138,13 +157,17 @@
         const dimensions = getImageDimensions(img);
         const aspectSeed = dimensions.width / dimensions.height;
         const base = sizeSeed + (idx + 1) * LAYER_SEED_MULTIPLIER + aspectSeed * ASPECT_SEED_MULTIPLIER;
+        const fanProgress = visibleCount > 1 ? (idx / (visibleCount - 1)) : 0.5;
+        const fanCentering = 20 + (fanProgress * 60);
+        const jitterX = -9 + deterministicHash(base + JITTER_X_SEED_OFFSET) * 18;
+        const jitterY = -7 + deterministicHash(base + JITTER_Y_SEED_OFFSET) * 14;
 
         const rotation = ROTATION_MIN + deterministicHash(base) * ROTATION_SPREAD;
         const scale = SCALE_MIN + deterministicHash(base + SCALE_SEED_OFFSET) * SCALE_SPREAD;
-        const width = WIDTH_MIN + deterministicHash(base + WIDTH_SEED_OFFSET) * WIDTH_SPREAD;
-        const height = HEIGHT_MIN + deterministicHash(base + HEIGHT_SEED_OFFSET) * HEIGHT_SPREAD;
-        const posX = POS_X_MIN + deterministicHash(base + POS_X_SEED_OFFSET) * POS_X_SPREAD;
-        const posY = POS_Y_MIN + deterministicHash(base + POS_Y_SEED_OFFSET) * POS_Y_SPREAD;
+        const width = WIDTH_MIN + sparseCountBoost + deterministicHash(base + WIDTH_SEED_OFFSET) * WIDTH_SPREAD;
+        const height = HEIGHT_MIN + (sparseCountBoost * 0.85) + deterministicHash(base + HEIGHT_SEED_OFFSET) * HEIGHT_SPREAD;
+        const posX = fanCentering + jitterX;
+        const posY = (POS_Y_MIN + deterministicHash(base + POS_Y_SEED_OFFSET) * (POS_Y_SPREAD * 0.65)) + jitterY;
         const offsetX = OFFSET_X_MIN + deterministicHash(base + OFFSET_X_SEED_OFFSET) * OFFSET_X_SPREAD;
         const offsetY = OFFSET_Y_MIN + deterministicHash(base + OFFSET_Y_SEED_OFFSET) * OFFSET_Y_SPREAD;
 
