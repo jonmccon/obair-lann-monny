@@ -1,6 +1,7 @@
 ---
-title: "Landscapes & Horizons"
-description: "Where earth meets sky — sweeping vistas and quiet horizons shot on film."
+title: "Landscapes"
+description: "Open horizons, skies, and waterscapes."
+permalink: /galleries/landscapes/
 date: 2019-05-01
 subject: landscape
 dominantColor: cool

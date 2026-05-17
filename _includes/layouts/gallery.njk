@@ -16,26 +16,48 @@ layout: layouts/base.njk
     {% if description %}
     <p class="gallery-description">{{ description }}</p>
     {% endif %}
-
-    {% if tags %}
-    <div class="gallery-tags">
-      {%- for tag in tags %}{% if tag != "galleries" %}<span class="gallery-tag">{{ tag }}</span>{% endif %}{%- endfor %}
-    </div>
-    {% endif %}
   </header>
 
   <div class="gallery-body">
     {{ content | safe }}
   </div>
 
-  {%- if collections.galleries %}
-  {%- set previousGallery = collections.galleries | getPreviousCollectionItem %}
-  {%- set nextGallery = collections.galleries | getNextCollectionItem %}
-  {%- if nextGallery or previousGallery %}
-  <ul class="links-nextprev">
-    {%- if previousGallery %}<li>Previous: <a href="{{ previousGallery.url }}">{{ previousGallery.data.title }}</a></li>{% endif %}
-    {%- if nextGallery %}<li>Next: <a href="{{ nextGallery.url }}">{{ nextGallery.data.title }}</a></li>{% endif %}
-  </ul>
-  {%- endif %}
+  {%- set isPrimaryCategory = false %}
+  {%- for category in photoCategories %}
+    {%- if category.url == page.url %}
+      {%- set isPrimaryCategory = true %}
+    {%- endif %}
+  {%- endfor %}
+
+  {%- if isPrimaryCategory %}
+  <section class="gallery-siblings">
+    <h2>Explore Galleries</h2>
+    <div class="galleries-grid galleries-grid--siblings">
+      {%- for category in photoCategories %}
+        <article class="gallery-card{% if category.url == page.url %} gallery-card--current{% endif %}">
+          {% if category.url == page.url %}
+            <div class="gallery-card-link" aria-current="page">
+              <div class="gallery-card-image">
+                {% image category.cover, category.title %}
+              </div>
+              <div class="gallery-card-content">
+                <h3 class="gallery-card-title">{{ category.title }}</h3>
+                <p class="gallery-card-current-label">Current gallery</p>
+              </div>
+            </div>
+          {% else %}
+            <a href="{{ category.url }}" class="gallery-card-link">
+              <div class="gallery-card-image">
+                {% image category.cover, category.title %}
+              </div>
+              <div class="gallery-card-content">
+                <h3 class="gallery-card-title">{{ category.title }}</h3>
+              </div>
+            </a>
+          {% endif %}
+        </article>
+      {%- endfor %}
+    </div>
+  </section>
   {%- endif %}
 </article>

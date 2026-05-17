@@ -79,6 +79,22 @@ layout: layouts/base.njk
   <h2>Projects</h2>
   {% include "projectsGrid.njk" %}
 </section>
+
+<section class="homepage-photos">
+  <h2>Photos</h2>
+  <div class="homepage-photos-grid">
+    {%- for category in photoCategories %}
+      <article class="homepage-photo-card">
+        <a href="{{ category.url }}" class="homepage-photo-link">
+          <div class="homepage-photo-image">
+            {% image category.cover, category.title %}
+          </div>
+          <h3>{{ category.title }}</h3>
+        </a>
+      </article>
+    {%- endfor %}
+  </div>
+</section>
 {% endif %}
 
 {{ content | safe }}

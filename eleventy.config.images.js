@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const eleventyImage = require("@11ty/eleventy-img");
 
 function relativeToInputPath(inputPath, relativeFilePath) {
@@ -28,6 +29,12 @@ module.exports = function(eleventyConfig) {
 		let input;
 		if(isFullUrl(src)) {
 			input = src;
+		} else if (src.startsWith("content/")) {
+			input = path.resolve(src);
+			if (!fs.existsSync(input)) {
+				console.warn(`[image shortcode] Falling back to relative path for missing content path: ${src}`);
+				input = relativeToInputPath(this.page.inputPath, src);
+			}
 		} else {
 			input = relativeToInputPath(this.page.inputPath, src);
 		}
