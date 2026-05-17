@@ -1,5 +1,6 @@
 {# Grid component for displaying projects with thumbnails and names #}
 {# Usage: {% include "projectsGrid.njk" %} #}
+{# Posts with featured: true in frontmatter get a larger card size #}
 
 <div class="projects-grid">
   {% for post in collections.projects | reverse %}
@@ -12,7 +13,7 @@
     {% endfor %}
     
     {% if thumbnail %}
-      <div class="project-card">
+      <div class="project-card{% if post.data.featured %} project-card-featured{% endif %}">
         <a href="{{ post.url }}" class="project-card-link">
           <img src="{{ thumbnail }}" alt="{{ post.data.title }}" class="project-card-image">
           <div class="project-card-content">

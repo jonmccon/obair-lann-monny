@@ -5,7 +5,7 @@ layout: layouts/base.njk
 {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %}
 {%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %}
 
-<article class="post-content">
+<article class="post-content{% if bgColor %} bg-{{ bgColor }}{% endif %}">
   <header class="post-header">
     <h1>{{ title }}</h1>
 

@@ -8,8 +8,16 @@ const pluginBundle = require("@11ty/eleventy-plugin-bundle");
 const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
+const path = require("path");
+
 const pluginDrafts = require("./eleventy.config.drafts.js");
 const pluginImages = require("./eleventy.config.images.js");
+
+function relativeToInputPath(inputPath, relativeFilePath) {
+	let split = inputPath.split("/");
+	split.pop();
+	return path.resolve(split.join(path.sep), relativeFilePath);
+}
 
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 module.exports = function(eleventyConfig) {
@@ -17,14 +25,17 @@ module.exports = function(eleventyConfig) {
 	// For example, `./public/css/` ends up in `_site/css/`
 	eleventyConfig.addPassthroughCopy({
 		"./public/": "/",
-		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css"
+		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css",
+		"./node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js": "/js/photoswipe-lightbox.esm.min.js",
+		"./node_modules/photoswipe/dist/photoswipe.esm.min.js": "/js/photoswipe.esm.min.js",
+		"./node_modules/photoswipe/dist/photoswipe.css": "/css/photoswipe.css"
 	});
 
 	// Run Eleventy when these files change:
 	// https://www.11ty.dev/docs/watch-serve/#add-your-own-watch-targets
 
 	// Watch content images for the image pipeline.
-	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg}");
+	eleventyConfig.addWatchTarget("content/**/*.{svg,webp,png,jpeg,gif}");
 
 	// Watch css for hotlreload.
 	eleventyConfig.addWatchTarget("public/**/*.css");
@@ -103,7 +114,7 @@ module.exports = function(eleventyConfig) {
 	// });
 
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
-		return (tags || []).filter(tag => ["all", "nav", "post", "posts"].indexOf(tag) === -1);
+		return (tags || []).filter(tag => ["all", "nav", "post", "posts", "galleries"].indexOf(tag) === -1);
 	});
 
 	// eleventyConfig.addFilter("filterCategoryList", function filterCategoryList(category) {
@@ -145,18 +156,87 @@ module.exports = function(eleventyConfig) {
 		}
 		
 		try {
-			let metadata = await Image(input, {
+			let isGif = src.toLowerCase().endsWith(".gif");
+			let imageOptions = {
 				widths: [1200],
-				formats: ["jpeg"],
+				formats: isGif ? ["gif"] : ["jpeg"],
 				outputDir: path.join(eleventyConfig.dir.output, "img"),
 				urlPath: "/img/"
-			});
+			};
+			if (isGif) {
+				imageOptions.sharpOptions = { animated: true };
+			}
+
+			let metadata = await Image(input, imageOptions);
 			
-			return metadata.jpeg[0].url;
+			let format = isGif ? "gif" : "jpeg";
+			return metadata[format][0].url;
 		} catch (error) {
 			console.warn(`Hero image processing failed for ${src}:`, error.message);
 			return "";
 		}
+	});
+
+	// Photo gallery shortcodes (adapted from bashlk/adventures-with-tech)
+	const GALLERY_IMAGE_WIDTH = 192;
+	const LANDSCAPE_LIGHTBOX_IMAGE_WIDTH = 2000;
+	const PORTRAIT_LIGHTBOX_IMAGE_WIDTH = 720;
+
+	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, name) {
+		// Newlines removed to prevent Markdown from wrapping output in <p> tags
+		return `
+			<div class="photo-gallery" id="gallery-${name}">
+				${content}
+			</div>
+			<script type="module">
+				import PhotoSwipeLightbox from '/js/photoswipe-lightbox.esm.min.js';
+				import PhotoSwipe from '/js/photoswipe.esm.min.js';
+				const lightbox = new PhotoSwipeLightbox({
+					gallery: '#gallery-${name}',
+					children: 'a',
+					pswpModule: PhotoSwipe,
+					preload: [1, 1]
+				});
+				lightbox.init();
+			</script>
+		`.replace(/(\r\n|\n|\r)/gm, "");
+	});
+
+	eleventyConfig.addAsyncShortcode("galleryImage", async function(src, alt) {
+		let input;
+		if (src.startsWith("./")) {
+			input = relativeToInputPath(this.page.inputPath, src);
+		} else {
+			input = src;
+		}
+
+		const altText = alt || "Gallery image";
+
+		// First pass: generate thumbnail only to detect orientation
+		const thumbMetadata = await Image(input, {
+			widths: [GALLERY_IMAGE_WIDTH],
+			formats: ["jpeg"],
+			urlPath: "/img/",
+			outputDir: "./_site/img/"
+		});
+
+		const thumbMeta = thumbMetadata.jpeg[0];
+
+		// Choose lightbox width based on orientation
+		const isPortrait = thumbMeta.height > thumbMeta.width;
+		const lightboxImageWidth = isPortrait ? PORTRAIT_LIGHTBOX_IMAGE_WIDTH : LANDSCAPE_LIGHTBOX_IMAGE_WIDTH;
+
+		// Second pass: generate full-size image at the appropriate width
+		const fullMetadata = await Image(input, {
+			widths: [lightboxImageWidth],
+			formats: ["jpeg"],
+			urlPath: "/img/",
+			outputDir: "./_site/img/"
+		});
+
+		const fullMeta = fullMetadata.jpeg[0];
+
+		return `<a href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" target="_blank"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
 	});
 
 	// Create separate collections for projects and process posts
@@ -168,6 +248,11 @@ module.exports = function(eleventyConfig) {
 		return collectionApi.getFilteredByTag("process");
 	});
 
+	// Photo galleries collection
+	eleventyConfig.addCollection("galleries", function(collectionApi) {
+		return collectionApi.getFilteredByTag("galleries");
+	});
+
 	// Return all the content images as a collection from frontmatter
 	eleventyConfig.addCollection("images", async function(collectionApi) {
 		const images = [];
@@ -176,14 +261,21 @@ module.exports = function(eleventyConfig) {
 		for (const item of items) {
 		  if (item.data.images) {
 			for (const image of item.data.images) {
-			  let metadata = await Image(image.src, {
+			  let isGif = image.src.toLowerCase().endsWith(".gif");
+			  let imageOptions = {
 				widths: [null],
-				formats: ["jpeg"], // Temporarily reduce to just JPEG for faster builds
+				formats: isGif ? ["gif"] : ["jpeg"], // Temporarily reduce to just JPEG for faster builds
 				urlPath: "/img/",
 				outputDir: "./_site/img/"
-			  });
+			  };
+			  if (isGif) {
+				imageOptions.sharpOptions = { animated: true };
+			  }
+
+			  let metadata = await Image(image.src, imageOptions);
 	
-			  let imageUrl = metadata.jpeg[0].url; // or metadata.avif[0].url for AVIF format
+			  let format = isGif ? "gif" : "jpeg";
+			  let imageUrl = metadata[format][0].url;
 	
 			  images.push({
 				url: item.url,

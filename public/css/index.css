@@ -336,32 +336,78 @@ img {
   	margin: 0 auto;
 }
 
-/* SVG Logo Overlay - positioned on top of gallery */
-.svg-logo-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: calc(60vh - 20px);
+/* Hero section: portrait + about description */
+.hero-section {
+	display: flex;
+	align-items: center;
+	min-height: 100vh;
+	gap: 3rem;
+	padding: 2rem 1.5rem;
+}
+
+.hero-portrait {
+	flex: 0 0 auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	z-index: 10;
-	pointer-events: none;
 }
 
-.svg-logo-overlay svg {
-	max-width: 300px;
-	max-height: 200px;
-	width: auto;
+.portrait-photo {
+	width: 40vw;
+	max-width: 500px;
 	height: auto;
+	border-radius: 0.5rem;
+	object-fit: cover;
 }
 
-/* Landing image grid */
+.hero-about {
+	flex: 1;
+	text-align: justify;
+	font-size: 1.15rem;
+	line-height: 1.7;
+}
+
+.hero-about p {
+	text-align: justify;
+}
+
+/* Homepage projects section under the fold */
+.homepage-projects {
+	padding: 2rem 1.5rem;
+}
+
+.homepage-projects h2 {
+	margin-bottom: 1.5rem;
+}
+
+.homepage-podcast {
+	padding: 2rem 1.5rem 0;
+}
+
+.homepage-podcast h2 {
+	margin-bottom: 1rem;
+}
+
+.homepage-podcast-players {
+	display: grid;
+	gap: 1rem;
+}
+
+.homepage-podcast iframe {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 3;
+	min-height: 200px;
+	max-width: 100%;
+	border: 0;
+}
+
+/* Landing image grid - thumbnail strip */
 .image-grid {
 	position: relative;
 	display: grid;
-	grid-template-rows: repeat(auto-fill, minmax(calc(80vh - 20px), 1fr));
+	grid-template-rows: 120px;
 	grid-auto-flow: column;
 	gap: 0px;
 	/* Performance optimizations */
@@ -396,7 +442,7 @@ img {
   .image-item img {
 	width: auto;
 	height: 100%;
-	max-height: calc(80vh - 20px);
+	max-height: 120px;
 	display: block;
 	object-fit: cover;
 	/* Performance optimizations for images */
@@ -688,6 +734,60 @@ img {
 	line-height: 1.2;
 }
 
+/* Projects Thumbnail Grid (/design page) */
+.thumb-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 4px;
+	margin: 0;
+}
+
+.thumb-grid-item {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	aspect-ratio: 4 / 3;
+	text-decoration: none;
+}
+
+.thumb-grid-item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.3s ease;
+}
+
+.thumb-grid-item:hover img {
+	transform: scale(1.05);
+}
+
+.thumb-grid-title {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 1.5rem 0.75rem 0.5rem;
+	background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+	color: #fff;
+	font-size: 0.8rem;
+	line-height: 1.3;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.thumb-grid-item:hover .thumb-grid-title,
+.thumb-grid-item:focus .thumb-grid-title {
+	opacity: 1;
+}
+
+@media (max-width: 768px) {
+	.thumb-grid {
+		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		gap: 2px;
+	}
+}
+
 /* Projects Grid (Archive) */
 .projects-grid {
 	display: grid;
@@ -702,6 +802,19 @@ img {
 	overflow: hidden;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Featured project card - spans 2 columns and is taller */
+.project-card-featured {
+	grid-column: span 2;
+}
+
+.project-card-featured .project-card-image {
+	height: 360px;
+}
+
+.project-card-featured .project-card-title {
+	font-size: 1.5rem;
 }
 
 .project-card:hover {
@@ -746,6 +859,41 @@ img {
 
 /* Mobile adjustments for projects */
 @media (max-width: 768px) {
+	/* Hide thumbnail gallery on mobile */
+	.image-grid {
+		display: none;
+	}
+
+	/* Hero section: stack portrait + about vertically on mobile */
+	.hero-section {
+		flex-direction: column;
+		min-height: auto;
+		gap: 1.5rem;
+		padding: 1.5rem 1rem;
+	}
+
+	.hero-portrait {
+		width: 100%;
+	}
+
+	.portrait-photo {
+		width: 80vw;
+		max-width: 400px;
+	}
+
+	.hero-about {
+		font-size: 1.1rem;
+	}
+
+	/* Featured cards go single column on mobile */
+	.project-card-featured {
+		grid-column: span 1;
+	}
+
+	.project-card-featured .project-card-image {
+		height: 200px;
+	}
+
 	.projects-list {
 		justify-content: center;
 		gap: 0.75rem;
@@ -777,6 +925,60 @@ img {
 	padding: 1.5rem;
 }
 
+/* Post background color variants - controlled by bgColor frontmatter */
+.post-content.bg-white {
+	background-color: #ffffff;
+	color: #333;
+}
+
+.post-content.bg-gray {
+	background-color: #e6e6e6;
+	color: #333;
+}
+
+.post-content.bg-black {
+	background-color: #000000;
+	color: #e0e0e0;
+}
+
+.post-content.bg-black a[href] {
+	color: #6db3f2;
+}
+
+.post-content.bg-black a[href]:visited {
+	color: #b0b0b0;
+}
+
+.post-content.bg-black a[href]:hover,
+.post-content.bg-black a[href]:active {
+	color: #9ad0ff;
+}
+
+/* View Transition API - fade effect for page navigation */
+@view-transition {
+	navigation: auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	::view-transition-old(root) {
+		animation: fade-out 0.2s ease-in forwards;
+	}
+
+	::view-transition-new(root) {
+		animation: fade-in 0.3s ease-out forwards;
+	}
+
+	@keyframes fade-out {
+		from { opacity: 1; }
+		to { opacity: 0; }
+	}
+
+	@keyframes fade-in {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+}
+
 .post-header h1 {
 	margin-top: 0;
 	margin-bottom: 1rem;
@@ -784,4 +986,56 @@ img {
 
 .post-metadata {
 	margin-bottom: 2rem;
+}
+
+/* Password protection overlay */
+.password-overlay {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 60vh;
+}
+
+.password-form-container {
+	text-align: center;
+	max-width: 320px;
+	width: 100%;
+}
+
+.password-form-container p {
+	margin: 0 0 1rem;
+}
+
+#password-form {
+	display: flex;
+	gap: 0.5rem;
+}
+
+#password-input {
+	flex: 1;
+	padding: 0.5rem;
+	font-size: 1rem;
+	font-family: var(--font-family);
+	border: 1px solid var(--color-gray-50);
+	background: var(--background-color);
+	color: var(--text-color);
+}
+
+#password-form button {
+	padding: 0.5rem 1rem;
+	font-size: 1rem;
+	font-family: var(--font-family);
+	cursor: pointer;
+	border: 1px solid var(--color-gray-50);
+	background: var(--background-color);
+	color: var(--text-color);
+}
+
+#password-form button:hover {
+	background: var(--color-gray-20);
+}
+
+.password-error {
+	color: var(--text-color-link-active);
+	font-size: 0.875rem;
 }

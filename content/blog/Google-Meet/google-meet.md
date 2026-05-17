@@ -2,6 +2,7 @@
 title: Multimodal Video Chat Services
 description: The web meets the desktop meets the telephone
 category: Google
+bgColor: white
 date: 2018-06-01
 tags: 
     - xxxxxxxxx

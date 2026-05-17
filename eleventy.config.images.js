@@ -32,11 +32,19 @@ module.exports = function(eleventyConfig) {
 			input = relativeToInputPath(this.page.inputPath, src);
 		}
 
-		let metadata = await eleventyImage(input, {
+		// Animated GIFs: use gif format with animated option to preserve animation
+		// https://www.11ty.dev/docs/plugins/image/#output-formats
+		let isGif = src.toLowerCase().endsWith(".gif");
+		let imageOptions = {
 			widths: widths || ["auto"],
-			formats,
+			formats: isGif ? ["gif"] : formats,
 			outputDir: path.join(eleventyConfig.dir.output, "img"), // Advanced usage note: `eleventyConfig.dir` works here because we're using addPlugin.
-		});
+		};
+		if (isGif) {
+			imageOptions.sharpOptions = { animated: true };
+		}
+
+		let metadata = await eleventyImage(input, imageOptions);
 
 		// TODO loading=eager and fetchpriority=high
 		let imageAttributes = {

@@ -2,6 +2,7 @@
 title: Resonance AI
 description: Teaching the machine to watch TV
 category: Resonance AI
+bgColor: black
 date: 2021-08-01
 tags: 
     - second tag
