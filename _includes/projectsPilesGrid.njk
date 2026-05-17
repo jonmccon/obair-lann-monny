@@ -1,12 +1,6 @@
 {# Piled projects component with tag filtering #}
 {# Displays projects as randomly stacked piles grouped by tags #}
 
-{# Predefined rotation, scale, and offset patterns for visual variety #}
-{# These create a pseudo-random organic stacking effect #}
-{% set rotationPattern = [2, -3, 1, -2, 3, -1, 4, -4] %}
-{% set scalePattern = [0.85, 0.9, 0.95, 1.0, 0.88, 0.92] %}
-{% set offsetPattern = [5, -5, 8, -8, 3, -3, 10, -10] %}
-
 <div class="projects-piles-container">
   {# Tag filter buttons #}
   <div class="tag-filter-bar">
@@ -39,30 +33,27 @@
         <div class="project-pile" data-tags="{{ tagClasses }}">
           <a href="{{ post.url }}" class="pile-link" data-project-link>
             <div class="pile-container">
-              {# Stack images using pattern arrays for visual variety #}
-              {# Shows up to 5 images to create a substantial pile #}
-              <div class="pile-images">
+              <div class="pile-meta-band">
+                <span class="pile-title">{{ post.data.title }}</span>
+                <div class="pile-meta-line">
+                  <span class="meta-item"><span class="meta-label">Year</span> <span class="meta-value">{{ post.date | readableDate("yyyy") }}</span></span>
+                  <span class="meta-item"><span class="meta-label">Images</span> <span class="meta-value">{{ projectImages.length }}</span></span>
+                  <span class="meta-item"><span class="meta-label">Words</span> <span class="meta-value meta-word-count">--</span></span>
+                  <span class="meta-item"><span class="meta-label">Type</span> <span class="meta-value">{{ post.data.category or "project" }}</span></span>
+                  <span class="meta-item"><span class="meta-label">Tags</span> <span class="meta-value">{% if postTags.length %}{{ postTags | head(2) | join(", ") }}{% else %}none{% endif %}</span></span>
+                </div>
+              </div>
+
+              <div class="pile-images"
+                   data-image-count="{{ projectImages.length }}"
+                   data-word-source="{{ (post.templateContent | striptags | replace('\n', ' ') | replace('\r', ' ') | trim) | escape }}">
                 {% for img in projectImages | head(5) %}
-                  {% set rotIdx = loop.index0 % 8 %}
-                  {% set scaleIdx = loop.index0 % 6 %}
-                  {% set offsetIdx = loop.index0 % 8 %}
-                  
-                  <div class="pile-image" 
-                       style="
-                         --rotation: {{ rotationPattern[rotIdx] }}deg;
-                         --scale: {{ scalePattern[scaleIdx] }};
-                         --offset-x: {{ offsetPattern[offsetIdx] }}px;
-                         --offset-y: {{ offsetPattern[(offsetIdx + 3) % 8] }}px;
-                         --z-index: {{ 10 - loop.index0 }};
-                       ">
+                  <div class="pile-image"
+                       data-layer-index="{{ loop.index0 }}"
+                       style="--z-index: {{ 10 - loop.index0 }};">
                     <img src="{{ img }}" alt="{{ post.data.title }}" loading="lazy">
                   </div>
                 {% endfor %}
-              </div>
-              
-              {# Belly band with project name #}
-              <div class="pile-belly-band">
-                <span class="pile-title">{{ post.data.title }}</span>
               </div>
             </div>
           </a>
@@ -79,6 +70,66 @@
   
   const filterButtons = document.querySelectorAll('.tag-filter-button');
   const projectPiles = document.querySelectorAll('.project-pile');
+  const pileImageGroups = document.querySelectorAll('.pile-images');
+
+  function seededRandom(seed) {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x);
+  }
+
+  function updatePileTransforms() {
+    pileImageGroups.forEach(group => {
+      const frames = Array.from(group.querySelectorAll('.pile-image'));
+      if (!frames.length) {
+        return;
+      }
+
+      const imageCount = Number(group.dataset.imageCount || frames.length);
+      const wordSource = group.dataset.wordSource || '';
+      const wordCount = wordSource ? wordSource.split(/\s+/).filter(Boolean).length : 0;
+      const wordCountNode = group.closest('.pile-container')?.querySelector('.meta-word-count');
+      if (wordCountNode) {
+        wordCountNode.textContent = String(wordCount);
+      }
+
+      let sizeSeed = imageCount * 97;
+      frames.forEach((frame, idx) => {
+        const img = frame.querySelector('img');
+        const w = img?.naturalWidth || 0;
+        const h = img?.naturalHeight || 0;
+        sizeSeed += ((w * 0.13 + h * 0.17) * (idx + 1));
+      });
+
+      frames.forEach((frame, idx) => {
+        const img = frame.querySelector('img');
+        const w = img?.naturalWidth || 1;
+        const h = img?.naturalHeight || 1;
+        const aspectSeed = w / h;
+        const base = sizeSeed + (idx + 1) * 23 + aspectSeed * 11;
+
+        const rotation = -14 + seededRandom(base) * 28;
+        const scale = 0.64 + seededRandom(base + 3) * 0.52;
+        const offsetX = -22 + seededRandom(base + 7) * 44;
+        const offsetY = -16 + seededRandom(base + 11) * 32;
+
+        frame.style.setProperty('--rotation', rotation.toFixed(2) + 'deg');
+        frame.style.setProperty('--scale', scale.toFixed(3));
+        frame.style.setProperty('--offset-x', offsetX.toFixed(1) + 'px');
+        frame.style.setProperty('--offset-y', offsetY.toFixed(1) + 'px');
+      });
+    });
+  }
+
+  function initializePileLayouts() {
+    updatePileTransforms();
+    pileImageGroups.forEach(group => {
+      group.querySelectorAll('img').forEach(img => {
+        if (!img.complete) {
+          img.addEventListener('load', updatePileTransforms, { once: true });
+        }
+      });
+    });
+  }
   
   filterButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -103,5 +154,7 @@
       });
     });
   });
+
+  initializePileLayouts();
 })();
 </script>
