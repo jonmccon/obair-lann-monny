@@ -135,13 +135,7 @@
 
 .meta-item {
   min-width: 0;
-  text-align: justify;
-}
-
-.meta-item::after {
-  content: "";
-  display: inline-block;
-  width: 100%;
+  text-align: left;
 }
 
 .meta-label {

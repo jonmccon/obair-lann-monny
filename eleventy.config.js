@@ -53,6 +53,20 @@ module.exports = function(eleventyConfig) {
 		return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('yyyy-LL-dd');
 	});
 
+	eleventyConfig.addFilter("wordCount", (value) => {
+		if (!value || typeof value !== "string") {
+			return 0;
+		}
+		const plain = value
+			.replace(/<[^>]*>/g, " ")
+			.replace(/\s+/g, " ")
+			.trim();
+		if (!plain) {
+			return 0;
+		}
+		return plain.split(" ").length;
+	});
+
 	// Get the first `n` elements of a collection.
 	eleventyConfig.addFilter("head", (array, n) => {
 		if(!Array.isArray(array) || array.length === 0) {
