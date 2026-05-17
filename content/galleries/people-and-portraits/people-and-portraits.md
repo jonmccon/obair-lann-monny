@@ -1,6 +1,7 @@
 ---
-title: "People & Portraits"
-description: "Warm-toned photographs of people, capturing candid moments and intimate portraits on film."
+title: "Portraits"
+description: "Portrait studies and candid moments."
+permalink: /galleries/portraits/
 date: 2019-10-01
 subject: portrait
 dominantColor: warm

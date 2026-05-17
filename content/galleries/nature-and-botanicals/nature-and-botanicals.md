@@ -1,6 +1,7 @@
 ---
-title: "Nature & Botanicals"
-description: "Close-up studies of plants, leaves, and flowers — the organic textures and colors of the natural world."
+title: "Still Life"
+description: "Quiet studies of plants and natural forms."
+permalink: /galleries/still-life/
 date: 2019-08-01
 subject: nature
 dominantColor: warm
