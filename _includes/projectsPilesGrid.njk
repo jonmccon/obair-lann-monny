@@ -79,12 +79,28 @@
   const LAYER_SEED_MULTIPLIER = 23;
   const ASPECT_SEED_MULTIPLIER = 11;
   const SCALE_SEED_OFFSET = 3;
+  const WIDTH_SEED_OFFSET = 5;
   const OFFSET_X_SEED_OFFSET = 7;
   const OFFSET_Y_SEED_OFFSET = 11;
+  const HEIGHT_SEED_OFFSET = 13;
+  const POS_X_SEED_OFFSET = 17;
+  const POS_Y_SEED_OFFSET = 19;
   const ROTATION_MIN = -14;
   const ROTATION_SPREAD = 28;
-  const SCALE_MIN = 0.64;
-  const SCALE_SPREAD = 0.52;
+  const SCALE_MIN = 0.75;
+  const SCALE_SPREAD = 0.35;
+  const WIDTH_MIN = 34;
+  const WIDTH_SPREAD = 28;
+  const HEIGHT_MIN = 32;
+  const HEIGHT_SPREAD = 26;
+  const POS_X_MIN = 24;
+  const POS_X_SPREAD = 52;
+  const POS_Y_MIN = 30;
+  const POS_Y_SPREAD = 44;
+  // Mobile increases visual footprint slightly while capping to avoid overlap overflow.
+  const MOBILE_SIZE_BOOST_PCT = 8;
+  const MOBILE_WIDTH_CAP = 74;
+  const MOBILE_HEIGHT_CAP = 68;
   const OFFSET_X_MIN = -22;
   const OFFSET_X_SPREAD = 44;
   const OFFSET_Y_MIN = -16;
@@ -125,11 +141,21 @@
 
         const rotation = ROTATION_MIN + deterministicHash(base) * ROTATION_SPREAD;
         const scale = SCALE_MIN + deterministicHash(base + SCALE_SEED_OFFSET) * SCALE_SPREAD;
+        const width = WIDTH_MIN + deterministicHash(base + WIDTH_SEED_OFFSET) * WIDTH_SPREAD;
+        const height = HEIGHT_MIN + deterministicHash(base + HEIGHT_SEED_OFFSET) * HEIGHT_SPREAD;
+        const posX = POS_X_MIN + deterministicHash(base + POS_X_SEED_OFFSET) * POS_X_SPREAD;
+        const posY = POS_Y_MIN + deterministicHash(base + POS_Y_SEED_OFFSET) * POS_Y_SPREAD;
         const offsetX = OFFSET_X_MIN + deterministicHash(base + OFFSET_X_SEED_OFFSET) * OFFSET_X_SPREAD;
         const offsetY = OFFSET_Y_MIN + deterministicHash(base + OFFSET_Y_SEED_OFFSET) * OFFSET_Y_SPREAD;
 
         frame.style.setProperty('--rotation', rotation.toFixed(2) + 'deg');
         frame.style.setProperty('--scale', scale.toFixed(3));
+        frame.style.setProperty('--w', width.toFixed(1) + '%');
+        frame.style.setProperty('--h', height.toFixed(1) + '%');
+        frame.style.setProperty('--w-mobile', Math.min(MOBILE_WIDTH_CAP, width + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
+        frame.style.setProperty('--h-mobile', Math.min(MOBILE_HEIGHT_CAP, height + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
+        frame.style.setProperty('--pos-x', posX.toFixed(1) + '%');
+        frame.style.setProperty('--pos-y', posY.toFixed(1) + '%');
         frame.style.setProperty('--offset-x', offsetX.toFixed(1) + 'px');
         frame.style.setProperty('--offset-y', offsetY.toFixed(1) + 'px');
       });

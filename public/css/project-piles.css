@@ -102,8 +102,7 @@
 .pile-meta-band {
   font-family: var(--font-family-monospace);
   background: rgba(255, 255, 255, 0.9);
-  border-top: 2px solid var(--text-color-link);
-  border-bottom: 2px solid var(--text-color-link);
+  border: none;
   padding: 0.55rem 0.7rem 0.6rem;
   z-index: 2;
 }
@@ -160,17 +159,17 @@
 .pile-images {
   position: relative;
   width: 100%;
-  aspect-ratio: 3/4;
-  min-height: 220px;
+  aspect-ratio: 4/3;
+  min-height: 210px;
 }
 
 /* Individual piled image */
 .pile-image {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 85%;
-  height: 80%;
+  top: var(--pos-y, 50%);
+  left: var(--pos-x, 50%);
+  width: var(--w, 52%);
+  height: var(--h, 46%);
   transform: 
     translate(-50%, -50%)
     translate(var(--offset-x), var(--offset-y))
@@ -199,9 +198,9 @@
 .pile-link:hover .pile-image {
   transform: 
     translate(-50%, -50%)
-    translate(calc(var(--offset-x) * 1.5), calc(var(--offset-y) * 1.5))
+    translate(calc(var(--offset-x) * 0.6), calc(var(--offset-y) * 0.6))
     rotate(calc(var(--rotation) * 1.3))
-    scale(var(--scale));
+    scale(calc(var(--scale) * 1.02));
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -250,8 +249,8 @@
   }
   
   .pile-image {
-    width: 90%;
-    height: 85%;
+    width: var(--w-mobile, 60%);
+    height: var(--h-mobile, 52%);
   }
 }
 
@@ -259,7 +258,7 @@
 @media (prefers-reduced-motion: reduce) {
   .pile-image,
   .tag-filter-button,
-  .pile-belly-band {
+  .pile-meta-band {
     transition: none;
   }
   
