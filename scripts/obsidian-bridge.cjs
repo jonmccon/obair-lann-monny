@@ -9,6 +9,7 @@ const REPO_ROOT = process.cwd();
 const CONTENT_ROOT = path.resolve(REPO_ROOT, "content");
 const BLOG_OUT_ROOT = path.join(CONTENT_ROOT, "blog");
 const IN_PROGRESS_OUT_ROOT = path.join(CONTENT_ROOT, "inProgress");
+const MS_PER_SECOND = 1000;
 
 function usage() {
   console.log(`Obsidian bridge
@@ -82,8 +83,10 @@ function hasRequiredFrontmatter(raw) {
 
   const missing = checks.filter((c) => !c.re.test(raw)).map((c) => c.key);
 
-  const tagsInline = raw.match(/^tags\s*:\s*\[(.*?)\]\s*$/m);
-  const tagsBlock = /^tags\s*:\s*$[\s\S]*?^(\S|$)/m.test(`${raw}\n\n`) && /^\s*-\s+.+$/m.test(raw);
+  const tagsInline = /^tags\s*:\s*\[(.*?)\]\s*$/m.test(raw);
+  const tagsHeader = /^tags\s*:\s*$/m.test(raw);
+  const tagsListItem = /^\s*-\s+.+$/m.test(raw);
+  const tagsBlock = tagsHeader && tagsListItem;
   if (!tagsInline && !tagsBlock) {
     missing.push("tags(array)");
   }
@@ -273,7 +276,8 @@ function runAutopublish(changedFiles, branch) {
     return;
   }
 
-  const stamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+  const ISO_DATETIME_LENGTH = 19; // YYYY-MM-DD HH:mm:ss
+  const stamp = new Date().toISOString().replace("T", " ").slice(0, ISO_DATETIME_LENGTH);
   execSync(`git --no-pager commit -m "chore(obsidian): sync vault content (${stamp})"`, {
     stdio: "inherit",
   });
@@ -354,7 +358,7 @@ async function runSync(opts) {
 
 async function runWatch(opts) {
   const vaultRoot = path.resolve(REPO_ROOT, opts.vaultPath);
-  const intervalMs = Math.max(1, Number(opts.intervalSeconds || 2)) * 1000;
+  const intervalMs = Math.max(1, Number(opts.intervalSeconds || 2)) * MS_PER_SECOND;
 
   console.log(`Watching vault at: ${vaultRoot}`);
   console.log(`Polling every ${intervalMs / 1000}s`);
