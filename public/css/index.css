@@ -388,6 +388,11 @@ img {
 	margin-bottom: 1rem;
 }
 
+.homepage-podcast-players {
+	display: grid;
+	gap: 1rem;
+}
+
 .homepage-podcast iframe {
 	display: block;
 	width: 100%;
