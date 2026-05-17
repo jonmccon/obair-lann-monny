@@ -8,6 +8,7 @@
 
   // Check if View Transition API is supported
   const supportsViewTransitions = 'startViewTransition' in document;
+  const SCROLL_KEY_PREFIX = 'vt-scroll:';
 
   if (!supportsViewTransitions) {
     console.log('View Transitions API not supported in this browser');
@@ -44,11 +45,12 @@
     }
 
     event.preventDefault();
+    rememberScrollForCurrentPage();
 
     // Start the view transition
     const transition = document.startViewTransition(async () => {
       // Fetch and update the page
-      await updatePage(url);
+      await updatePage(url, { historyMode: 'push', scrollMode: 'top' });
     });
 
     // Optional: Add custom animations or handle completion
@@ -62,7 +64,10 @@
   /**
    * Fetch new page content and update DOM
    */
-  async function updatePage(url) {
+  async function updatePage(url, options = {}) {
+    const historyMode = options.historyMode || 'push';
+    const scrollMode = options.scrollMode || 'none';
+
     try {
       const response = await fetch(url);
       
@@ -86,7 +91,18 @@
       }
 
       // Update browser history
-      history.pushState({}, '', url);
+      if (historyMode === 'push') {
+        history.pushState({}, '', url);
+      } else if (historyMode === 'replace') {
+        history.replaceState({}, '', url);
+      }
+
+      // Scroll behavior
+      if (scrollMode === 'top') {
+        window.scrollTo(0, 0);
+      } else if (scrollMode === 'restore') {
+        restoreScrollForPage(url);
+      }
 
       // Reinitialize any scripts that need to run on the new page
       initializeNewPageScripts();
@@ -95,6 +111,32 @@
       console.error('Failed to update page:', error);
       // Fall back to regular navigation
       window.location.href = url;
+    }
+  }
+
+  function getPageKey(url) {
+    try {
+      const parsed = new URL(url, location.origin);
+      return parsed.pathname + parsed.search;
+    } catch (error) {
+      console.warn('Invalid URL for page key:', url);
+      return location.pathname + location.search;
+    }
+  }
+
+  function rememberScrollForCurrentPage() {
+    const key = SCROLL_KEY_PREFIX + getPageKey(location.href);
+    sessionStorage.setItem(key, String(window.scrollY));
+  }
+
+  function restoreScrollForPage(url) {
+    const key = SCROLL_KEY_PREFIX + getPageKey(url);
+    const saved = sessionStorage.getItem(key);
+    if (saved !== null) {
+      const parsed = Number(saved);
+      if (Number.isFinite(parsed) && parsed >= 0) {
+        window.scrollTo(0, parsed);
+      }
     }
   }
 
@@ -127,8 +169,9 @@
       return;
     }
 
+    rememberScrollForCurrentPage();
     const transition = document.startViewTransition(async () => {
-      await updatePage(location.href);
+      await updatePage(location.href, { historyMode: 'none', scrollMode: 'restore' });
     });
   }
 

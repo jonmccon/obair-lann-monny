@@ -114,10 +114,11 @@
   const POS_X_SPREAD = 52;
   const POS_Y_MIN = 30;
   const POS_Y_SPREAD = 44;
-  // Mobile increases visual footprint slightly while capping to avoid overlap overflow.
-  const MOBILE_SIZE_BOOST_PCT = 8;
-  const MOBILE_WIDTH_CAP = 74;
-  const MOBILE_HEIGHT_CAP = 68;
+  // Mobile intentionally overscales card dimensions in percentage-of-container units:
+  // +38 percentage points with 118%/108% caps to let cards spill past viewport edges while preserving readability.
+  const MOBILE_SIZE_BOOST_PCT = 38;
+  const MOBILE_WIDTH_CAP = 118;
+  const MOBILE_HEIGHT_CAP = 108;
   const OFFSET_X_MIN = -22;
   const OFFSET_X_SPREAD = 44;
   const OFFSET_Y_MIN = -16;

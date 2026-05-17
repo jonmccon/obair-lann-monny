@@ -161,9 +161,10 @@
 .pile-images {
   position: relative;
   width: 100%;
-  aspect-ratio: 5/4;
-  min-height: 230px;
+  aspect-ratio: 3/2;
+  min-height: 170px;
   background: var(--background-color);
+  overflow: visible;
 }
 
 /* Individual piled image */
