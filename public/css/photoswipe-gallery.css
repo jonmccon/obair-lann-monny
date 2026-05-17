@@ -134,7 +134,13 @@
 }
 
 .gallery-card--current {
-	opacity: 0.85;
+	border: 2px solid #333;
+}
+
+.gallery-card-current-label {
+	margin: 0.4rem 0 0;
+	font-size: 0.8rem;
+	font-weight: 600;
 }
 
 /* Gallery tags */
