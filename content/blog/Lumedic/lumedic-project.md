@@ -5,7 +5,9 @@ category: Lumedic
 bgColor: gray
 date: 2021-01-01
 featured: true
-tags: second tag
+tags:
+  - posts
+  - featured
 images: 
 - src: "./content/blog/Lumedic/lum-10.png"
 - src: "./content/blog/Lumedic/lum-80.png"
@@ -69,7 +71,4 @@ https://play.google.com/store/apps/details?id=io.lumedicidconnect.lumedicid
 {% image "./lum-70.png", "000" %}
 
 {% image "./lum-55.png", "000" %}
-
-
-
 
