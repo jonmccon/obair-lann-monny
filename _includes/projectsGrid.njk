@@ -3,7 +3,8 @@
 {# Posts with featured: true in frontmatter get a larger card size #}
 
 <div class="projects-grid">
-  {% for post in collections.projects | reverse %}
+  {% set projectCards = projectItems or collections.projects %}
+  {% for post in projectCards | reverse %}
     {# Get the first image for this post as thumbnail #}
     {% set thumbnail = "" %}
     {% for image in collections.images %}

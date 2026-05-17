@@ -230,6 +230,10 @@ module.exports = function(eleventyConfig) {
 		return collectionApi.getFilteredByTag("posts");
 	});
 
+	eleventyConfig.addCollection("featuredProjects", function(collectionApi) {
+		return collectionApi.getFilteredByTag("featured");
+	});
+
 	eleventyConfig.addCollection("process", function(collectionApi) {
 		return collectionApi.getFilteredByTag("process");
 	});

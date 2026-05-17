@@ -6,6 +6,7 @@ date: 2024-06-01
 featured: true
 tags: 
     - second tag
+    - featured
 images: 
 - src: "content/blog/Photogrammetry/plot-30.png"
 - src: "content/blog/Photogrammetry/plot-110.png"
@@ -48,7 +49,6 @@ https://synthetos.myshopify.com/products/gshield-v5
 {% image "./plot-00.jpg", "000" %}
 
 </div>
-
 
 
 
