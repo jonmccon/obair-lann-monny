@@ -1,0 +1,59 @@
+{# Stacked papers preview component for project listings #}
+{# Shows a mini version of stacked papers with project content #}
+
+{% macro stackPreview(post, images) %}
+  <a href="{{ post.url }}" class="project-stack-preview" data-project-link>
+    <div class="stack-mini-container">
+      {# Create mini papers from project images/content #}
+      <div class="stack-mini-papers">
+        {# First paper - title and metadata #}
+        <div class="mini-paper mini-paper-1">
+          <div class="mini-paper-content">
+            <h3 class="mini-title">{{ post.data.title }}</h3>
+            {% if post.data.date %}
+            <time class="mini-date">{{ post.date | readableDate("yyyy") }}</time>
+            {% endif %}
+          </div>
+        </div>
+        
+        {# Second paper - first image or description #}
+        <div class="mini-paper mini-paper-2">
+          {% if images[0] %}
+            <img src="{{ images[0] }}" alt="" class="mini-image">
+          {% else %}
+            <div class="mini-paper-content">
+              <p class="mini-description">{{ post.data.description }}</p>
+            </div>
+          {% endif %}
+        </div>
+        
+        {# Third paper - second image or tags #}
+        <div class="mini-paper mini-paper-3">
+          {% if images[1] %}
+            <img src="{{ images[1] }}" alt="" class="mini-image">
+          {% elif post.data.tags %}
+            <div class="mini-paper-content">
+              <div class="mini-tags">
+                {% for tag in post.data.tags | filterTagList | head(3) %}
+                  <span class="mini-tag">{{ tag }}</span>
+                {% endfor %}
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        
+        {# Fourth paper - hint of more content #}
+        <div class="mini-paper mini-paper-4">
+          {% if images[2] %}
+            <img src="{{ images[2] }}" alt="" class="mini-image">
+          {% endif %}
+        </div>
+      </div>
+      
+      {# Project title below stack #}
+      <div class="stack-preview-title">
+        {{ post.data.title }}
+      </div>
+    </div>
+  </a>
+{% endmacro %}

@@ -1,0 +1,49 @@
+---
+layout: layouts/base.njk
+---
+{%- css %}{% include "public/css/stacked.css" %}{% endcss %}
+
+<div class="stacked-container">
+  <div class="stacked-papers" id="stacked-papers" role="region" aria-label="Stacked papers navigation">
+    {% for item in stackedItems %}
+    <article class="paper" data-index="{{ loop.index0 }}" aria-labelledby="paper-title-{{ loop.index0 }}">
+      <div class="paper-content">
+        <header class="paper-header">
+          <h2 id="paper-title-{{ loop.index0 }}">{{ item.title }}</h2>
+          {% if item.date %}
+          <time datetime="{{ item.date | htmlDateString }}" class="paper-date">
+            {{ item.date | readableDate }}
+          </time>
+          {% endif %}
+        </header>
+        <div class="paper-body">
+          {{ item.content | safe }}
+        </div>
+      </div>
+      <button class="flip-button" aria-label="Flip this paper aside">
+        Flip Aside
+      </button>
+    </article>
+    {% endfor %}
+  </div>
+
+  <nav class="stacked-controls" aria-label="Paper navigation controls">
+    <button id="prev-button" class="control-button" aria-label="Previous paper" disabled>
+      <span aria-hidden="true">←</span>
+      <span class="sr-only">Previous</span>
+    </button>
+    <div class="position-indicator" aria-live="polite" aria-atomic="true">
+      <span id="current-position">1</span> / <span id="total-papers">{{ stackedItems.length }}</span>
+    </div>
+    <button id="next-button" class="control-button" aria-label="Next paper">
+      <span aria-hidden="true">→</span>
+      <span class="sr-only">Next</span>
+    </button>
+    <button id="reset-button" class="control-button reset" aria-label="Reset to first paper">
+      <span aria-hidden="true">⟲</span>
+      <span class="sr-only">Reset</span>
+    </button>
+  </nav>
+</div>
+
+<script src="/js/stacked.js"></script>

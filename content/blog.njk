@@ -5,5 +5,10 @@ eleventyNavigation:
   key: Design
   order: 2
 ---
+{%- css %}{% include "public/css/project-piles.css" %}{% endcss %}
+
 <h1 class="visually-hidden">Design</h1>
-{% include "projectsThumbGrid.njk" %}
+
+{% include "projectsPilesGrid.njk" %}
+
+<script src="/js/view-transitions.js"></script>
