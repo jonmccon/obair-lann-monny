@@ -905,7 +905,6 @@ img {
 
 	/* Hero section: stack portrait + about vertically on mobile */
 	.hero-section {
-		gap: 1.5rem;
 		padding: 1.5rem 1rem;
 	}
 
