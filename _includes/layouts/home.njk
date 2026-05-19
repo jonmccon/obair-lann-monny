@@ -5,6 +5,7 @@ layout: layouts/base.njk
 
 {# Only show image grid on the actual homepage #}
 {% if page.url == "/" %}
+<div class="homepage-shell">
 <div class="image-grid">
   {% for item in collections.images | reverse %}
     <div class="image-item">
@@ -35,18 +36,6 @@ layout: layouts/base.njk
       <li>Location: Whidbey Island</li>
       <li>Social: <a href="https://www.instagram.com/jonmccon">@jonmccon</a></li>
     </ul>
-
-    <h2>Resume & Experience</h2>
-    <p>Available upon request. Recent projects include collaborations with emerging tech companies, gallery installations, and digital art commissions.</p>
-
-    <h2>Recent Gallery Shows & Exhibitions</h2>
-    <ul>
-      <li><strong>2024</strong> - Digital Futures Collective, Brooklyn Gallery Space - <a href="#">View Gallery</a></li>
-      <li><strong>2023</strong> - Generative Art Exhibition, Manhattan Tech Center - <a href="#">View Gallery</a></li>
-      <li><strong>2023</strong> - Interactive Media Showcase, Lower East Side Gallery - <a href="#">View Gallery</a></li>
-    </ul>
-    
-    <p><em>Gallery show details and portfolio updates are continuously added as new projects are completed.</em></p>
   </div>
 </section>
 
@@ -80,22 +69,7 @@ layout: layouts/base.njk
   {% set projectItems = collections.featuredProjects %}
   {% include "projectsGrid.njk" %}
 </section>
-
-<section class="homepage-photos">
-  <h2>Photos</h2>
-  <div class="homepage-photos-grid">
-    {%- for category in photoCategories %}
-      <article class="homepage-photo-card">
-        <a href="{{ category.url }}" class="homepage-photo-link">
-          <div class="homepage-photo-image">
-            {% image category.cover, category.title %}
-          </div>
-          <h3>{{ category.title }}</h3>
-        </a>
-      </article>
-    {%- endfor %}
-  </div>
-</section>
+</div>
 {% endif %}
 
 {{ content | safe }}

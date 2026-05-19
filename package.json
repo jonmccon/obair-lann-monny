@@ -42,6 +42,7 @@
 	},
 	"dependencies": {
 		"jsdom": "^26.1.0",
-		"photoswipe": "^5.4.4"
+		"photoswipe": "^5.4.4",
+		"puppeteer": "^24.43.1"
 	}
 }
