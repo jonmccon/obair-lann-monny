@@ -297,7 +297,7 @@ module.exports = function(eleventyConfig) {
 	});
 
 	eleventyConfig.addCollection("aboutPages", function(collectionApi) {
-		return collectionApi.getFilteredByTag("about");
+		return collectionApi.getAll().filter(item => item.url === "/about/");
 	});
 
 	// Photo galleries collection
