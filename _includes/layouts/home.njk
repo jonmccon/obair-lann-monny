@@ -3,13 +3,13 @@ layout: layouts/base.njk
 ---
 {% if page.url == "/" %}
 {% set about = collections.aboutPages | first %}
-<p class="homepage-headline">Design, photography, internet, classrooms, studios, food, boats, tools, process, and everything being made.</p>
+<p class="homepage-headline">{{ profile.headline }}</p>
 
 <section class="home-newspaper" aria-label="Homepage newspaper of projects and posts">
   {% if about %}
   <article class="newspaper-card newspaper-card-about">
     <a class="newspaper-card-link" href="{{ about.url }}" aria-label="{{ about.data.title }}"></a>
-    <img src="https://github.com/user-attachments/assets/c956ad3d-f0ab-4737-a3c6-e3bd8ff7038b" alt="Jonny McConnell portrait" class="newspaper-avatar">
+    <img src="{{ profile.portraitUrl }}" alt="Jonny McConnell portrait" class="newspaper-avatar">
     <div class="newspaper-kicker">About</div>
     <h1>{{ about.data.title }}</h1>
     <div class="newspaper-card-body">
