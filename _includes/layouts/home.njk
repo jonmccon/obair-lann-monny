@@ -27,7 +27,7 @@ layout: layouts/base.njk
     {% if post.data.images %}
     <div class="newspaper-images">
       {% for image in post.data.images %}
-        {% homepageImage image.src, image.alt or post.data.title %}
+        {% homepageImage image.src, image.alt | default(post.data.title) %}
       {% endfor %}
     </div>
     {% endif %}
@@ -46,7 +46,7 @@ layout: layouts/base.njk
     {% if post.data.images %}
     <div class="newspaper-images">
       {% for image in post.data.images %}
-        {% homepageImage image.src, image.alt or post.data.title %}
+        {% homepageImage image.src, image.alt | default(post.data.title) %}
       {% endfor %}
     </div>
     {% endif %}

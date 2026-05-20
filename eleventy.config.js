@@ -79,6 +79,7 @@ module.exports = function(eleventyConfig) {
 		return plain.split(" ").length;
 	});
 
+	// Homepage cards use small frontmatter images, so media embedded in post bodies is stripped here.
 	eleventyConfig.addFilter("stripHomepageMedia", (value) => {
 		if (!value || typeof value !== "string") {
 			return "";
