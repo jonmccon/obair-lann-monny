@@ -2,6 +2,8 @@
 :root {
 	--font-family: -apple-system, system-ui, sans-serif;
 	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+	--homepage-top-offset: 7.25rem;
+	--homepage-top-offset-mobile: 6rem;
 }
 
 /* Theme colors */
@@ -235,7 +237,7 @@ header {
 	grid-template-rows: repeat(12, minmax(0, 1fr));
 	grid-auto-flow: row dense;
 	gap: 0.45rem;
-	height: calc(100vh - 7.25rem);
+	height: calc(100vh - var(--homepage-top-offset));
 	min-height: 520px;
 	overflow: hidden;
 }
@@ -363,7 +365,7 @@ header {
 	.home-newspaper {
 		grid-template-columns: repeat(24, minmax(0, 1fr));
 		grid-template-rows: repeat(16, minmax(0, 1fr));
-		height: calc(100vh - 6rem);
+		height: calc(100vh - var(--homepage-top-offset-mobile));
 		min-height: 620px;
 		gap: 0.35rem;
 	}

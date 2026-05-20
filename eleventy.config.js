@@ -9,6 +9,7 @@ const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 const path = require("path");
+const { JSDOM } = require("jsdom");
 
 const pluginDrafts = require("./eleventy.config.drafts.js");
 const pluginImages = require("./eleventy.config.images.js");
@@ -83,11 +84,11 @@ module.exports = function(eleventyConfig) {
 			return "";
 		}
 
-		return value
-			.replace(/<picture[\s\S]*?<\/picture>/gi, "")
-			.replace(/<img\b[^>]*>/gi, "")
-			.replace(/<iframe[\s\S]*?<\/iframe>/gi, "")
-			.replace(/<script[\s\S]*?<\/script>/gi, "");
+		const dom = JSDOM.fragment(value);
+		dom.querySelectorAll("picture, img, iframe, script").forEach(node => node.remove());
+		const container = new JSDOM("").window.document.createElement("div");
+		container.append(dom.cloneNode(true));
+		return container.innerHTML;
 	});
 
 	// Get the first `n` elements of a collection.
