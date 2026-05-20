@@ -1,100 +1,60 @@
 ---
 layout: layouts/base.njk
 ---
-{# Post listing, links list, and projects list have been archived in home-archive.njk #}
-
-{# Only show image grid on the actual homepage #}
 {% if page.url == "/" %}
-<div class="image-grid">
-  {% for item in collections.images | reverse %}
-    <div class="image-item">
-      <a href="{{ item.url }}">
-        <img src="{{ item.src }}" alt="{{ item.alt }}"{% if loop.first %} loading="eager" fetchpriority="high"{% else %} loading="lazy"{% endif %} decoding="async">
-      </a>
+{% set about = collections.aboutPages | first %}
+<p class="homepage-headline">Design, photography, internet, classrooms, studios, food, boats, tools, process, and everything being made.</p>
+
+<section class="home-newspaper" aria-label="Homepage newspaper of projects and posts">
+  {% if about %}
+  <article class="newspaper-card newspaper-card-about">
+    <a class="newspaper-card-link" href="{{ about.url }}" aria-label="{{ about.data.title }}"></a>
+    <img src="https://github.com/user-attachments/assets/c956ad3d-f0ab-4737-a3c6-e3bd8ff7038b" alt="Jonny McConnell portrait" class="newspaper-avatar">
+    <div class="newspaper-kicker">About</div>
+    <h1>{{ about.data.title }}</h1>
+    <div class="newspaper-card-body">
+      {{ about.templateContent | safe }}
     </div>
+  </article>
+  {% endif %}
+
+  {% for post in collections.projects | reverse %}
+  <article class="newspaper-card newspaper-card-project{% if post.templateContent | wordCount > 180 %} newspaper-card-wide{% endif %}">
+    <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
+    <div class="newspaper-kicker">Project</div>
+    <h2>{{ post.data.title }}</h2>
+    {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
+    {% if post.data.images %}
+    <div class="newspaper-images">
+      {% for image in post.data.images %}
+        {% homepageImage image.src, image.alt or post.data.title %}
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="newspaper-card-body">
+      {{ post.templateContent | stripHomepageMedia | safe }}
+    </div>
+  </article>
   {% endfor %}
-</div>
 
-{# Preload first few critical images for instant interaction #}
-{% set criticalImages = collections.images | reverse | slice(0, 3) %}
-{% for item in criticalImages %}
-<link rel="preload" as="image" href="{{ item.src }}">
-{% endfor %}
-
-{# Hero section: portrait photo + about description #}
-<section class="hero-section">
-  <div class="hero-portrait">
-    <img src="https://github.com/user-attachments/assets/c956ad3d-f0ab-4737-a3c6-e3bd8ff7038b" alt="Jonny McConnell portrait" class="portrait-photo">
-  </div>
-  <div class="hero-about">
-    <p>Jonny is a creative with one foot in design, one in photography, one in building internet & one in the classroom. He's a tinkerer, a sailor, a chef and generally just wants to learn how things are made. A graduate of Western Washington University, a former board member of AIGA Seattle, a former mascot of the Seattle Sounders, Jonny balances time between freelance, maintaining the Seattle Creative Directory and developing machine aided printmaking from his studio on Whidbey Island.</p>
-
-    <h2>Contact</h2>
-    <ul>
-      <li>Email: hello@jonmccon.com</li>
-      <li>Location: Whidbey Island</li>
-      <li>Social: <a href="https://www.instagram.com/jonmccon">@jonmccon</a></li>
-    </ul>
-
-    <h2>Resume & Experience</h2>
-    <p>Available upon request. Recent projects include collaborations with emerging tech companies, gallery installations, and digital art commissions.</p>
-
-    <h2>Recent Gallery Shows & Exhibitions</h2>
-    <ul>
-      <li><strong>2024</strong> - Digital Futures Collective, Brooklyn Gallery Space - <a href="#">View Gallery</a></li>
-      <li><strong>2023</strong> - Generative Art Exhibition, Manhattan Tech Center - <a href="#">View Gallery</a></li>
-      <li><strong>2023</strong> - Interactive Media Showcase, Lower East Side Gallery - <a href="#">View Gallery</a></li>
-    </ul>
-    
-    <p><em>Gallery show details and portfolio updates are continuously added as new projects are completed.</em></p>
-  </div>
-</section>
-
-<section class="homepage-podcast">
-  <h2>Seattle Creative Podcast</h2>
-  <div class="homepage-podcast-players">
-    <iframe
-      src="https://player.simplecast.com/1fcc9781-6d54-4b27-8a00-9b511ae09bf5?dark=false"
-      title="Seattle Creative podcast player - Episode 1"
-      loading="lazy"
-      allow="autoplay"
-    ></iframe>
-    <iframe
-      src="https://player.simplecast.com/a8c63034-9b6c-4d56-b3ed-e440f6a3e031?dark=false"
-      title="Seattle Creative podcast player - Episode 2"
-      loading="lazy"
-      allow="autoplay"
-    ></iframe>
-    <iframe
-      src="https://player.simplecast.com/f16ee7eb-9281-40d6-8401-085334af24f8?dark=false"
-      title="Seattle Creative podcast player - Episode 3"
-      loading="lazy"
-      allow="autoplay"
-    ></iframe>
-  </div>
-</section>
-
-{# Projects grid under the fold #}
-<section class="homepage-projects">
-  <h2>Projects</h2>
-  {% set projectItems = collections.featuredProjects %}
-  {% include "projectsGrid.njk" %}
-</section>
-
-<section class="homepage-photos">
-  <h2>Photos</h2>
-  <div class="homepage-photos-grid">
-    {%- for category in photoCategories %}
-      <article class="homepage-photo-card">
-        <a href="{{ category.url }}" class="homepage-photo-link">
-          <div class="homepage-photo-image">
-            {% image category.cover, category.title %}
-          </div>
-          <h3>{{ category.title }}</h3>
-        </a>
-      </article>
-    {%- endfor %}
-  </div>
+  {% for post in collections.process | reverse %}
+  <article class="newspaper-card newspaper-card-process{% if post.templateContent | wordCount > 220 %} newspaper-card-tall{% endif %}">
+    <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
+    <div class="newspaper-kicker">Post</div>
+    <h2>{{ post.data.title }}</h2>
+    {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
+    {% if post.data.images %}
+    <div class="newspaper-images">
+      {% for image in post.data.images %}
+        {% homepageImage image.src, image.alt or post.data.title %}
+      {% endfor %}
+    </div>
+    {% endif %}
+    <div class="newspaper-card-body">
+      {{ post.templateContent | stripHomepageMedia | safe }}
+    </div>
+  </article>
+  {% endfor %}
 </section>
 {% endif %}
 

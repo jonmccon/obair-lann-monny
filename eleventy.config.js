@@ -78,6 +78,18 @@ module.exports = function(eleventyConfig) {
 		return plain.split(" ").length;
 	});
 
+	eleventyConfig.addFilter("stripHomepageMedia", (value) => {
+		if (!value || typeof value !== "string") {
+			return "";
+		}
+
+		return value
+			.replace(/<picture[\s\S]*?<\/picture>/gi, "")
+			.replace(/<img\b[^>]*>/gi, "")
+			.replace(/<iframe[\s\S]*?<\/iframe>/gi, "")
+			.replace(/<script[\s\S]*?<\/script>/gi, "");
+	});
+
 	// Get the first `n` elements of a collection.
 	eleventyConfig.addFilter("head", (array, n) => {
 		if(!Array.isArray(array) || array.length === 0) {
@@ -177,6 +189,38 @@ module.exports = function(eleventyConfig) {
 		}
 	});
 
+	eleventyConfig.addAsyncShortcode("homepageImage", async function(src, alt) {
+		if (!src) return "";
+
+		let input = src;
+		if (src.startsWith("./content/")) {
+			input = path.resolve(src.substring(2));
+		} else if (src.startsWith("content/")) {
+			input = path.resolve(src);
+		}
+
+		try {
+			let isGif = src.toLowerCase().endsWith(".gif");
+			let metadata = await Image(input, {
+				widths: [160],
+				formats: isGif ? ["gif"] : ["jpeg"],
+				outputDir: path.join(eleventyConfig.dir.output, "img"),
+				urlPath: "/img/",
+				...(isGif ? { sharpOptions: { animated: true } } : {})
+			});
+
+			return Image.generateHTML(metadata, {
+				alt: alt || "",
+				loading: "lazy",
+				decoding: "async",
+				class: "newspaper-image"
+			});
+		} catch (error) {
+			console.warn(`Homepage image processing failed for ${src}:`, error.message);
+			return "";
+		}
+	});
+
 	// Photo gallery shortcodes (adapted from bashlk/adventures-with-tech)
 	const GALLERY_IMAGE_WIDTH = 192;
 	const LANDSCAPE_LIGHTBOX_IMAGE_WIDTH = 2000;
@@ -250,6 +294,10 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addCollection("process", function(collectionApi) {
 		return collectionApi.getFilteredByTag("process");
+	});
+
+	eleventyConfig.addCollection("aboutPages", function(collectionApi) {
+		return collectionApi.getFilteredByTag("about");
 	});
 
 	// Photo galleries collection
