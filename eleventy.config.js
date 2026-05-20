@@ -86,7 +86,9 @@ module.exports = function(eleventyConfig) {
 		}
 
 		const dom = JSDOM.fragment(value);
-		dom.querySelectorAll("picture, img, iframe, script").forEach(node => node.remove());
+		dom.querySelectorAll("picture, img, iframe, script").forEach(function(node) {
+			node.remove();
+		});
 		const container = new JSDOM("").window.document.createElement("div");
 		container.append(dom.cloneNode(true));
 		return container.innerHTML;
