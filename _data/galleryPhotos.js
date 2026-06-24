@@ -4,23 +4,36 @@ const path = require("path");
 const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".gif", ".webp"]);
 
 /**
+ * Extract the `title:` value from a YAML frontmatter block.
+ * Handles unquoted, single-quoted, and double-quoted values.
+ */
+function parseFrontmatterTitle(content) {
+	const match = content.match(/^title:\s*["']?(.+?)["']?\s*$/m);
+	return match ? match[1].trim() : null;
+}
+
+/**
  * Generates a flat array of photo metadata objects — one entry per image file
  * found in each gallery subfolder under content/galleries/.
  *
  * Each object contains:
- *   gallerySlug  — matches the .md filename (and URL slug) for the parent gallery
- *   folderName   — actual filesystem folder name (same as gallerySlug in all current galleries)
- *   slug         — photo identifier derived from filename without extension (e.g. "0022")
- *   filename     — original filename (e.g. "0022.jpg")
- *   src          — content-relative path for use with the {% image %} shortcode
- *   alt          — default alt text
- *   index        — 0-based position within the gallery (sorted by filename)
- *   total        — total photo count for the gallery
- *   prevSlug     — slug of the previous photo (null for first)
- *   nextSlug     — slug of the next photo (null for last)
- *   galleryUrl   — URL of the parent gallery page
- *   url          — canonical URL for the standalone photo page
- *   deepLinkUrl  — URL that opens the parent gallery page with this photo open in preview
+ *   gallerySlug    — matches the .md filename (and URL slug) for the parent gallery
+ *   galleryTitle   — human-readable gallery title parsed from the .md frontmatter
+ *   folderName     — actual filesystem folder name (same as gallerySlug in current galleries)
+ *   slug           — photo identifier derived from filename without extension (e.g. "0022")
+ *   filename       — original filename (e.g. "0022.jpg")
+ *   src            — content-relative path for use with the {% image %} shortcode
+ *                    (uses folderName for the filesystem path, not gallerySlug, so that
+ *                    the physical file location is always correct even if the URL slug
+ *                    were ever to diverge from the folder name)
+ *   alt            — default alt text
+ *   index          — 0-based position within the gallery (sorted by filename)
+ *   total          — total photo count for the gallery
+ *   prevSlug       — slug of the previous photo (null for first)
+ *   nextSlug       — slug of the next photo (null for last)
+ *   galleryUrl     — URL of the parent gallery page
+ *   url            — canonical URL for the standalone photo page
+ *   deepLinkUrl    — URL that opens the parent gallery page with this photo open in preview
  */
 module.exports = function () {
 	const galleriesDir = path.join(__dirname, "..", "content", "galleries");
@@ -41,17 +54,24 @@ module.exports = function () {
 	for (const folderName of galleryDirs) {
 		const folderPath = path.join(galleriesDir, folderName);
 
-		// Derive gallery slug from the .md filename inside the folder
+		// Derive gallery slug from the .md filename inside the folder.
+		// Also read the frontmatter title for display purposes.
 		let gallerySlug = folderName;
+		let galleryTitle = folderName.replace(/-/g, " ");
 		try {
 			const mdFiles = fs
 				.readdirSync(folderPath)
 				.filter((f) => f.endsWith(".md"));
 			if (mdFiles.length === 1) {
 				gallerySlug = path.basename(mdFiles[0], ".md");
+				const mdContent = fs.readFileSync(
+					path.join(folderPath, mdFiles[0]),
+					"utf8"
+				);
+				galleryTitle = parseFrontmatterTitle(mdContent) || galleryTitle;
 			}
 		} catch {
-			// keep folderName as fallback
+			// keep folderName-based fallbacks
 		}
 
 		// Collect and sort image files
@@ -74,11 +94,16 @@ module.exports = function () {
 
 			results.push({
 				gallerySlug,
+				galleryTitle,
+				// folderName is the actual filesystem directory; used for src paths.
+				// gallerySlug is the URL-facing slug; used for href construction.
+				// In all current galleries these are identical, but keeping them
+				// separate ensures the file path never breaks if a URL slug changes.
 				folderName,
 				slug: photoSlug,
 				filename,
 				src: `content/galleries/${folderName}/${filename}`,
-				alt: `${gallerySlug} — photo ${photoSlug}`,
+				alt: `${galleryTitle} — photo ${photoSlug}`,
 				index: i,
 				total: imageFiles.length,
 				prevSlug:

@@ -9,7 +9,7 @@ layout: layouts/base.njk
     <nav class="photo-page-breadcrumb" aria-label="Gallery navigation">
       <a href="/galleries/">Galleries</a>
       <span aria-hidden="true"> › </span>
-      <a href="{{ photo.galleryUrl }}">{{ photo.gallerySlug | replace("-", " ") | capitalize }}</a>
+      <a href="{{ photo.galleryUrl }}">{{ photo.galleryTitle }}</a>
     </nav>
     <p class="photo-page-meta">{{ photo.index + 1 }} of {{ photo.total }}</p>
   </header>
