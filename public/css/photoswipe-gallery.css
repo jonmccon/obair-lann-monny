@@ -3,7 +3,7 @@
 /* Gallery listing page grid */
 .galleries-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
 	gap: 2rem;
 	margin: 2rem 0;
 }
@@ -96,14 +96,77 @@
 
 .gallery-card-image {
 	width: 100%;
-	height: 200px;
+	height: 300px;
 	overflow: hidden;
+	background: #f6f6f6;
+	position: relative;
 }
 
 .gallery-card-image img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+.gallery-card-jumble {
+	position: relative;
+	height: 100%;
+	padding: 1rem;
+}
+
+.gallery-card-jumble-item {
+	position: absolute;
+	overflow: hidden;
+	border-radius: 3px;
+	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.gallery-card-jumble-item--1 {
+	left: 5%;
+	top: 10%;
+	width: 45%;
+	height: 50%;
+	transform: rotate(-6deg);
+}
+
+.gallery-card-jumble-item--2 {
+	right: 7%;
+	top: 4%;
+	width: 42%;
+	height: 42%;
+	transform: rotate(4deg);
+}
+
+.gallery-card-jumble-item--3 {
+	left: 30%;
+	top: 30%;
+	width: 46%;
+	height: 46%;
+	transform: rotate(-2deg);
+}
+
+.gallery-card-jumble-item--4 {
+	left: 10%;
+	bottom: 6%;
+	width: 38%;
+	height: 40%;
+	transform: rotate(5deg);
+}
+
+.gallery-card-jumble-item--5 {
+	right: 10%;
+	bottom: 7%;
+	width: 40%;
+	height: 44%;
+	transform: rotate(-4deg);
+}
+
+.gallery-card:hover .gallery-card-jumble-item--2 {
+	transform: rotate(6deg) translateY(-3px);
+}
+
+.gallery-card:hover .gallery-card-jumble-item--4 {
+	transform: rotate(7deg) translateY(2px);
 }
 
 .gallery-card-content {
@@ -165,7 +228,7 @@
 /* Individual gallery page - masonry grid */
 .photo-gallery {
 	margin: 2rem 0;
-	column-count: 4;
+	column-count: 3;
 	column-gap: 8px;
 }
 
@@ -240,7 +303,7 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
 	.photo-gallery {
-		column-count: 3;
+		column-count: 2;
 	}
 }
 

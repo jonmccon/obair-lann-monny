@@ -14,7 +14,19 @@ eleventyNavigation:
     <article class="gallery-card">
       <a href="{{ category.url }}" class="gallery-card-link">
         <div class="gallery-card-image">
-          {% image category.cover, category.title %}
+          {% if category.previewImages and category.previewImages.length %}
+            <div class="gallery-card-jumble" aria-hidden="true">
+              {% for previewImage in category.previewImages %}
+                {% if loop.index <= 5 %}
+                  <div class="gallery-card-jumble-item gallery-card-jumble-item--{{ loop.index }}">
+                    {% image previewImage, "" %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          {% else %}
+            {% image category.cover, category.title %}
+          {% endif %}
         </div>
         <div class="gallery-card-content">
           <h2 class="gallery-card-title">{{ category.title }}</h2>
