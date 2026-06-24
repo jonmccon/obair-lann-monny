@@ -27,7 +27,6 @@ Portfolio and process site for [jonmccon.com](https://jonmccon.com), built with 
 - `/_includes` — layouts and shared templates
 - `/_data` — global data files (`metadata`, `photoCategories`, etc.)
 - `/public` — passthrough static assets
-- `/scripts/obsidian-bridge.cjs` — Obsidian sync/watch tooling
 - `/.github/copilot-instructions.md` — agent-specific operating instructions
 
 ## Local development
@@ -48,10 +47,6 @@ Dev server: `http://localhost:8080`
 - `npm run debugstart` — verbose dev server logs
 - `npm run benchmark` — Eleventy benchmark output
 - `npm run build-ghpages` — build with GitHub Pages path prefix
-- `npm run obsidian:sync` — one-time Obsidian content sync
-- `npm run obsidian:watch` — polling watch + sync
-- `npm run obsidian:watch:publish` — watch + sync + git autopublish
-
 ## Content conventions
 
 ### Draft behavior
@@ -69,23 +64,6 @@ Draft handling is frontmatter-driven (`draft: true`), not folder-driven:
 
 > Do not wrap Nunjucks shortcodes in HTML comments (`<!-- -->`); Nunjucks still evaluates them.
 > Use Nunjucks comments (`{# ... #}`) or delete the line.
-
-## Obsidian authoring bridge
-
-Default vault path:
-
-- `OBSIDIAN_VAULT_PATH`, or fallback `./obsidian/vault`
-
-Expected vault folders:
-
-- `blog/` → `content/blog/<slug>/<slug>.md`
-- `inProgress/` → `content/inProgress/<slug>/<slug>.md`
-
-Sync validations include:
-
-- required frontmatter (`title`, `description`, `date`, `tags`, `category`, `draft`)
-- `tags` format validation
-- existence checks for `images:` sources and `{% image %}` shortcode sources
 
 ## Deployment notes
 

@@ -91,18 +91,9 @@ obair-lann-monny/
 │   │   └── view-transitions.js # View Transitions API helper
 │   └── img/                   # Static images (logos etc.)
 │
-├── scripts/
-│   └── obsidian-bridge.cjs    # Obsidian vault sync tool (see OBSIDIAN-BRIDGE.md)
-│
-├── obsidian/vault/            # Sample vault structure for onboarding (not a real vault)
-│   ├── README.md
-│   ├── blog/                  # Empty — real vault is external
-│   └── inProgress/            # Empty — real vault is external
-│
 ├── docs/                      # Project documentation
 │   ├── ARCHITECTURE.md        # This file
 │   ├── CONTENT-INVENTORY.md   # Post inventory with dates
-│   ├── OBSIDIAN-BRIDGE.md     # Obsidian bridge details
 │   └── STACKED-LAYOUT.md      # Stacked layout usage guide
 │
 ├── eleventy.config.js         # Main Eleventy config (plugins, filters, shortcodes, collections)

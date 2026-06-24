@@ -21,7 +21,6 @@ Eleventy `^3.1.2` portfolio site with:
 - Design archive (`/design/`), Process archive (`/process/`), and photo galleries (`/galleries/`)
 - Featured projects + gallery category cards on homepage
 - RSS/JSON feeds, tags pages, sitemap
-- Obsidian bridge tooling for markdown sync
 
 ## Key directories
 
@@ -29,7 +28,6 @@ Eleventy `^3.1.2` portfolio site with:
 - `_includes/layouts/` — `base.njk`, `home.njk`, `archive.njk`, `post.njk`, `gallery.njk`
 - `_data/` — metadata and shared data
 - `public/` — copied static assets
-- `scripts/obsidian-bridge.cjs` — sync/watch/autopublish bridge
 
 ## Draft and publish behavior
 
@@ -45,21 +43,6 @@ Draft control is `draft: true` frontmatter:
 - Use `{% image "./file.jpg", "Alt text" %}` in markdown content
 - Frontmatter `images:` powers homepage image collection
 - Current output formats are JPEG (and GIF for animated GIF sources)
-- Missing image references break workflows (especially Obsidian sync validation)
+- Missing image references break builds
 
 Never HTML-comment Nunjucks image shortcodes. Use Nunjucks comments (`{# ... #}`) or remove the shortcode.
-
-## Obsidian workflow
-
-Scripts:
-
-- `npm run obsidian:sync`
-- `npm run obsidian:watch`
-- `npm run obsidian:watch:publish`
-
-Vault mapping:
-
-- `blog/*.md` → `content/blog/<slug>/<slug>.md`
-- `inProgress/*.md` → `content/inProgress/<slug>/<slug>.md`
-
-Default vault root is `OBSIDIAN_VAULT_PATH` or `./obsidian/vault`.
