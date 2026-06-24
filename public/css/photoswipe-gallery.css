@@ -169,6 +169,14 @@
 	transform: rotate(7deg) translateY(2px);
 }
 
+.gallery-card:focus-within .gallery-card-jumble-item--2 {
+	transform: rotate(6deg) translateY(-3px);
+}
+
+.gallery-card:focus-within .gallery-card-jumble-item--4 {
+	transform: rotate(7deg) translateY(2px);
+}
+
 .gallery-card-content {
 	padding: 1.5rem;
 }
