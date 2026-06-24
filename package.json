@@ -8,10 +8,7 @@
 		"start": "npx @11ty/eleventy --serve --quiet",
 		"debug": "DEBUG=Eleventy* npx @11ty/eleventy",
 		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
-		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy",
-		"obsidian:sync": "node scripts/obsidian-bridge.cjs sync",
-		"obsidian:watch": "node scripts/obsidian-bridge.cjs watch",
-		"obsidian:watch:publish": "node scripts/obsidian-bridge.cjs watch --autopublish"
+		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
 	},
 	"repository": {
 		"type": "git",
