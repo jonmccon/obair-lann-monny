@@ -245,7 +245,32 @@ module.exports = function(eleventyConfig) {
 					pswpModule: PhotoSwipe,
 					preload: [1, 1]
 				});
+				// URL sync: update the browser URL when a photo is opened or navigated to
+				lightbox.on('pswpOpen', () => {
+					const pswp = lightbox.pswp;
+					const syncUrl = () => {
+						const el = pswp.currSlide && pswp.currSlide.data && pswp.currSlide.data.element;
+						const deepLink = el && el.getAttribute('data-deep-link-url');
+						if (deepLink) history.replaceState(null, '', deepLink);
+					};
+					syncUrl();
+					pswp.on('change', syncUrl);
+					pswp.on('close', () => {
+						history.replaceState(null, '', location.pathname + location.search);
+					});
+				});
 				lightbox.init();
+				// Deep-link: if the page URL contains a #photo-<slug> hash, open that photo
+				(function () {
+					const hash = location.hash;
+					if (!hash.startsWith('#photo-')) return;
+					const photoSlug = hash.slice(7);
+					const galleryEl = document.getElementById('gallery-${name}');
+					if (!galleryEl) return;
+					const anchors = Array.from(galleryEl.querySelectorAll('a[data-photo-slug]'));
+					const idx = anchors.findIndex(function (a) { return a.getAttribute('data-photo-slug') === photoSlug; });
+					if (idx >= 0) lightbox.loadAndOpen(idx);
+				})();
 			</script>
 		`.replace(/(\r\n|\n|\r)/gm, "");
 	});
@@ -259,6 +284,13 @@ module.exports = function(eleventyConfig) {
 		}
 
 		const altText = alt || "Gallery image";
+
+		// Derive a stable per-photo slug from the source filename (e.g. "0022" from "./0022.jpg")
+		const photoSlug = path.basename(src, path.extname(src));
+		// Gallery slug matches the page's fileSlug (set by galleries.11tydata.js permalink)
+		const gallerySlug = this.page.fileSlug;
+		const photoUrl = `/galleries/${gallerySlug}/${photoSlug}/`;
+		const deepLinkUrl = `/galleries/${gallerySlug}/#photo-${photoSlug}`;
 
 		// First pass: generate thumbnail only to detect orientation
 		const thumbMetadata = await Image(input, {
@@ -284,7 +316,8 @@ module.exports = function(eleventyConfig) {
 
 		const fullMeta = fullMetadata.jpeg[0];
 
-		return `<a href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" target="_blank"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
+		// Each anchor carries the photo slug and standalone URL for URL-sync and deep-linking
+		return `<a id="photo-${photoSlug}" href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" data-photo-slug="${photoSlug}" data-photo-url="${photoUrl}" data-deep-link-url="${deepLinkUrl}" target="_blank"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
 	});
 
 	// Create separate collections for projects and process posts

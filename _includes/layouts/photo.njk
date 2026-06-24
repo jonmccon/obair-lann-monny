@@ -1,0 +1,42 @@
+---
+layout: layouts/base.njk
+---
+{%- css %}{% include "public/css/photoswipe-gallery.css" %}{% endcss %}
+<link rel="stylesheet" href="/css/photoswipe.css">
+
+<article class="photo-page">
+  <header class="photo-page-header">
+    <nav class="photo-page-breadcrumb" aria-label="Gallery navigation">
+      <a href="/galleries/">Galleries</a>
+      <span aria-hidden="true"> › </span>
+      <a href="{{ photo.galleryUrl }}">{{ photo.gallerySlug | replace("-", " ") | capitalize }}</a>
+    </nav>
+    <p class="photo-page-meta">{{ photo.index + 1 }} of {{ photo.total }}</p>
+  </header>
+
+  <div class="photo-page-image">
+    {% image photo.src, photo.alt %}
+  </div>
+
+  <nav class="photo-page-nav" aria-label="Photo navigation">
+    {%- if photo.prevSlug %}
+    <a class="photo-page-nav-prev" href="/galleries/{{ photo.gallerySlug }}/{{ photo.prevSlug }}/">← Previous</a>
+    {%- else %}
+    <span class="photo-page-nav-prev photo-page-nav-disabled" aria-disabled="true">← Previous</span>
+    {%- endif %}
+
+    <a class="photo-page-nav-gallery" href="{{ photo.galleryUrl }}">Back to gallery</a>
+
+    {%- if photo.nextSlug %}
+    <a class="photo-page-nav-next" href="/galleries/{{ photo.gallerySlug }}/{{ photo.nextSlug }}/">Next →</a>
+    {%- else %}
+    <span class="photo-page-nav-next photo-page-nav-disabled" aria-disabled="true">Next →</span>
+    {%- endif %}
+  </nav>
+
+  <footer class="photo-page-footer">
+    <p>
+      <a href="{{ photo.deepLinkUrl }}">View in gallery</a>
+    </p>
+  </footer>
+</article>
