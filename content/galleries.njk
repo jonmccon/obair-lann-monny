@@ -6,21 +6,29 @@ eleventyNavigation:
   order: 6
 ---
 {%- css %}{% include "public/css/photoswipe-gallery.css" %}{% endcss %}
+{# PhotoSwipe base styles are emitted as a static asset from node_modules. #}
+<link rel="stylesheet" href="/css/photoswipe.css">
 <h1>Photo Galleries</h1>
-<p>Browse by category.</p>
+<p>Jump to a gallery:</p>
 
-<div class="galleries-grid">
-  {%- for category in photoCategories %}
-    <article class="gallery-card">
-      <a href="{{ category.url }}" class="gallery-card-link">
-        <div class="gallery-card-image">
-          {% image category.cover, category.title %}
-        </div>
-        <div class="gallery-card-content">
-          <h2 class="gallery-card-title">{{ category.title }}</h2>
-          <p class="gallery-card-description">{{ category.description }}</p>
-        </div>
-      </a>
-    </article>
-  {%- endfor %}
-</div>
+<nav class="gallery-jump-nav" aria-label="Gallery sections">
+  <ul class="gallery-jump-links">
+    {%- for gallery in collections.galleries %}
+      <li><a href="#gallery-{{ gallery.page.fileSlug }}">{{ gallery.data.title }}</a></li>
+    {%- endfor %}
+  </ul>
+</nav>
+
+{%- for gallery in collections.galleries %}
+  <section class="gallery-section" id="gallery-{{ gallery.page.fileSlug }}">
+    <header class="gallery-section-header">
+      <h2>{{ gallery.data.title }}</h2>
+      {% if gallery.data.description %}
+        <p class="gallery-description">{{ gallery.data.description }}</p>
+      {% endif %}
+    </header>
+    <div class="gallery-section-content">
+      {{ gallery.templateContent | safe }}
+    </div>
+  </section>
+{%- endfor %}
