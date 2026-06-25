@@ -231,48 +231,11 @@ module.exports = function(eleventyConfig) {
 	const PORTRAIT_LIGHTBOX_IMAGE_WIDTH = 720;
 
 	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, name) {
-		// Newlines removed to prevent Markdown from wrapping output in <p> tags
-		return `
-			<div class="photo-gallery" id="gallery-${name}">
-				${content}
-			</div>
-			<script type="module">
-				import PhotoSwipeLightbox from '/js/photoswipe-lightbox.esm.min.js';
-				import PhotoSwipe from '/js/photoswipe.esm.min.js';
-				const lightbox = new PhotoSwipeLightbox({
-					gallery: '#gallery-${name}',
-					children: 'a',
-					pswpModule: PhotoSwipe,
-					preload: [1, 1]
-				});
-				// URL sync: update the browser URL when a photo is opened or navigated to
-				lightbox.on('pswpOpen', () => {
-					const pswp = lightbox.pswp;
-					const syncUrl = () => {
-						const el = pswp.currSlide && pswp.currSlide.data && pswp.currSlide.data.element;
-						const deepLink = el && el.getAttribute('data-deep-link-url');
-						if (deepLink) history.replaceState(null, '', deepLink);
-					};
-					syncUrl();
-					pswp.on('change', syncUrl);
-					pswp.on('close', () => {
-						history.replaceState(null, '', location.pathname + location.search);
-					});
-				});
-				lightbox.init();
-				// Deep-link: if the page URL contains a #photo-<slug> hash, open that photo
-				(function () {
-					const hash = location.hash;
-					if (!hash.startsWith('#photo-')) return;
-					const photoSlug = hash.slice(7);
-					const galleryEl = document.getElementById('gallery-${name}');
-					if (!galleryEl) return;
-					const anchors = Array.from(galleryEl.querySelectorAll('a[data-photo-slug]'));
-					const idx = anchors.findIndex(function (a) { return a.getAttribute('data-photo-slug') === photoSlug; });
-					if (idx >= 0) lightbox.loadAndOpen(idx);
-				})();
-			</script>
-		`.replace(/(\r\n|\n|\r)/gm, "");
+		// Newlines removed to prevent Markdown from wrapping output in <p> tags.
+		// Gallery JS (PhotoSwipe init, URL sync, deep-link) lives in public/js/gallery-init.js
+		// rather than inline here — inline scripts inside paired shortcodes get HTML-entity-encoded
+		// (=> becomes &gt;, && becomes &amp;&amp;) which breaks the JavaScript.
+		return `<div class="photo-gallery" id="gallery-${name}">${content}</div><script type="module" src="/js/gallery-init.js"></script>`;
 	});
 
 	eleventyConfig.addAsyncShortcode("galleryImage", async function(src, alt) {
