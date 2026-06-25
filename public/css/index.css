@@ -223,7 +223,7 @@ header {
 }
 
 .homepage-headline {
-	max-width: 22ch;
+	max-width: min(22ch, 70vw);
 	margin: 0 0 1rem;
 	font-size: clamp(1.5rem, 3vw, 2.6rem);
 	line-height: 0.95;
@@ -358,7 +358,7 @@ header {
 
 @media (max-width: 768px) {
 	.homepage-headline {
-		max-width: 15ch;
+		max-width: min(15ch, 80vw);
 		font-size: clamp(1.4rem, 6vw, 2rem);
 	}
 

@@ -187,7 +187,7 @@
 
 /* Gallery page layout */
 .gallery-page {
-	max-width: none;
+	max-width: 100%;
 	margin: 0;
 	padding: 0;
 }

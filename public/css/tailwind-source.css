@@ -3,13 +3,6 @@
 @theme {
   --font-sans: -apple-system, system-ui, sans-serif;
   --font-mono: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
-  --color-site-ink: #333333;
-  --color-site-muted: #5a5a5a;
-  --color-site-line: #c0c0c0;
-  --color-site-bg: #e6e6e6;
-  --color-site-panel: rgba(255, 255, 255, 0.78);
-  --color-site-link: #082840;
-  --color-site-link-active: #5f2b48;
 }
 
 @layer base {
