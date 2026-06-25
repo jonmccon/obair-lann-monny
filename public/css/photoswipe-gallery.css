@@ -312,12 +312,37 @@
 
 .photo-page-header {
 	margin-bottom: 1.5rem;
+	text-align: center;
+}
+
+.photo-page-permalink {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 1rem;
+	color: #aaa;
+	text-decoration: none;
+	transition: color 0.15s;
+}
+
+.photo-page-permalink:hover {
+	color: #333;
+}
+
+@media (prefers-color-scheme: dark) {
+	.photo-page-permalink {
+		color: #666;
+	}
+	.photo-page-permalink:hover {
+		color: #ddd;
+	}
 }
 
 .photo-page-breadcrumb {
 	font-size: 0.9rem;
 	color: #666;
 	margin-bottom: 0.5rem;
+	text-align: left;
 }
 
 .photo-page-breadcrumb a {
@@ -333,6 +358,7 @@
 	font-size: 0.8rem;
 	color: #999;
 	margin: 0;
+	text-align: left;
 }
 
 .photo-page-image {
