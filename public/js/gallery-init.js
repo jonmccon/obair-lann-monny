@@ -9,8 +9,10 @@ document.querySelectorAll('.photo-gallery').forEach((galleryEl) => {
 		preload: [1, 1]
 	});
 
-	// Sync browser URL with the current photo while the lightbox is open
-	lightbox.on('pswpOpen', () => {
+	// Sync browser URL with the current photo while the lightbox is open.
+	// 'afterInit' is the correct PhotoSwipe 5 event that fires after pswp.init()
+	// with currSlide already set. ('pswpOpen' does not exist in PhotoSwipe 5.)
+	lightbox.on('afterInit', () => {
 		const pswp = lightbox.pswp;
 		const syncUrl = () => {
 			const el = pswp.currSlide && pswp.currSlide.data && pswp.currSlide.data.element;

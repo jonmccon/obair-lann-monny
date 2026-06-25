@@ -316,25 +316,24 @@
 }
 
 .photo-page-permalink {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
+	display: block;
+	text-align: center;
 	margin-bottom: 1rem;
-	color: #aaa;
+	color: #888;
 	text-decoration: none;
 	transition: color 0.15s;
 }
 
 .photo-page-permalink:hover {
-	color: #333;
+	color: #222;
 }
 
 @media (prefers-color-scheme: dark) {
 	.photo-page-permalink {
-		color: #666;
+		color: #999;
 	}
 	.photo-page-permalink:hover {
-		color: #ddd;
+		color: #eee;
 	}
 }
 
