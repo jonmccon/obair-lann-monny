@@ -305,7 +305,7 @@
 	.photo-gallery {
 		grid-template-columns: repeat(12, minmax(0, 1fr));
 		/* Slightly shorter rows on small screens to keep scroll manageable. */
-		grid-auto-rows: clamp(22px, 2.8vw, 30px);
+		grid-auto-rows: clamp(24px, 2.8vw, 30px);
 		gap: 0.35rem;
 	}
 
@@ -354,7 +354,7 @@
 
 @media (min-width: 769px) and (max-width: 1024px) {
 	.photo-gallery {
-		grid-auto-rows: clamp(22px, 2.5vw, 30px);
+		grid-auto-rows: clamp(24px, 2.5vw, 30px);
 	}
 }
 
