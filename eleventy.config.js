@@ -316,8 +316,9 @@ module.exports = function(eleventyConfig) {
 
 		const fullMeta = fullMetadata.jpeg[0];
 
-		// Each anchor carries the photo slug and standalone URL for URL-sync and deep-linking
-		return `<a id="photo-${photoSlug}" href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" data-photo-slug="${photoSlug}" data-photo-url="${photoUrl}" data-deep-link-url="${deepLinkUrl}" target="_blank"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
+		// href points to the standalone photo page so the status bar shows a meaningful gallery URL.
+		// data-pswp-src supplies the full-resolution image URL for the PhotoSwipe lightbox.
+		return `<a id="photo-${photoSlug}" href="${photoUrl}" data-pswp-src="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" data-photo-slug="${photoSlug}" data-photo-url="${photoUrl}" data-deep-link-url="${deepLinkUrl}"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
 	});
 
 	// Create separate collections for projects and process posts
