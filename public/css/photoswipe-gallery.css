@@ -28,6 +28,7 @@
 
 .gallery-section {
 	margin: 0 0 2.75rem;
+	/* Offset in-page anchor jumps so section titles are not tucked under the sticky header/nav. */
 	scroll-margin-top: 5rem;
 }
 
