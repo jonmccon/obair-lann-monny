@@ -38,7 +38,20 @@ layout: layouts/base.njk
           {% if category.url == page.url %}
             <div class="gallery-card-link" aria-current="page">
               <div class="gallery-card-image">
-                {% include "galleryCardImage.njk" %}
+                {% if category.previewImages and category.previewImages.length %}
+                  <div class="gallery-card-jumble" aria-hidden="true">
+                    {# Decorative card collage: title and description already provide the accessible label. #}
+                    {% for previewImage in category.previewImages %}
+                      {% if loop.index <= 5 %}
+                        <div class="gallery-card-jumble-item gallery-card-jumble-item--{{ loop.index }}">
+                          {% image previewImage, "" %}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {% image category.cover, category.title %}
+                {% endif %}
               </div>
               <div class="gallery-card-content">
                 <h3 class="gallery-card-title">{{ category.title }}</h3>
@@ -48,7 +61,20 @@ layout: layouts/base.njk
           {% else %}
             <a href="{{ category.url }}" class="gallery-card-link">
               <div class="gallery-card-image">
-                {% include "galleryCardImage.njk" %}
+                {% if category.previewImages and category.previewImages.length %}
+                  <div class="gallery-card-jumble" aria-hidden="true">
+                    {# Decorative card collage: title and description already provide the accessible label. #}
+                    {% for previewImage in category.previewImages %}
+                      {% if loop.index <= 5 %}
+                        <div class="gallery-card-jumble-item gallery-card-jumble-item--{{ loop.index }}">
+                          {% image previewImage, "" %}
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% else %}
+                  {% image category.cover, category.title %}
+                {% endif %}
               </div>
               <div class="gallery-card-content">
                 <h3 class="gallery-card-title">{{ category.title }}</h3>
