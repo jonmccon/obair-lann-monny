@@ -13,6 +13,20 @@ function parseFrontmatterTitle(content) {
 }
 
 /**
+ * Extract the `permalink:` value from a YAML frontmatter block and derive the
+ * gallery slug from it.  Only recognises gallery-level permalinks of the form
+ * `/galleries/<slug>/` (or without the trailing slash) — returns null for
+ * anything else (e.g. `/galleries/`, a root path, or no permalink at all).
+ * e.g. "permalink: /galleries/landscapes/" → "landscapes"
+ */
+function parseFrontmatterGallerySlug(content) {
+	const match = content.match(/^permalink:\s*["']?(.+?)["']?\s*$/m);
+	if (!match) return null;
+	const galleryMatch = match[1].trim().match(/^\/galleries\/([^/]+)\/?$/);
+	return galleryMatch ? galleryMatch[1] : null;
+}
+
+/**
  * Generates a flat array of photo metadata objects — one entry per image file
  * found in each gallery subfolder under content/galleries/.
  *
@@ -69,6 +83,11 @@ module.exports = function () {
 					"utf8"
 				);
 				galleryTitle = parseFrontmatterTitle(mdContent) || galleryTitle;
+				// If the gallery .md has a custom permalink, use the slug from that
+				// permalink as gallerySlug so photo page URLs match the actual gallery URL.
+				// e.g. permalink: /galleries/landscapes/ → gallerySlug = "landscapes"
+				const permalinkSlug = parseFrontmatterGallerySlug(mdContent);
+				if (permalinkSlug) gallerySlug = permalinkSlug;
 			}
 		} catch {
 			// keep folderName-based fallbacks

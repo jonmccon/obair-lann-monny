@@ -287,8 +287,11 @@ module.exports = function(eleventyConfig) {
 
 		// Derive a stable per-photo slug from the source filename (e.g. "0022" from "./0022.jpg")
 		const photoSlug = path.basename(src, path.extname(src));
-		// Gallery slug matches the page's fileSlug (set by galleries.11tydata.js permalink)
-		const gallerySlug = this.page.fileSlug;
+		// Use the page's actual URL (which respects any custom permalink) to get the gallery slug.
+		// Match the expected /galleries/<slug>/ pattern to guard against unexpected URL shapes.
+		// Falls back to fileSlug for galleries without a custom permalink.
+		const urlMatch = (this.page.url || "").match(/^\/galleries\/([^/]+)\/?$/);
+		const gallerySlug = (urlMatch && urlMatch[1]) || this.page.fileSlug;
 		const photoUrl = `/galleries/${gallerySlug}/${photoSlug}/`;
 		const deepLinkUrl = `/galleries/${gallerySlug}/#photo-${photoSlug}`;
 
