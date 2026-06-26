@@ -2,22 +2,13 @@
 layout: layouts/base.njk
 ---
 {% if page.url == "/" %}
-{% set about = collections.aboutPages | first %}
-<p class="homepage-headline">{{ profile.headline }}</p>
+<section class="homepage-main-header" aria-label="Homepage header">
+  <img src="{{ profile.portraitUrl }}" alt="Jonny McConnell portrait" class="homepage-main-avatar">
+  <p class="homepage-headline">{{ profile.headline }}</p>
+  <p class="homepage-about">Jonny is a creative with one foot in design, one in photography, one in building the internet & one in the classroom. He's a tinkerer, a sailor, a chef and generally just wants to learn how things are made. A graduate of Western Washington University, a former board member of AIGA Seattle, a former mascot of the Seattle Sounders, Jonny balances time between freelance, maintaining the Seattle Creative Directory and developing machine aided printmaking from his studio on Whidbey Island.</p>
+</section>
 
 <section class="home-newspaper" aria-label="Homepage newspaper of projects and posts">
-  {% if about %}
-  <article class="newspaper-card newspaper-card-about">
-    <a class="newspaper-card-link" href="{{ about.url }}" aria-label="{{ about.data.title }}"></a>
-    <img src="{{ profile.portraitUrl }}" alt="Jonny McConnell portrait" class="newspaper-avatar">
-    <div class="newspaper-kicker">About</div>
-    <h1>{{ about.data.title }}</h1>
-    <div class="newspaper-card-body">
-      {{ about.templateContent | safe }}
-    </div>
-  </article>
-  {% endif %}
-
   {% for post in collections.projects | reverse %}
   <article class="newspaper-card newspaper-card-project{% if post.templateContent | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
     <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
