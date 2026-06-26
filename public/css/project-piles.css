@@ -96,14 +96,12 @@
   gap: 0;
   width: 100%;
   perspective: 1000px;
-  background: var(--background-color);
   padding: 0.45rem;
 }
 
 /* Title/metadata band above each pile */
 .pile-meta-band {
   font-family: var(--font-family-monospace);
-  background: var(--background-color);
   border: none;
   padding: 0.75rem 0.85rem 0.85rem;
   z-index: 2;
@@ -111,7 +109,7 @@
 
 @media (prefers-color-scheme: dark) {
   .pile-meta-band {
-    background: var(--background-color);
+    background: transparent;
   }
 }
 
@@ -163,7 +161,6 @@
   width: 100%;
   aspect-ratio: 3/2;
   min-height: 170px;
-  background: var(--background-color);
   overflow: visible;
 }
 
@@ -183,7 +180,7 @@
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  background: var(--background-color);
+  background: transparent;
   border-radius: 0;
 }
 
@@ -195,7 +192,7 @@
   object-position: center center;
   display: block;
   margin: 0;
-  background: var(--background-color);
+  background: transparent;
 }
 
 /* Hover effect - spread the pile more */

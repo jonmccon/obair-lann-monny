@@ -21,7 +21,6 @@ layout: layouts/base.njk
   {% for post in collections.projects | reverse %}
   <article class="newspaper-card newspaper-card-project{% if post.templateContent | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
     <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
-    <div class="newspaper-kicker">Project</div>
     <h2>{{ post.data.title }}</h2>
     {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
     {% if post.data.images %}
@@ -40,7 +39,6 @@ layout: layouts/base.njk
   {% for post in collections.process | reverse %}
   <article class="newspaper-card newspaper-card-process{% if post.templateContent | wordCount > profile.tallCardWordThreshold %} newspaper-card-tall{% endif %}">
     <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
-    <div class="newspaper-kicker">Post</div>
     <h2>{{ post.data.title }}</h2>
     {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
     {% if post.data.images %}
