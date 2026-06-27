@@ -76,7 +76,7 @@ module.exports = function(eleventyConfig) {
 
 		try {
 			let metadata = await eleventyImage(input, imageOptions);
-			if (metadata && Object.keys(metadata).length > 0) {
+			if (metadata) {
 				return eleventyImage.generateHTML(metadata, imageAttributes);
 			}
 		} catch (error) {

@@ -231,9 +231,7 @@ header {
 }
 
 .homepage-main-avatar {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	display: block;
 	width: clamp(92px, 12vw, 172px);
 	height: clamp(92px, 12vw, 172px);
 	margin: 0 auto 0.45rem;
