@@ -1,0 +1,47 @@
+---
+layout: layouts/base.njk
+---
+{%- css %}{% include "public/css/photoswipe-gallery.css" %}{% endcss %}
+<link rel="stylesheet" href="/css/photoswipe.css">
+
+<article class="photo-page">
+  <header class="photo-page-header">
+    <a class="photo-page-permalink" href="{{ photo.deepLinkUrl }}" title="Permalink — open in gallery lightbox" aria-label="Permalink — open in gallery lightbox">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="28" height="28" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
+      </svg>
+    </a>
+    <nav class="photo-page-breadcrumb" aria-label="Gallery navigation">
+      <a href="/galleries/">Galleries</a>
+      <span aria-hidden="true"> › </span>
+      <a href="{{ photo.galleryUrl }}">{{ photo.galleryTitle }}</a>
+    </nav>
+    <p class="photo-page-meta">{{ photo.index + 1 }} of {{ photo.total }}</p>
+  </header>
+
+  <div class="photo-page-image">
+    {% image photo.src, photo.alt %}
+  </div>
+
+  <nav class="photo-page-nav" aria-label="Photo navigation">
+    {%- if photo.prevSlug %}
+    <a class="photo-page-nav-prev" href="/galleries/{{ photo.gallerySlug }}/{{ photo.prevSlug }}/">← Previous</a>
+    {%- else %}
+    <span class="photo-page-nav-prev photo-page-nav-disabled" aria-disabled="true">← Previous</span>
+    {%- endif %}
+
+    <a class="photo-page-nav-gallery" href="{{ photo.galleryUrl }}">Back to gallery</a>
+
+    {%- if photo.nextSlug %}
+    <a class="photo-page-nav-next" href="/galleries/{{ photo.gallerySlug }}/{{ photo.nextSlug }}/">Next →</a>
+    {%- else %}
+    <span class="photo-page-nav-next photo-page-nav-disabled" aria-disabled="true">Next →</span>
+    {%- endif %}
+  </nav>
+
+  <footer class="photo-page-footer">
+    <p>
+      <a href="{{ photo.deepLinkUrl }}">View in gallery</a>
+    </p>
+  </footer>
+</article>

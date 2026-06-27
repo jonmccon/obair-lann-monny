@@ -1,0 +1,11 @@
+---
+pagination:
+  data: galleryPhotos
+  size: 1
+  alias: photo
+permalink: "/galleries/{{ photo.gallerySlug }}/{{ photo.slug }}/"
+layout: layouts/photo.njk
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  title: "{{ photo.slug }} — {{ photo.gallerySlug }}"
+---
