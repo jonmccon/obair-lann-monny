@@ -135,8 +135,12 @@
   }
 
   function getImageDimensions(img) {
-    const width = parseInt(img?.getAttribute('width'), 10) || 0;
-    const height = parseInt(img?.getAttribute('height'), 10) || 0;
+    const attrs = {
+      width: img?.getAttribute('width'),
+      height: img?.getAttribute('height')
+    };
+    const width = parseInt(attrs.width, 10) || 0;
+    const height = parseInt(attrs.height, 10) || 0;
 
     return {
       width: img?.naturalWidth || width || 1,
