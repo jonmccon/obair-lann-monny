@@ -319,7 +319,7 @@ module.exports = function(eleventyConfig) {
 			for (const image of item.data.images) {
 			  let isGif = image.src.toLowerCase().endsWith(".gif");
 			  let imageOptions = {
-				widths: [null],
+				widths: isGif ? [null] : [480, null],
 				formats: isGif ? ["gif"] : ["jpeg"], // Temporarily reduce to just JPEG for faster builds
 				urlPath: "/img/",
 				outputDir: "./_site/img/"
@@ -331,11 +331,18 @@ module.exports = function(eleventyConfig) {
 			  let metadata = await Image(image.src, imageOptions);
 	
 			  let format = isGif ? "gif" : "jpeg";
-			  let imageUrl = metadata[format][0].url;
+			  let imageEntries = metadata[format];
+			  let imageMeta = imageEntries[imageEntries.length - 1];
+			  let pileMeta = imageEntries[0];
 	
 			  images.push({
 				url: item.url,
-				src: imageUrl,
+				src: imageMeta.url,
+				width: imageMeta.width,
+				height: imageMeta.height,
+				pileSrc: pileMeta.url,
+				pileWidth: pileMeta.width,
+				pileHeight: pileMeta.height,
 				alt: image.alt || item.data.title,
 				date: item.data.date,
 				// category: item.data.categorys

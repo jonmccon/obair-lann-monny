@@ -18,7 +18,7 @@
       {% set projectImages = [] %}
       {% for image in collections.images %}
         {% if image.url == post.url %}
-          {% set projectImages = projectImages.concat([image.src]) %}
+          {% set projectImages = projectImages.concat([image]) %}
         {% endif %}
       {% endfor %}
       
@@ -55,7 +55,12 @@
                   <div class="pile-image"
                        data-layer-index="{{ loop.index0 }}"
                        style="--z-index: {{ 10 - loop.index0 }};">
-                    <img src="{{ img }}" alt="{{ post.data.title }}" loading="lazy">
+                    <img src="{{ img.pileSrc or img.src }}"
+                         alt="{{ img.alt or post.data.title }}"
+                         width="{{ img.pileWidth or img.width }}"
+                         height="{{ img.pileHeight or img.height }}"
+                         loading="lazy"
+                         decoding="async">
                   </div>
                 {% endfor %}
               </div>
@@ -130,68 +135,85 @@
   }
 
   function getImageDimensions(img) {
+    const width = Number(img?.getAttribute('width'));
+    const height = Number(img?.getAttribute('height'));
+
     return {
-      width: img?.naturalWidth || 1,
-      height: img?.naturalHeight || 1
+      width: img?.naturalWidth || width || 1,
+      height: img?.naturalHeight || height || 1
     };
   }
 
-  function updatePileTransforms() {
-    pileImageGroups.forEach(group => {
-      const frames = Array.from(group.querySelectorAll('.pile-image'));
-      if (!frames.length) {
-        return;
-      }
+  let pendingPileGroups = new Set();
+  let pileTransformRafId = null;
 
-      const imageCount = Number(group.dataset.imageCount || frames.length);
-      const visibleCount = Math.max(1, Math.min(frames.length, 5));
-      const sparseCountBoost = Math.max(0, 4 - visibleCount) * 8;
-      let sizeSeed = imageCount * IMAGE_COUNT_SEED_MULTIPLIER;
-      frames.forEach((frame, idx) => {
-        const img = frame.querySelector('img');
-        const dimensions = getImageDimensions(img);
-        sizeSeed += ((dimensions.width * WIDTH_WEIGHT + dimensions.height * HEIGHT_WEIGHT) * (idx + 1));
-      });
+  function updatePileTransforms(group) {
+    const frames = Array.from(group.querySelectorAll('.pile-image'));
+    if (!frames.length) {
+      return;
+    }
 
-      frames.forEach((frame, idx) => {
-        const img = frame.querySelector('img');
-        const dimensions = getImageDimensions(img);
-        const aspectSeed = dimensions.width / dimensions.height;
-        const base = sizeSeed + (idx + 1) * LAYER_SEED_MULTIPLIER + aspectSeed * ASPECT_SEED_MULTIPLIER;
-        const fanProgress = visibleCount > 1 ? (idx / (visibleCount - 1)) : 0.5;
-        const fanCentering = 20 + (fanProgress * 60);
-        const jitterX = -9 + deterministicHash(base + JITTER_X_SEED_OFFSET) * 18;
-        const jitterY = -7 + deterministicHash(base + JITTER_Y_SEED_OFFSET) * 14;
+    const imageCount = Number(group.dataset.imageCount || frames.length);
+    const visibleCount = Math.max(1, Math.min(frames.length, 5));
+    const sparseCountBoost = Math.max(0, 4 - visibleCount) * 8;
+    let sizeSeed = imageCount * IMAGE_COUNT_SEED_MULTIPLIER;
+    frames.forEach((frame, idx) => {
+      const img = frame.querySelector('img');
+      const dimensions = getImageDimensions(img);
+      sizeSeed += ((dimensions.width * WIDTH_WEIGHT + dimensions.height * HEIGHT_WEIGHT) * (idx + 1));
+    });
 
-        const rotation = ROTATION_MIN + deterministicHash(base) * ROTATION_SPREAD;
-        const scale = SCALE_MIN + deterministicHash(base + SCALE_SEED_OFFSET) * SCALE_SPREAD;
-        const width = WIDTH_MIN + sparseCountBoost + deterministicHash(base + WIDTH_SEED_OFFSET) * WIDTH_SPREAD;
-        const height = HEIGHT_MIN + (sparseCountBoost * 0.85) + deterministicHash(base + HEIGHT_SEED_OFFSET) * HEIGHT_SPREAD;
-        const posX = fanCentering + jitterX;
-        const posY = (POS_Y_MIN + deterministicHash(base + POS_Y_SEED_OFFSET) * (POS_Y_SPREAD * 0.65)) + jitterY;
-        const offsetX = OFFSET_X_MIN + deterministicHash(base + OFFSET_X_SEED_OFFSET) * OFFSET_X_SPREAD;
-        const offsetY = OFFSET_Y_MIN + deterministicHash(base + OFFSET_Y_SEED_OFFSET) * OFFSET_Y_SPREAD;
+    frames.forEach((frame, idx) => {
+      const img = frame.querySelector('img');
+      const dimensions = getImageDimensions(img);
+      const aspectSeed = dimensions.width / dimensions.height;
+      const base = sizeSeed + (idx + 1) * LAYER_SEED_MULTIPLIER + aspectSeed * ASPECT_SEED_MULTIPLIER;
+      const fanProgress = visibleCount > 1 ? (idx / (visibleCount - 1)) : 0.5;
+      const fanCentering = 20 + (fanProgress * 60);
+      const jitterX = -9 + deterministicHash(base + JITTER_X_SEED_OFFSET) * 18;
+      const jitterY = -7 + deterministicHash(base + JITTER_Y_SEED_OFFSET) * 14;
 
-        frame.style.setProperty('--rotation', rotation.toFixed(2) + 'deg');
-        frame.style.setProperty('--scale', scale.toFixed(3));
-        frame.style.setProperty('--w', width.toFixed(1) + '%');
-        frame.style.setProperty('--h', height.toFixed(1) + '%');
-        frame.style.setProperty('--w-mobile', Math.min(MOBILE_WIDTH_CAP, width + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
-        frame.style.setProperty('--h-mobile', Math.min(MOBILE_HEIGHT_CAP, height + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
-        frame.style.setProperty('--pos-x', posX.toFixed(1) + '%');
-        frame.style.setProperty('--pos-y', posY.toFixed(1) + '%');
-        frame.style.setProperty('--offset-x', offsetX.toFixed(1) + 'px');
-        frame.style.setProperty('--offset-y', offsetY.toFixed(1) + 'px');
-      });
+      const rotation = ROTATION_MIN + deterministicHash(base) * ROTATION_SPREAD;
+      const scale = SCALE_MIN + deterministicHash(base + SCALE_SEED_OFFSET) * SCALE_SPREAD;
+      const width = WIDTH_MIN + sparseCountBoost + deterministicHash(base + WIDTH_SEED_OFFSET) * WIDTH_SPREAD;
+      const height = HEIGHT_MIN + (sparseCountBoost * 0.85) + deterministicHash(base + HEIGHT_SEED_OFFSET) * HEIGHT_SPREAD;
+      const posX = fanCentering + jitterX;
+      const posY = (POS_Y_MIN + deterministicHash(base + POS_Y_SEED_OFFSET) * (POS_Y_SPREAD * 0.65)) + jitterY;
+      const offsetX = OFFSET_X_MIN + deterministicHash(base + OFFSET_X_SEED_OFFSET) * OFFSET_X_SPREAD;
+      const offsetY = OFFSET_Y_MIN + deterministicHash(base + OFFSET_Y_SEED_OFFSET) * OFFSET_Y_SPREAD;
+
+      frame.style.setProperty('--rotation', rotation.toFixed(2) + 'deg');
+      frame.style.setProperty('--scale', scale.toFixed(3));
+      frame.style.setProperty('--w', width.toFixed(1) + '%');
+      frame.style.setProperty('--h', height.toFixed(1) + '%');
+      frame.style.setProperty('--w-mobile', Math.min(MOBILE_WIDTH_CAP, width + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
+      frame.style.setProperty('--h-mobile', Math.min(MOBILE_HEIGHT_CAP, height + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
+      frame.style.setProperty('--pos-x', posX.toFixed(1) + '%');
+      frame.style.setProperty('--pos-y', posY.toFixed(1) + '%');
+      frame.style.setProperty('--offset-x', offsetX.toFixed(1) + 'px');
+      frame.style.setProperty('--offset-y', offsetY.toFixed(1) + 'px');
+    });
+  }
+
+  function schedulePileTransform(group) {
+    pendingPileGroups.add(group);
+    if (pileTransformRafId) {
+      return;
+    }
+
+    pileTransformRafId = requestAnimationFrame(() => {
+      pendingPileGroups.forEach(updatePileTransforms);
+      pendingPileGroups.clear();
+      pileTransformRafId = null;
     });
   }
 
   function initializePileLayouts() {
-    updatePileTransforms();
     pileImageGroups.forEach(group => {
+      updatePileTransforms(group);
       group.querySelectorAll('img').forEach(img => {
         if (!img.complete) {
-          img.addEventListener('load', updatePileTransforms, { once: true });
+          img.addEventListener('load', () => schedulePileTransform(group), { once: true });
         }
       });
     });
