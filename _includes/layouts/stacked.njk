@@ -3,7 +3,7 @@ layout: layouts/base.njk
 ---
 {%- css %}{% include "public/css/stacked.css" %}{% endcss %}
 
-<div class="stacked-container">
+<div class="stacked-container page-shell page-shell--wide">
   <div class="stacked-papers" id="stacked-papers" role="region" aria-label="Stacked papers navigation">
     {% for item in stackedItems %}
     <article class="paper" data-index="{{ loop.index0 }}" aria-labelledby="paper-title-{{ loop.index0 }}">

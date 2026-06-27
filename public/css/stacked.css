@@ -24,7 +24,7 @@
   position: relative;
   width: 100%;
   min-height: 80vh;
-  padding: 2rem 1rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,7 +50,7 @@
   background: white;
   border-radius: 8px;
   box-shadow: var(--paper-shadow);
-  padding: 2rem;
+  padding: 1.75rem;
   transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   transform-origin: center center;
   z-index: 1;
@@ -66,9 +66,9 @@
 
 /* Paper header */
 .paper-header {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   border-bottom: 2px solid var(--color-gray-20);
-  padding-bottom: 1rem;
+  padding-bottom: 0.875rem;
 }
 
 .paper-header h2 {
@@ -78,16 +78,16 @@
 
 .paper-date {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--color-gray-50);
   font-style: italic;
 }
 
 /* Paper content */
 .paper-body {
-  margin-bottom: 3rem;
+  margin-bottom: 2.5rem;
   color: var(--text-color);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .paper-body p {
@@ -107,13 +107,13 @@
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.6rem 1rem;
   background: var(--text-color-link);
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   transition: all 0.2s ease;
   z-index: 10;
 }
@@ -163,14 +163,14 @@
 /* Navigation controls */
 .stacked-controls {
   position: fixed;
-  top: 120px;
-  right: 2rem;
+  top: 1.5rem;
+  right: 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
   background: rgba(255, 255, 255, 0.95);
-  padding: 1rem;
+  padding: 0.875rem;
   border-radius: 8px;
   box-shadow: var(--paper-shadow);
   z-index: 1000;
@@ -226,7 +226,7 @@
 /* Position indicator */
 .position-indicator {
   padding: 0.5rem 0;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: bold;
   color: var(--text-color);
   text-align: center;
@@ -236,7 +236,7 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .stacked-container {
-    padding: 1rem 0.5rem;
+    padding: 0;
     min-height: 70vh;
   }
 
@@ -246,7 +246,7 @@
   }
 
   .paper {
-    padding: 1.5rem;
+    padding: 1.25rem;
   }
 
   .paper-header h2 {

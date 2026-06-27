@@ -25,6 +25,7 @@
 		{# {%- css %}* { box-sizing: border-box; }{% endcss %} #}
 		{#- Add the contents of a file to the bundle #}
 		{%- css %}{% include "public/css/index.css" %}{% endcss %}
+		{%- css %}{% include "public/css/tailwind.css" %}{% endcss %}
 		{#- Or add from node_modules #}
 		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
 
@@ -100,12 +101,12 @@
 	<body{% if layout == "layouts/post.njk" %} class="post-page"{% endif %}>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-		<div class="site-wrapper">
-		<header>
+		<div class="site-wrapper site-shell">
+		<header class="site-header">
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
-				<ul class="nav">
+				<ul class="nav site-nav">
 				{%- for entry in collections.all | eleventyNavigation %}
 					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
 				{%- endfor %}
@@ -127,7 +128,13 @@
 				</div>
 			</div>
 			<div id="protected-content" hidden>
+				{% if layout == "layouts/base.njk" %}
+				<section class="page-shell rich-text">
+					{{ content | safe }}
+				</section>
+				{% else %}
 				{{ content | safe }}
+				{% endif %}
 			</div>
 			<script>
 			(function() {
@@ -161,7 +168,13 @@
 			})();
 			</script>
 		{% else %}
+			{% if layout == "layouts/base.njk" %}
+			<section class="page-shell rich-text">
+				{{ content | safe }}
+			</section>
+			{% else %}
 			{{ content | safe }}
+			{% endif %}
 		{% endif %}
 		</main>
 		</div>
