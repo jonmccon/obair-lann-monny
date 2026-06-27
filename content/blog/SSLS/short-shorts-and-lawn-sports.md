@@ -25,16 +25,16 @@ http://lookatthisfuckinghipster.tumblr.com/post/613915076/dude-nice-shuttlecock
 
 <div class="two-column">
 
-{% image "./ssls-05.png", "000" %} 
+{% image "./ssls-05.png", "Short Shorts & Lawn Sports project image" %} 
 
-{% image "./ssls-06.png", "000" %} 
+{% image "./ssls-06.png", "Short Shorts & Lawn Sports project image" %} 
 
-{% image "./ssls-01.png", "000" %} 
+{% image "./ssls-01.png", "Short Shorts & Lawn Sports project image" %} 
 
-{% image "./ssls-02.png", "000" %} 
+{% image "./ssls-02.png", "Short Shorts & Lawn Sports project image" %} 
 
-{% image "./ssls-03.png", "000" %} 
+{% image "./ssls-03.png", "Short Shorts & Lawn Sports project image" %} 
 
-{% image "./ssls-04.png", "000" %} 
+{% image "./ssls-04.png", "Short Shorts & Lawn Sports project image" %} 
 
 </div>

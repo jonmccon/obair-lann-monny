@@ -17,9 +17,9 @@ Embeddable image wrapper tool developed for infographic marketing. Backed by an 
 
 
 
-{% image "./bi-01.png", "000" %}
+{% image "./bi-01.png", "Bakedin project image" %}
 
-{% image "./bi-02.png", "000" %}
+{% image "./bi-02.png", "Bakedin project image" %}
 
-{% image "./bi-03.png", "000" %}
+{% image "./bi-03.png", "Bakedin project image" %}
 

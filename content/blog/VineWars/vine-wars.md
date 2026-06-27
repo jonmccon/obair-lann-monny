@@ -27,25 +27,25 @@ Under the direction of Tether Labs & lots of 16-bit illustrations later, we had 
 https://www.linkedin.com/in/angelsamano/en
 
 
-{% image "./vw-00.gif", "000" %}
+{% image "./vw-00.gif", "Vine Wars project image" %}
 
 <div class="two-column">
 
-{% image "./vw-02.png", "000" %}
+{% image "./vw-02.png", "Vine Wars project image" %}
 
-{% image "./vw-03.png", "000" %}
+{% image "./vw-03.png", "Vine Wars project image" %}
 
-{% image "./vw-04.png", "000" %}
+{% image "./vw-04.png", "Vine Wars project image" %}
 
-{% image "./vw-06.png", "000" %}
+{% image "./vw-06.png", "Vine Wars project image" %}
 
-{% image "./vw-05.png", "000" %}
+{% image "./vw-05.png", "Vine Wars project image" %}
 
-{% image "./vw-08.png", "000" %}
+{% image "./vw-08.png", "Vine Wars project image" %}
 
 </div>
 
-{% image "./vw-07.png", "000" %}
+{% image "./vw-07.png", "Vine Wars project image" %}
 
 
 

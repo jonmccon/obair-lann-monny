@@ -16,13 +16,13 @@ Even if you are able to wrangle another designer to stay up with your entire mag
 The best publications are the best, by design. The structure and behaviors of the staff are what make their storytelling unique and universally understood. Have an opinion and listen often.
 - 
 
-{% image "./klipsun-01.png", "000" %} 
+{% image "./klipsun-01.png", "Klipsun magazine project image" %} 
 
 <div class="two-column">
 
-{% image "./klipsun-02.jpeg", "000" %} 
+{% image "./klipsun-02.jpeg", "Klipsun magazine project image" %} 
 
-{% image "./klipsun-03.jpeg", "000" %} 
+{% image "./klipsun-03.jpeg", "Klipsun magazine project image" %} 
 
 </div>
 

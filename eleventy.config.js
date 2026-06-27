@@ -14,6 +14,21 @@ const { JSDOM } = require("jsdom");
 const pluginDrafts = require("./eleventy.config.drafts.js");
 const pluginImages = require("./eleventy.config.images.js");
 
+function plainTextFromHtml(value) {
+	if (!value || typeof value !== "string") {
+		return "";
+	}
+
+	const dom = JSDOM.fragment(value);
+	dom.querySelectorAll("picture, img, iframe, script, style").forEach(function(node) {
+		node.remove();
+	});
+
+	return dom.textContent
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
 function relativeToInputPath(inputPath, relativeFilePath) {
 	let split = inputPath.split("/");
 	split.pop();
@@ -79,6 +94,19 @@ module.exports = function(eleventyConfig) {
 		return plain.split(" ").length;
 	});
 
+	eleventyConfig.addFilter("excerpt", (value, wordLimit = 35) => {
+		const plain = plainTextFromHtml(value);
+		if (!plain) {
+			return "";
+		}
+
+		const words = plain.split(" ");
+		const limit = Number(wordLimit) || 35;
+		return words.length > limit
+			? `${words.slice(0, limit).join(" ")}…`
+			: plain;
+	});
+
 	// Homepage cards use small frontmatter images, so media embedded in post bodies is stripped here.
 	eleventyConfig.addFilter("stripHomepageMedia", (value) => {
 		if (!value || typeof value !== "string") {
@@ -130,7 +158,23 @@ module.exports = function(eleventyConfig) {
 	// });
 
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
-		return (tags || []).filter(tag => ["all", "nav", "post", "posts", "galleries"].indexOf(tag) === -1);
+		return (tags || []).filter(tag => [
+			"all",
+			"aboutPages",
+			"boopbboop",
+			"featured",
+			"featuredProjects",
+			"galleries",
+			"images",
+			"nav",
+			"post",
+			"posts",
+			"posts with two tags",
+			"process",
+			"projects",
+			"second tag",
+			"xxxxxxxxx",
+		].indexOf(tag) === -1);
 	});
 
 	// eleventyConfig.addFilter("filterCategoryList", function filterCategoryList(category) {

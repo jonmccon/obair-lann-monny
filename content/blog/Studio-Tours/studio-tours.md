@@ -27,10 +27,10 @@ https://www.linkedin.com/pub/neil-palmer/48/215/245
 
 <div class="two-column">
 
-{% image "./tours-01.png", "000" %}
+{% image "./tours-01.png", "Seattle Studio Tours project image" %}
 
-{% image "./tours-02.png", "000" %}
+{% image "./tours-02.png", "Seattle Studio Tours project image" %}
 
-{% image "./tours-03.png", "000" %}
+{% image "./tours-03.png", "Seattle Studio Tours project image" %}
 
 </div>

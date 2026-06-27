@@ -31,24 +31,24 @@ https://web.archive.org/web/20081223095530/http://suprb.com/apps/gridalicious/
 
 <div class="two-column">
 
-{% image "./TFiF-01.png", "000" %} 
+{% image "./TFiF-01.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-02.png", "000" %} 
+{% image "./TFiF-02.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-03.png", "000" %} 
+{% image "./TFiF-03.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-06.png", "000" %} 
+{% image "./TFiF-06.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-04.png", "000" %} 
+{% image "./TFiF-04.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-05.png", "000" %} 
+{% image "./TFiF-05.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-07.png", "000" %} 
+{% image "./TFiF-07.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-08.png", "000" %} 
+{% image "./TFiF-08.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-09.png", "000" %} 
+{% image "./TFiF-09.png", "This Film is Free project image" %} 
 
-{% image "./TFiF-10.png", "000" %} 
+{% image "./TFiF-10.png", "This Film is Free project image" %} 
 
 </div>

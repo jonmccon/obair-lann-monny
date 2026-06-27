@@ -42,33 +42,33 @@ https://apps.apple.com/us/app/lumedic-connect/id1519412921
 https://play.google.com/store/apps/details?id=io.lumedicidconnect.lumedicid
 
 
-{% image "./lum-10.png", "000" %}
+{% image "./lum-10.png", "Lumedic project image" %}
 
 <div class="two-column">
 
-{% image "./lum-80.png", "000" %}
+{% image "./lum-80.png", "Lumedic project image" %}
 
-{% image "./lum-90.png", "000" %}
+{% image "./lum-90.png", "Lumedic project image" %}
 
 </div>
 
 <div class="three-column">
 
-{% image "./lum-110.png", "000" %}
+{% image "./lum-110.png", "Lumedic project image" %}
 
-{% image "./lum-120.png", "000" %}
+{% image "./lum-120.png", "Lumedic project image" %}
 
-{% image "./lum-130.png", "000" %}
+{% image "./lum-130.png", "Lumedic project image" %}
 
 </div>
 
-{% image "./lum-20.png", "000" %}
+{% image "./lum-20.png", "Lumedic project image" %}
 
-{% image "./lum-30.png", "000" %}
+{% image "./lum-30.png", "Lumedic project image" %}
 
-{% image "./lum-40.png", "000" %}
+{% image "./lum-40.png", "Lumedic project image" %}
 
-{% image "./lum-70.png", "000" %}
+{% image "./lum-70.png", "Lumedic project image" %}
 
-{% image "./lum-55.png", "000" %}
+{% image "./lum-55.png", "Lumedic project image" %}
 

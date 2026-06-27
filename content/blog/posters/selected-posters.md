@@ -36,25 +36,25 @@ Demonstrating the progression of a split fountain to get other students up to th
 
 <div class="two-column">
 
-{% image "./post-01.png", "000" %} 
+{% image "./post-01.png", "Selected Poster Work project image" %} 
 
-{% image "./post-02.png", "000" %} 
+{% image "./post-02.png", "Selected Poster Work project image" %} 
 
-{% image "./post-03.png", "000" %} 
+{% image "./post-03.png", "Selected Poster Work project image" %} 
 
-{% image "./post-10.jpeg", "000" %} 
+{% image "./post-10.jpeg", "Selected Poster Work project image" %} 
 
-{% image "./post-06.png", "000" %} 
+{% image "./post-06.png", "Selected Poster Work project image" %} 
 
-{% image "./post-07.png", "000" %} 
+{% image "./post-07.png", "Selected Poster Work project image" %} 
 
-{% image "./post-05.png", "000" %} 
+{% image "./post-05.png", "Selected Poster Work project image" %} 
 
-{% image "./post-04.png", "000" %} 
+{% image "./post-04.png", "Selected Poster Work project image" %} 
 
-{% image "./post-08.jpeg", "000" %} 
+{% image "./post-08.jpeg", "Selected Poster Work project image" %} 
 
-{% image "./post-09.jpeg", "000" %} 
+{% image "./post-09.jpeg", "Selected Poster Work project image" %} 
 
 
 </div>
