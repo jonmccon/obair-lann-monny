@@ -231,23 +231,11 @@ module.exports = function(eleventyConfig) {
 	const PORTRAIT_LIGHTBOX_IMAGE_WIDTH = 720;
 
 	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, name) {
-		// Newlines removed to prevent Markdown from wrapping output in <p> tags
-		return `
-			<div class="photo-gallery" id="gallery-${name}">
-				${content}
-			</div>
-			<script type="module">
-				import PhotoSwipeLightbox from '/js/photoswipe-lightbox.esm.min.js';
-				import PhotoSwipe from '/js/photoswipe.esm.min.js';
-				const lightbox = new PhotoSwipeLightbox({
-					gallery: '#gallery-${name}',
-					children: 'a',
-					pswpModule: PhotoSwipe,
-					preload: [1, 1]
-				});
-				lightbox.init();
-			</script>
-		`.replace(/(\r\n|\n|\r)/gm, "");
+		// Newlines removed to prevent Markdown from wrapping output in <p> tags.
+		// Gallery JS (PhotoSwipe init, URL sync, deep-link) lives in public/js/gallery-init.js
+		// rather than inline here — inline scripts inside paired shortcodes get HTML-entity-encoded
+		// (=> becomes &gt;, && becomes &amp;&amp;) which breaks the JavaScript.
+		return `<div class="photo-gallery" id="gallery-${name}">${content}</div><script type="module" src="/js/gallery-init.js"></script>`;
 	});
 
 	eleventyConfig.addAsyncShortcode("galleryImage", async function(src, alt) {
@@ -259,6 +247,16 @@ module.exports = function(eleventyConfig) {
 		}
 
 		const altText = alt || "Gallery image";
+
+		// Derive a stable per-photo slug from the source filename (e.g. "0022" from "./0022.jpg")
+		const photoSlug = path.basename(src, path.extname(src));
+		// Use the page's actual URL (which respects any custom permalink) to get the gallery slug.
+		// Match the expected /galleries/<slug>/ pattern to guard against unexpected URL shapes.
+		// Falls back to fileSlug for galleries without a custom permalink.
+		const urlMatch = (this.page.url || "").match(/^\/galleries\/([^/]+)\/?$/);
+		const gallerySlug = (urlMatch && urlMatch[1]) || this.page.fileSlug;
+		const photoUrl = `/galleries/${gallerySlug}/${photoSlug}/`;
+		const deepLinkUrl = `/galleries/${gallerySlug}/#photo-${photoSlug}`;
 
 		// First pass: generate thumbnail only to detect orientation
 		const thumbMetadata = await Image(input, {
@@ -284,7 +282,9 @@ module.exports = function(eleventyConfig) {
 
 		const fullMeta = fullMetadata.jpeg[0];
 
-		return `<a href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" target="_blank"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
+		// href points to the standalone photo page so the status bar shows a meaningful gallery URL.
+		// data-pswp-src supplies the full-resolution image URL for the PhotoSwipe lightbox.
+		return `<a id="photo-${photoSlug}" href="${photoUrl}" data-pswp-src="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" data-photo-slug="${photoSlug}" data-photo-url="${photoUrl}" data-deep-link-url="${deepLinkUrl}"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
 	});
 
 	// Create separate collections for projects and process posts

@@ -114,6 +114,7 @@ obair-lann-monny/
 | Design / Projects | `content/blog/` | `/projects/<slug>/` | `posts` | `post.njk` |
 | Process / Journal | `content/inProgress/` | auto (no permalink override) | `process` | `post.njk` |
 | Photo galleries | `content/galleries/` | `/galleries/<slug>/` | `galleries` | `gallery.njk` |
+| Single photo pages | `content/gallery-photo.njk` (pagination) | `/galleries/<gallery-slug>/<photo-slug>/` | — (excluded) | `photo.njk` |
 | Stacked pages | `content/stacks/` | set in frontmatter | — | `stacked.njk` |
 | Design archive index | `content/blog.njk` | `/design/` | — | `archive.njk` |
 | Process archive index | `content/process.njk` | `/process/` | — | `archive.njk` |
@@ -140,6 +141,7 @@ Defined in `eleventy.config.js`:
 | `process` | `getFilteredByTag("process")` | All process/journal posts (from `content/inProgress/`) |
 | `aboutPages` | filter `url == "/about/"` | The about page content (used on homepage) |
 | `galleries` | `getFilteredByTag("galleries")` | All gallery pages (from `content/galleries/`) |
+| `galleryPhotos` | `_data/galleryPhotos.js` (filesystem scan) | Flat array of all per-photo metadata — drives single-photo page pagination |
 | `images` | async — scans all `item.data.images` frontmatter | Processed image URLs for homepage grid and project cards |
 
 The `images` collection is async: it processes every image declared in every page's `images:` frontmatter array through `@11ty/eleventy-img` (output: JPEG at original size, or GIF with animation). Each entry contains `{ url, src, alt, date }`.
@@ -154,6 +156,7 @@ base.njk
 ├── post.njk          (design + process posts)
 ├── archive.njk       (thin — renders content only)
 ├── gallery.njk       (photo gallery + sibling nav)
+├── photo.njk         (standalone single-photo page)
 ├── stacked.njk       (interactive stacked papers)
 └── home-archive.njk  (legacy, kept for reference)
 ```
@@ -171,8 +174,8 @@ Defined in `eleventy.config.js` and `eleventy.config.images.js`:
 | `{% image src, alt %}` | async | Standard responsive image (JPEG/GIF). In post context adds `lightbox-trigger` class. Defined in `eleventy.config.images.js`. |
 | `{% heroImage src %}` | async | Returns processed image URL (not `<img>` tag) for CSS backgrounds. Used in layouts. |
 | `{% homepageImage src, alt %}` | async | 160px-wide JPEG/GIF with `class="newspaper-image"`. Used in homepage cards. |
-| `{% gallery "name" %}...{% endgallery %}` | paired | Wraps gallery content in PhotoSwipe-enabled `<div>`. Injects PhotoSwipe init script. |
-| `{% galleryImage src, alt %}` | async | Orientation-aware thumbnail+lightbox image pair for photo galleries. |
+| `{% gallery "name" %}...{% endgallery %}` | paired | Wraps gallery content in PhotoSwipe-enabled `<div>`. Injects PhotoSwipe init + URL-sync script. |
+| `{% galleryImage src, alt %}` | async | Orientation-aware thumbnail+lightbox image pair. Adds `id="photo-<slug>"`, `data-photo-slug`, `data-photo-url`, `data-deep-link-url` attributes for URL sync and deep-linking. |
 | `{% currentBuildDate %}` | sync | Returns current ISO timestamp (used in feeds). |
 
 ---
@@ -202,6 +205,7 @@ Defined in `eleventy.config.js`:
 | `metadata.js` | `metadata` | `title`, `url`, `language`, `description`, `author` |
 | `profile.js` | `profile` | `portraitUrl`, `headline`, `wideCardWordThreshold` (180), `tallCardWordThreshold` (220) |
 | `photoCategories.js` | `photoCategories` | Array of `{key, title, description, url, cover}` — defines `/galleries/` landing page and gallery sibling nav |
+| `galleryPhotos.js` | `galleryPhotos` | Flat array of all gallery photo metadata. Auto-scanned from `content/galleries/` at build time. Drives single-photo page generation via pagination. |
 | `password.js` | `password` | `{hash, enabled}` — reads `PAGE_PASSWORD` env var, SHA-256 hash for optional per-page protection |
 
 ---
@@ -243,7 +247,7 @@ date: YYYY-MM-DD
 ---
 ```
 
-Tags and layout are set by `galleries.11tydata.js`. Gallery images use the `{% galleryImage %}` shortcode inside a `{% gallery %}` block.
+Tags and layout are set by `galleries.11tydata.js`. Gallery images use the `{% galleryImage %}` shortcode inside a `{% gallery %}` block. Each `{% galleryImage %}` call derives a stable photo slug from the source filename (e.g. `./0022.jpg` → slug `0022`).
 
 ### Stacked-papers pages (`content/stacks/`)
 
@@ -260,6 +264,66 @@ stackedItems:
 ```
 
 See `docs/STACKED-LAYOUT.md` for full usage guide.
+
+---
+
+## Gallery photo routing
+
+Every photograph in the `/galleries/*` section has two unique URLs:
+
+| URL form | Pattern | Purpose |
+|---|---|---|
+| **Standalone page** | `/galleries/<gallery-slug>/<photo-slug>/` | A fully rendered HTML page for the individual photo, indexable by search engines and shareable as a direct link |
+| **Deep-link (preview)** | `/galleries/<gallery-slug>/#photo-<photo-slug>` | Opens the parent gallery page with that photo automatically opened in the PhotoSwipe lightbox |
+
+### Photo slug
+
+The photo slug is derived from the source image filename without extension (e.g. `0022.jpg` → `0022`). Slugs are stable as long as filenames are not changed. To override a slug, rename the image file.
+
+### Data source: `_data/galleryPhotos.js`
+
+At build time, `_data/galleryPhotos.js` scans every subdirectory of `content/galleries/`, collects all image files (`.jpg`, `.jpeg`, `.png`, `.gif`, `.webp`), and emits a flat array of photo metadata objects. Each object includes:
+
+| Field | Value |
+|---|---|
+| `gallerySlug` | Gallery URL slug (from the `.md` filename in the folder) |
+| `slug` | Photo slug (source filename without extension) |
+| `src` | `content/`-relative path for use with `{% image %}` |
+| `alt` | Default alt text (`<gallery-slug> — photo <slug>`) |
+| `index` | 0-based position within the gallery (sorted by filename) |
+| `total` | Total photo count for the gallery |
+| `prevSlug` / `nextSlug` | Adjacent photo slugs for prev/next navigation |
+| `galleryUrl` | Parent gallery URL |
+| `url` | Canonical standalone page URL |
+| `deepLinkUrl` | Hash URL that opens the gallery with this photo in preview |
+
+### Page generation
+
+`content/gallery-photo.njk` uses Eleventy pagination (`size: 1`) over `galleryPhotos` to generate one standalone HTML page per photo. Pages use `layouts/photo.njk` and are excluded from all collections (`eleventyExcludeFromCollections: true`).
+
+### Gallery rendering
+
+The `{% galleryImage src, alt %}` shortcode adds these attributes to every `<a>` element in the gallery grid:
+
+- `id="photo-<slug>"` — anchor target for the `#photo-<slug>` deep-link
+- `data-photo-slug="<slug>"` — used by the URL-sync script to identify the photo
+- `data-photo-url="/galleries/<gallery-slug>/<slug>/"` — standalone page URL
+- `data-deep-link-url="/galleries/<gallery-slug>/#photo-<slug>"` — preview hash URL
+
+### Lightbox URL sync (client-side)
+
+The `{% gallery %}` shortcode injects inline JavaScript that:
+
+1. **Updates the browser URL** (`history.replaceState`) to `#photo-<slug>` whenever the lightbox navigates to a new photo (via the `pswpOpen` + PhotoSwipe `change` event).
+2. **Restores the gallery URL** (no hash) when the lightbox is closed (via the PhotoSwipe `close` event).
+3. **Auto-opens the lightbox** at the correct photo on page load if the URL contains a `#photo-<slug>` hash (deep-link behavior).
+
+### Adding photos to a gallery
+
+1. Copy the image file (e.g. `0200.jpg`) into the gallery folder (`content/galleries/<gallery-slug>/`).
+2. Add a `{% galleryImage "./0200.jpg", "Alt text" %}` line to the gallery's `.md` file inside the `{% gallery %}` block.
+3. The image filename becomes its stable slug. **Do not rename image files** after publishing; doing so breaks both the standalone URL and any existing deep-links.
+4. Run `npm run build`. The new photo page is generated at `/galleries/<gallery-slug>/0200/` automatically — no code changes needed.
 
 ---
 
