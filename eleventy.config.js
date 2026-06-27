@@ -158,23 +158,7 @@ module.exports = function(eleventyConfig) {
 	// });
 
 	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
-		return (tags || []).filter(tag => [
-			"all",
-			"aboutPages",
-			"boopbboop",
-			"featured",
-			"featuredProjects",
-			"galleries",
-			"images",
-			"nav",
-			"post",
-			"posts",
-			"posts with two tags",
-			"process",
-			"projects",
-			"second tag",
-			"xxxxxxxxx",
-		].indexOf(tag) === -1);
+		return (tags || []).filter(tag => ["all", "nav", "post", "posts", "galleries"].indexOf(tag) === -1);
 	});
 
 	// eleventyConfig.addFilter("filterCategoryList", function filterCategoryList(category) {

@@ -3,5 +3,4 @@ module.exports = {
 		"process"
 	],
 	"layout": "layouts/post.njk",
-	"draft": true,
 };
