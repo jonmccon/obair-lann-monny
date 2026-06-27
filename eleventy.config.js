@@ -232,15 +232,17 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, name) {
 		// Newlines removed to prevent Markdown from wrapping output in <p> tags
+		const galleryId = `gallery-${String(name).replace(/[^A-Za-z0-9_-]/g, "-")}`;
+		const gallerySelector = `#${galleryId}`;
 		return `
-			<div class="photo-gallery" id="gallery-${name}">
+			<div class="photo-gallery" id="${galleryId}">
 				${content}
 			</div>
 			<script type="module">
 				import PhotoSwipeLightbox from '/js/photoswipe-lightbox.esm.min.js';
 				import PhotoSwipe from '/js/photoswipe.esm.min.js';
 				const lightbox = new PhotoSwipeLightbox({
-					gallery: '#gallery-${name}',
+					gallery: ${JSON.stringify(gallerySelector)},
 					children: 'a',
 					pswpModule: PhotoSwipe,
 					preload: [1, 1]

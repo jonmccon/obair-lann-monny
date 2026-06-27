@@ -270,11 +270,11 @@
 @media (prefers-reduced-motion: reduce) {
   .pile-image,
   .tag-filter-button,
-  .pile-meta-band {
+  .pile-meta-band,
+  .pile-title,
+  .meta-label,
+  .meta-value {
     transition: none;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
   }
   
   .tag-filter-button:hover {
