@@ -236,8 +236,9 @@ module.exports = function(eleventyConfig) {
 			.replace(/[^A-Za-z0-9_-]+/g, "-")
 			.replace(/^-+|-+$/g, "") || "gallery";
 		const galleryId = `gallery-${gallerySlug}`;
+		const galleryIdAttribute = galleryId.replace(/"/g, "&quot;");
 		return `
-			<div class="photo-gallery" id="${galleryId}">
+			<div class="photo-gallery" id="${galleryIdAttribute}">
 				${content}
 			</div>
 			<script type="module">

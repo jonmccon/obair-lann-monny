@@ -215,10 +215,11 @@
 
   function initializePileLayouts() {
     pileImageGroups.forEach(group => {
+      const scheduleGroupTransform = schedulePileTransform.bind(null, group);
       updatePileTransforms(group);
       group.querySelectorAll('img').forEach(img => {
         if (!img.complete) {
-          img.addEventListener('load', () => schedulePileTransform(group), { once: true });
+          img.addEventListener('load', scheduleGroupTransform, { once: true });
         }
       });
     });
