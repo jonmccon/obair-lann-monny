@@ -135,8 +135,8 @@
   }
 
   function getImageDimensions(img) {
-    const width = Number(img?.getAttribute('width'));
-    const height = Number(img?.getAttribute('height'));
+    const width = parseInt(img?.getAttribute('width'), 10) || 0;
+    const height = parseInt(img?.getAttribute('height'), 10) || 0;
 
     return {
       width: img?.naturalWidth || width || 1,
@@ -198,6 +198,7 @@
   function schedulePileTransform(group) {
     pendingPileGroups.add(group);
     if (pileTransformRafId) {
+      // The pending RAF will flush every group currently in pendingPileGroups.
       return;
     }
 
