@@ -154,27 +154,27 @@
     };
   }
 
-  function hasPositiveNumberAtMost(value, max) {
+  function isPositiveNumberAtOrBelow(value, max) {
     const number = Number(value);
     return number > 0 && number <= max;
   }
 
-  function hasNumberAtLeast(value, min) {
+  function isNumberAtOrAbove(value, min) {
     const number = Number(value);
     return number >= min;
   }
 
   function shouldUseStaticPileLayout() {
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const connection = navigator.connection;
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     return prefersReducedMotion
       || connection?.saveData
       || SLOW_EFFECTIVE_TYPES.has(connection?.effectiveType)
-      || hasPositiveNumberAtMost(connection?.downlink, SLOW_DOWNLINK_MBPS)
-      || hasNumberAtLeast(connection?.rtt, SLOW_RTT_MS)
-      || hasPositiveNumberAtMost(navigator.deviceMemory, LOW_DEVICE_MEMORY_GB)
-      || hasPositiveNumberAtMost(navigator.hardwareConcurrency, LOW_CPU_CORES);
+      || isPositiveNumberAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
+      || isNumberAtOrAbove(connection?.rtt, SLOW_RTT_MS)
+      || isPositiveNumberAtOrBelow(navigator.deviceMemory, LOW_DEVICE_MEMORY_GB)
+      || isPositiveNumberAtOrBelow(navigator.hardwareConcurrency, LOW_CPU_CORES);
   }
 
   const useStaticPileLayout = shouldUseStaticPileLayout();
