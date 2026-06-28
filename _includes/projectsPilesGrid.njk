@@ -91,7 +91,13 @@
   const filterButtons = document.querySelectorAll('.tag-filter-button');
   const projectPiles = document.querySelectorAll('.project-pile');
   const pileImageGroups = document.querySelectorAll('.pile-images');
+  const pilesContainer = document.querySelector('.projects-piles-container');
 
+  const SLOW_EFFECTIVE_TYPES = new Set(['slow-2g', '2g']);
+  const SLOW_DOWNLINK_MBPS = 1.5;
+  const SLOW_RTT_MS = 600;
+  const LOW_DEVICE_MEMORY_GB = 2;
+  const LOW_CPU_CORES = 2;
   const IMAGE_COUNT_SEED_MULTIPLIER = 97;
   const HASH_MULTIPLIER = 10000;
   const WIDTH_WEIGHT = 0.13;
@@ -146,6 +152,34 @@
       width: img?.naturalWidth || width || 1,
       height: img?.naturalHeight || height || 1
     };
+  }
+
+  function hasPositiveNumberAtMost(value, max) {
+    const number = Number(value);
+    return number > 0 && number <= max;
+  }
+
+  function hasNumberAtLeast(value, min) {
+    const number = Number(value);
+    return number >= min;
+  }
+
+  function shouldUseStaticPileLayout() {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    return prefersReducedMotion
+      || connection?.saveData
+      || SLOW_EFFECTIVE_TYPES.has(connection?.effectiveType)
+      || hasPositiveNumberAtMost(connection?.downlink, SLOW_DOWNLINK_MBPS)
+      || hasNumberAtLeast(connection?.rtt, SLOW_RTT_MS)
+      || hasPositiveNumberAtMost(navigator.deviceMemory, LOW_DEVICE_MEMORY_GB)
+      || hasPositiveNumberAtMost(navigator.hardwareConcurrency, LOW_CPU_CORES);
+  }
+
+  const useStaticPileLayout = shouldUseStaticPileLayout();
+  if (useStaticPileLayout) {
+    pilesContainer?.classList.add('pile-effects-disabled');
   }
 
   let pendingPileGroups = new Set();
@@ -214,6 +248,10 @@
   }
 
   function initializePileLayouts() {
+    if (useStaticPileLayout) {
+      return;
+    }
+
     pileImageGroups.forEach(group => {
       const scheduleGroupTransform = schedulePileTransform.bind(null, group);
       updatePileTransforms(group);
