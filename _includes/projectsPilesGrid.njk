@@ -97,7 +97,7 @@
   const SLOW_DOWNLINK_MBPS = 1.5;
   const SLOW_RTT_MS = 600;
   const LOW_DEVICE_MEMORY_GB = 2;
-  const LOW_CPU_CORES = 1;
+  const LOW_CPU_CORES = 2;
   const IMAGE_COUNT_SEED_MULTIPLIER = 97;
   const HASH_MULTIPLIER = 10000;
   const WIDTH_WEIGHT = 0.13;
@@ -154,7 +154,7 @@
     };
   }
 
-  function isReportedPositiveNumberAtOrBelow(value, max) {
+  function isReportedAtOrBelow(value, max) {
     if (value === null || typeof value === 'undefined') {
       return false;
     }
@@ -163,7 +163,7 @@
     return number > 0 && number <= max;
   }
 
-  function isReportedNumberAtOrAbove(value, min) {
+  function isReportedAtOrAbove(value, min) {
     if (value === null || typeof value === 'undefined') {
       return false;
     }
@@ -181,10 +181,10 @@
     return prefersReducedMotion
       || connection?.saveData
       || SLOW_EFFECTIVE_TYPES.has(connection?.effectiveType)
-      || isReportedPositiveNumberAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
-      || isReportedNumberAtOrAbove(connection?.rtt, SLOW_RTT_MS)
-      || isReportedPositiveNumberAtOrBelow(deviceMemory, LOW_DEVICE_MEMORY_GB)
-      || isReportedPositiveNumberAtOrBelow(hardwareConcurrency, LOW_CPU_CORES);
+      || isReportedAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
+      || isReportedAtOrAbove(connection?.rtt, SLOW_RTT_MS)
+      || isReportedAtOrBelow(deviceMemory, LOW_DEVICE_MEMORY_GB)
+      || isReportedAtOrBelow(hardwareConcurrency, LOW_CPU_CORES);
   }
 
   const useStaticPileLayout = shouldUseStaticPileLayout();
