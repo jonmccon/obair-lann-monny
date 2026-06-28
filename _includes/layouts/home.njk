@@ -2,22 +2,15 @@
 layout: layouts/base.njk
 ---
 {% if page.url == "/" %}
-{% set about = collections.aboutPages | first %}
-<p class="homepage-headline">{{ profile.headline }}</p>
+<section class="homepage-main-header" aria-label="Homepage header">
+  <div class="homepage-main-avatar">
+    {% image profile.portraitUrl, "Jonny McConnell portrait", [172], "172px" %}
+  </div>
+  <p class="homepage-headline">{{ profile.headline }}</p>
+  <p class="homepage-about">{{ profile.aboutBio }}</p>
+</section>
 
 <section class="home-newspaper" aria-label="Homepage newspaper of projects and posts">
-  {% if about %}
-  <article class="newspaper-card newspaper-card-about">
-    <a class="newspaper-card-link" href="{{ about.url }}" aria-label="{{ about.data.title }}"></a>
-    <img src="{{ profile.portraitUrl }}" alt="Jonny McConnell portrait" class="newspaper-avatar">
-    <div class="newspaper-kicker">About</div>
-    <h1>{{ about.data.title }}</h1>
-    <div class="newspaper-card-body">
-      {{ about.templateContent | safe }}
-    </div>
-  </article>
-  {% endif %}
-
   {% for post in collections.projects | reverse %}
   {% set postExcerpt = post.templateContent | excerpt(38) %}
   <article class="newspaper-card newspaper-card-project{% if postExcerpt | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
