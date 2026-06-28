@@ -154,12 +154,20 @@
     };
   }
 
-  function isPositiveNumberAtOrBelow(value, max) {
+  function isReportedPositiveNumberAtOrBelow(value, max) {
+    if (value == null) {
+      return false;
+    }
+
     const number = Number(value);
     return number > 0 && number <= max;
   }
 
-  function isNumberAtOrAbove(value, min) {
+  function isReportedNumberAtOrAbove(value, min) {
+    if (value == null) {
+      return false;
+    }
+
     const number = Number(value);
     return number >= min;
   }
@@ -171,10 +179,10 @@
     return prefersReducedMotion
       || connection?.saveData
       || SLOW_EFFECTIVE_TYPES.has(connection?.effectiveType)
-      || isPositiveNumberAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
-      || isNumberAtOrAbove(connection?.rtt, SLOW_RTT_MS)
-      || isPositiveNumberAtOrBelow(navigator.deviceMemory, LOW_DEVICE_MEMORY_GB)
-      || isPositiveNumberAtOrBelow(navigator.hardwareConcurrency, LOW_CPU_CORES);
+      || isReportedPositiveNumberAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
+      || isReportedNumberAtOrAbove(connection?.rtt, SLOW_RTT_MS)
+      || isReportedPositiveNumberAtOrBelow(navigator.deviceMemory, LOW_DEVICE_MEMORY_GB)
+      || isReportedPositiveNumberAtOrBelow(navigator.hardwareConcurrency, LOW_CPU_CORES);
   }
 
   const useStaticPileLayout = shouldUseStaticPileLayout();
