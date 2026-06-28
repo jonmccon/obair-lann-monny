@@ -97,7 +97,7 @@
   const SLOW_DOWNLINK_MBPS = 1.5;
   const SLOW_RTT_MS = 600;
   const LOW_DEVICE_MEMORY_GB = 2;
-  const LOW_CPU_CORES = 2;
+  const LOW_CPU_CORE_THRESHOLD = 2;
   const IMAGE_COUNT_SEED_MULTIPLIER = 97;
   const HASH_MULTIPLIER = 10000;
   const WIDTH_WEIGHT = 0.13;
@@ -160,7 +160,7 @@
     }
 
     const number = Number(value);
-    return number > 0 && number <= max;
+    return number >= 0 && number <= max;
   }
 
   function isReportedAtOrAbove(value, min) {
@@ -184,7 +184,7 @@
       || isReportedAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
       || isReportedAtOrAbove(connection?.rtt, SLOW_RTT_MS)
       || isReportedAtOrBelow(deviceMemory, LOW_DEVICE_MEMORY_GB)
-      || isReportedAtOrBelow(hardwareConcurrency, LOW_CPU_CORES);
+      || isReportedAtOrBelow(hardwareConcurrency, LOW_CPU_CORE_THRESHOLD);
   }
 
   const useStaticPileLayout = shouldUseStaticPileLayout();
