@@ -258,12 +258,21 @@ module.exports = function(eleventyConfig) {
 	const LANDSCAPE_LIGHTBOX_IMAGE_WIDTH = 2000;
 	const PORTRAIT_LIGHTBOX_IMAGE_WIDTH = 720;
 
-	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, name) {
+	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, galleryName) {
 		// Newlines removed to prevent Markdown from wrapping output in <p> tags.
 		// Gallery JS (PhotoSwipe init, URL sync, deep-link) lives in public/js/gallery-init.js
 		// rather than inline here — inline scripts inside paired shortcodes get HTML-entity-encoded
 		// (=> becomes &gt;, && becomes &amp;&amp;) which breaks the JavaScript.
-		return `<div class="photo-gallery" id="gallery-${name}">${content}</div><script type="module" src="/js/gallery-init.js"></script>`;
+		const gallerySlug = String(galleryName)
+			.replace(/[^A-Za-z0-9_-]+/g, "-")
+			.replace(/^-+|-+$/g, "") || "gallery";
+		const galleryId = `gallery-${gallerySlug}`;
+		const galleryIdAttribute = galleryId
+			.replace(/&/g, "&amp;")
+			.replace(/"/g, "&quot;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;");
+		return `<div class="photo-gallery" id="${galleryIdAttribute}">${content}</div><script type="module" src="/js/gallery-init.js"></script>`;
 	});
 
 	eleventyConfig.addAsyncShortcode("galleryImage", async function(src, alt) {
@@ -347,7 +356,7 @@ module.exports = function(eleventyConfig) {
 			for (const image of item.data.images) {
 			  let isGif = image.src.toLowerCase().endsWith(".gif");
 			  let imageOptions = {
-				widths: [null],
+				widths: isGif ? [null] : [480, null],
 				formats: isGif ? ["gif"] : ["jpeg"], // Temporarily reduce to just JPEG for faster builds
 				urlPath: "/img/",
 				outputDir: "./_site/img/"
@@ -359,11 +368,18 @@ module.exports = function(eleventyConfig) {
 			  let metadata = await Image(image.src, imageOptions);
 	
 			  let format = isGif ? "gif" : "jpeg";
-			  let imageUrl = metadata[format][0].url;
+			  let imageEntries = metadata[format];
+			  let imageMeta = imageEntries[imageEntries.length - 1];
+			  let pileMeta = imageEntries[0];
 	
 			  images.push({
 				url: item.url,
-				src: imageUrl,
+				src: imageMeta.url,
+				width: imageMeta.width,
+				height: imageMeta.height,
+				pileSrc: pileMeta.url,
+				pileWidth: pileMeta.width,
+				pileHeight: pileMeta.height,
 				alt: image.alt || item.data.title,
 				date: item.data.date,
 				// category: item.data.categorys
