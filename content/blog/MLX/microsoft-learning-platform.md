@@ -24,16 +24,16 @@ http://tether.com/
 https://www.microsoft.com/en-us/surface
 
 
-{% image "./MLX-01.png", "000" %}
+{% image "./MLX-01.png", "Microsoft Learning Platform project image" %}
 
-{% image "./MLX-04.png", "000" %}
+{% image "./MLX-04.png", "Microsoft Learning Platform project image" %}
 
-{% image "./MLX-02.png", "000" %}
+{% image "./MLX-02.png", "Microsoft Learning Platform project image" %}
 
 <div class="two-column">
 
-{% image "./MLX-03.png", "000" %}
+{% image "./MLX-03.png", "Microsoft Learning Platform project image" %}
 
-{% image "./MLX-05.png", "000" %}
+{% image "./MLX-05.png", "Microsoft Learning Platform project image" %}
 
 </div>

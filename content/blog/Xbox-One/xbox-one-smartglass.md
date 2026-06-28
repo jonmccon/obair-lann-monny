@@ -16,12 +16,12 @@ While a part of the Xbox One R&D group I helped produce the TV Guide app to univ
 -
 
 
-{% image "./xbox-01.png", "000" %}
+{% image "./xbox-01.png", "Xbox One Smartglass project image" %}
 
 <div class="two-column">
 
-{% image "./xbox-02.png", "000" %}
+{% image "./xbox-02.png", "Xbox One Smartglass project image" %}
 
-{% image "./xbox-03.jpeg", "000" %}
+{% image "./xbox-03.jpeg", "Xbox One Smartglass project image" %}
 
 </div>

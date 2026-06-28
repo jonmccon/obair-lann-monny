@@ -22,13 +22,13 @@ https://www.dwzone-it.com/StyledMapWizard/StyledMapWizard.asp
 
 <div class="two-column">
 
-{% image "./awake-04.png", "000" %}
+{% image "./awake-04.png", "Awake Chocolate project image" %}
 
-{% image "./awake-05.png", "000" %}
+{% image "./awake-05.png", "Awake Chocolate project image" %}
 
-{% image "./awake-02.png", "000" %}
+{% image "./awake-02.png", "Awake Chocolate project image" %}
 
-{% image "./awake-03.png", "000" %}
+{% image "./awake-03.png", "Awake Chocolate project image" %}
 
 
 </div>

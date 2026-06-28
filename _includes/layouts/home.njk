@@ -19,7 +19,8 @@ layout: layouts/base.njk
   {% endif %}
 
   {% for post in collections.projects | reverse %}
-  <article class="newspaper-card newspaper-card-project{% if post.templateContent | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
+  {% set postExcerpt = post.templateContent | excerpt(38) %}
+  <article class="newspaper-card newspaper-card-project{% if postExcerpt | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
     <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
     <h2>{{ post.data.title }}</h2>
     {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
@@ -30,14 +31,17 @@ layout: layouts/base.njk
       {% endfor %}
     </div>
     {% endif %}
+    {% if postExcerpt %}
     <div class="newspaper-card-body">
-      {{ post.templateContent | stripHomepageMedia | safe }}
+      <p>{{ postExcerpt }}</p>
     </div>
+    {% endif %}
   </article>
   {% endfor %}
 
   {% for post in collections.process | reverse %}
-  <article class="newspaper-card newspaper-card-process{% if post.templateContent | wordCount > profile.tallCardWordThreshold %} newspaper-card-tall{% endif %}">
+  {% set postExcerpt = post.templateContent | excerpt(38) %}
+  <article class="newspaper-card newspaper-card-process{% if postExcerpt | wordCount > profile.tallCardWordThreshold %} newspaper-card-tall{% endif %}">
     <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
     <h2>{{ post.data.title }}</h2>
     {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
@@ -48,9 +52,11 @@ layout: layouts/base.njk
       {% endfor %}
     </div>
     {% endif %}
+    {% if postExcerpt %}
     <div class="newspaper-card-body">
-      {{ post.templateContent | stripHomepageMedia | safe }}
+      <p>{{ postExcerpt }}</p>
     </div>
+    {% endif %}
   </article>
   {% endfor %}
 </section>

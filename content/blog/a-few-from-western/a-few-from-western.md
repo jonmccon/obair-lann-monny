@@ -25,14 +25,14 @@ https://tether.com/
 
 <div class="two-column">
 
-{% image "./afew-01.png", "000" %} 
+{% image "./afew-01.png", "A Few from Western project image" %} 
 
-{% image "./afew-02.png", "000" %} 
+{% image "./afew-02.png", "A Few from Western project image" %} 
 
-{% image "./afew-03.png", "000" %} 
+{% image "./afew-03.png", "A Few from Western project image" %} 
 
-{% image "./afew-04.png", "000" %} 
+{% image "./afew-04.png", "A Few from Western project image" %} 
 
 </div>
 
-{% image "./afew-00.jpg", "000" %} 
+{% image "./afew-00.jpg", "A Few from Western project image" %} 

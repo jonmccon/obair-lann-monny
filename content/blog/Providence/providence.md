@@ -114,11 +114,11 @@ Leveraged Material's mentality for simple theming variations and a single type c
 {% image "./prov-16.png", "Example of theming control" %}
 Example of theming control.
 
-{% image "./prov-17.png", "000" %}
+{% image "./prov-17.png", "Providence Healthcare project image" %}
 
-{% image "./prov-20.png", "000" %}
+{% image "./prov-20.png", "Providence Healthcare project image" %}
 
-{% image "./prov-21.png", "000" %}
+{% image "./prov-21.png", "Providence Healthcare project image" %}
 
 </div>
 
@@ -136,11 +136,11 @@ Collaborated with Sunny Lee to develop mobile wireframes for video visits.
 
 <div class="three-column">
 
-{% image "./prov-30.jpg", "000" %}
+{% image "./prov-30.jpg", "Providence Healthcare project image" %}
 
-{% image "./prov-31.jpg", "000" %}
+{% image "./prov-31.jpg", "Providence Healthcare project image" %}
 
-{% image "./prov-32.jpg", "000" %}
+{% image "./prov-32.jpg", "Providence Healthcare project image" %}
 
 
 </div>
