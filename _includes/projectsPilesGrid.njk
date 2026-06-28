@@ -173,7 +173,9 @@
   }
 
   function shouldUseStaticPileLayout() {
-    const connection = navigator.connection;
+    const connection = 'connection' in navigator ? navigator.connection : null;
+    const deviceMemory = 'deviceMemory' in navigator ? navigator.deviceMemory : null;
+    const hardwareConcurrency = 'hardwareConcurrency' in navigator ? navigator.hardwareConcurrency : null;
     const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     return prefersReducedMotion
@@ -181,8 +183,8 @@
       || SLOW_EFFECTIVE_TYPES.has(connection?.effectiveType)
       || isReportedPositiveNumberAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
       || isReportedNumberAtOrAbove(connection?.rtt, SLOW_RTT_MS)
-      || isReportedPositiveNumberAtOrBelow(navigator.deviceMemory, LOW_DEVICE_MEMORY_GB)
-      || isReportedPositiveNumberAtOrBelow(navigator.hardwareConcurrency, LOW_CPU_CORES);
+      || isReportedPositiveNumberAtOrBelow(deviceMemory, LOW_DEVICE_MEMORY_GB)
+      || isReportedPositiveNumberAtOrBelow(hardwareConcurrency, LOW_CPU_CORES);
   }
 
   const useStaticPileLayout = shouldUseStaticPileLayout();
