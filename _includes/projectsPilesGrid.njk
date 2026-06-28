@@ -154,7 +154,7 @@
     };
   }
 
-  function isReportedNonNegativeAtOrBelow(value, max) {
+  function isValueAtOrBelowThreshold(value, max) {
     if (value === null || typeof value === 'undefined') {
       return false;
     }
@@ -163,7 +163,7 @@
     return Number.isFinite(number) && number >= 0 && number <= max;
   }
 
-  function isReportedAtOrAbove(value, min) {
+  function isValueAtOrAboveThreshold(value, min) {
     if (value === null || typeof value === 'undefined') {
       return false;
     }
@@ -181,10 +181,10 @@
     return prefersReducedMotion
       || connection?.saveData
       || SLOW_EFFECTIVE_TYPES.has(connection?.effectiveType)
-      || isReportedNonNegativeAtOrBelow(connection?.downlink, SLOW_DOWNLINK_MBPS)
-      || isReportedAtOrAbove(connection?.rtt, SLOW_RTT_MS)
-      || isReportedNonNegativeAtOrBelow(deviceMemory, LOW_DEVICE_MEMORY_GB)
-      || isReportedNonNegativeAtOrBelow(hardwareConcurrency, LOW_CPU_CORE_COUNT_MAX);
+      || isValueAtOrBelowThreshold(connection?.downlink, SLOW_DOWNLINK_MBPS)
+      || isValueAtOrAboveThreshold(connection?.rtt, SLOW_RTT_MS)
+      || isValueAtOrBelowThreshold(deviceMemory, LOW_DEVICE_MEMORY_GB)
+      || isValueAtOrBelowThreshold(hardwareConcurrency, LOW_CPU_CORE_COUNT_MAX);
   }
 
   const useStaticPileLayout = shouldUseStaticPileLayout();
