@@ -267,7 +267,12 @@ module.exports = function(eleventyConfig) {
 			.replace(/[^A-Za-z0-9_-]+/g, "-")
 			.replace(/^-+|-+$/g, "") || "gallery";
 		const galleryId = `gallery-${gallerySlug}`;
-		return `<div class="photo-gallery" id="${galleryId}">${content}</div><script type="module" src="/js/gallery-init.js"></script>`;
+		const galleryIdAttribute = galleryId
+			.replace(/&/g, "&amp;")
+			.replace(/"/g, "&quot;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;");
+		return `<div class="photo-gallery" id="${galleryIdAttribute}">${content}</div><script type="module" src="/js/gallery-init.js"></script>`;
 	});
 
 	eleventyConfig.addAsyncShortcode("galleryImage", async function(src, alt) {
