@@ -37,21 +37,21 @@ https://twitter.com/seanmorroww
 
 <div class="two-column">
 
-{% image "./bs-01.png", "000" %} 
+{% image "./bs-01.png", "Blackspot Collective 4 project image" %} 
 
-{% image "./bs-02.png", "000" %} 
+{% image "./bs-02.png", "Blackspot Collective 4 project image" %} 
 
-{% image "./bs-03.png", "000" %} 
+{% image "./bs-03.png", "Blackspot Collective 4 project image" %} 
 
-{% image "./bs-04.png", "000" %} 
+{% image "./bs-04.png", "Blackspot Collective 4 project image" %} 
 
-{% image "./bs-05.png", "000" %} 
+{% image "./bs-05.png", "Blackspot Collective 4 project image" %} 
 
-{% image "./bs-06.png", "000" %} 
+{% image "./bs-06.png", "Blackspot Collective 4 project image" %} 
 
-{% image "./bs-07.png", "000" %} 
+{% image "./bs-07.png", "Blackspot Collective 4 project image" %} 
 
-{% image "./bs-08.png", "000" %} 
+{% image "./bs-08.png", "Blackspot Collective 4 project image" %} 
 
 
 </div>

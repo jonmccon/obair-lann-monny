@@ -34,19 +34,19 @@ https://www.arduino.cc/
 https://synthetos.myshopify.com/products/gshield-v5
 
 
-{% image "./plot-30.png", "000" %}
+{% image "./plot-30.png", "Photogrammetry on a Pen Plotter project image" %}
 
-{% image "./plot-110.png", "000" %}
+{% image "./plot-110.png", "Photogrammetry on a Pen Plotter project image" %}
 
 <div class="two-column">
 
-{% image "./plot-02.jpeg", "000" %}
+{% image "./plot-02.jpeg", "Photogrammetry on a Pen Plotter project image" %}
 
-{% image "./plot-15.jpeg", "000" %}
+{% image "./plot-15.jpeg", "Photogrammetry on a Pen Plotter project image" %}
 
-{% image "./plot-01.jpg", "000" %}
+{% image "./plot-01.jpg", "Photogrammetry on a Pen Plotter project image" %}
 
-{% image "./plot-00.jpg", "000" %}
+{% image "./plot-00.jpg", "Photogrammetry on a Pen Plotter project image" %}
 
 </div>
 

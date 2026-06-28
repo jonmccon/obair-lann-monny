@@ -1,10 +1,50 @@
+{%- set seoTitle -%}{% if title and title != metadata.title %}{{ title }} | {{ metadata.title }}{% else %}{{ metadata.title }}{% endif %}{%- endset %}
+{%- set seoDescription = description or metadata.description -%}
+{%- set canonicalUrl = "" -%}
+{%- if page.url -%}
+	{%- set canonicalUrl -%}{{ page.url | htmlBaseUrl(metadata.url) }}{%- endset %}
+{%- endif -%}
 <!doctype html>
 <html lang="{{ metadata.language }}">
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>{{ title or metadata.title }}</title>
-		<meta name="description" content="{{ description or metadata.description }}">
+		<title>{{ seoTitle }}</title>
+		<meta name="description" content="{{ seoDescription }}">
+		{% if canonicalUrl %}
+		<link rel="canonical" href="{{ canonicalUrl }}">
+		{% endif %}
+		<meta property="og:site_name" content="{{ metadata.title }}">
+		<meta property="og:title" content="{{ seoTitle }}">
+		<meta property="og:description" content="{{ seoDescription }}">
+		<meta property="og:type" content="{% if layout == "layouts/post.njk" %}article{% else %}website{% endif %}">
+		{% if canonicalUrl %}
+		<meta property="og:url" content="{{ canonicalUrl }}">
+		{% endif %}
+		<meta name="twitter:card" content="summary">
+		<meta name="twitter:title" content="{{ seoTitle }}">
+		<meta name="twitter:description" content="{{ seoDescription }}">
+		{% if noindex or protected %}
+		<meta name="robots" content="noindex, nofollow">
+		{% endif %}
+		{% if layout == "layouts/post.njk" and canonicalUrl %}
+		<meta property="article:published_time" content="{{ page.date | dateToRfc3339 }}">
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Article",
+			"headline": {{ title | dump | safe }},
+			"description": {{ seoDescription | dump | safe }},
+			"url": {{ canonicalUrl | dump | safe }},
+			"datePublished": {{ page.date | dateToRfc3339 | dump | safe }},
+			"author": {
+				"@type": "Person",
+				"name": {{ metadata.author.name | dump | safe }},
+				"url": {{ metadata.author.url | dump | safe }}
+			}
+		}
+		</script>
+		{% endif %}
 
 		{#- Atom and JSON feeds included by default #}
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
@@ -25,6 +65,7 @@
 		{# {%- css %}* { box-sizing: border-box; }{% endcss %} #}
 		{#- Add the contents of a file to the bundle #}
 		{%- css %}{% include "public/css/index.css" %}{% endcss %}
+		{%- css %}{% include "public/css/tailwind.css" %}{% endcss %}
 		{#- Or add from node_modules #}
 		{# {%- css %}{% include "node_modules/prismjs/themes/prism-okaidia.css" %}{% endcss %} #}
 
@@ -100,12 +141,12 @@
 	<body{% if layout == "layouts/post.njk" %} class="post-page"{% endif %}>
 		<a href="#skip" class="visually-hidden">Skip to main content</a>
 
-		<div class="site-wrapper">
-		<header>
+		<div class="site-wrapper site-shell">
+		<header class="site-header">
 			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
-				<ul class="nav">
+				<ul class="nav site-nav">
 				{%- for entry in collections.all | eleventyNavigation %}
 					<li class="nav-item"><a href="{{ entry.url }}"{% if entry.url == page.url %} aria-current="page"{% endif %}>{{ entry.title }}</a></li>
 				{%- endfor %}
@@ -127,7 +168,13 @@
 				</div>
 			</div>
 			<div id="protected-content" hidden>
+				{% if layout == "layouts/base.njk" %}
+				<section class="page-shell rich-text">
+					{{ content | safe }}
+				</section>
+				{% else %}
 				{{ content | safe }}
+				{% endif %}
 			</div>
 			<script>
 			(function() {
@@ -161,7 +208,13 @@
 			})();
 			</script>
 		{% else %}
+			{% if layout == "layouts/base.njk" %}
+			<section class="page-shell rich-text">
+				{{ content | safe }}
+			</section>
+			{% else %}
 			{{ content | safe }}
+			{% endif %}
 		{% endif %}
 		</main>
 		</div>

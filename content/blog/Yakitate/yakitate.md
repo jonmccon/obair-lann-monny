@@ -18,10 +18,10 @@ Identity system for an exhibition of emerging Japanese product designers at Dwel
 https://www.designboom.com/design/yakitate-at-dwell-on-design-2011/
 
 
-{% image "./yaki-03.png", "000" %}
+{% image "./yaki-03.png", "Yakitate! project image" %}
 
-{% image "./yaki-01.jpeg", "000" %}
+{% image "./yaki-01.jpeg", "Yakitate! project image" %}
 
-{% image "./yaki-02.jpeg", "000" %}
+{% image "./yaki-02.jpeg", "Yakitate! project image" %}
 
 

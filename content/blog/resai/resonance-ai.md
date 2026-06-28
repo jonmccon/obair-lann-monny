@@ -43,21 +43,21 @@ https://twitter.com/stopitdan
   </label>
 </div> -->
 
-{% image "./res-10.png", "000" %}
+{% image "./res-10.png", "Resonance AI project image" %}
 
-{% image "./res-20.png", "000" %}
+{% image "./res-20.png", "Resonance AI project image" %}
 
-{% image "./res-30.png", "000" %}
+{% image "./res-30.png", "Resonance AI project image" %}
 
-{% image "./res-40.png", "000" %}
+{% image "./res-40.png", "Resonance AI project image" %}
 
-{% image "./res-50.png", "000" %}
+{% image "./res-50.png", "Resonance AI project image" %}
 
 <div class="two-column">
 
-{% image "./res-60.png", "000" %}
+{% image "./res-60.png", "Resonance AI project image" %}
 
-{% image "./res-70.png", "000" %}
+{% image "./res-70.png", "Resonance AI project image" %}
 
 </div>
 

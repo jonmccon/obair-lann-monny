@@ -3,12 +3,13 @@
 	"version": "1.0",
 	"description": "a design & art studio",
 	"scripts": {
-		"build": "npx @11ty/eleventy",
+		"build": "npm run build:styles && npx @11ty/eleventy",
 		"build-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
 		"start": "npx @11ty/eleventy --serve --quiet",
 		"debug": "DEBUG=Eleventy* npx @11ty/eleventy",
 		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
-		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy"
+		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy",
+		"build:styles": "npx @tailwindcss/cli -i ./public/css/tailwind-source.css -o ./public/css/tailwind.css --minify"
 	},
 	"repository": {
 		"type": "git",
@@ -34,8 +35,10 @@
 		"@11ty/eleventy-plugin-bundle": "^1.0.5",
 		"@11ty/eleventy-plugin-rss": "^2.0.4",
 		"@11ty/eleventy-plugin-syntaxhighlight": "^5.0.2",
+		"@tailwindcss/cli": "^4.3.1",
 		"luxon": "^3.7.1",
-		"markdown-it-anchor": "^9.2.0"
+		"markdown-it-anchor": "^9.2.0",
+		"tailwindcss": "^4.3.1"
 	},
 	"dependencies": {
 		"jsdom": "^26.1.0",

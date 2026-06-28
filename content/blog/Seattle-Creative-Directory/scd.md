@@ -32,14 +32,14 @@ https://seattlecreative.directory/
 https://seattlecreative.show/
 
 
-{% image "./scd-01.png", "000" %}
+{% image "./scd-01.png", "Seattle Creative Directory project image" %}
 
-{% image "./scd-02.png", "000" %}
+{% image "./scd-02.png", "Seattle Creative Directory project image" %}
 
-{% image "./scd-03.png", "000" %}
+{% image "./scd-03.png", "Seattle Creative Directory project image" %}
 
-{% image "./scd-04.png", "000" %}
+{% image "./scd-04.png", "Seattle Creative Directory project image" %}
 
-{% image "./scd-05.png", "000" %}
+{% image "./scd-05.png", "Seattle Creative Directory project image" %}
 
 

@@ -33,16 +33,16 @@ https://apps.google.com/meet/
 
 <div class="two-column">
 
-{% image "./goog-01.png", "000" %}
+{% image "./goog-01.png", "Multimodal Video Chat Services project image" %}
 
-{% image "./goog-02.png", "000" %}
+{% image "./goog-02.png", "Multimodal Video Chat Services project image" %}
 
-{% image "./goog-03.png", "000" %}
+{% image "./goog-03.png", "Multimodal Video Chat Services project image" %}
 
-{% image "./goog-04.png", "000" %}
+{% image "./goog-04.png", "Multimodal Video Chat Services project image" %}
 
-{% image "./goog-05.png", "000" %}
+{% image "./goog-05.png", "Multimodal Video Chat Services project image" %}
 
-{% image "./goog-06.png", "000" %}
+{% image "./goog-06.png", "Multimodal Video Chat Services project image" %}
 
 </div>

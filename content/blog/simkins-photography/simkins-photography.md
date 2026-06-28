@@ -14,4 +14,4 @@ Compiled the entire collection of a photography show into a Processing algorithm
 
 http://simkinsphotography.com/
 
-{% image "./sim-01.png", "000" %} 
+{% image "./sim-01.png", "Erik Simkins project image" %} 

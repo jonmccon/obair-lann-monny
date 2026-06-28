@@ -14,6 +14,21 @@ const { JSDOM } = require("jsdom");
 const pluginDrafts = require("./eleventy.config.drafts.js");
 const pluginImages = require("./eleventy.config.images.js");
 
+function plainTextFromHtml(value) {
+	if (!value || typeof value !== "string") {
+		return "";
+	}
+
+	const dom = JSDOM.fragment(value);
+	dom.querySelectorAll("picture, img, iframe, script, style").forEach(function(node) {
+		node.remove();
+	});
+
+	return dom.textContent
+		.replace(/\s+/g, " ")
+		.trim();
+}
+
 function relativeToInputPath(inputPath, relativeFilePath) {
 	let split = inputPath.split("/");
 	split.pop();
@@ -77,6 +92,19 @@ module.exports = function(eleventyConfig) {
 			return 0;
 		}
 		return plain.split(" ").length;
+	});
+
+	eleventyConfig.addFilter("excerpt", (value, wordLimit = 35) => {
+		const plain = plainTextFromHtml(value);
+		if (!plain) {
+			return "";
+		}
+
+		const words = plain.split(" ");
+		const limit = Number(wordLimit) || 35;
+		return words.length > limit
+			? `${words.slice(0, limit).join(" ")}…`
+			: plain;
 	});
 
 	// Homepage cards use small frontmatter images, so media embedded in post bodies is stripped here.
@@ -231,28 +259,15 @@ module.exports = function(eleventyConfig) {
 	const PORTRAIT_LIGHTBOX_IMAGE_WIDTH = 720;
 
 	eleventyConfig.addPairedNunjucksShortcode("gallery", function(content, galleryName) {
-		// Newlines removed to prevent Markdown from wrapping output in <p> tags
+		// Newlines removed to prevent Markdown from wrapping output in <p> tags.
+		// Gallery JS (PhotoSwipe init, URL sync, deep-link) lives in public/js/gallery-init.js
+		// rather than inline here — inline scripts inside paired shortcodes get HTML-entity-encoded
+		// (=> becomes &gt;, && becomes &amp;&amp;) which breaks the JavaScript.
 		const gallerySlug = String(galleryName)
 			.replace(/[^A-Za-z0-9_-]+/g, "-")
 			.replace(/^-+|-+$/g, "") || "gallery";
 		const galleryId = `gallery-${gallerySlug}`;
-		const galleryIdAttribute = galleryId.replace(/"/g, "&quot;");
-		return `
-			<div class="photo-gallery" id="${galleryIdAttribute}">
-				${content}
-			</div>
-			<script type="module">
-				import PhotoSwipeLightbox from '/js/photoswipe-lightbox.esm.min.js';
-				import PhotoSwipe from '/js/photoswipe.esm.min.js';
-				const lightbox = new PhotoSwipeLightbox({
-					gallery: document.getElementById(${JSON.stringify(galleryId)}),
-					children: 'a',
-					pswpModule: PhotoSwipe,
-					preload: [1, 1]
-				});
-				lightbox.init();
-			</script>
-		`.replace(/(\r\n|\n|\r)/gm, "");
+		return `<div class="photo-gallery" id="${galleryId}">${content}</div><script type="module" src="/js/gallery-init.js"></script>`;
 	});
 
 	eleventyConfig.addAsyncShortcode("galleryImage", async function(src, alt) {
@@ -264,6 +279,16 @@ module.exports = function(eleventyConfig) {
 		}
 
 		const altText = alt || "Gallery image";
+
+		// Derive a stable per-photo slug from the source filename (e.g. "0022" from "./0022.jpg")
+		const photoSlug = path.basename(src, path.extname(src));
+		// Use the page's actual URL (which respects any custom permalink) to get the gallery slug.
+		// Match the expected /galleries/<slug>/ pattern to guard against unexpected URL shapes.
+		// Falls back to fileSlug for galleries without a custom permalink.
+		const urlMatch = (this.page.url || "").match(/^\/galleries\/([^/]+)\/?$/);
+		const gallerySlug = (urlMatch && urlMatch[1]) || this.page.fileSlug;
+		const photoUrl = `/galleries/${gallerySlug}/${photoSlug}/`;
+		const deepLinkUrl = `/galleries/${gallerySlug}/#photo-${photoSlug}`;
 
 		// First pass: generate thumbnail only to detect orientation
 		const thumbMetadata = await Image(input, {
@@ -289,7 +314,9 @@ module.exports = function(eleventyConfig) {
 
 		const fullMeta = fullMetadata.jpeg[0];
 
-		return `<a href="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" target="_blank"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
+		// href points to the standalone photo page so the status bar shows a meaningful gallery URL.
+		// data-pswp-src supplies the full-resolution image URL for the PhotoSwipe lightbox.
+		return `<a id="photo-${photoSlug}" href="${photoUrl}" data-pswp-src="${fullMeta.url}" data-pswp-width="${fullMeta.width}" data-pswp-height="${fullMeta.height}" data-photo-slug="${photoSlug}" data-photo-url="${photoUrl}" data-deep-link-url="${deepLinkUrl}"><img src="${thumbMeta.url}" alt="${altText}" loading="lazy" decoding="async" /></a>`;
 	});
 
 	// Create separate collections for projects and process posts

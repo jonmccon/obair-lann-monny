@@ -19,6 +19,14 @@ function isFullUrl(url) {
 	}
 }
 
+function escapeAttribute(value = "") {
+	return String(value)
+		.replace(/&/g, "&amp;")
+		.replace(/"/g, "&quot;")
+		.replace(/</g, "&lt;")
+		.replace(/>/g, "&gt;");
+}
+
 module.exports = function(eleventyConfig) {
 	// Eleventy Image shortcode
 	// https://www.11ty.dev/docs/plugins/image/
@@ -51,8 +59,6 @@ module.exports = function(eleventyConfig) {
 			imageOptions.sharpOptions = { animated: true };
 		}
 
-		let metadata = await eleventyImage(input, imageOptions);
-
 		// TODO loading=eager and fetchpriority=high
 		let imageAttributes = {
 			alt,
@@ -68,6 +74,15 @@ module.exports = function(eleventyConfig) {
 			imageAttributes.class = "lightbox-trigger";
 		}
 
-		return eleventyImage.generateHTML(metadata, imageAttributes);
+		try {
+			let metadata = await eleventyImage(input, imageOptions);
+			if (metadata) {
+				return eleventyImage.generateHTML(metadata, imageAttributes);
+			}
+		} catch (error) {
+			console.warn(`[image shortcode] Falling back to raw image for ${src}: ${error.message}`);
+		}
+
+		return `<img src="${escapeAttribute(src)}" alt="${escapeAttribute(alt)}" loading="lazy" decoding="async">`;
 	});
 };

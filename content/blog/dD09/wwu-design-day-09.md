@@ -21,16 +21,16 @@ My favorite part was a simple signage system based around the idea of simply let
 https://www.vanderbyl.com/
 
 
-{% image "./dD09-01.jpeg", "000" %} 
+{% image "./dD09-01.jpeg", "WWU Design Day 09 project image" %} 
 
 <div class="two-column">
 
-{% image "./dD09-02.jpeg", "000" %} 
+{% image "./dD09-02.jpeg", "WWU Design Day 09 project image" %} 
 
-{% image "./dD09-03.jpeg", "000" %} 
+{% image "./dD09-03.jpeg", "WWU Design Day 09 project image" %} 
 
-{% image "./dD09-04.jpeg", "000" %} 
+{% image "./dD09-04.jpeg", "WWU Design Day 09 project image" %} 
 
-{% image "./dD09-05.jpeg", "000" %} 
+{% image "./dD09-05.jpeg", "WWU Design Day 09 project image" %} 
 
 </div>

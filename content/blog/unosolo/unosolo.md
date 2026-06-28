@@ -17,8 +17,8 @@ Only after being a press photographer in Milan did I ever learn how to cook it r
 
 <div class="two-column">
 
-{% image "./un-01.png", "000" %} 
+{% image "./un-01.png", "Unosolo project image" %} 
 
-{% image "./un-02.png", "000" %} 
+{% image "./un-02.png", "Unosolo project image" %} 
 
 </div>

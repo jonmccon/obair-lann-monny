@@ -37,19 +37,19 @@ http://kissmeimpolish.com/work/aiga-membership-initiatives/
 
 <div class="two-column">
 
-{% image "./aiga-01.png", "000" %}
+{% image "./aiga-01.png", "AIGA Seattle project image" %}
 
-{% image "./aiga-02.png", "000" %}
+{% image "./aiga-02.png", "AIGA Seattle project image" %}
 
-{% image "./aiga-03.png", "000" %}
+{% image "./aiga-03.png", "AIGA Seattle project image" %}
 
-{% image "./aiga-04.png", "000" %}
+{% image "./aiga-04.png", "AIGA Seattle project image" %}
 
-{% image "./aiga-05.png", "000" %}
+{% image "./aiga-05.png", "AIGA Seattle project image" %}
 
-{% image "./aiga-06.png", "000" %}
+{% image "./aiga-06.png", "AIGA Seattle project image" %}
 
-{% image "./aiga-07.png", "000" %}
+{% image "./aiga-07.png", "AIGA Seattle project image" %}
 
 </div>
 

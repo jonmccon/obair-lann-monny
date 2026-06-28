@@ -30,25 +30,25 @@ https://www.amazon.com/dp/B07FKR6KXF/ref=cm_sw_r_tw_dp_U_x_zBX5EbR8RPXWF
 
 <div class="two-column">
 
-{% image "./ama-01.png", "000" %}
+{% image "./ama-01.png", "Fire OS 7 Upgrade project image" %}
 
-{% image "./ama-02.png", "000" %}
+{% image "./ama-02.png", "Fire OS 7 Upgrade project image" %}
 
-{% image "./ama-03.png", "000" %}
+{% image "./ama-03.png", "Fire OS 7 Upgrade project image" %}
 
-{% image "./ama-04.png", "000" %}
+{% image "./ama-04.png", "Fire OS 7 Upgrade project image" %}
 
-{% image "./ama-05.png", "000" %}
+{% image "./ama-05.png", "Fire OS 7 Upgrade project image" %}
 
-{% image "./ama-06.png", "000" %}
+{% image "./ama-06.png", "Fire OS 7 Upgrade project image" %}
 
-{% image "./ama-07.png", "000" %}
+{% image "./ama-07.png", "Fire OS 7 Upgrade project image" %}
 
-{% image "./ama-08.png", "000" %}
+{% image "./ama-08.png", "Fire OS 7 Upgrade project image" %}
 
 </div>
 
-{% image "./ama-09.png", "000" %}
+{% image "./ama-09.png", "Fire OS 7 Upgrade project image" %}
 
 
 
