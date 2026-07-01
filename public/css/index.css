@@ -115,6 +115,7 @@ html {
 }
 
 body {
+	/* Keep the whole site inset on narrow screens while preserving the desktop max-width. */
 	width: min(calc(100% - (var(--site-gutter) * 2)), 1400px);
 }
 
