@@ -142,7 +142,7 @@
 html,
 body {
 	padding: 0;
-	margin: 0 auto;
+	margin: 0;
 	font-family: var(--font-family);
 	color: var(--text-color);
 	background-color: var(--background-color);
@@ -153,7 +153,7 @@ html {
 }
 
 body {
-	/* Keep the whole site inset on narrow screens while preserving the desktop max-width. */
+	/* Keep the whole site responsive without centering the composition. */
 	width: min(calc(100% - (var(--site-gutter) * 2)), 1400px);
 }
 
