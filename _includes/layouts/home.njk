@@ -62,15 +62,14 @@ layout: layouts/base.njk
 <section class="home-newspaper" aria-label="Homepage newspaper of projects and posts">
   {% for post in collections.projects | reverse %}
   {% set postExcerpt = post.templateContent | excerpt(38) %}
+  {% set projectThumbnail = post.data.images | first %}
   <article class="newspaper-card newspaper-card-project{% if postExcerpt | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
     <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
     <h2>{{ post.data.title }}</h2>
     {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
-    {% if post.data.images %}
+    {% if projectThumbnail %}
     <div class="newspaper-images">
-      {% for image in post.data.images %}
-        {% homepageImage image.src, image.alt | default(post.data.title) %}
-      {% endfor %}
+      {% homepageImage projectThumbnail.src, projectThumbnail.alt | default(post.data.title) %}
     </div>
     {% endif %}
     {% if postExcerpt %}
