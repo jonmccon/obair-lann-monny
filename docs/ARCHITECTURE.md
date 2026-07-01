@@ -437,7 +437,7 @@ The homepage (`content/index.njk` → `layouts/home.njk`) renders a configurable
 2. **Featured project thumbnails** — large cards from `collections.featuredProjects`, controlled by `home.showFeaturedProjectThumbnails` and `home.featuredProjectThumbnailLimit`.
 3. **Featured text links** — optional large links from `home.featuredTextLinks`.
 4. **Supporting paragraphs** — optional short copy blocks from `home.supportingParagraphs`.
-5. **Small project cards** — one card per `collections.projects` entry (reverse chronological) in a two-column grid. Each card renders the first `post.data.images` item as its thumbnail with `homepageImage`.
+5. **Small project cards** — one card per image-backed `collections.projects` entry (reverse chronological) in a two-column grid. Each card renders the first `post.data.images` item as its thumbnail with `homepageImage`.
 6. **Small process cards** — one card per `collections.process` entry in the same two-column grid. Cards with `> 220 words` get `newspaper-card-tall`.
 
 Post body content is stripped of `<picture>`, `<img>`, `<iframe>`, `<script>` tags via the `stripHomepageMedia` filter before display in cards.
