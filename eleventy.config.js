@@ -221,7 +221,7 @@ module.exports = function(eleventyConfig) {
 		}
 	});
 
-	eleventyConfig.addAsyncShortcode("homepageImage", async function(src, alt) {
+	eleventyConfig.addAsyncShortcode("homepageImage", async function(src, alt, width = 160, className = "newspaper-image") {
 		if (!src) return "";
 
 		let input = src;
@@ -234,7 +234,7 @@ module.exports = function(eleventyConfig) {
 		try {
 			let isGif = src.toLowerCase().endsWith(".gif");
 			let metadata = await Image(input, {
-				widths: [160],
+				widths: [width],
 				formats: isGif ? ["gif"] : ["jpeg"],
 				outputDir: path.join(eleventyConfig.dir.output, "img"),
 				urlPath: "/img/",
@@ -245,7 +245,7 @@ module.exports = function(eleventyConfig) {
 				alt: alt || "",
 				loading: "lazy",
 				decoding: "async",
-				class: "newspaper-image"
+				class: className
 			});
 		} catch (error) {
 			console.warn(`Homepage image processing failed for ${src}:`, error.message);
