@@ -33,7 +33,7 @@ obair-lann-monny/
 ├── content/                   # All pages and markdown (Eleventy input dir)
 │   ├── index.njk              # Homepage — uses layouts/home.njk
 │   ├── about.md               # About page
-│   ├── blog.njk               # Design archive (/design/)
+│   ├── design.njk             # Design archive (/design/)
 │   ├── process.njk            # Process archive (/process/)
 │   ├── galleries.njk          # Photo galleries index (/galleries/)
 │   ├── tags.njk               # Tag archive pages (/tags/<tag>/)
@@ -41,8 +41,8 @@ obair-lann-monny/
 │   ├── 404.md                 # 404 page
 │   ├── sitemap/               # Sitemap template
 │   ├── feed/                  # RSS + JSON feed templates
-│   ├── blog/                  # Design/project posts → /projects/<slug>/
-│   │   ├── blog.11tydata.js   # Directory data: tag=posts, layout=post.njk
+│   ├── design/                # Design/project posts → /design/<slug>/
+│   │   ├── design.11tydata.js # Directory data: tag=posts, layout=post.njk
 │   │   └── <Slug>/<Slug>.md   # One folder per post, file matches folder name
 │   ├── inProgress/            # Process/journal posts → no permalink set in data file
 │   │   ├── inProgress.11tydata.js  # Directory data: tag=process, layout=post.njk
@@ -111,12 +111,12 @@ obair-lann-monny/
 
 | Section | Source directory | URL pattern | Collection tag | Layout |
 |---|---|---|---|---|
-| Design / Projects | `content/blog/` | `/projects/<slug>/` | `posts` | `post.njk` |
+| Design / Projects | `content/design/` | `/design/<slug>/` | `posts` | `post.njk` |
 | Process / Journal | `content/inProgress/` | auto (no permalink override) | `process` | `post.njk` |
 | Photo galleries | `content/galleries/` | `/galleries/<slug>/` | `galleries` | `gallery.njk` |
 | Single photo pages | `content/gallery-photo.njk` (pagination) | `/galleries/<gallery-slug>/<photo-slug>/` | — (excluded) | `photo.njk` |
 | Stacked pages | `content/stacks/` | set in frontmatter | — | `stacked.njk` |
-| Design archive index | `content/blog.njk` | `/design/` | — | `archive.njk` |
+| Design archive index | `content/design.njk` | `/design/` | — | `archive.njk` |
 | Process archive index | `content/process.njk` | `/process/` | — | `archive.njk` |
 | Galleries index | `content/galleries.njk` | `/galleries/` | — | `archive.njk` |
 | Homepage | `content/index.njk` | `/` | — | `home.njk` |
@@ -126,7 +126,7 @@ obair-lann-monny/
 | JSON feed | `content/feed/json.njk` | `/feed/feed.json` | — | — |
 | Sitemap | `content/sitemap/` | `/sitemap.xml` | — | — |
 
-> **Note:** `blog.11tydata.js` sets the permalink for `content/blog/` posts to `/projects/{{ page.filePathStem.replace('/blog/', '/') }}/`. The URL section slug comes from the folder name (e.g. `content/blog/AIGA-Seattle/AIGA-Seattle.md` → `/projects/AIGA-Seattle/`).
+> **Note:** `design.11tydata.js` sets the permalink for `content/design/` posts to `/design/{{ page.filePathStem.replace('/design/', '/') }}/`. The URL section slug comes from the folder name (e.g. `content/design/AIGA-Seattle/AIGA-Seattle.md` → `/design/AIGA-Seattle/`).
 
 ---
 
@@ -136,7 +136,7 @@ Defined in `eleventy.config.js`:
 
 | Collection name | Source | Purpose |
 |---|---|---|
-| `projects` | pages in `content/blog/` with `images` frontmatter | All design/project posts |
+| `projects` | pages in `content/design/` with `images` frontmatter | All design/project posts |
 | `featuredProjects` | `getFilteredByTag("featured")` | Posts with `featured: true` frontmatter |
 | `process` | `getFilteredByTag("process")` | All process/journal posts (from `content/inProgress/`) |
 | `aboutPages` | filter `url == "/about/"` | The about page content (used on homepage) |
@@ -212,7 +212,7 @@ Defined in `eleventy.config.js`:
 
 ## Frontmatter conventions
 
-### Blog/design posts (`content/blog/`)
+### Blog/design posts (`content/design/`)
 
 ```yaml
 ---
@@ -223,7 +223,7 @@ date: YYYY-MM-DD
 tags:
   - tagname           # at least one; drives tag pages
 images:
-  - src: "content/blog/<Slug>/image.jpg"
+  - src: "content/design/<Slug>/image.jpg"
     alt: "Optional alt text"
 draft: false          # true = excluded from production builds
 ---
@@ -371,7 +371,7 @@ All CSS lives in `public/css/` and is passed through to `_site/css/`.
 Some CSS is injected inline via Eleventy's bundle plugin (`{%- css %}{% include ... %}{% endcss %}`). This is used in layout files to conditionally include page-specific CSS:
 - `post.njk` inlines Prism and diff CSS
 - `gallery.njk` inlines `photoswipe-gallery.css`
-- `blog.njk` inlines `project-piles.css`
+- `design.njk` inlines `project-piles.css`
 - `stacked.njk` inlines `stacked.css`
 
 ---
@@ -419,13 +419,13 @@ The design archive (`/design/`) currently uses `projectsPilesGrid.njk`. Several 
 
 | Component | Visual style | Used where |
 |---|---|---|
-| `projectsPilesGrid.njk` | **Active** — randomly piled image stacks with tag filtering | `blog.njk` → `/design/` |
+| `projectsPilesGrid.njk` | **Active** — randomly piled image stacks with tag filtering | `design.njk` → `/design/` |
 | `projectsGrid.njk` | Card grid with thumbnail + title + description + year | Available for use |
 | `projectsList.njk` | Compact thumbnail + title rows | Available for use |
 | `projectsThumbGrid.njk` | Dense image-only thumbnail grid | Available for use |
 | `projectsStackGrid.njk` | Stacked-paper mini previews | Available for use |
 
-To swap the design archive layout, edit `blog.njk` and replace the included component.
+To swap the design archive layout, edit `design.njk` and replace the included component.
 
 ---
 

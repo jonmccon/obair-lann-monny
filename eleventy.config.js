@@ -326,7 +326,7 @@ module.exports = function(eleventyConfig) {
 
 	// Create separate collections for projects and process posts
 	eleventyConfig.addCollection("projects", function(collectionApi) {
-		return collectionApi.getFilteredByGlob("./content/blog/**/*.md").filter(item => item.data.images);
+		return collectionApi.getFilteredByGlob("./content/design/**/*.md").filter(item => item.data.images);
 	});
 
 	eleventyConfig.addCollection("featuredProjects", function(collectionApi) {

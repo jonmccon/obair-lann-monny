@@ -6,9 +6,9 @@ Post `date:` fields reflect the actual content publication/project date.
 
 ---
 
-## Design / Project posts (`content/blog/`)
+## Design / Project posts (`content/design/`)
 
-URL pattern: `/projects/<slug>/`  
+URL pattern: `/design/<slug>/`  
 Collection: `posts`  
 Layout: `post.njk`
 
@@ -47,7 +47,7 @@ Layout: `post.njk`
 | `this-is-us` | This is Us | 2009-06-01 | no | 1 | `xxxxxxxxx` (placeholder) |
 | `unosolo` | Unosolo | 2009-12-01 | no | 2 | `xxxxxxxxx` (placeholder) |
 
-**Orphan file:** `content/blog/thirdpost.md` — sits directly in `content/blog/` (not in its own subfolder), which is inconsistent with the folder-per-post convention. It is a placeholder third-post file.
+**Orphan file:** `content/design/thirdpost.md` — sits directly in `content/design/` (not in its own subfolder), which is inconsistent with the folder-per-post convention. It is a placeholder third-post file.
 
 ---
 
@@ -132,6 +132,6 @@ Gallery pages are built for all `.md` files found in `content/galleries/`, but o
 
 3. **inProgress image fields are all commented out** — no process posts currently display images, even though most have an `images:` key with commented-out values.
 
-4. **thirdpost.md** is a stray file at `content/blog/thirdpost.md` (outside the folder-per-post pattern). Its content is a basic placeholder.
+4. **thirdpost.md** is a stray file at `content/design/thirdpost.md` (outside the folder-per-post pattern). Its content is a basic placeholder.
 
 5. **Six gallery folders are unwired** — `architecture-and-structure`, `color-and-light`, `skies-and-waterscapes`, `soft-light-and-atmosphere`, `street-and-shadow` have no entry in `_data/photoCategories.js`, so they don't appear on the gallery index. They will still generate individual pages if they contain `.md` files.
