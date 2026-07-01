@@ -6,7 +6,7 @@ date: 2025-07-07
 tags: 
     - xxxxxxxxx
 images: 
-# - src: "content/blog/a-few-from-western/afew-01.png"
+# - src: "content/design/a-few-from-western/afew-01.png"
 ---
 
 <!-- ## Calendaring -->

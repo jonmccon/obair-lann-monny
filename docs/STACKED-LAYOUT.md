@@ -126,7 +126,7 @@ stackedItems:
   - title: "Final Design"
     date: 2026-01-20
     content: "<p>The polished result...</p>"
-permalink: /projects/redesign/
+permalink: /design/redesign/
 ---
 ```
 

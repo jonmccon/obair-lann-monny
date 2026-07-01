@@ -27,7 +27,7 @@ This inventory covers source image assets in the repository and excludes generat
 | --- | --- | --- | ---: | --- | --- | --- | --- |
 | `oblamo-logo.svg` | SVG | 187×146 | 34.9 KiB | Yes | transparent / none | #080808 (8, 8, 8) | has alpha (sample min 0) |
 
-### content/blog/a-few-from-western
+### content/design/a-few-from-western
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -38,7 +38,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `afew-04.png` | PNG | 670×469 | 133.7 KiB | No | #EFEAE6 (239, 234, 230) | #F8F8E8 (248, 248, 232) | opaque |
 | `afew-05.png` | PNG | 2400×829 | 658.3 KiB | Yes | transparent / none | #F8E8E8 (248, 232, 232) | has alpha (sample min 101) |
 
-### content/blog/AIGA-Seattle
+### content/design/AIGA-Seattle
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -50,7 +50,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `aiga-06.png` | PNG | 1477×1013 | 52.6 KiB | No | #E9EBEA (233, 235, 234) | #F8F8F8 (248, 248, 248) | alpha channel, opaque sample |
 | `aiga-07.png` | PNG | 910×1145 | 48.4 KiB | No | #6BA4BD (107, 164, 189) | #98D8F8 (152, 216, 248) | alpha channel, opaque sample |
 
-### content/blog/Amazon-Fire-Tablet
+### content/design/Amazon-Fire-Tablet
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -64,7 +64,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `ama-08.png` | PNG | 752×1236 | 38.9 KiB | Yes | transparent / none | #181818 (24, 24, 24) | has alpha (sample min 0) |
 | `ama-09.png` | PNG | 1343×1664 | 58.4 KiB | No | #EFEFEF (239, 239, 239) | #F8F8F8 (248, 248, 248) | opaque |
 
-### content/blog/Awake-Chocolate
+### content/design/Awake-Chocolate
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -75,7 +75,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `awake-04.png` | PNG | 909×1568 | 141.5 KiB | Yes | transparent / none | #989898 (152, 152, 152) | has alpha (sample min 0) |
 | `awake-05.png` | PNG | 909×1568 | 165.3 KiB | Yes | transparent / none | #989898 (152, 152, 152) | has alpha (sample min 0) |
 
-### content/blog/Bakedin
+### content/design/Bakedin
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -83,7 +83,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `bi-02.png` | PNG | 1692×1391 | 139.1 KiB | No | #C2C3C3 (194, 195, 195) | #F8F8F8 (248, 248, 248) | opaque |
 | `bi-03.png` | PNG | 1150×1673 | 104.0 KiB | Yes | transparent / none | #080808 (8, 8, 8) | has alpha (sample min 0) |
 
-### content/blog/blackspot-collective
+### content/design/blackspot-collective
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -96,7 +96,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `bs-07.png` | PNG | 1000×1105 | 417.0 KiB | No | #9B8C73 (155, 140, 115) | #A89878 (168, 152, 120) | opaque |
 | `bs-08.png` | PNG | 1000×667 | 304.6 KiB | No | #A39487 (163, 148, 135) | #D8C8B8 (216, 200, 184) | opaque |
 
-### content/blog/dD09
+### content/design/dD09
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -106,7 +106,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `dD09-04.jpeg` | JPEG | 640×357 | 41.3 KiB | No | #E6E6E7 (230, 230, 231) | #F8F8F8 (248, 248, 248) | opaque |
 | `dD09-05.jpeg` | JPEG | 640×357 | 17.6 KiB | No | #E7E7E7 (231, 231, 231) | #F8F8F8 (248, 248, 248) | opaque |
 
-### content/blog/deanReport
+### content/design/deanReport
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -118,7 +118,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `dr-06.jpeg` | JPEG | 640×427 | 36.8 KiB | No | #ABA1AD (171, 161, 173) | #B8B8C8 (184, 184, 200) | opaque |
 | `dr-07.png` | PNG | 910×1562 | 84.8 KiB | No | #F0EFEC (240, 239, 236) | #F8F8F8 (248, 248, 248) | opaque |
 
-### content/blog/Decibel-Festival
+### content/design/Decibel-Festival
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -139,7 +139,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `db-130.png` | PNG | 2400×586 | 487.0 KiB | Yes | transparent / none | #281818 (40, 24, 24) | has alpha (sample min 135) |
 | `db-140.png` | PNG | 2400×3361 | 944.1 KiB | Yes | transparent / none | #383838 (56, 56, 56) | has alpha (sample min 0) |
 
-### content/blog/Google-Meet
+### content/design/Google-Meet
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -150,7 +150,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `goog-05.png` | PNG | 2500×1563 | 611.8 KiB | No | #827578 (130, 117, 120) | #181818 (24, 24, 24) | opaque |
 | `goog-06.png` | PNG | 1037×893 | 23.9 KiB | Yes | transparent / none | #080808 (8, 8, 8) | has alpha (sample min 0) |
 
-### content/blog/klipsun
+### content/design/klipsun
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -158,7 +158,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `klipsun-02.jpeg` | JPEG | 640×427 | 73.8 KiB | No | #040000 (4, 0, 0) | #080808 (8, 8, 8) | opaque |
 | `klipsun-03.jpeg` | JPEG | 640×427 | 49.8 KiB | No | #060101 (6, 1, 1) | #0888B8 (8, 136, 184) | opaque |
 
-### content/blog/Lumedic
+### content/design/Lumedic
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -174,7 +174,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `lum-80.png` | PNG | 1056×1700 | 40.8 KiB | Yes | transparent / none | #F8F8F8 (248, 248, 248) | has alpha (sample min 240) |
 | `lum-90.png` | PNG | 1056×1273 | 35.8 KiB | No | #C5C4C6 (197, 196, 198) | #E8E8E8 (232, 232, 232) | alpha channel, opaque sample |
 
-### content/blog/Metastream
+### content/design/Metastream
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -200,7 +200,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `ms-90.png` | PNG | 1868×1600 | 500.6 KiB | No | #E3E3E4 (227, 227, 228) | #E8E8E8 (232, 232, 232) | opaque |
 | `ms-95.png` | PNG | 1219×1950 | 390.7 KiB | No | #E9E9E9 (233, 233, 233) | #E8E8E8 (232, 232, 232) | opaque |
 
-### content/blog/MLX
+### content/design/MLX
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -210,7 +210,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `MLX-04.png` | PNG | 1600×1000 | 185.6 KiB | Yes | transparent / none | #989898 (152, 152, 152) | has alpha (sample min 109) |
 | `MLX-05.png` | PNG | 1600×1000 | 49.5 KiB | No | #B6B6B6 (182, 182, 182) | #585858 (88, 88, 88) | opaque |
 
-### content/blog/Photogrammetry
+### content/design/Photogrammetry
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -221,7 +221,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `plot-15.jpeg` | JPEG | 735×1000 | 128.8 KiB | No | #EAE5E5 (234, 229, 229) | #E8E8E8 (232, 232, 232) | opaque |
 | `plot-30.png` | PNG | 2400×803 | 243.1 KiB | No | #787878 (120, 120, 120) | #787878 (120, 120, 120) | opaque |
 
-### content/blog/PoF
+### content/design/PoF
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -235,7 +235,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `pof-08.jpeg` | JPEG | 1000×761 | 113.5 KiB | No | #4D4846 (77, 72, 70) | #282828 (40, 40, 40) | opaque |
 | `pof-09.jpeg` | JPEG | 1000×766 | 71.4 KiB | No | #4D4C47 (77, 76, 71) | #282828 (40, 40, 40) | opaque |
 
-### content/blog/posters
+### content/design/posters
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -251,7 +251,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `post-10.jpeg` | JPEG | 669×676 | 60.8 KiB | No | #879681 (135, 150, 129) | #D8E8E8 (216, 232, 232) | opaque |
 | `post-11.jpeg` | JPEG | 670×502 | 82.3 KiB | No | #795636 (121, 86, 54) | #C8B898 (200, 184, 152) | opaque |
 
-### content/blog/Providence
+### content/design/Providence
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -281,7 +281,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `prov-31.jpg` | JPEG | 2448×3264 | 1.04 MiB | No | #B3ADA5 (179, 173, 165) | #F8F8E8 (248, 248, 232) | opaque |
 | `prov-32.jpg` | JPEG | 2448×3264 | 1.11 MiB | No | #AFACA4 (175, 172, 164) | #F8F8F8 (248, 248, 248) | opaque |
 
-### content/blog/resai
+### content/design/resai
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -293,7 +293,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `res-60.png` | PNG | 2130×1492 | 53.4 KiB | No | #FFFFFF (255, 255, 255) | #F8F8F8 (248, 248, 248) | opaque |
 | `res-70.png` | PNG | 2500×1147 | 253.0 KiB | No | #1E2328 (30, 35, 40) | #182828 (24, 40, 40) | alpha channel, opaque sample |
 
-### content/blog/Seattle-Creative-Directory
+### content/design/Seattle-Creative-Directory
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -303,13 +303,13 @@ This inventory covers source image assets in the repository and excludes generat
 | `scd-04.png` | PNG | 1578×1182 | 540.5 KiB | Yes | transparent / none | #F8F8F8 (248, 248, 248) | has alpha (sample min 0) |
 | `scd-05.png` | PNG | 1370×1289 | 142.1 KiB | Yes | transparent / none | #F8F8F8 (248, 248, 248) | has alpha (sample min 0) |
 
-### content/blog/simkins-photography
+### content/design/simkins-photography
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
 | `sim-01.png` | PNG | 910×500 | 96.4 KiB | Yes | transparent / none | #080808 (8, 8, 8) | has alpha (sample min 0) |
 
-### content/blog/SSLS
+### content/design/SSLS
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -320,7 +320,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `ssls-05.png` | PNG | 910×1365 | 540.3 KiB | No | #6B6C52 (107, 108, 82) | #5888A8 (88, 136, 168) | opaque |
 | `ssls-06.png` | PNG | 910×1365 | 521.2 KiB | No | #636651 (99, 102, 81) | #487898 (72, 120, 152) | opaque |
 
-### content/blog/Studio-Tours
+### content/design/Studio-Tours
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -328,7 +328,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `tours-02.png` | PNG | 641×1634 | 42.7 KiB | No | #F0F0F0 (240, 240, 240) | #E8E8E8 (232, 232, 232) | opaque |
 | `tours-03.png` | PNG | 1632×2006 | 156.2 KiB | No | #503257 (80, 50, 87) | #382858 (56, 40, 88) | opaque |
 
-### content/blog/TFiF
+### content/design/TFiF
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -343,20 +343,20 @@ This inventory covers source image assets in the repository and excludes generat
 | `TFiF-09.png` | PNG | 1153×924 | 174.2 KiB | Yes | transparent / none | #080808 (8, 8, 8) | has alpha (sample min 3) |
 | `TFiF-10.png` | PNG | 1161×931 | 36.1 KiB | Yes | transparent / none | #E87838 (232, 120, 56) | has alpha (sample min 0) |
 
-### content/blog/this-is-us
+### content/design/this-is-us
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
 | `thisUs-01.png` | PNG | 910×1468 | 444.0 KiB | No | #C4C4C4 (196, 196, 196) | #F8F8F8 (248, 248, 248) | opaque |
 
-### content/blog/unosolo
+### content/design/unosolo
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
 | `un-01.png` | PNG | 699×699 | 226.6 KiB | No | #718038 (113, 128, 56) | #788838 (120, 136, 56) | opaque |
 | `un-02.png` | PNG | 910×1369 | 320.5 KiB | No | #5C6407 (92, 100, 7) | #788808 (120, 136, 8) | opaque |
 
-### content/blog/VineWars
+### content/design/VineWars
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -369,7 +369,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `vw-07.png` | PNG | 910×1041 | 120.0 KiB | No | #FF9A92 (255, 154, 146) | #F89898 (248, 152, 152) | opaque |
 | `vw-08.png` | PNG | 376×1046 | 15.3 KiB | Yes | transparent / none | #F89898 (248, 152, 152) | has alpha (sample min 0) |
 
-### content/blog/Xbox-One
+### content/design/Xbox-One
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |
@@ -377,7 +377,7 @@ This inventory covers source image assets in the repository and excludes generat
 | `xbox-02.png` | PNG | 1441×810 | 323.0 KiB | No | #474B49 (71, 75, 73) | #181818 (24, 24, 24) | opaque |
 | `xbox-03.jpeg` | JPEG | 1280×720 | 55.1 KiB | No | #463F48 (70, 63, 72) | #080808 (8, 8, 8) | opaque |
 
-### content/blog/Yakitate
+### content/design/Yakitate
 
 | Asset | Type | Dimensions | Weight | Transparent bg/canvas | Background color | Dominant/average color | Notes |
 | --- | --- | --- | ---: | --- | --- | --- | --- |

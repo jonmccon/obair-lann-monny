@@ -70,7 +70,7 @@ module.exports = function(eleventyConfig) {
 		// Add lightbox functionality for post content (not home gallery)
 		// Check if this is being called from a post page
 		if (this.page && this.page.inputPath && 
-			(this.page.inputPath.includes('/blog/') || this.page.inputPath.includes('/inProgress/'))) {
+			(this.page.inputPath.includes('/design/') || this.page.inputPath.includes('/inProgress/'))) {
 			imageAttributes.class = "lightbox-trigger";
 		}
 
