@@ -364,11 +364,6 @@
 		color: var(--anp-subtext1);
 	}
 
-	.gallery-tag {
-		background: var(--text-color-link);
-		color: var(--text-color-on-accent);
-	}
-
 	.gallery-tag--location {
 		background: color-mix(in srgb, var(--anp-green) 22%, var(--surface-color));
 		color: var(--anp-green);
@@ -390,7 +385,7 @@
 	}
 
 	.filter-btn:hover {
-		background: var(--text-color-link);
+		background: var(--surface-color-alt);
 		border-color: var(--text-color-muted);
 	}
 

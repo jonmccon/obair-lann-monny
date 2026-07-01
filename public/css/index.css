@@ -53,6 +53,7 @@
 	--text-color-link-active: var(--anp-mauve);
 	--text-color-link-visited: var(--anp-maroon);
 	--text-color-on-accent: var(--anp-base);
+	--lightbox-control-color: var(--anp-base);
 
 	--syntax-tab-size: 2;
 }
@@ -90,6 +91,7 @@
 		--text-color-link-active: var(--anp-rosewater);
 		--text-color-link-visited: var(--anp-lavender);
 		--text-color-on-accent: var(--anp-crust);
+		--lightbox-control-color: var(--anp-text);
 	}
 }
 
