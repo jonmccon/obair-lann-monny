@@ -44,9 +44,9 @@
 	gap: 1rem;
 	margin: 0 0 2rem;
 	padding: 1rem 1.25rem;
-	background: rgba(255, 255, 255, 0.78);
+	background: color-mix(in srgb, var(--surface-color) 78%, transparent);
 	border-radius: 12px;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+	box-shadow: 0 1px 4px var(--shadow-color);
 }
 
 .filter-group {
@@ -60,7 +60,7 @@
 	font-weight: 600;
 	text-transform: uppercase;
 	letter-spacing: 0.12em;
-	color: #888;
+	color: var(--text-color-subtle);
 }
 
 .filter-options {
@@ -71,10 +71,10 @@
 
 .filter-btn {
 	padding: 0.45rem 0.85rem;
-	border: 1px solid #ddd;
+	border: 1px solid var(--anp-surface0);
 	border-radius: 999px;
-	background: #fafafa;
-	color: #555;
+	background: var(--surface-color);
+	color: var(--text-color-muted);
 	font-size: 0.875rem;
 	cursor: pointer;
 	text-transform: lowercase;
@@ -82,39 +82,39 @@
 }
 
 .filter-btn:hover {
-	border-color: #aaa;
-	background: #f0f0f0;
+	border-color: var(--anp-overlay0);
+	background: var(--surface-color-alt);
 }
 
 .filter-btn.active {
-	background: #333;
-	color: #fff;
-	border-color: #333;
+	background: var(--text-color-link);
+	color: var(--text-color-on-accent);
+	border-color: var(--text-color-link);
 }
 
 .gallery-no-results {
 	text-align: center;
-	color: #999;
+	color: var(--text-color-subtle);
 	font-style: italic;
 	margin: 2rem 0;
 }
 
 .gallery-tag--location {
-	background: #e8f4e8;
-	color: #3a6b3a;
+	background: color-mix(in srgb, var(--anp-green) 18%, var(--surface-color));
+	color: var(--anp-green);
 }
 
 .gallery-card {
-	background: #fff;
+	background: var(--surface-color);
 	border-radius: 8px;
 	overflow: hidden;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 8px var(--shadow-color);
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .gallery-card:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 4px 16px var(--shadow-color-strong);
 }
 
 .gallery-card-link {
@@ -127,7 +127,7 @@
 	width: 100%;
 	height: 300px;
 	overflow: hidden;
-	background: #f6f6f6;
+	background: var(--surface-color-alt);
 	position: relative;
 }
 
@@ -147,7 +147,7 @@
 	position: absolute;
 	overflow: hidden;
 	border-radius: 3px;
-	box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 8px 18px var(--shadow-color-strong);
 }
 
 .gallery-card-jumble-item--1 {
@@ -219,13 +219,13 @@
 .gallery-card-description {
 	margin: 0 0 0.75rem 0;
 	font-size: 0.95rem;
-	color: #666;
+	color: var(--text-color-muted);
 	line-height: 1.6;
 }
 
 .gallery-card-date {
 	font-size: 0.875rem;
-	color: #999;
+	color: var(--text-color-subtle);
 	font-style: italic;
 }
 
@@ -234,7 +234,7 @@
 }
 
 .gallery-card--current {
-	border: 2px solid #333;
+	border: 2px solid var(--text-color-link);
 }
 
 .gallery-card-current-label {
@@ -255,8 +255,8 @@
 .gallery-tag {
 	display: inline-block;
 	padding: 0.25rem 0.6rem;
-	background: #f0f0f0;
-	color: #555;
+	background: var(--surface-color-alt);
+	color: var(--text-color-muted);
 	border-radius: 999px;
 	font-size: 0.8125rem;
 	text-transform: lowercase;
@@ -305,7 +305,7 @@
 
 .gallery-description {
 	font-size: 1rem;
-	color: #555;
+	color: var(--text-color-muted);
 	line-height: 1.7;
 	margin-bottom: 0;
 }
@@ -349,59 +349,59 @@
 /* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
 	.gallery-card {
-		background: #1a1a1a;
+		background: var(--surface-color);
 	}
 
 	.gallery-card-description {
-		color: #aaa;
+		color: var(--anp-subtext1);
 	}
 
 	.gallery-card-date {
-		color: #888;
+		color: var(--text-color-subtle);
 	}
 
 	.gallery-description {
-		color: #bbb;
+		color: var(--anp-subtext1);
 	}
 
 	.gallery-tag {
-		background: #333;
-		color: #ccc;
+		background: var(--text-color-link);
+		color: var(--anp-text);
 	}
 
 	.gallery-tag--location {
-		background: #1a3a1a;
-		color: #8fbc8f;
+		background: color-mix(in srgb, var(--anp-green) 22%, var(--surface-color));
+		color: var(--anp-green);
 	}
 
 	.gallery-filters {
-		background: #1a1a1a;
-		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		background: var(--surface-color);
+		box-shadow: 0 1px 4px var(--shadow-color-strong);
 	}
 
 	.filter-label {
-		color: #999;
+		color: var(--text-color-subtle);
 	}
 
 	.filter-btn {
-		background: #2a2a2a;
-		border-color: #444;
-		color: #bbb;
+		background: var(--anp-surface0);
+		border-color: var(--anp-surface1);
+		color: var(--anp-subtext1);
 	}
 
 	.filter-btn:hover {
-		background: #333;
-		border-color: #666;
+		background: var(--text-color-link);
+		border-color: var(--text-color-muted);
 	}
 
 	.filter-btn.active {
-		background: #e0e0e0;
-		color: #111;
-		border-color: #e0e0e0;
+		background: var(--anp-text);
+		color: var(--anp-crust);
+		border-color: var(--anp-text);
 	}
 
 	.gallery-no-results {
-		color: #777;
+		color: var(--anp-overlay1);
 	}
 }
 
@@ -421,27 +421,27 @@
 	display: block;
 	text-align: center;
 	margin-bottom: 1rem;
-	color: #888;
+	color: var(--text-color-subtle);
 	text-decoration: none;
 	transition: color 0.15s;
 }
 
 .photo-page-permalink:hover {
-	color: #222;
+	color: var(--anp-text);
 }
 
 @media (prefers-color-scheme: dark) {
 	.photo-page-permalink {
-		color: #999;
+		color: var(--text-color-subtle);
 	}
 	.photo-page-permalink:hover {
-		color: #eee;
+		color: var(--anp-text);
 	}
 }
 
 .photo-page-breadcrumb {
 	font-size: 0.9rem;
-	color: #666;
+	color: var(--text-color-muted);
 	margin-bottom: 0.5rem;
 	text-align: left;
 }
@@ -457,7 +457,7 @@
 
 .photo-page-meta {
 	font-size: 0.8rem;
-	color: #999;
+	color: var(--text-color-subtle);
 	margin: 0;
 	text-align: left;
 }
@@ -514,7 +514,7 @@
 .photo-page-footer {
 	margin-top: 1rem;
 	font-size: 0.85rem;
-	color: #888;
+	color: var(--text-color-subtle);
 }
 
 .photo-page-footer a {
@@ -524,18 +524,18 @@
 
 @media (prefers-color-scheme: dark) {
 	.photo-page-breadcrumb {
-		color: #aaa;
+		color: var(--anp-subtext1);
 	}
 
 	.photo-page-breadcrumb a:hover {
-		color: #ddd;
+		color: var(--anp-text);
 	}
 
 	.photo-page-meta {
-		color: #777;
+		color: var(--anp-overlay1);
 	}
 
 	.photo-page-footer {
-		color: #777;
+		color: var(--anp-overlay1);
 	}
 }
