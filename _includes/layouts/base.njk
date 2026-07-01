@@ -27,6 +27,16 @@
 		{% if noindex or protected %}
 		<meta name="robots" content="noindex, nofollow">
 		{% endif %}
+		<script>
+		(function() {
+			try {
+				var storedTheme = localStorage.getItem('theme');
+				if (storedTheme === 'light' || storedTheme === 'dark') {
+					document.documentElement.dataset.theme = storedTheme;
+				}
+			} catch (e) {}
+		})();
+		</script>
 		{% if layout == "layouts/post.njk" and canonicalUrl %}
 		<meta property="article:published_time" content="{{ page.date | dateToRfc3339 }}">
 		<script type="application/ld+json">
@@ -152,6 +162,7 @@
 				{%- endfor %}
 				</ul>
 			</nav>
+			<button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Theme</button>
 		</header>
 
 		<main id="skip">
@@ -230,6 +241,30 @@
 		<!-- Image lightbox JavaScript -->
 		<script>
 		document.addEventListener('DOMContentLoaded', function() {
+			const themeToggle = document.querySelector('[data-theme-toggle]');
+			const themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+			const getActiveTheme = () => document.documentElement.dataset.theme || (themeQuery.matches ? 'dark' : 'light');
+			const updateThemeToggle = () => {
+				if (!themeToggle) return;
+				const activeTheme = getActiveTheme();
+				themeToggle.textContent = activeTheme === 'dark' ? 'Light' : 'Dark';
+				themeToggle.setAttribute('aria-pressed', String(activeTheme === 'dark'));
+				themeToggle.setAttribute('aria-label', `Switch to ${activeTheme === 'dark' ? 'light' : 'dark'} theme`);
+			};
+
+			if (themeToggle) {
+				themeToggle.addEventListener('click', function() {
+					const nextTheme = getActiveTheme() === 'dark' ? 'light' : 'dark';
+					document.documentElement.dataset.theme = nextTheme;
+					try {
+						localStorage.setItem('theme', nextTheme);
+					} catch (e) {}
+					updateThemeToggle();
+				});
+				themeQuery.addEventListener('change', updateThemeToggle);
+				updateThemeToggle();
+			}
+
 			const lightbox = document.getElementById('lightbox');
 			const lightboxImg = document.getElementById('lightbox-img');
 			const lightboxClose = document.getElementById('lightbox-close');
