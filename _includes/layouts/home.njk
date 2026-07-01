@@ -2,26 +2,74 @@
 layout: layouts/base.njk
 ---
 {% if page.url == "/" %}
+{% set homeOptions = home | default({}) %}
+{% set introductionHeading = homeOptions.introductionHeading | default(profile.headline) %}
+{% set introductionText = homeOptions.introductionText | default(profile.aboutBio) %}
+{% set featuredProjectThumbnailLimit = homeOptions.featuredProjectThumbnailLimit | default(2) %}
 <section class="homepage-main-header" aria-label="Homepage header">
   <div class="homepage-main-avatar">
     {% image profile.portraitUrl, "Jonny McConnell portrait", [172], "172px" %}
   </div>
-  <p class="homepage-headline">{{ profile.headline }}</p>
-  <p class="homepage-about">{{ profile.aboutBio }}</p>
+  {% if introductionHeading %}<p class="homepage-headline">{{ introductionHeading }}</p>{% endif %}
+  {% if introductionText %}<p class="homepage-about">{{ introductionText }}</p>{% endif %}
 </section>
+
+{% if homeOptions.showFeaturedProjectThumbnails | default(true) or homeOptions.featuredTextLinks or homeOptions.supportingParagraphs %}
+<section class="home-featured-layout" aria-label="Homepage featured content">
+  {% if homeOptions.showFeaturedProjectThumbnails | default(true) %}
+  <div class="home-featured-projects" aria-label="Featured projects">
+    {% for post in collections.featuredProjects | reverse %}
+    {% if loop.index <= featuredProjectThumbnailLimit %}
+    {% set featuredImage = post.data.images | first %}
+    <article class="home-featured-project-card">
+      <a class="home-featured-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
+      {% if featuredImage %}
+      <div class="home-featured-image-frame">
+        {% homepageImage featuredImage.src, featuredImage.alt | default(post.data.title), 640, "home-featured-image" %}
+      </div>
+      {% endif %}
+      <div class="home-featured-project-copy">
+        <h2>{{ post.data.title }}</h2>
+        {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
+      </div>
+    </article>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if homeOptions.featuredTextLinks %}
+  <div class="home-featured-text-links" aria-label="Featured links">
+    {% for link in homeOptions.featuredTextLinks %}
+    <a class="home-featured-text-link" href="{{ link.url }}">
+      <span>{{ link.title }}</span>
+      {% if link.description %}<small>{{ link.description }}</small>{% endif %}
+    </a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if homeOptions.supportingParagraphs %}
+  <div class="home-supporting-copy">
+    {% for paragraph in homeOptions.supportingParagraphs %}
+    <p>{{ paragraph }}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+</section>
+{% endif %}
 
 <section class="home-newspaper" aria-label="Homepage newspaper of projects and posts">
   {% for post in collections.projects | reverse %}
   {% set postExcerpt = post.templateContent | excerpt(38) %}
+  {% set projectThumbnail = post.data.images | first %}
   <article class="newspaper-card newspaper-card-project{% if postExcerpt | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
     <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
     <h2>{{ post.data.title }}</h2>
     {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
-    {% if post.data.images %}
+    {% if projectThumbnail %}
     <div class="newspaper-images">
-      {% for image in post.data.images %}
-        {% homepageImage image.src, image.alt | default(post.data.title) %}
-      {% endfor %}
+      {% homepageImage projectThumbnail.src, projectThumbnail.alt | default(post.data.title) %}
     </div>
     {% endif %}
     {% if postExcerpt %}

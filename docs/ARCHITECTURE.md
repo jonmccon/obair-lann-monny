@@ -136,7 +136,7 @@ Defined in `eleventy.config.js`:
 
 | Collection name | Source | Purpose |
 |---|---|---|
-| `projects` | `getFilteredByTag("posts")` | All design/project posts (from `content/blog/`) |
+| `projects` | pages in `content/blog/` with `images` frontmatter | All design/project posts |
 | `featuredProjects` | `getFilteredByTag("featured")` | Posts with `featured: true` frontmatter |
 | `process` | `getFilteredByTag("process")` | All process/journal posts (from `content/inProgress/`) |
 | `aboutPages` | filter `url == "/about/"` | The about page content (used on homepage) |
@@ -431,11 +431,14 @@ To swap the design archive layout, edit `blog.njk` and replace the included comp
 
 ## Homepage layout
 
-The homepage (`content/index.njk` → `layouts/home.njk`) renders a newspaper-style grid of cards:
+The homepage (`content/index.njk` → `layouts/home.njk`) renders a configurable introduction followed by featured modules and a newspaper-style grid of cards:
 
-1. **About card** — portrait + headline + about page excerpt (from `collections.aboutPages`)
-2. **Project cards** — one card per `collections.projects` entry (reverse chronological). Cards with `> 180 words` get a `newspaper-card-wide` class. Images from `post.data.images` rendered with `homepageImage`.
-3. **Process cards** — one card per `collections.process` entry. Cards with `> 220 words` get `newspaper-card-tall`.
+1. **Introduction** — portrait plus optional `home.introductionHeading` and `home.introductionText` from homepage frontmatter, falling back to `profile.headline` and `profile.aboutBio`.
+2. **Featured project thumbnails** — large cards from `collections.featuredProjects`, controlled by `home.showFeaturedProjectThumbnails` and `home.featuredProjectThumbnailLimit`.
+3. **Featured text links** — optional large links from `home.featuredTextLinks`.
+4. **Supporting paragraphs** — optional short copy blocks from `home.supportingParagraphs`.
+5. **Small project cards** — one card per image-backed `collections.projects` entry (reverse chronological) in a two-column grid. Each card renders the first `post.data.images` item as its thumbnail with `homepageImage`.
+6. **Small process cards** — one card per `collections.process` entry in the same two-column grid. Cards with `> 220 words` get `newspaper-card-tall`.
 
 Post body content is stripped of `<picture>`, `<img>`, `<iframe>`, `<script>` tags via the `stripHomepageMedia` filter before display in cards.
 
