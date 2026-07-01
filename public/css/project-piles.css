@@ -56,7 +56,6 @@
 
 @media (prefers-color-scheme: dark) {
   .tag-filter-button {
-    background: var(--anp-surface0);
     border-color: var(--color-gray-50);
   }
   

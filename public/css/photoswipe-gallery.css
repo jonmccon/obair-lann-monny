@@ -366,7 +366,7 @@
 
 	.gallery-tag {
 		background: var(--text-color-link);
-		color: var(--anp-text);
+		color: var(--text-color-on-accent);
 	}
 
 	.gallery-tag--location {

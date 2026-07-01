@@ -114,7 +114,6 @@ html {
 
 body {
 	width: min(calc(100% - (var(--site-gutter) * 2)), 1400px);
-	max-width: none;
 }
 
 /* Site wrapper - 100vh for full visible layout */

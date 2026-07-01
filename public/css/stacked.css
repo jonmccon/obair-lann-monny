@@ -59,7 +59,6 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   .paper {
-    background: var(--surface-color);
     border: 1px solid var(--color-gray-20);
   }
 }
@@ -178,7 +177,6 @@
 
 @media (prefers-color-scheme: dark) {
   .stacked-controls {
-    background: color-mix(in srgb, var(--surface-color) 95%, transparent);
     border: 1px solid var(--color-gray-20);
   }
 }
