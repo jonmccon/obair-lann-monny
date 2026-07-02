@@ -15,7 +15,7 @@ The goal is to keep the site static, keep inventory in Git, use Snipcart + Strip
 | Layouts | `_includes/layouts/` | Add a dedicated shop/product layout rather than overloading the current post layout. |
 | Existing work sections | `content/design/`, `content/inProgress/`, `content/galleries/` | Store content should probably be separate from design archive and process writing. |
 | Build command | `npm run build` | Every inventory/template change should be validated with this command. |
-| Deployment docs/config | README and architecture docs mention Netlify; requested target is GitHub → Vercel | Resolve Open Question 1 before adding webhook/API instructions. |
+| Deployment docs/config | README and architecture docs mention Netlify; requested target is GitHub → Vercel | Confirm the live target before adding webhook/API instructions. |
 | Existing commerce content | Process notes mention store planning and Shopify rough work | Useful context, but no production store system exists yet. |
 
 ## Recommended target architecture
@@ -173,7 +173,7 @@ Suggested SKU convention:
 - Lowercase kebab-case.
 - Stable forever after publishing.
 - Series prefix when useful, such as `five-lines-001`.
-- Edition SKUs explicit when needed, such as `oyster-edition-14`.
+- Use consistent zero-padding for numbered series when sort order matters, such as `oyster-edition-014`.
 
 ### Item 3 — Choose product content structure
 
@@ -376,7 +376,7 @@ Assignable items:
 
 - Track edition size and remaining count.
 - Track assigned edition numbers per order.
-- Store processed order IDs in a companion ledger file rather than mixing transactional audit data into product inventory state.
+- Use the companion sales ledger from the core architecture to associate processed orders with assigned edition numbers.
 - Generate packing/certificate metadata from the same transaction.
 - Add reconciliation process for cancelled/refunded orders.
 
