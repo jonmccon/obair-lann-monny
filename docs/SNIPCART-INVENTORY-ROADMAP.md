@@ -130,7 +130,7 @@ The GitHub Action should:
 
 ### 8. Keep transaction history out of product inventory
 
-Inventory should describe current product state. Processed order IDs, assigned edition numbers, and audit metadata should live in a companion Git-tracked ledger file such as `inventory/sales-ledger.json`.
+Inventory should describe current product state. Processed order IDs, assigned edition numbers, and audit metadata should live in a companion Git-tracked ledger file in a root-level `inventory/` directory, such as `inventory/sales-ledger.json`.
 
 This separation keeps `_data/inventory.json` easy for Eleventy templates to consume while still giving the webhook updater a durable idempotency record.
 
@@ -150,7 +150,7 @@ Decide:
 - Whether the first launch includes originals only, editions only, or both.
 - Whether print-on-demand items are allowed in inventory or deferred.
 - Whether product URLs should live under `/shop/`, `/works/`, or another path.
-- Whether Vercel is already the live deployment target and whether existing deployment docs/config need a separate update.
+- Whether Vercel is already the live deployment target. If not, treat deployment migration as a prerequisite to the webhook relay.
 
 ### Item 2 — Define SKU and inventory schema
 
@@ -173,7 +173,7 @@ Suggested SKU convention:
 - Lowercase kebab-case.
 - Stable forever after publishing.
 - Series prefix when useful, such as `five-lines-001`.
-- Use consistent zero-padding for numbered series when sort order matters, such as `oyster-edition-014`.
+- Use three-digit zero-padding for numbered series when sort order matters, such as `oyster-edition-014`.
 
 ### Item 3 — Choose product content structure
 
