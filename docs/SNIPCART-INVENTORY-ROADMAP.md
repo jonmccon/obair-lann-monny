@@ -143,7 +143,7 @@ Decide:
 - Whether the first launch includes originals only, editions only, or both.
 - Whether print-on-demand items are allowed in inventory or deferred.
 - Whether product URLs should live under `/shop/`, `/works/`, or another path.
-- Whether current deployment is already Vercel despite repository docs still mentioning Netlify.
+- Whether Vercel is already the live deployment target and whether existing deployment docs/config need a separate update.
 
 ### Item 2 — Define SKU and inventory schema
 
@@ -369,7 +369,7 @@ Assignable items:
 
 - Track edition size and remaining count.
 - Track assigned edition numbers per order.
-- Store processed order IDs in inventory or a companion ledger file.
+- Store processed order IDs in a companion ledger file rather than mixing transactional audit data into product inventory state.
 - Generate packing/certificate metadata from the same transaction.
 - Add reconciliation process for cancelled/refunded orders.
 
