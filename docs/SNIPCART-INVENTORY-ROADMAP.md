@@ -15,7 +15,7 @@ The goal is to keep the site static, keep inventory in Git, use Snipcart + Strip
 | Layouts | `_includes/layouts/` | Add a dedicated shop/product layout rather than overloading the current post layout. |
 | Existing work sections | `content/design/`, `content/inProgress/`, `content/galleries/` | Store content should probably be separate from design archive and process writing. |
 | Build command | `npm run build` | Every inventory/template change should be validated with this command. |
-| Deployment docs/config | README and architecture docs mention Netlify; requested target is GitHub → Vercel | Confirm the live deployment target before adding webhook/API instructions. |
+| Deployment docs/config | README and architecture docs mention Netlify; requested target is GitHub → Vercel | Resolve Open Question 1 before adding webhook/API instructions. |
 | Existing commerce content | Process notes mention store planning and Shopify rough work | Useful context, but no production store system exists yet. |
 
 ## Recommended target architecture
@@ -173,7 +173,7 @@ Suggested SKU convention:
 - Lowercase kebab-case.
 - Stable forever after publishing.
 - Series prefix when useful, such as `five-lines-001`.
-- Edition SKUs explicit when needed, such as `oyster-14-edition`.
+- Edition SKUs explicit when needed, such as `oyster-edition-14`.
 
 ### Item 3 — Choose product content structure
 
@@ -398,7 +398,7 @@ Goal: keep the no-backend system maintainable as sales volume grows.
 
 Assignable items:
 
-- Add a sales ledger file separate from inventory if audit needs outgrow Git commits.
+- Expand the sales ledger with additional audit fields if commit history and processed order IDs are not enough.
 - Add scheduled inventory reconciliation against Snipcart orders.
 - Add alerting for webhook or workflow failures.
 - Add branch protection or workflow permissions review for bot commits.
