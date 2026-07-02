@@ -15,7 +15,7 @@ The goal is to keep the site static, keep inventory in Git, use Snipcart + Strip
 | Layouts | `_includes/layouts/` | Add a dedicated shop/product layout rather than overloading the current post layout. |
 | Existing work sections | `content/design/`, `content/inProgress/`, `content/galleries/` | Store content should probably be separate from design archive and process writing. |
 | Build command | `npm run build` | Every inventory/template change should be validated with this command. |
-| Deployment docs/config | README and architecture docs mention Netlify; task says GitHub → Vercel | Confirm the live deployment target before adding webhook/API instructions. |
+| Deployment docs/config | README and architecture docs mention Netlify; requested target is GitHub → Vercel | Confirm the live deployment target before adding webhook/API instructions. |
 | Existing commerce content | Process notes mention store planning and Shopify rough work | Useful context, but no production store system exists yet. |
 
 ## Recommended target architecture
@@ -24,6 +24,7 @@ The goal is to keep the site static, keep inventory in Git, use Snipcart + Strip
 Git repository
   ├─ content/shop/                 Product pages
   ├─ _data/inventory.json          Source of truth for availability, price, and edition counts
+  ├─ inventory/sales-ledger.json    Transaction/order IDs for idempotency and audit history
   ├─ _data/snipcart.js             Public Snipcart configuration from environment
   ├─ _includes/layouts/product.njk Product page layout
   ├─ _includes/shop-card.njk       Optional product card partial
@@ -126,6 +127,12 @@ The GitHub Action should:
 - commit only when inventory actually changes
 - use a clear bot identity and commit message
 - rely on the commit to trigger the Vercel rebuild
+
+### 8. Keep transaction history out of product inventory
+
+Inventory should describe current product state. Processed order IDs, assigned edition numbers, and audit metadata should live in a companion Git-tracked ledger file such as `inventory/sales-ledger.json`.
+
+This separation keeps `_data/inventory.json` easy for Eleventy templates to consume while still giving the webhook updater a durable idempotency record.
 
 ## Immediate next steps
 
@@ -296,7 +303,7 @@ Future updater should:
 - decrement edition counts by purchased quantity
 - prevent negative remaining counts
 - mark originals unavailable after purchase
-- be idempotent by tracking processed order IDs
+- be idempotent by tracking processed order IDs in the companion sales ledger
 - write deterministic JSON formatting
 
 ### Item 12 — Create MVP test checklist
