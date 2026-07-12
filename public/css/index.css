@@ -1,39 +1,135 @@
 /* Defaults */
 :root {
+	color-scheme: light;
 	--font-family: -apple-system, system-ui, sans-serif;
 	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
 	--homepage-top-offset: 7.25rem;
 	--homepage-top-offset-mobile: 6rem;
+	--site-gutter: clamp(1rem, 4vw, 2rem);
 }
 
-/* Theme colors */
+/* Anuppuccin default flavors: Catppuccin Latte / Mocha */
 :root {
-	--color-gray-20: #e0e0e0;
-	--color-gray-50: #C0C0C0;
-	--color-gray-90: #333;
+	--anp-rosewater: #dc8a78;
+	--anp-flamingo: #dd7878;
+	--anp-pink: #ea76cb;
+	--anp-mauve: #8839ef;
+	--anp-red: #d20f39;
+	--anp-maroon: #e64553;
+	--anp-peach: #fe640b;
+	--anp-yellow: #df8e1d;
+	--anp-green: #40a02b;
+	--anp-teal: #179299;
+	--anp-sky: #04a5e5;
+	--anp-sapphire: #209fb5;
+	--anp-blue: #1e66f5;
+	--anp-lavender: #7287fd;
+	--anp-text: #4c4f69;
+	--anp-subtext1: #5c5f77;
+	--anp-subtext0: #6c6f85;
+	--anp-overlay2: #7c7f93;
+	--anp-overlay1: #8c8fa1;
+	--anp-overlay0: #9ca0b0;
+	--anp-surface2: #acb0be;
+	--anp-surface1: #bcc0cc;
+	--anp-surface0: #ccd0da;
+	--anp-base: #eff1f5;
+	--anp-mantle: #e6e9ef;
+	--anp-crust: #dce0e8;
 
-	--background-color: #e6e6e6;
+	--color-gray-20: var(--anp-surface0);
+	--color-gray-50: var(--anp-overlay0);
+	--color-gray-90: var(--anp-text);
+
+	--background-color: var(--anp-base);
+	--surface-color: var(--anp-mantle);
+	--surface-color-alt: var(--anp-crust);
+	--shadow-color: rgba(76, 79, 105, 0.12);
+	--shadow-color-strong: rgba(76, 79, 105, 0.2);
 
 	--text-color: var(--color-gray-90);
-	--text-color-link: #082840;
-	--text-color-link-active: #5f2b48;
-	--text-color-link-visited: #17050F;
+	--text-color-muted: var(--anp-subtext0);
+	--text-color-subtle: var(--anp-overlay0);
+	--text-color-link: var(--anp-blue);
+	--text-color-link-active: var(--anp-mauve);
+	--text-color-link-visited: var(--anp-maroon);
+	--text-color-on-accent: var(--anp-base);
+	--lightbox-control-color: var(--anp-base);
 
 	--syntax-tab-size: 2;
 }
 
+:root[data-theme="dark"] {
+	color-scheme: dark;
+	--anp-rosewater: #f5e0dc;
+	--anp-flamingo: #f2cdcd;
+	--anp-pink: #f5c2e7;
+	--anp-mauve: #cba6f7;
+	--anp-red: #f38ba8;
+	--anp-maroon: #eba0ac;
+	--anp-peach: #fab387;
+	--anp-yellow: #f9e2af;
+	--anp-green: #a6e3a1;
+	--anp-teal: #94e2d5;
+	--anp-sky: #89dceb;
+	--anp-sapphire: #74c7ec;
+	--anp-blue: #89b4fa;
+	--anp-lavender: #b4befe;
+	--anp-text: #cdd6f4;
+	--anp-subtext1: #bac2de;
+	--anp-subtext0: #a6adc8;
+	--anp-overlay2: #9399b2;
+	--anp-overlay1: #7f849c;
+	--anp-overlay0: #6c7086;
+	--anp-surface2: #585b70;
+	--anp-surface1: #45475a;
+	--anp-surface0: #313244;
+	--anp-base: #1e1e2e;
+	--anp-mantle: #181825;
+	--anp-crust: #11111b;
+	--shadow-color: rgba(17, 17, 27, 0.35);
+	--shadow-color-strong: rgba(17, 17, 27, 0.5);
+	--text-color-link-active: var(--anp-rosewater);
+	--text-color-link-visited: var(--anp-lavender);
+	--text-color-on-accent: var(--anp-crust);
+	--lightbox-control-color: var(--anp-text);
+}
+
 @media (prefers-color-scheme: dark) {
-	:root {
-		--color-gray-20: #404040;
-		--color-gray-50: #808080;
-		--color-gray-90: #e0e0e0;
-
-		/* --text-color is assigned to --color-gray-_ above */
-		--text-color-link: #b0b0b0;
-		--text-color-link-active: #d0d0d0;
-		--text-color-link-visited: #909090;
-
-		--background-color: #0a0a0a;
+	:root:not([data-theme]) {
+		color-scheme: dark;
+		--anp-rosewater: #f5e0dc;
+		--anp-flamingo: #f2cdcd;
+		--anp-pink: #f5c2e7;
+		--anp-mauve: #cba6f7;
+		--anp-red: #f38ba8;
+		--anp-maroon: #eba0ac;
+		--anp-peach: #fab387;
+		--anp-yellow: #f9e2af;
+		--anp-green: #a6e3a1;
+		--anp-teal: #94e2d5;
+		--anp-sky: #89dceb;
+		--anp-sapphire: #74c7ec;
+		--anp-blue: #89b4fa;
+		--anp-lavender: #b4befe;
+		--anp-text: #cdd6f4;
+		--anp-subtext1: #bac2de;
+		--anp-subtext0: #a6adc8;
+		--anp-overlay2: #9399b2;
+		--anp-overlay1: #7f849c;
+		--anp-overlay0: #6c7086;
+		--anp-surface2: #585b70;
+		--anp-surface1: #45475a;
+		--anp-surface0: #313244;
+		--anp-base: #1e1e2e;
+		--anp-mantle: #181825;
+		--anp-crust: #11111b;
+		--shadow-color: rgba(17, 17, 27, 0.35);
+		--shadow-color-strong: rgba(17, 17, 27, 0.5);
+		--text-color-link-active: var(--anp-rosewater);
+		--text-color-link-visited: var(--anp-lavender);
+		--text-color-on-accent: var(--anp-crust);
+		--lightbox-control-color: var(--anp-text);
 	}
 }
 
@@ -46,7 +142,7 @@
 html,
 body {
 	padding: 0;
-	margin: 0 auto;
+	margin: 0;
 	font-family: var(--font-family);
 	color: var(--text-color);
 	background-color: var(--background-color);
@@ -57,7 +153,8 @@ html {
 }
 
 body {
-	max-width: 1400px;
+	/* Keep the whole site responsive without centering the composition. */
+	width: min(calc(100% - (var(--site-gutter) * 2)), 1400px);
 }
 
 /* Site wrapper - 100vh for full visible layout */
@@ -65,6 +162,7 @@ body {
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
+	background-color: var(--background-color);
 }
 
 /* https://www.a11yproject.com/posts/how-to-hide-content/ */
@@ -211,6 +309,23 @@ header {
 
 .nav a[href][aria-current="page"] {
 	text-decoration: underline;
+}
+
+.theme-toggle {
+	border: 1px dashed var(--color-gray-20);
+	border-radius: 999px;
+	padding: 0.25rem 0.75rem;
+	background: transparent;
+	color: var(--text-color);
+	cursor: pointer;
+	font: inherit;
+	font-size: 0.8125rem;
+	line-height: 1.4;
+}
+
+.theme-toggle:hover {
+	border-color: var(--text-color-link-active);
+	color: var(--text-color-link-active);
 }
 
 /* Two-line navigation layout */
@@ -386,12 +501,12 @@ header {
 	padding: 0.75rem;
 	overflow: hidden;
 	border: 1px solid var(--color-gray-50);
-	background: rgba(255, 255, 255, 0.56);
+	background: color-mix(in srgb, var(--surface-color) 56%, transparent);
 	color: var(--text-color);
 }
 
 .newspaper-card:hover {
-	background: rgba(255, 255, 255, 0.72);
+	background: color-mix(in srgb, var(--surface-color) 72%, transparent);
 }
 
 .newspaper-card-about {
@@ -642,7 +757,7 @@ a[href].header-anchor:hover {
 }
 a[href].header-anchor:focus,
 :hover > a[href].header-anchor {
-	color: #aaa;
+	color: var(--text-color-subtle);
 }
 
 h2 + .header-anchor {
@@ -735,7 +850,7 @@ img {
 }
 
 .homepage-photo-card {
-	background: #fff;
+	background: var(--surface-color);
 	border-radius: 8px;
 	overflow: hidden;
 }
@@ -915,12 +1030,12 @@ img {
 	/* Smooth thumb interaction */
 	transition: transform 0.1s ease, box-shadow 0.1s ease;
 	/* Larger touch target */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 4px var(--shadow-color);
   }
 
   .gallery-slider::-webkit-slider-thumb:hover {
 	transform: scale(1.1);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 8px var(--shadow-color-strong);
   }
 
   .gallery-slider::-moz-range-thumb {
@@ -933,12 +1048,12 @@ img {
 	/* Smooth thumb interaction */
 	transition: transform 0.1s ease, box-shadow 0.1s ease;
 	/* Larger touch target */
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 4px var(--shadow-color);
   }
 
   .gallery-slider::-moz-range-thumb:hover {
 	transform: scale(1.1);
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 8px var(--shadow-color-strong);
   }
 
   .slider-label {
@@ -1087,8 +1202,8 @@ img {
 	left: 0;
 	right: 0;
 	padding: 1.5rem 0.75rem 0.5rem;
-	background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
-	color: #fff;
+	background: linear-gradient(transparent, color-mix(in srgb, var(--anp-crust) 60%, transparent));
+	color: var(--text-color-on-accent);
 	font-size: 0.8rem;
 	line-height: 1.3;
 	opacity: 0;
@@ -1116,10 +1231,10 @@ img {
 }
 
 .project-card {
-	background: #fff;
+	background: var(--surface-color);
 	border-radius: 8px;
 	overflow: hidden;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 8px var(--shadow-color);
 	transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -1138,7 +1253,7 @@ img {
 
 .project-card:hover {
 	transform: translateY(-2px);
-	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+	box-shadow: 0 4px 16px var(--shadow-color-strong);
 }
 
 .project-card-link {
@@ -1166,13 +1281,13 @@ img {
 .project-card-description {
 	margin: 0 0 1rem 0;
 	font-size: 0.9rem;
-	color: #666;
+	color: var(--text-color-muted);
 	line-height: 1.4;
 }
 
 .project-card-date {
 	font-size: 0.8rem;
-	color: #999;
+	color: var(--text-color-subtle);
 	font-style: italic;
 }
 
@@ -1250,31 +1365,31 @@ img {
 
 /* Post background color variants - controlled by bgColor frontmatter */
 .post-content.bg-white {
-	background-color: #ffffff;
-	color: #333;
+	background-color: var(--anp-base);
+	color: var(--anp-text);
 }
 
 .post-content.bg-gray {
-	background-color: #e6e6e6;
-	color: #333;
+	background-color: var(--anp-mantle);
+	color: var(--anp-text);
 }
 
 .post-content.bg-black {
-	background-color: #000000;
-	color: #e0e0e0;
+	background-color: var(--anp-crust);
+	color: var(--anp-text);
 }
 
 .post-content.bg-black a[href] {
-	color: #6db3f2;
+	color: var(--anp-blue);
 }
 
 .post-content.bg-black a[href]:visited {
-	color: #b0b0b0;
+	color: var(--anp-subtext1);
 }
 
 .post-content.bg-black a[href]:hover,
 .post-content.bg-black a[href]:active {
-	color: #9ad0ff;
+	color: var(--anp-sky);
 }
 
 .post-header h1 {

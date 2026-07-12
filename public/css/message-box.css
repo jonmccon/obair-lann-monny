@@ -1,6 +1,6 @@
 /* Message Box */
 .message-box {
-	--color-message-box: #ffc;
+	--color-message-box: color-mix(in srgb, var(--anp-yellow) 22%, var(--surface-color));
 
 	display: block;
 	background-color: var(--color-message-box);
@@ -13,6 +13,6 @@
 
 @media (prefers-color-scheme: dark) {
 	.message-box {
-		--color-message-box: #082840;
+		--color-message-box: var(--anp-surface0);
 	}
 }
