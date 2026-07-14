@@ -67,5 +67,5 @@ Draft handling is frontmatter-driven (`draft: true`), not folder-driven:
 
 ## Deployment notes
 
-- Netlify build config is in `netlify.toml` (`npm run build`, publish `_site`)
+- Vercel build config is in `vercel.json` (`npm run build`, publish `_site`)
 - GitHub Pages workflow starter remains in `.github/workflows/gh-pages.yml.sample`

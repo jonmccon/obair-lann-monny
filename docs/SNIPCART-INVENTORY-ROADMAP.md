@@ -15,7 +15,7 @@ The goal is to keep the site static, keep inventory in Git, use Snipcart + Strip
 | Layouts | `_includes/layouts/` | Add a dedicated shop/product layout rather than overloading the current post layout. |
 | Existing work sections | `content/design/`, `content/inProgress/`, `content/galleries/` | Store content should probably be separate from design archive and process writing. |
 | Build command | `npm run build` | Every inventory/template change should be validated with this command. |
-| Deployment docs/config | Repository docs/config include Netlify references. | This roadmap assumes GitHub → Vercel as the intended target; audit current hosting first. |
+| Deployment docs/config | Repository docs/config updated for Vercel. | No hosting migration needed. |
 | Existing commerce content | Process notes mention store planning and Shopify rough work | Useful context, but no production store system exists yet. |
 
 ## Recommended target architecture
@@ -431,8 +431,7 @@ Do not start implementation until these requirements are accepted:
 
 ## Open questions
 
-1. After the deployment audit noted above, if the site is not already on Vercel, what migration item is required before adding the webhook relay?
-2. Should sold works remain visible on product pages?
+1. Should sold works remain visible on product pages?
 3. Should sold works appear on the shop landing page, a separate archive page, or only via direct links?
 4. Should MVP include editions, or launch with one-off originals first?
 5. Should inventory track only availability, or also fulfillment/provenance metadata?

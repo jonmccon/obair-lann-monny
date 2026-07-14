@@ -22,7 +22,7 @@ Portfolio and process site for [jonmccon.com](https://jonmccon.com), built with 
 | HTML parsing (filters) | `jsdom ^26.1.0` |
 | Date formatting | `luxon ^3.7.1` |
 | Heading anchors | `markdown-it-anchor ^9.2.0` |
-| Deployment | Netlify (`netlify.toml`), Lighthouse CI plugin |
+| Deployment | Vercel (`vercel.json`) |
 
 ---
 
@@ -99,7 +99,7 @@ obair-lann-monny/
 ├── eleventy.config.js         # Main Eleventy config (plugins, filters, shortcodes, collections)
 ├── eleventy.config.drafts.js  # Draft-exclusion plugin
 ├── eleventy.config.images.js  # Image shortcode plugin
-├── netlify.toml               # Netlify build + Lighthouse CI config
+├── vercel.json                # Vercel build config
 ├── package.json               # Dependencies and npm scripts
 ├── .nvmrc                     # Node version pin (22)
 └── README.md                  # Quick-start guide
@@ -405,10 +405,10 @@ Navigation rendering is in `base.njk`.
 
 ## Deployment
 
-- **Platform:** Netlify
+- **Platform:** Vercel
 - **Build command:** `npm run build`
 - **Publish dir:** `_site`
-- **Lighthouse CI:** runs on all deploys; thresholds are set to 1.0 (100%) for performance, accessibility, best-practices, and SEO — builds fail if any score drops below 100%
+- **Config:** `vercel.json`
 - **GitHub Actions:** a sample workflow (`gh-pages.yml.sample`) exists for GitHub Pages but is not active
 
 ---
