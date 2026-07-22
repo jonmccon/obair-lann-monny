@@ -304,6 +304,15 @@ eleventyNavigation:
 
 /* ─── Print styles ───────────────────────────────────── */
 @media print {
+  /* Inter variable font — embeds as real text in PDF (not outlined paths) */
+  @font-face {
+    font-family: 'Inter';
+    src: url('/fonts/inter-variable.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: block;
+  }
+
   @page {
     size: letter;
     margin: 0.55in 0.6in 0.55in 0.6in;
@@ -322,6 +331,7 @@ eleventyNavigation:
     width: 100% !important;
     color: #11111b !important;
     font-size: 8.5pt !important;
+    font-family: 'Inter', system-ui, sans-serif !important;
   }
 
   .site-wrapper {
