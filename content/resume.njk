@@ -1,0 +1,743 @@
+---
+layout: layouts/base.njk
+title: Resume
+description: Jonny McConnell — Systems-focused Product Designer creating intuitive experiences between people and emerging technology.
+permalink: /resume/
+eleventyNavigation:
+  key: Resume
+  order: 5
+---
+
+{%- css %}
+/* ─── Resume page layout ─────────────────────────────── */
+
+.resume-shell {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem var(--site-gutter);
+}
+
+/* ── Header: portrait + identity block ──────────────── */
+.resume-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1.75rem;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--anp-crust);
+}
+
+.resume-portrait-wrap {
+  width: clamp(72px, 10vw, 120px);
+  height: clamp(72px, 10vw, 120px);
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.resume-portrait-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.resume-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.resume-name {
+  font-size: clamp(1.4rem, 3.5vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
+  margin: 0;
+  line-height: 1.15;
+}
+
+.resume-tagline {
+  font-size: 0.9rem;
+  color: var(--text-color-muted);
+  margin: 0;
+  line-height: 1.4;
+  max-width: 52ch;
+}
+
+.resume-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+}
+
+.resume-contact a {
+  color: var(--text-color-link);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.resume-contact a:hover {
+  color: var(--text-color-link-active);
+  text-decoration: underline;
+}
+
+/* ── Clipboard button ───────────────────────────────── */
+.resume-clipboard-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+.btn-clipboard {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8rem;
+  font-family: inherit;
+  font-weight: 500;
+  border: 1px dashed var(--color-gray-20);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-color-muted);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.btn-clipboard:hover {
+  color: var(--text-color-link-active);
+  border-color: var(--text-color-link-active);
+}
+
+.btn-clipboard.copied {
+  color: var(--anp-green);
+  border-color: var(--anp-green);
+}
+
+/* ── Two-column body ─────────────────────────────────── */
+.resume-body {
+  display: grid;
+  grid-template-columns: 1fr 0.42fr;
+  gap: 0 2.5rem;
+  align-items: start;
+}
+
+.resume-main-col {}
+.resume-side-col {}
+
+/* ── Section blocks ─────────────────────────────────── */
+.resume-section {
+  margin-bottom: 1.75rem;
+}
+
+.resume-section-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-color-on-accent);
+  background: var(--anp-text);
+  padding: 0.18rem 0.55rem;
+  display: inline-block;
+  margin-bottom: 0.9rem;
+}
+
+/* ── Experience entries ─────────────────────────────── */
+.resume-entry {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--anp-crust);
+}
+
+.resume-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.resume-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.1rem;
+}
+
+.resume-entry-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.resume-entry-dates {
+  font-size: 0.78rem;
+  color: var(--text-color-subtle);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.resume-entry-org {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 0.35rem;
+}
+
+.resume-entry-body {
+  font-size: 0.8rem;
+  color: var(--text-color-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.resume-entry-focus {
+  font-size: 0.72rem;
+  color: var(--text-color-subtle);
+  margin-top: 0.35rem;
+}
+
+/* ── Summary ────────────────────────────────────────── */
+.resume-summary p {
+  font-size: 0.82rem;
+  color: var(--text-color-muted);
+  line-height: 1.7;
+  margin: 0 0 0.65rem;
+}
+
+/* ── Skills grid ────────────────────────────────────── */
+.resume-skills-group {
+  margin-bottom: 0.85rem;
+}
+
+.resume-skills-group-name {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-color-subtle);
+  margin: 0 0 0.2rem;
+}
+
+.resume-skills-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.resume-skill-tag {
+  font-size: 0.72rem;
+  background: var(--surface-color-alt);
+  color: var(--text-color-muted);
+  padding: 0.12rem 0.45rem;
+  border-radius: 3px;
+}
+
+/* ── Education entries ─────────────────────────────── */
+.resume-edu-entry {
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--anp-crust);
+}
+
+.resume-edu-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.resume-edu-degree {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.resume-edu-school {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0.05rem 0;
+}
+
+.resume-edu-year {
+  font-size: 0.74rem;
+  color: var(--text-color-subtle);
+}
+
+/* ── Additional / short entries ────────────────────── */
+.resume-short-entry {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--anp-crust);
+}
+
+.resume-short-entry:last-child {
+  border-bottom: none;
+}
+
+/* ─── Mobile: single column ─────────────────────────── */
+@media (max-width: 640px) {
+  .resume-header {
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+  }
+
+  .resume-body {
+    grid-template-columns: 1fr;
+  }
+
+  .resume-portrait-wrap {
+    width: 64px;
+    height: 64px;
+  }
+}
+{% endcss %}
+
+<div class="resume-shell">
+
+  {# ── Clipboard bar ── #}
+  <div class="resume-clipboard-bar">
+    <button class="btn-clipboard" id="resume-copy-btn" aria-label="Copy resume as Markdown to clipboard">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="4" width="9" height="11" rx="1.5" fill="var(--background-color)" stroke="currentColor" stroke-width="1.5"/></svg>
+      Copy as Markdown
+    </button>
+  </div>
+
+  {# ── Header ── #}
+  <header class="resume-header">
+    <div class="resume-portrait-wrap">
+      {% image profile.portraitUrl, "Jonny McConnell portrait", [120], "120px" %}
+    </div>
+    <div class="resume-identity">
+      <h1 class="resume-name">Jonny McConnell</h1>
+      <p class="resume-tagline">Systems-focused Product Designer creating intuitive experiences between people and emerging technology</p>
+      <div class="resume-contact">
+        <a href="mailto:jonmccon@gmail.com">jonmccon@gmail.com</a>
+        <a href="https://www.jonmccon.com" target="_blank" rel="noopener">jonmccon.com</a>
+        <a href="https://github.com/jonmccon" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/jonmccon" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+  </header>
+
+  {# ── Two-column body ── #}
+  <div class="resume-body">
+
+    {# ═══ MAIN COLUMN ══════════════════════════════════ #}
+    <div class="resume-main-col">
+
+      {# Summary #}
+      <section class="resume-section resume-summary">
+        <span class="resume-section-label">Summary</span>
+        <p>Product designer and creative technologist with 15+ years of experience across UX design, interaction design, and digital product development, UI systems, and brand definition. I lead product design at the intersection of human behavior, technology, and product strategy to make complex systems understandable.</p>
+        <p>My experience spans AI-assisted products, enterprise platforms, healthcare technology, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating effectively with engineering teams.</p>
+      </section>
+
+      {# Experience #}
+      <section class="resume-section">
+        <span class="resume-section-label">Experience</span>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Founder &amp; Product Designer</p>
+            <span class="resume-entry-dates">2020 – Present</span>
+          </div>
+          <p class="resume-entry-org">Seattle Creative Directory</p>
+          <p class="resume-entry-body">Built and launched an independent platform mapping the Pacific Northwest creative technology ecosystem. Designed and developed a full-stack directory using Next.js, PostgreSQL, Prisma, and Vercel. Built information architecture supporting hundreds of creative businesses with structured discovery across location, discipline, and organization type. Conducted research through interviews and podcast production.</p>
+          <p class="resume-entry-focus">Product Strategy · Information Architecture · Research · Full-stack Prototyping</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Senior UX Designer</p>
+            <span class="resume-entry-dates">2021 – 2023</span>
+          </div>
+          <p class="resume-entry-org">PwC — Concourse Innovation Group</p>
+          <p class="resume-entry-body">Designed enterprise B2B workflows supporting complex stakeholder collaboration and operational decision-making. Researched how distributed teams manage complex projects and translated organizational complexity into interaction models and scalable solutions. Led mobile adaptation of the platform and contributed to design system evolution across enterprise applications.</p>
+          <p class="resume-entry-focus">Enterprise Systems · Mobile UX · Research · Design Systems</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Product Designer</p>
+            <span class="resume-entry-dates">2021</span>
+          </div>
+          <p class="resume-entry-org">Resonance AI</p>
+          <p class="resume-entry-body">Designed data-intensive dashboards for analyzing machine-generated insights. Created information architecture, visualization and interaction systems for complex AI outputs. Developed data visualization prototypes in Python and designed an episode analysis experience combining video playback with AI-generated analysis.</p>
+          <p class="resume-entry-focus">AI Interfaces · Data Visualization · Human-AI Interaction</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Product Designer</p>
+            <span class="resume-entry-dates">2020 – 2021</span>
+          </div>
+          <p class="resume-entry-org">Lumedic</p>
+          <p class="resume-entry-body">Designed secure healthcare data platforms focused on digital records, information exchange, and privacy-sensitive workflows. Conducted user research and translated complex healthcare requirements into accessible product workflows. Contributed to design systems supporting healthcare products within the Providence ecosystem.</p>
+          <p class="resume-entry-focus">Healthcare Technology · Trust-Centered Design · Complex Systems</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Co-Founder &amp; Product Lead</p>
+            <span class="resume-entry-dates">2014 – 2019</span>
+          </div>
+          <p class="resume-entry-org">Metastream — Social Mapping Startup</p>
+          <p class="resume-entry-body">Co-founded a location-based data platform using mapping technologies and user-generated geographic information. Owned product strategy, user research, and experience design. Represented the product within open mapping and civic technology communities, and worked with co-founder to define technical architecture.</p>
+          <p class="resume-entry-focus">Emerging Technology · Product Strategy · Data Systems · Research</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">UX/UI Designer</p>
+            <span class="resume-entry-dates">2018 – 2019</span>
+          </div>
+          <p class="resume-entry-org">Amazon — Device Design Group</p>
+          <p class="resume-entry-body">Worked with the Device Design Group on Kindle Fire OS / Android platform upgrades. Adapted operating system-level experiences across hardware and software ecosystems, integrating new Android capabilities into the Kindle environment. Collaborated with engineering to balance user needs, technical constraints, and platform consistency.</p>
+          <p class="resume-entry-focus">Platform Design · Systems Thinking · Cross-functional Collaboration</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">UX Designer</p>
+            <span class="resume-entry-dates">2018</span>
+          </div>
+          <p class="resume-entry-org">Google — G Suite, Hangouts Meet</p>
+          <p class="resume-entry-body">Designed communication experiences for Google Meet within the G Suite ecosystem. Designed alternative connection experiences and partnered with the Material Design team to create a standalone desktop Meet application.</p>
+          <p class="resume-entry-focus">Communication Systems · Interaction Design · Design Systems</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">UX Designer</p>
+            <span class="resume-entry-dates">2016 – 2018</span>
+          </div>
+          <p class="resume-entry-org">Providence Health &amp; Services — Digital Innovation Group</p>
+          <p class="resume-entry-body">Designed healthcare technology for high-stakes clinical environments. Developed digital experiences supporting remote emergency care workflows. Conducted field research with clinicians and designed workflows where clarity, reliability, and trust were essential.</p>
+          <p class="resume-entry-focus">Human-Centered Systems · Research · Critical Workflows</p>
+        </div>
+
+      </section>
+
+      {# Additional #}
+      <section class="resume-section">
+        <span class="resume-section-label">Additional Experience</span>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Adjunct Professor of Design</p>
+            <span class="resume-entry-dates">2023 – 2025</span>
+          </div>
+          <p class="resume-entry-org">Western Washington University</p>
+          <p class="resume-entry-body">Taught graphic design, typography, UX research, digital product thinking, and interaction modeling.</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Professional Mentor</p>
+            <span class="resume-entry-dates">2023 – 2024</span>
+          </div>
+          <p class="resume-entry-org">Designlab</p>
+          <p class="resume-entry-body">Mentored aspiring product designers through portfolio development, career strategy, and design practice.</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Programming Co-Director</p>
+            <span class="resume-entry-dates">2013 – 2015</span>
+          </div>
+          <p class="resume-entry-org">AIGA Seattle</p>
+          <p class="resume-entry-body">Board member leading event production and fundraising. Worked on revamping internal digital processes and coordinated with the National Board on event calendar, ticketing, and content.</p>
+        </div>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Designer in Residence / Director of Outreach</p>
+            <span class="resume-entry-dates">2015 – 2016</span>
+          </div>
+          <p class="resume-entry-org">Thomas Street Studio</p>
+          <p class="resume-entry-body">Collaborated with owners to market the studio and bring in new clients. Produced internal and external events and contributed to larger product design work.</p>
+        </div>
+
+      </section>
+
+    </div>
+
+    {# ═══ SIDE COLUMN ══════════════════════════════════ #}
+    <div class="resume-side-col">
+
+      {# Publication #}
+      <section class="resume-section">
+        <span class="resume-section-label">Publication</span>
+
+        <div class="resume-entry">
+          <div class="resume-entry-header">
+            <p class="resume-entry-title">Founder &amp; Host</p>
+            <span class="resume-entry-dates">2020 – Present</span>
+          </div>
+          <p class="resume-entry-org">Seattle Creative Directory</p>
+          <p class="resume-entry-body">Comprehensive phonebook website &amp; podcast chronicling the creative community in the Pacific Northwest. Designed &amp; built website, recorded &amp; produced podcast with over 16k plays.</p>
+        </div>
+      </section>
+
+      {# Education #}
+      <section class="resume-section">
+        <span class="resume-section-label">Education</span>
+
+        <div class="resume-edu-entry">
+          <p class="resume-edu-degree">Certificate — Business Management</p>
+          <p class="resume-edu-school">Western Washington University</p>
+          <span class="resume-edu-year">2021</span>
+        </div>
+
+        <div class="resume-edu-entry">
+          <p class="resume-edu-degree">Certificate — Emerging Technologies</p>
+          <p class="resume-edu-school">MIT Media Lab — Beyond Smart Cities</p>
+          <span class="resume-edu-year">2019</span>
+        </div>
+
+        <div class="resume-edu-entry">
+          <p class="resume-edu-degree">BFA — Graphic Design</p>
+          <p class="resume-edu-school">Western Washington University</p>
+          <span class="resume-edu-year">2006 – 2010</span>
+        </div>
+      </section>
+
+      {# Skills #}
+      <section class="resume-section">
+        <span class="resume-section-label">Capabilities</span>
+
+        <div class="resume-skills-group">
+          <p class="resume-skills-group-name">Product Design</p>
+          <div class="resume-skills-tags">
+            <span class="resume-skill-tag">Human-AI Interaction</span>
+            <span class="resume-skill-tag">Interaction Design</span>
+            <span class="resume-skill-tag">Information Architecture</span>
+            <span class="resume-skill-tag">UX Research</span>
+            <span class="resume-skill-tag">Product Strategy</span>
+            <span class="resume-skill-tag">Prototyping</span>
+            <span class="resume-skill-tag">Workflow Design</span>
+          </div>
+        </div>
+
+        <div class="resume-skills-group">
+          <p class="resume-skills-group-name">Visual &amp; Interface</p>
+          <div class="resume-skills-tags">
+            <span class="resume-skill-tag">Interface Design</span>
+            <span class="resume-skill-tag">Visual Systems</span>
+            <span class="resume-skill-tag">Typography</span>
+            <span class="resume-skill-tag">Design Systems</span>
+            <span class="resume-skill-tag">Data Visualization</span>
+            <span class="resume-skill-tag">Figma</span>
+            <span class="resume-skill-tag">Adobe Creative Suite</span>
+          </div>
+        </div>
+
+        <div class="resume-skills-group">
+          <p class="resume-skills-group-name">Front-End</p>
+          <div class="resume-skills-tags">
+            <span class="resume-skill-tag">HTML · CSS · JS</span>
+            <span class="resume-skill-tag">React</span>
+            <span class="resume-skill-tag">Next.js</span>
+            <span class="resume-skill-tag">Responsive Design</span>
+            <span class="resume-skill-tag">Component Systems</span>
+          </div>
+        </div>
+
+        <div class="resume-skills-group">
+          <p class="resume-skills-group-name">Technical</p>
+          <div class="resume-skills-tags">
+            <span class="resume-skill-tag">Python</span>
+            <span class="resume-skill-tag">APIs</span>
+            <span class="resume-skill-tag">Database Architecture</span>
+            <span class="resume-skill-tag">Git</span>
+            <span class="resume-skill-tag">p5.js</span>
+            <span class="resume-skill-tag">Generative Systems</span>
+          </div>
+        </div>
+
+        <div class="resume-skills-group">
+          <p class="resume-skills-group-name">AI Practice</p>
+          <div class="resume-skills-tags">
+            <span class="resume-skill-tag">AI Workflow Design</span>
+            <span class="resume-skill-tag">Research Synthesis</span>
+            <span class="resume-skill-tag">Human-AI Collab</span>
+            <span class="resume-skill-tag">Agent Workflows</span>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+    {# end side col #}
+
+  </div>
+  {# end resume-body #}
+
+</div>
+{# end resume-shell #}
+
+{# ── Clipboard script ── #}
+<script>
+(function() {
+  var MARKDOWN = `# Jonny McConnell
+
+Systems-focused Product Designer creating intuitive experiences between people and emerging technology
+
+jonmccon@gmail.com | jonmccon.com | github.com/jonmccon | linkedin.com/in/jonmccon
+
+---
+
+## Summary
+
+Product designer and creative technologist with 15+ years of experience across UX design, interaction design, and digital product development, UI systems, and brand definition. I lead product design at the intersection of human behavior, technology, and product strategy to make complex systems understandable.
+
+My experience spans AI-assisted products, enterprise platforms, healthcare technology, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating effectively with engineering teams.
+
+---
+
+## Experience
+
+### Founder & Product Designer — Seattle Creative Directory
+**2020 – Present**
+
+Built and launched an independent platform mapping the Pacific Northwest creative technology ecosystem. Designed and developed a full-stack directory using Next.js, PostgreSQL, Prisma, and Vercel. Built information architecture supporting hundreds of creative businesses with structured discovery across location, discipline, and organization type. Conducted research through interviews and podcast production.
+
+*Product Strategy · Information Architecture · Research · Full-stack Prototyping*
+
+---
+
+### Senior UX Designer — PwC (Concourse Innovation Group)
+**2021 – 2023**
+
+Designed enterprise B2B workflows supporting complex stakeholder collaboration and operational decision-making. Led mobile adaptation of the platform and contributed to design system evolution across enterprise applications.
+
+*Enterprise Systems · Mobile UX · Research · Design Systems*
+
+---
+
+### Product Designer — Resonance AI
+**2021**
+
+Designed data-intensive dashboards for analyzing machine-generated insights. Created information architecture, visualization and interaction systems for complex AI outputs. Developed data visualization prototypes in Python.
+
+*AI Interfaces · Data Visualization · Human-AI Interaction*
+
+---
+
+### Product Designer — Lumedic
+**2020 – 2021**
+
+Designed secure healthcare data platforms. Conducted user research and translated complex healthcare requirements into accessible product workflows.
+
+*Healthcare Technology · Trust-Centered Design · Complex Systems*
+
+---
+
+### Co-Founder & Product Lead — Metastream
+**2014 – 2019**
+
+Co-founded a location-based data platform. Owned product strategy, user research, and experience design. Represented the product within open mapping and civic technology communities.
+
+*Emerging Technology · Product Strategy · Data Systems · Research*
+
+---
+
+### UX/UI Designer — Amazon (Device Design Group)
+**2018 – 2019**
+
+Worked on Kindle Fire OS / Android platform upgrades. Adapted operating system-level experiences and integrated new Android capabilities into the Kindle environment.
+
+*Platform Design · Systems Thinking · Cross-functional Collaboration*
+
+---
+
+### UX Designer — Google (G Suite, Hangouts Meet)
+**2018**
+
+Designed communication experiences for Google Meet. Partnered with the Material Design team to create a standalone desktop Meet application.
+
+*Communication Systems · Interaction Design · Design Systems*
+
+---
+
+### UX Designer — Providence Health & Services
+**2016 – 2018**
+
+Designed healthcare technology for high-stakes clinical environments. Conducted field research with clinicians and designed workflows where clarity, reliability, and trust were essential.
+
+*Human-Centered Systems · Research · Critical Workflows*
+
+---
+
+## Additional Experience
+
+**Adjunct Professor of Design** — Western Washington University, 2023–2025
+**Professional Mentor** — Designlab, 2023–2024
+**Programming Co-Director** — AIGA Seattle, 2013–2015
+**Designer in Residence / Director of Outreach** — Thomas Street Studio, 2015–2016
+
+---
+
+## Education
+
+**Certificate — Business Management** — Western Washington University, 2021
+**Certificate — Emerging Technologies** — MIT Media Lab (Beyond Smart Cities), 2019
+**BFA — Graphic Design** — Western Washington University, 2006–2010
+
+---
+
+## Capabilities
+
+**Product Design:** Human-AI Interaction · Interaction Design · Information Architecture · UX Research · Product Strategy · Prototyping · Workflow Design
+**Visual & Interface:** Interface Design · Visual Systems · Typography · Design Systems · Data Visualization · Figma · Adobe Creative Suite
+**Front-End:** HTML · CSS · JavaScript · React · Next.js · Responsive Design · Component Systems
+**Technical:** Python · APIs · Database Architecture · Git · p5.js · Generative Systems
+**AI Practice:** AI Workflow Design · Research Synthesis · Human-AI Collaboration · Agent Workflows
+`;
+
+  var btn = document.getElementById('resume-copy-btn');
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(MARKDOWN).then(function() {
+        showCopied();
+      }).catch(function() {
+        fallbackCopy(MARKDOWN);
+      });
+    } else {
+      fallbackCopy(MARKDOWN);
+    }
+  });
+
+  function showCopied() {
+    btn.classList.add('copied');
+    btn.textContent = '✓ Copied to clipboard';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="4" width="9" height="11" rx="1.5" fill="var(--background-color)" stroke="currentColor" stroke-width="1.5"/></svg> Copy as Markdown';
+    }, 2200);
+  }
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); showCopied(); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+})();
+</script>
