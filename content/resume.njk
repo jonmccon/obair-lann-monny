@@ -320,13 +320,13 @@ eleventyNavigation:
   /* Reset body/shell */
   body {
     width: 100% !important;
-    background: #fff !important;
     color: #11111b !important;
     font-size: 8.5pt !important;
   }
 
   .site-wrapper {
     min-height: unset;
+    background: transparent;
   }
 
   .resume-shell {
@@ -346,6 +346,18 @@ eleventyNavigation:
   .resume-portrait-wrap {
     width: 58px;
     height: 58px;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .resume-portrait-wrap img,
+  .resume-portrait-wrap picture img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .resume-name {
@@ -380,7 +392,7 @@ eleventyNavigation:
     letter-spacing: 0.1em;
     padding: 0.1rem 0.35rem;
     margin-bottom: 0.4rem;
-    background: #11111b !important;
+    background: #5c5f77 !important;
     color: #fff !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -521,8 +533,8 @@ eleventyNavigation:
       {# Summary #}
       <section class="resume-section resume-summary">
         <span class="resume-section-label">Summary</span>
-        <p>Product designer and creative technologist with 15+ years of experience across UX design, interaction design, and digital product development, UI systems, and brand definition. I lead product design at the intersection of human behavior, technology, and product strategy to make complex systems understandable.</p>
-        <p>My experience spans AI-assisted products, enterprise platforms, healthcare technology, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating effectively with engineering teams.</p>
+        <p>Product designer and creative technologist with 15+ years of experience across UX, interaction design, digital product development, UI systems, and brand definition. I lead at the intersection of human behavior, technology, and product strategy to make complex systems understandable.</p>
+        <p>My experience spans AI-assisted products, enterprise platforms, healthcare technology, boutique branding &amp; advertising, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating with engineering teams.</p>
       </section>
 
       {# Experience #}
@@ -782,9 +794,9 @@ jonmccon@gmail.com | jonmccon.com | github.com/jonmccon | linkedin.com/in/jonmcc
 
 ## Summary
 
-Product designer and creative technologist with 15+ years of experience across UX design, interaction design, and digital product development, UI systems, and brand definition. I lead product design at the intersection of human behavior, technology, and product strategy to make complex systems understandable.
+Product designer and creative technologist with 15+ years of experience across UX, interaction design, digital product development, UI systems, and brand definition. I lead at the intersection of human behavior, technology, and product strategy to make complex systems understandable.
 
-My experience spans AI-assisted products, enterprise platforms, healthcare technology, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating effectively with engineering teams.
+My experience spans AI-assisted products, enterprise platforms, healthcare technology, boutique branding & advertising, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating with engineering teams.
 
 ---
 
