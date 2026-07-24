@@ -1,21 +1,28 @@
 {# Thumbnail grid for displaying project images in a dense, image-focused layout #}
+{# Uses post.data.thumbnail (static path) when available, falls back to first processed image #}
 {# Usage: {% include "projectsThumbGrid.njk" %} #}
 
 <div class="thumb-grid">
   {% for post in collections.projects | reverse %}
-    {# Get the first image for this post as thumbnail #}
-    {% set thumbnail = "" %}
-    {% for image in collections.images %}
-      {% if image.url == post.url and thumbnail == "" %}
-        {% set thumbnail = image.src %}
-      {% endif %}
-    {% endfor %}
-
-    {% if thumbnail %}
+    {% if post.data.thumbnail %}
       <a href="{{ post.url }}" class="thumb-grid-item">
-        <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async">
+        <img src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async" width="300" height="300">
         <span class="thumb-grid-title">{{ post.data.title }}</span>
       </a>
+    {% else %}
+      {# Fallback: use first processed image from collections.images #}
+      {% set thumbnail = "" %}
+      {% for image in collections.images %}
+        {% if image.url == post.url and thumbnail == "" %}
+          {% set thumbnail = image.src %}
+        {% endif %}
+      {% endfor %}
+      {% if thumbnail %}
+        <a href="{{ post.url }}" class="thumb-grid-item">
+          <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async">
+          <span class="thumb-grid-title">{{ post.data.title }}</span>
+        </a>
+      {% endif %}
     {% endif %}
   {% endfor %}
 </div>

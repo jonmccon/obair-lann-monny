@@ -3,6 +3,7 @@ title: Microsoft Learning Platform
 description: Learning management tools at scale
 category: Microsoft
 date: 2015-03-01
+thumbnail: /img/thumbnails/microsoft-learning-thumb.png
 permalink: /design/microsoft-learning/
 tags:
   - posts

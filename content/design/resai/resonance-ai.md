@@ -4,6 +4,7 @@ description: Teaching the machine to watch TV
 category: Resonance AI
 bgColor: black
 date: 2021-08-01
+thumbnail: /img/thumbnails/resai-thumb.png
 tags: 
     - second tag
 images:

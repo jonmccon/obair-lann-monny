@@ -3,6 +3,7 @@ title: LYFE
 description: Mobile health & wellness platform
 category: LYFE
 date: 2014-06-01
+thumbnail: /img/thumbnails/lyfe-thumb.png
 permalink: /design/lyfe/
 tags:
   - posts

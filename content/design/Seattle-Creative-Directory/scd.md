@@ -3,6 +3,7 @@ title: Seattle Creative Directory
 description: Learning react for fun
 category: Directory
 date: 2021-06-01
+thumbnail: /img/thumbnails/scd-thumb.png
 tags: 
     - second tag
 images: 

@@ -3,6 +3,7 @@ title: A Few from Western
 description: Graduating showcase in the Tether Gallery
 category: WWU
 date: 2010-06-01
+thumbnail: /img/thumbnails/a-few-from-western-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

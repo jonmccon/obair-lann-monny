@@ -3,6 +3,7 @@ title: Xbox One Smartglass
 description: Second screen ftw
 category: XBOX
 date: 2014-04-01
+thumbnail: /img/thumbnails/xbox-one-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

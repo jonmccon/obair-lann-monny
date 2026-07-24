@@ -3,6 +3,7 @@ title: Klipsun magazine
 description: xxxxxxxxx
 category: WWU
 date: 2010-02-01
+thumbnail: /img/thumbnails/klipsun-thumb.png
 tags: 
     - xxxxxxxxx
 images: 
