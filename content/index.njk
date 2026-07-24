@@ -18,4 +18,67 @@ home:
     - Browse featured projects first, jump into archive links, or keep scrolling through the smaller project and process thumbnails.
 ---
 
-{# Homepage content - all listings and galleries have been archived in home-archive.njk #}
+{%- css %}
+/* ── Homepage Project Thumbnail Grid ───────────────────────────── */
+.home-project-thumbs {
+  margin: 2rem 0 0;
+}
+
+.home-project-thumbs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 4px;
+}
+
+.home-thumb-item {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  text-decoration: none;
+  background: var(--surface-color);
+}
+
+.home-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.home-thumb-item:hover img {
+  transform: scale(1.05);
+}
+
+.home-thumb-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1.5rem 0.6rem 0.5rem;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--anp-crust) 75%, transparent));
+  color: var(--text-color-on-accent);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.home-thumb-item:hover .home-thumb-label,
+.home-thumb-item:focus .home-thumb-label {
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .home-project-thumbs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 2px;
+  }
+}
+{% endcss %}
+
+{% include "homepageThumbnailGrid.njk" %}
