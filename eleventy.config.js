@@ -184,6 +184,74 @@ module.exports = function(eleventyConfig) {
 	return array;
 	});
 
+	// Get related projects based on shared tags, with fallback to date-based navigation
+	eleventyConfig.addFilter("getRelatedProjects", function(collection, currentPage, maxResults = 2) {
+		if (!collection || !currentPage) {
+			return [];
+		}
+
+		// Tags to exclude from matching logic
+		const EXCLUDED_TAGS = ["all", "nav", "post", "posts", "galleries"];
+		
+		const currentTags = (currentPage.tags || []).filter(
+			tag => EXCLUDED_TAGS.indexOf(tag) === -1
+		);
+		const currentUrl = currentPage.url;
+
+		// Score each item based on number of shared tags
+		const scored = collection
+			.filter(item => item.url !== currentUrl)
+			.map(item => {
+				const itemTags = (item.data.tags || []).filter(
+					tag => EXCLUDED_TAGS.indexOf(tag) === -1
+				);
+				const sharedTags = currentTags.filter(tag => itemTags.includes(tag));
+				return {
+					item: item,
+					score: sharedTags.length,
+					date: item.date
+				};
+			})
+			.filter(scored => scored.score > 0)
+			.sort((a, b) => {
+				// Sort by score first (descending), then by date (descending)
+				if (b.score !== a.score) {
+					return b.score - a.score;
+				}
+				return b.date - a.date;
+			});
+
+		// If we have tag-based matches, return them
+		if (scored.length > 0) {
+			return scored.slice(0, maxResults).map(s => s.item);
+		}
+
+		// Fallback: use date-based next/previous
+		// Sort all items by date, including current page
+		const sortedByDate = collection
+			.sort((a, b) => a.date - b.date);
+
+		// Find the current page index
+		const currentIndex = sortedByDate.findIndex(item => 
+			item.data.title === currentPage.title && 
+			item.date.getTime() === currentPage.date.getTime()
+		);
+
+		const related = [];
+		
+		// Get previous (earlier date)
+		if (currentIndex > 0) {
+			related.push(sortedByDate[currentIndex - 1]);
+		}
+		
+		// Get next (later date)
+		if (currentIndex >= 0 && currentIndex < sortedByDate.length - 1 && related.length < maxResults) {
+			related.push(sortedByDate[currentIndex + 1]);
+		}
+
+		return related.slice(0, maxResults);
+	});
+
 	// Hero image shortcode to get processed image URL for backgrounds
 	eleventyConfig.addAsyncShortcode("heroImage", async function(src) {
 		if (!src) return "";
