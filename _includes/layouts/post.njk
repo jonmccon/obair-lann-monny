@@ -28,13 +28,38 @@ layout: layouts/base.njk
   </div>
 
   {%- if collections.posts %}
-  {%- set previousPost = collections.posts | getPreviousCollectionItem %}
-  {%- set nextPost = collections.posts | getNextCollectionItem %}
-  {%- if nextPost or previousPost %}
-  <ul class="links-nextprev">
-    {%- if previousPost %}<li>Previous: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a></li>{% endif %}
-    {%- if nextPost %}<li>Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a></li>{% endif %}
-  </ul>
+  {%- set currentPageData = { url: page.url, date: page.date, tags: tags, title: title } %}
+  {%- set relatedProjects = collections.posts | getRelatedProjects(currentPageData) %}
+  {%- if relatedProjects.length > 0 %}
+  <nav class="related-projects" aria-label="Related projects">
+    <h2 class="related-projects-heading">Related Projects</h2>
+    <div class="related-projects-grid">
+      {%- for project in relatedProjects %}
+      <article class="related-project-card">
+        <a href="{{ project.url }}" class="related-project-link">
+          {%- if project.data.images and project.data.images.length > 0 %}
+          <div class="related-project-thumbnail">
+            {% homepageImage project.data.images[0].src, project.data.title, 320, "related-project-image" %}
+          </div>
+          {%- endif %}
+          <div class="related-project-content">
+            <h3 class="related-project-title">{{ project.data.title }}</h3>
+            {%- if project.data.description %}
+            <p class="related-project-description">{{ project.data.description }}</p>
+            {%- endif %}
+            {%- if project.data.tags %}
+            <ul class="related-project-tags">
+              {%- for tag in project.data.tags | filterTagList %}
+              <li class="related-project-tag">{{ tag }}</li>
+              {%- endfor %}
+            </ul>
+            {%- endif %}
+          </div>
+        </a>
+      </article>
+      {%- endfor %}
+    </div>
+  </nav>
   {%- endif %}
   {%- endif %}
 </article>
