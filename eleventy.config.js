@@ -190,8 +190,11 @@ module.exports = function(eleventyConfig) {
 			return [];
 		}
 
+		// Tags to exclude from matching logic
+		const EXCLUDED_TAGS = ["all", "nav", "post", "posts", "galleries"];
+		
 		const currentTags = (currentPage.tags || []).filter(
-			tag => ["all", "nav", "post", "posts", "galleries"].indexOf(tag) === -1
+			tag => EXCLUDED_TAGS.indexOf(tag) === -1
 		);
 		const currentUrl = currentPage.url;
 
@@ -200,7 +203,7 @@ module.exports = function(eleventyConfig) {
 			.filter(item => item.url !== currentUrl)
 			.map(item => {
 				const itemTags = (item.data.tags || []).filter(
-					tag => ["all", "nav", "post", "posts", "galleries"].indexOf(tag) === -1
+					tag => EXCLUDED_TAGS.indexOf(tag) === -1
 				);
 				const sharedTags = currentTags.filter(tag => itemTags.includes(tag));
 				return {
@@ -224,10 +227,11 @@ module.exports = function(eleventyConfig) {
 		}
 
 		// Fallback: use date-based next/previous
+		// Sort all items by date, including current page
 		const sortedByDate = collection
-			.filter(item => item.url !== currentUrl)
 			.sort((a, b) => a.date - b.date);
 
+		// Find the current page index
 		const currentIndex = sortedByDate.findIndex(item => 
 			item.data.title === currentPage.title && 
 			item.date.getTime() === currentPage.date.getTime()
@@ -241,7 +245,7 @@ module.exports = function(eleventyConfig) {
 		}
 		
 		// Get next (later date)
-		if (currentIndex < sortedByDate.length - 1 && related.length < maxResults) {
+		if (currentIndex >= 0 && currentIndex < sortedByDate.length - 1 && related.length < maxResults) {
 			related.push(sortedByDate[currentIndex + 1]);
 		}
 
