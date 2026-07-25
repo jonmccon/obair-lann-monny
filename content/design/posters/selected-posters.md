@@ -3,6 +3,7 @@ title: Selected Poster Work
 description: I like to put myself in my work
 category: Publicity Center
 date: 2010-01-01
+thumbnail: /img/thumbnails/posters-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

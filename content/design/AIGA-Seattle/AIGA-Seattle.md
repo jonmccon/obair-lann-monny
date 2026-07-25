@@ -3,6 +3,7 @@ title: AIGA Seattle
 description: Marketing & ops tools
 category: AIGA
 date: 2014-09-30
+thumbnail: /img/thumbnails/aiga-seattle-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

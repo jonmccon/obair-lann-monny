@@ -3,6 +3,7 @@ title: Awake Chocolate
 description: A compass to the caffeinated chocolate
 category: Tether
 date: 2013-06-01
+thumbnail: /img/thumbnails/awake-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

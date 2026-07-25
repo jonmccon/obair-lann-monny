@@ -3,6 +3,7 @@ title: Decibel Festival Popup Artshow
 description: Apparently the best shows aren't photographed
 category: Decibel
 date: 2013-08-01
+thumbnail: /img/thumbnails/decibel-festival-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

@@ -3,6 +3,7 @@ title: Yakitate!
 description: Dwell on design with designboom
 category: Designboom
 date: 2011-08-01
+thumbnail: /img/thumbnails/yakitate-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

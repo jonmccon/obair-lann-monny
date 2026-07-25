@@ -3,6 +3,7 @@ title: Pixels of Fury
 description: Live design fights & the magic of cardboard
 category: AIGA
 date: 2012-11-15
+thumbnail: /img/thumbnails/pixels-of-fury-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

@@ -3,6 +3,7 @@ title: Vine Wars
 description: Hacking twitter into a game
 category: Tether
 date: 2013-11-30
+thumbnail: /img/thumbnails/vine-wars-thumb.png
 tags: 
     - second tag
 images: 

@@ -3,6 +3,7 @@ title: WWU Deans Report
 description: Never skimp on details - Dean of Student Life
 category: Publicity Center
 date: 2010-03-01
+thumbnail: /img/thumbnails/deans-report-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

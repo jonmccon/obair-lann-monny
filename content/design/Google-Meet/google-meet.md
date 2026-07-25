@@ -4,6 +4,7 @@ description: The web meets the desktop meets the telephone
 category: Google
 bgColor: white
 date: 2018-06-01
+thumbnail: /img/thumbnails/google-meet-thumb.jpg
 tags: 
     - xxxxxxxxx
 images: 

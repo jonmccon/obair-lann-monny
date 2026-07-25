@@ -3,6 +3,7 @@ title: Providence Healthcare
 description: Videochat in the ER
 category: Providence
 date: 2018-05-01
+thumbnail: /img/thumbnails/providence-thumb.png
 tags: 
     - second tag
 images: 

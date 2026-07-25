@@ -59,26 +59,8 @@ layout: layouts/base.njk
 </section>
 {% endif %}
 
-<section class="home-newspaper" aria-label="Homepage newspaper of projects and posts">
-  {% for post in collections.projects | reverse %}
-  {% set postExcerpt = post.templateContent | excerpt(38) %}
-  {% set projectThumbnail = post.data.images | first %}
-  <article class="newspaper-card newspaper-card-project{% if postExcerpt | wordCount > profile.wideCardWordThreshold %} newspaper-card-wide{% endif %}">
-    <a class="newspaper-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
-    <h2>{{ post.data.title }}</h2>
-    {% if post.data.description %}<p class="newspaper-description">{{ post.data.description }}</p>{% endif %}
-    {% if projectThumbnail %}
-    <div class="newspaper-images">
-      {% homepageImage projectThumbnail.src, projectThumbnail.alt | default(post.data.title) %}
-    </div>
-    {% endif %}
-    {% if postExcerpt %}
-    <div class="newspaper-card-body">
-      <p>{{ postExcerpt }}</p>
-    </div>
-    {% endif %}
-  </article>
-  {% endfor %}
+<section class="home-newspaper" aria-label="Homepage project thumbnails">
+  {% include "projectsThumbGrid.njk" %}
 
   {% for post in collections.process | reverse %}
   {% set postExcerpt = post.templateContent | excerpt(38) %}

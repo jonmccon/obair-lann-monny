@@ -3,6 +3,7 @@ title: Metastream
 description: Rich Location Based Media 
 category: Metastream
 date: 2019-08-01
+thumbnail: /img/thumbnails/metastream-thumb.png
 tags: 
     - second tag
 images: 

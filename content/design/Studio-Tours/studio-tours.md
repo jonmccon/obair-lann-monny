@@ -3,6 +3,7 @@ title: Seattle Studio Tours
 description: Open the doors & let the people 
 category: AIGA
 date: 2014-05-01
+thumbnail: /img/thumbnails/seattle-studio-tours-thumb.png
 tags: 
     - xxxxxxxxx
 images: 

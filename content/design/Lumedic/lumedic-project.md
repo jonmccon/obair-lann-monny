@@ -4,6 +4,7 @@ description: Onchain medical records
 category: Lumedic
 bgColor: gray
 date: 2021-01-01
+thumbnail: /img/thumbnails/lumedic-thumb.png
 featured: true
 tags:
   - posts
