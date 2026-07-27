@@ -5,16 +5,16 @@ description: Jonny McConnell — Systems-focused Product Designer creating intui
 permalink: /resume/
 eleventyNavigation:
   key: Resume
-  order: 5
+  order: 6
 ---
 
 {%- css %}
 /* ─── Resume page layout ─────────────────────────────── */
 
 .resume-shell {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 2rem var(--site-gutter);
+  max-width: 100%;
+  margin: 0;
+  padding: 2rem 0;
 }
 
 /* ── Header: portrait + identity block ──────────────── */
@@ -98,26 +98,27 @@ eleventyNavigation:
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.35rem 0.9rem;
-  font-size: 0.8rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8125rem;
   font-family: inherit;
   font-weight: 500;
-  border: 1px dashed var(--color-gray-20);
-  border-radius: 999px;
-  background: transparent;
+  border: 1px solid var(--anp-crust);
+  border-radius: 4px;
+  background: var(--surface-color);
   color: var(--text-color-muted);
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
 }
 
 .btn-clipboard:hover {
-  color: var(--text-color-link-active);
-  border-color: var(--text-color-link-active);
+  color: var(--text-color-link);
+  border-color: var(--text-color-link);
+  background: var(--surface-color);
 }
 
 .btn-clipboard.copied {
-  color: var(--anp-green);
-  border-color: var(--anp-green);
+  color: var(--text-color-link);
+  border-color: var(--text-color-link);
 }
 
 /* ── Two-column body ─────────────────────────────────── */
@@ -137,15 +138,16 @@ eleventyNavigation:
 }
 
 .resume-section-label {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--text-color-on-accent);
-  background: var(--anp-text);
-  padding: 0.18rem 0.55rem;
+  color: #fff;
+  background: #1a1814;
+  padding: 0.2rem 0.6rem;
   display: inline-block;
   margin-bottom: 0.9rem;
+  border-radius: 4px;
 }
 
 /* ── Experience entries ─────────────────────────────── */
@@ -234,11 +236,14 @@ eleventyNavigation:
 }
 
 .resume-skill-tag {
-  font-size: 0.72rem;
-  background: var(--surface-color-alt);
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--surface-color);
   color: var(--text-color-muted);
-  padding: 0.12rem 0.45rem;
-  border-radius: 3px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  border: 1px solid var(--anp-crust);
+  display: inline-block;
 }
 
 /* ── Education entries ─────────────────────────────── */
@@ -329,9 +334,9 @@ eleventyNavigation:
   /* Reset body/shell */
   body {
     width: 100% !important;
-    color: #11111b !important;
+    color: #1a1814 !important;
     font-size: 8.5pt !important;
-    font-family: 'Inter', system-ui, sans-serif !important;
+    font-family: 'Outfit', system-ui, sans-serif !important;
   }
 
   .site-wrapper {
@@ -402,8 +407,9 @@ eleventyNavigation:
     letter-spacing: 0.1em;
     padding: 0.1rem 0.35rem;
     margin-bottom: 0.4rem;
-    background: #5c5f77 !important;
+    background: #1a1814 !important;
     color: #fff !important;
+    border-radius: 4px;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

@@ -56,12 +56,7 @@
   z-index: 1;
 }
 
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .paper {
-    border: 1px solid var(--color-gray-20);
-  }
-}
+/* Dark mode support removed — light-only site */
 
 /* Paper header */
 .paper-header {
@@ -175,11 +170,7 @@
   z-index: 1000;
 }
 
-@media (prefers-color-scheme: dark) {
-  .stacked-controls {
-    border: 1px solid var(--color-gray-20);
-  }
-}
+/* Dark mode removed — light-only site */
 
 /* Control buttons */
 .control-button {

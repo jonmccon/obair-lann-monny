@@ -27,16 +27,6 @@
 		{% if noindex or protected %}
 		<meta name="robots" content="noindex, nofollow">
 		{% endif %}
-		<script>
-		(function() {
-			try {
-				var storedTheme = localStorage.getItem('theme');
-				if (storedTheme === 'light' || storedTheme === 'dark') {
-					document.documentElement.dataset.theme = storedTheme;
-				}
-			} catch (e) {}
-		})();
-		</script>
 		{% if layout == "layouts/post.njk" and canonicalUrl %}
 		<meta property="article:published_time" content="{{ page.date | dateToRfc3339 }}">
 		<script type="application/ld+json">
@@ -60,8 +50,17 @@
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
 
-		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		<meta name="generator" content="{{ eleventy.generator }}">
+
+		{# Favicon from avatar photo #}
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+		{# Google Fonts: Outfit (all weights — used for all type) #}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 		{#-
 		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
@@ -153,7 +152,7 @@
 
 		<div class="site-wrapper site-shell">
 		<header class="site-header">
-			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/navigation/ #}
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav site-nav">
@@ -162,7 +161,6 @@
 				{%- endfor %}
 				</ul>
 			</nav>
-			<button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Theme</button>
 		</header>
 
 		<main id="skip">
@@ -241,30 +239,6 @@
 		<!-- Image lightbox JavaScript -->
 		<script>
 		document.addEventListener('DOMContentLoaded', function() {
-			const themeToggle = document.querySelector('[data-theme-toggle]');
-			const themeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-			const getActiveTheme = () => document.documentElement.dataset.theme || (themeQuery.matches ? 'dark' : 'light');
-			const updateThemeToggle = () => {
-				if (!themeToggle) return;
-				const activeTheme = getActiveTheme();
-				themeToggle.textContent = activeTheme === 'dark' ? 'Light' : 'Dark';
-				themeToggle.setAttribute('aria-pressed', String(activeTheme === 'dark'));
-				themeToggle.setAttribute('aria-label', `Switch to ${activeTheme === 'dark' ? 'light' : 'dark'} theme`);
-			};
-
-			if (themeToggle) {
-				themeToggle.addEventListener('click', function() {
-					const nextTheme = getActiveTheme() === 'dark' ? 'light' : 'dark';
-					document.documentElement.dataset.theme = nextTheme;
-					try {
-						localStorage.setItem('theme', nextTheme);
-					} catch (e) {}
-					updateThemeToggle();
-				});
-				themeQuery.addEventListener('change', updateThemeToggle);
-				updateThemeToggle();
-			}
-
 			const lightbox = document.getElementById('lightbox');
 			const lightboxImg = document.getElementById('lightbox-img');
 			const lightboxClose = document.getElementById('lightbox-close');

@@ -11,8 +11,4 @@
 	margin-top: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-	.message-box {
-		--color-message-box: var(--anp-surface0);
-	}
-}
+/* Dark mode removed — light-only site */

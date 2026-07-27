@@ -61,11 +61,7 @@
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  .mini-paper {
-    border: 1px solid var(--color-gray-20);
-  }
-}
+/* Dark mode removed — light-only site */
 
 /* Stacking effect - each paper slightly offset */
 .mini-paper-1 {
