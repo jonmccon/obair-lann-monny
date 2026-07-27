@@ -2,7 +2,7 @@
 layout: layouts/archive.njk
 permalink: /galleries/
 eleventyNavigation:
-  key: Photos
+  key: Photography
   order: 6
 ---
 {%- css %}{% include "public/css/photoswipe-gallery.css" %}{% endcss %}
@@ -23,9 +23,6 @@ eleventyNavigation:
   <section class="gallery-section" id="gallery-{{ gallery.page.fileSlug }}">
     <header class="gallery-section-header">
       <h2>{{ gallery.data.title }}</h2>
-      {% if gallery.data.description %}
-        <p class="gallery-description">{{ gallery.data.description }}</p>
-      {% endif %}
     </header>
     <div class="gallery-section-content">
       {{ gallery.templateContent | safe }}

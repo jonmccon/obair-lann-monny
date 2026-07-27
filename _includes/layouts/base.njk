@@ -33,8 +33,13 @@
 				var storedTheme = localStorage.getItem('theme');
 				if (storedTheme === 'light' || storedTheme === 'dark') {
 					document.documentElement.dataset.theme = storedTheme;
+				} else {
+					// Default to light mode
+					document.documentElement.dataset.theme = 'light';
 				}
-			} catch (e) {}
+			} catch (e) {
+				document.documentElement.dataset.theme = 'light';
+			}
 		})();
 		</script>
 		{% if layout == "layouts/post.njk" and canonicalUrl %}
@@ -60,8 +65,17 @@
 		<link rel="alternate" href="/feed/feed.xml" type="application/atom+xml" title="{{ metadata.title }}">
 		<link rel="alternate" href="/feed/feed.json" type="application/json" title="{{ metadata.title }}">
 
-		{#- Uncomment this if you’d like folks to know that you used Eleventy to build your site!  #}
 		<meta name="generator" content="{{ eleventy.generator }}">
+
+		{# Favicon from avatar photo #}
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+		{# Google Fonts: Boldonse (display/headline) + Asul (body) #}
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Asul:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 		{#-
 		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
@@ -153,7 +167,7 @@
 
 		<div class="site-wrapper site-shell">
 		<header class="site-header">
-			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/plugins/navigation/ #}
+			{#- Read more about `eleventy-navigation` at https://www.11ty.dev/docs/navigation/ #}
 			<nav>
 				<h2 class="visually-hidden">Top level navigation menu</h2>
 				<ul class="nav site-nav">
@@ -162,7 +176,7 @@
 				{%- endfor %}
 				</ul>
 			</nav>
-			<button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Theme</button>
+			<button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">Dark</button>
 		</header>
 
 		<main id="skip">

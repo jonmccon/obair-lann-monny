@@ -8,19 +8,6 @@ layout: layouts/base.njk
 <article class="post-content page-shell section-stack{% if bgColor %} bg-{{ bgColor }}{% endif %}">
   <header class="post-header page-header">
     <h1>{{ title }}</h1>
-
-    <ul class="post-metadata meta-list">
-      <li><time datetime="{{ page.date | htmlDateString }}">{{ page.date | readableDate }}</time></li>
-      {%- for tag in tags | filterTagList %}
-      {%- set tagUrl %}/tags/{{ tag | slugify }}/{% endset %}
-      <li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>{%- if not loop.last %}, {% endif %}</li>
-      {%- endfor %}
-
-      {# {%- for category in category | filterCategoryList %}
-      {%- set categoryUrl %}/category/{{ category | slugify }}/{% endset %}
-      <li><a href="{{ categoryUrl }}" class="post-category">{{ category }}</a>{%- if not loop.last %}, {% endif %}</li>
-      {%- endfor %} #}
-    </ul>
   </header>
 
   <div class="post-body rich-text">
@@ -39,21 +26,11 @@ layout: layouts/base.njk
         <a href="{{ project.url }}" class="related-project-link">
           {%- if project.data.images and project.data.images.length > 0 %}
           <div class="related-project-thumbnail">
-            {% homepageImage project.data.images[0].src, project.data.title, 320, "related-project-image" %}
+            {% homepageImage project.data.images[0].src, project.data.title, 240, "related-project-image" %}
           </div>
           {%- endif %}
           <div class="related-project-content">
             <h3 class="related-project-title">{{ project.data.title }}</h3>
-            {%- if project.data.description %}
-            <p class="related-project-description">{{ project.data.description }}</p>
-            {%- endif %}
-            {%- if project.data.tags %}
-            <ul class="related-project-tags">
-              {%- for tag in project.data.tags | filterTagList %}
-              <li class="related-project-tag">{{ tag }}</li>
-              {%- endfor %}
-            </ul>
-            {%- endif %}
           </div>
         </a>
       </article>

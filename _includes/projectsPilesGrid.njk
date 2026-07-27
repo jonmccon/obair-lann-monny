@@ -67,13 +67,6 @@
 
               <div class="pile-meta-band">
                 <span class="pile-title">{{ post.data.title }}</span>
-                <div class="pile-meta-line">
-                  <span class="meta-item"><span class="meta-label">Year</span> <span class="meta-value">{{ post.date | readableDate("yyyy") }}</span></span>
-                  <span class="meta-item"><span class="meta-label">Images</span> <span class="meta-value">{{ projectImages.length }}</span></span>
-                  <span class="meta-item"><span class="meta-label">Words</span> <span class="meta-value">{{ wordCount }}</span></span>
-                  <span class="meta-item"><span class="meta-label">Type</span> <span class="meta-value">{{ post.data.category or "project" }}</span></span>
-                  <span class="meta-item"><span class="meta-label">Tags</span> <span class="meta-value">{% if postTags.length %}{{ postTags | head(2) | join(", ") }}{% else %}none{% endif %}</span></span>
-                </div>
               </div>
             </div>
           </a>
