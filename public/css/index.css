@@ -1210,10 +1210,10 @@ img {
 	line-height: 1.2;
 }
 
-/* Projects Thumbnail Grid (/design page) */
+/* Projects Thumbnail Grid — 6-col fixed, fills rows */
 .thumb-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	grid-template-columns: repeat(6, 1fr);
 	gap: 4px;
 	margin: 0;
 	width: 100%;
@@ -1260,7 +1260,7 @@ img {
 
 @media (max-width: 768px) {
 	.thumb-grid {
-		grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+		grid-template-columns: repeat(3, 1fr);
 		gap: 2px;
 	}
 }
