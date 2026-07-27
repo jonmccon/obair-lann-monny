@@ -1,8 +1,14 @@
 /* Defaults */
 :root {
 	color-scheme: light;
-	--font-family: 'Asul', -apple-system, system-ui, sans-serif;
-	--font-family-headline: 'Stack Sans Headline', system-ui, sans-serif;
+	--font-family: 'Outfit', system-ui, sans-serif;
+	--font-family-headline: 'Outfit', system-ui, sans-serif;
+	--font-weight-body: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+	--font-weight-heavy: 800;
+	--font-weight-black: 900;
 	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
 	--homepage-top-offset: 7.25rem;
 	--homepage-top-offset-mobile: 6rem;
@@ -71,12 +77,40 @@ body {
 	padding: 0;
 	margin: 0;
 	font-family: var(--font-family);
+	font-weight: var(--font-weight-body);
+	font-size: 1rem;
+	line-height: 1.6;
 	color: var(--text-color);
 	background-color: var(--background-color);
 }
 
 html {
 	overflow-y: scroll;
+}
+
+/* Type hierarchy — all Outfit, weight/size differentiated */
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-family-headline);
+	line-height: 1.15;
+	margin-top: 0;
+}
+
+h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-black); }
+h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: var(--font-weight-bold); }
+h3 { font-size: 1.125rem; font-weight: var(--font-weight-semibold); }
+h4 { font-size: 1rem; font-weight: var(--font-weight-semibold); }
+
+.nav-item a,
+.site-header nav a {
+	font-weight: var(--font-weight-medium);
+	font-size: 0.9375rem;
+}
+
+figcaption,
+.caption {
+	font-size: 0.8125rem;
+	font-weight: var(--font-weight-body);
+	color: var(--text-color-muted);
 }
 
 body {
@@ -120,11 +154,12 @@ a[href] {
 	color: var(--text-color-link);
 }
 a[href]:visited {
-	color: var(--text-color-link-visited);
+	color: var(--text-color-link);
 }
 a[href]:hover,
 a[href]:active {
-	color: var(--text-color-link-active);
+	color: var(--text-color-link);
+	text-decoration: underline;
 }
 
 main {
@@ -364,7 +399,7 @@ header {
 	font-family: var(--font-family-headline);
 	font-size: clamp(2.4rem, 6vw, 5rem);
 	line-height: 1;
-	font-weight: 400;
+	font-weight: var(--font-weight-black);
 	text-transform: none;
 }
 
@@ -488,8 +523,9 @@ header {
 
 .home-newspaper {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 0.75rem;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 1rem;
+	width: 100%;
 }
 
 .newspaper-card {
@@ -1507,7 +1543,24 @@ img {
 	outline: none !important;
 }
 
-/* two-column blocks get vertical spacing between them */
-.post-body .two-column {
-	margin-bottom: 1.75rem;
+/* Paragraphs that contain only an image — remove double-margin */
+.post-body p:has(img) {
+	margin-bottom: 0;
+}
+
+/* two-column and three-column blocks */
+.post-body .two-column,
+.post-body .three-column {
+	margin-bottom: 2rem;
+}
+
+/* Any direct paragraph in post body gets breathing room */
+.post-body > p {
+	margin-bottom: 1rem;
+}
+
+/* Intro paragraph — narrower, extra space before images */
+.post-body > p:first-child {
+	max-width: 52ch;
+	margin-bottom: 2.5rem;
 }

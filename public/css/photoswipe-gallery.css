@@ -84,12 +84,13 @@
 }
 
 .filter-btn {
-	padding: 0.45rem 0.85rem;
+	padding: 0.4rem 0.9rem;
 	border: 1px solid var(--anp-surface0);
-	border-radius: 999px;
+	border-radius: 4px;
 	background: var(--surface-color);
 	color: var(--text-color-muted);
-	font-size: 0.875rem;
+	font-size: 0.8125rem;
+	font-weight: 500;
 	cursor: pointer;
 	text-transform: lowercase;
 	transition: background 0.15s, border-color 0.15s, color 0.15s;
