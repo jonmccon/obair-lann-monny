@@ -360,59 +360,7 @@
 	}
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-	.gallery-card {
-		background: var(--surface-color);
-	}
-
-	.gallery-card-description {
-		color: var(--anp-subtext1);
-	}
-
-	.gallery-card-date {
-		color: var(--text-color-subtle);
-	}
-
-	.gallery-description {
-		color: var(--anp-subtext1);
-	}
-
-	.gallery-tag--location {
-		background: color-mix(in srgb, var(--anp-green) 22%, var(--surface-color));
-		color: var(--anp-green);
-	}
-
-	.gallery-filters {
-		background: var(--surface-color);
-		box-shadow: 0 1px 4px var(--shadow-color-strong);
-	}
-
-	.filter-label {
-		color: var(--text-color-subtle);
-	}
-
-	.filter-btn {
-		background: var(--anp-surface0);
-		border-color: var(--anp-surface1);
-		color: var(--anp-subtext1);
-	}
-
-	.filter-btn:hover {
-		background: var(--surface-color-alt);
-		border-color: var(--text-color-muted);
-	}
-
-	.filter-btn.active {
-		background: var(--anp-text);
-		color: var(--anp-crust);
-		border-color: var(--anp-text);
-	}
-
-	.gallery-no-results {
-		color: var(--anp-overlay1);
-	}
-}
+/* Dark mode styles removed — light-only site */
 
 /* Single photo page */
 .photo-page {
@@ -439,14 +387,7 @@
 	color: var(--anp-text);
 }
 
-@media (prefers-color-scheme: dark) {
-	.photo-page-permalink {
-		color: var(--text-color-subtle);
-	}
-	.photo-page-permalink:hover {
-		color: var(--anp-text);
-	}
-}
+/* Dark mode styles removed — light-only site */
 
 .photo-page-breadcrumb {
 	font-size: 0.9rem;
@@ -531,20 +472,4 @@
 	text-decoration: underline;
 }
 
-@media (prefers-color-scheme: dark) {
-	.photo-page-breadcrumb {
-		color: var(--anp-subtext1);
-	}
-
-	.photo-page-breadcrumb a:hover {
-		color: var(--anp-text);
-	}
-
-	.photo-page-meta {
-		color: var(--anp-overlay1);
-	}
-
-	.photo-page-footer {
-		color: var(--anp-overlay1);
-	}
-}
+/* Dark mode styles removed — light-only site */
