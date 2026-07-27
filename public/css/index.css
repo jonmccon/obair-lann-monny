@@ -31,7 +31,7 @@
 	--anp-sapphire: #209fb5;
 	--anp-blue: #1e66f5;
 	--anp-lavender: #7287fd;
-	--anp-text: #4c4f69;
+	--anp-text: var(--text-color);
 	--anp-subtext1: #5c5f77;
 	--anp-subtext0: #6c6f85;
 	--anp-overlay2: #7c7f93;
@@ -526,6 +526,8 @@ header {
 	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 	gap: 1rem;
 	width: 100%;
+	padding: 0;
+	margin: 0;
 }
 
 .newspaper-card {
@@ -1211,9 +1213,10 @@ img {
 /* Projects Thumbnail Grid (/design page) */
 .thumb-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 	gap: 4px;
 	margin: 0;
+	width: 100%;
 }
 
 .thumb-grid-item {
