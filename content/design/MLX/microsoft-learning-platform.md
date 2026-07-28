@@ -3,8 +3,10 @@ title: Microsoft Learning Platform
 description: Creating a lovechild from youtube, khan academy & wikipedia
 category: Tether
 date: 2013-06-01
+thumbnail: /img/thumbnails/microsoft-learning-thumb.png
 tags: 
-    - xxxxxxxxx
+    - ux
+    - product
 images: 
 - src: "content/design/MLX/MLX-01.png"
 - src: "content/design/MLX/MLX-02.png"
