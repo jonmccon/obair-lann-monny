@@ -4,8 +4,9 @@ description: An image wrapper for sharing
 category: Stripes
 date: 2012-03-01
 thumbnail: /img/thumbnails/bakedin-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - web
+  - product
 images: 
 - src: "content/design/Bakedin/bi-01.png"
 - src: "content/design/Bakedin/bi-02.png"

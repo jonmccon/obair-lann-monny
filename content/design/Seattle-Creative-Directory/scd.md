@@ -4,8 +4,10 @@ description: Learning react for fun
 category: Directory
 date: 2021-06-01
 thumbnail: /img/thumbnails/scd-thumb.png
-tags: 
-    - second tag
+tags:
+  - web
+  - product
+  - community
 images: 
 - src: "content/design/Seattle-Creative-Directory/scd-01.png"
 - src: "content/design/Seattle-Creative-Directory/scd-02.png"

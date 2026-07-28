@@ -3,8 +3,8 @@ title: What's in the store
 description: 
 category: inprogress
 date: 2025-06-25
-tags: 
-    - xxxxxxxxx
+tags:
+  - process
 images: 
 # - src: "content/design/a-few-from-western/afew-01.png"
 ---

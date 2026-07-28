@@ -4,8 +4,10 @@ description: Open the doors & let the people
 category: AIGA
 date: 2014-05-01
 thumbnail: /img/thumbnails/seattle-studio-tours-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - web
+  - community
+  - event
 images: 
 - src: "content/design/Studio-Tours/tours-01.png"
 - src: "content/design/Studio-Tours/tours-02.png"

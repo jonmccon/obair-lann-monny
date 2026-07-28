@@ -4,8 +4,10 @@ description: Hacking twitter into a game
 category: Tether
 date: 2013-11-30
 thumbnail: /img/thumbnails/vine-wars-thumb.png
-tags: 
-    - second tag
+tags:
+  - web
+  - product
+  - illustration
 images: 
 - src: "content/design/VineWars/vw-02.png"
 - src: "content/design/VineWars/vw-03.png"

@@ -4,8 +4,10 @@ description: A compass to the caffeinated chocolate
 category: Tether
 date: 2013-06-01
 thumbnail: /img/thumbnails/awake-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - web
+  - branding
+  - illustration
 images: 
 - src: "content/design/Awake-Chocolate/awake-00.png"
 - src: "content/design/Awake-Chocolate/awake-01.png"

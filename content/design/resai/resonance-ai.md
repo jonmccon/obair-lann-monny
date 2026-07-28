@@ -5,8 +5,10 @@ category: Resonance AI
 bgColor: black
 date: 2021-08-01
 thumbnail: /img/thumbnails/resai-thumb.png
-tags: 
-    - second tag
+tags:
+  - data-visualization
+  - ai
+  - product
 images:
     - src: "./content/design/resai/res-10.png"
     - src: "./content/design/resai/res-20.png"

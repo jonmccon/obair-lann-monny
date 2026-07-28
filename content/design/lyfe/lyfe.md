@@ -6,7 +6,9 @@ date: 2014-06-01
 thumbnail: /img/thumbnails/lyfe-thumb.png
 permalink: /design/lyfe/
 tags:
-  - posts
+  - ux
+  - product
+  - mobile
 images:
   - src: "./content/design/lyfe/lyfe-01.png"
     alt: LYFE project thumbnail

@@ -3,8 +3,8 @@ title: June Updates
 description: 
 category: inprogress
 date: 2025-06-18
-tags: 
-    - xxxxxxxxx
+tags:
+  - process
 images: 
 # - src: "content/design/a-few-from-western/afew-01.png"
 ---

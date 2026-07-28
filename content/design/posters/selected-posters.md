@@ -4,8 +4,9 @@ description: I like to put myself in my work
 category: Publicity Center
 date: 2010-01-01
 thumbnail: /img/thumbnails/posters-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - print
+  - illustration
 images: 
 - src: "content/design/posters/post-01.png"
 - src: "content/design/posters/post-02.png"

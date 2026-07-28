@@ -4,8 +4,10 @@ description: Live design fights & the magic of cardboard
 category: AIGA
 date: 2012-11-15
 thumbnail: /img/thumbnails/pixels-of-fury-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - event
+  - community
+  - branding
 images: 
 - src: "content/design/PoF/pof-01.png"
 - src: "content/design/PoF/pof-02.jpeg"
