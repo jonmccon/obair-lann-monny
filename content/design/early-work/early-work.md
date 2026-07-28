@@ -30,6 +30,14 @@ images:
   alt: WWU Design Day 09 project image
 - src: "content/design/early-work/dD09-03.jpeg"
   alt: WWU Design Day 09 project image
+- src: "content/design/early-work/klipsun-01.png"
+  alt: Klipsun magazine cover
+- src: "content/design/early-work/klipsun-02.jpeg"
+  alt: Klipsun magazine spread
+- src: "content/design/early-work/dr-01.jpeg"
+  alt: WWU Dean's Report — editorial design
+- src: "content/design/early-work/dr-02.jpeg"
+  alt: WWU Dean's Report spread
 - src: "content/design/early-work/un-01.png"
   alt: Unosolo — pasta packaging
 - src: "content/design/early-work/un-02.png"
@@ -48,6 +56,10 @@ A collection of work from Western Washington University and the Pacific Northwes
 *With: Ally Creighton, Nicole Mills, Glenn Newcomer, Battershell, Riley Hoonan, Erik Simkins, Sean Morrow.*
 
 **WWU Design Day 09 (2009)** — Campus design workshops and fountain installations.
+
+**Klipsun Magazine (2010)** — Editorial design and layout for WWU's student publication on a 48-hour deadline. Even if it flies off shelves in campus records, sleep afterward. And no exacto blades after 6pm.
+
+**WWU Dean's Report (2010)** — Months of investigative journalism into the history and trends of culture at the student union building on WWU's north campus, scouring photo archives and directing additional photo shoots. Design lead in collaboration with a handful of designers and an editorial team.
 
 **Unosolo (2009)** — Packaging 101: given a gallon of dry spaghetti, figure it out. Single-serve pasta in boil-away rice paper with soy ink.
 
@@ -68,6 +80,16 @@ A collection of work from Western Washington University and the Pacific Northwes
 {% image "./dD09-01.jpeg", "WWU Design Day 09" %}
 {% image "./dD09-02.jpeg", "WWU Design Day 09 project image" %}
 {% image "./dD09-03.jpeg", "WWU Design Day 09 project image" %}
+{% image "./klipsun-01.png", "Klipsun magazine cover" %}
+{% image "./klipsun-02.jpeg", "Klipsun magazine spread" %}
+{% image "./klipsun-03.jpeg", "Klipsun magazine spread" %}
+{% image "./dr-01.jpeg", "WWU Dean's Report" %}
+{% image "./dr-02.jpeg", "WWU Dean's Report spread" %}
+{% image "./dr-03.jpeg", "WWU Dean's Report spread" %}
+{% image "./dr-04.jpeg", "WWU Dean's Report spread" %}
+{% image "./dr-05.jpeg", "WWU Dean's Report spread" %}
+{% image "./dr-06.jpeg", "WWU Dean's Report spread" %}
+{% image "./dr-07.png", "WWU Dean's Report spread" %}
 {% image "./un-01.png", "Unosolo pasta packaging" %}
 {% image "./un-02.png", "Unosolo packaging detail" %}
 {% image "./sim-01.png", "Erik Simkins Photography" %}
