@@ -1,11 +1,12 @@
 ---
 title: Klipsun magazine
-description: xxxxxxxxx
+description: Editorial design and magazine layout for WWU's student publication
 category: WWU
 date: 2010-02-01
 thumbnail: /img/thumbnails/klipsun-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - print
+  - identity
 images: 
 - src: "content/design/klipsun/klipsun-01.png"
 - src: "content/design/klipsun/klipsun-02.jpeg"

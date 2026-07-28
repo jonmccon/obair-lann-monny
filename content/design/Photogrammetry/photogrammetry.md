@@ -5,9 +5,10 @@ category: Plot Quickens
 date: 2024-06-01
 thumbnail: /img/thumbnails/photogrammetry-thumb.jpg
 featured: true
-tags: 
-  - posts
-  - featured
+tags:
+  - generative
+  - print
+  - photography
 images: 
 - src: "content/design/Photogrammetry/plot-30.png"
 - src: "content/design/Photogrammetry/plot-110.png"

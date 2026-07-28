@@ -4,8 +4,10 @@ description: Graduating showcase in the Tether Gallery
 category: WWU
 date: 2010-06-01
 thumbnail: /img/thumbnails/a-few-from-western-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - community
+  - event
+  - branding
 images: 
 - src: "content/design/a-few-from-western/afew-01.png"
 - src: "content/design/a-few-from-western/afew-02.png"

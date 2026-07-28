@@ -4,8 +4,10 @@ description: Apparently the best shows aren't photographed
 category: Decibel
 date: 2013-08-01
 thumbnail: /img/thumbnails/decibel-festival-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - print
+  - event
+  - community
 images: 
 - src: "content/design/Decibel-Festival/db-04.png"
 - src: "content/design/Decibel-Festival/db-05.png"

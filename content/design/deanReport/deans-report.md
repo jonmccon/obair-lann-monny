@@ -4,8 +4,9 @@ description: Never skimp on details - Dean of Student Life
 category: Publicity Center
 date: 2010-03-01
 thumbnail: /img/thumbnails/deans-report-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - print
+  - photography
 images: 
 - src: "content/design/deanReport/dr-01.jpeg"
 - src: "content/design/deanReport/dr-02.jpeg"

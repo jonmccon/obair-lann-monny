@@ -5,8 +5,10 @@ category: Google
 bgColor: white
 date: 2018-06-01
 thumbnail: /img/thumbnails/google-meet-thumb.jpg
-tags: 
-    - xxxxxxxxx
+tags:
+  - ux
+  - product
+  - mobile
 images: 
 - src: "content/design/Google-Meet/goog-01.png"
 - src: "content/design/Google-Meet/goog-02.png"

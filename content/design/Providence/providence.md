@@ -4,8 +4,10 @@ description: Videochat in the ER
 category: Providence
 date: 2018-05-01
 thumbnail: /img/thumbnails/providence-thumb.png
-tags: 
-    - second tag
+tags:
+  - ux
+  - product
+  - healthcare
 images: 
 - src: "content/design/Providence/prov-01.png"
 - src: "content/design/Providence/prov-02.png"

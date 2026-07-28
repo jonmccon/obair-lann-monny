@@ -4,8 +4,10 @@ description: Dwell on design with designboom
 category: Designboom
 date: 2011-08-01
 thumbnail: /img/thumbnails/yakitate-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - identity
+  - branding
+  - print
 images: 
 - src: "content/design/Yakitate/yaki-01.jpeg"
 - src: "content/design/Yakitate/yaki-02.jpeg"

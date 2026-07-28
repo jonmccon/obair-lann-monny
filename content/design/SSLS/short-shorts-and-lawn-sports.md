@@ -4,8 +4,10 @@ description: Art students with cabin fever
 category: WWU
 date: 2010-05-01
 thumbnail: /img/thumbnails/ssls-thumb.png
-tags: 
-    - xxxxxxxxx
+tags:
+  - print
+  - illustration
+  - community
 images: 
 - src: "content/design/SSLS/ssls-01.png"
 - src: "content/design/SSLS/ssls-02.png"

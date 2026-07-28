@@ -7,8 +7,9 @@ date: 2021-01-01
 thumbnail: /img/thumbnails/lumedic-thumb.png
 featured: true
 tags:
-  - posts
-  - featured
+  - ux
+  - product
+  - healthcare
 images: 
 - src: "./content/design/Lumedic/lum-10.png"
 - src: "./content/design/Lumedic/lum-80.png"

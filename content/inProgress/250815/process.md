@@ -3,8 +3,8 @@ title: recent lines
 description: 
 category: inprogress
 date: 2025-08-15
-tags: 
-    - xxxxxxxxx
+tags:
+  - process
 images: 
 # - src: "content/design/a-few-from-western/afew-01.png"
 ---
