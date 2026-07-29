@@ -50,6 +50,11 @@ function parseFrontmatterGallerySlug(content) {
  *   deepLinkUrl    — URL that opens the parent gallery page with this photo open in preview
  */
 module.exports = function () {
+	// Skip galleries in dev mode if requested
+	if (process.env.SKIP_GALLERIES) {
+		return [];
+	}
+
 	const galleriesDir = path.join(__dirname, "..", "content", "galleries");
 	const results = [];
 

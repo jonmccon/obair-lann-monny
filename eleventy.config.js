@@ -271,7 +271,7 @@ module.exports = function(eleventyConfig) {
 			let isGif = src.toLowerCase().endsWith(".gif");
 			let imageOptions = {
 				widths: [1200],
-				formats: isGif ? ["gif"] : ["jpeg"],
+				formats: isGif ? ["gif"] : ["auto", "webp"],
 				outputDir: path.join(eleventyConfig.dir.output, "img"),
 				urlPath: "/img/"
 			};
@@ -281,7 +281,7 @@ module.exports = function(eleventyConfig) {
 
 			let metadata = await Image(input, imageOptions);
 			
-			let format = isGif ? "gif" : "jpeg";
+			let format = isGif ? "gif" : "webp";
 			return metadata[format][0].url;
 		} catch (error) {
 			console.warn(`Hero image processing failed for ${src}:`, error.message);
@@ -303,7 +303,7 @@ module.exports = function(eleventyConfig) {
 			let isGif = src.toLowerCase().endsWith(".gif");
 			let metadata = await Image(input, {
 				widths: [width],
-				formats: isGif ? ["gif"] : ["jpeg"],
+				formats: isGif ? ["gif"] : ["auto", "webp"],
 				outputDir: path.join(eleventyConfig.dir.output, "img"),
 				urlPath: "/img/",
 				...(isGif ? { sharpOptions: { animated: true } } : {})
@@ -366,12 +366,12 @@ module.exports = function(eleventyConfig) {
 		// First pass: generate thumbnail only to detect orientation
 		const thumbMetadata = await Image(input, {
 			widths: [GALLERY_IMAGE_WIDTH],
-			formats: ["jpeg"],
+			formats: ["auto", "webp"],
 			urlPath: "/img/",
 			outputDir: "./_site/img/"
 		});
 
-		const thumbMeta = thumbMetadata.jpeg[0];
+		const thumbMeta = thumbMetadata.webp[0];
 
 		// Choose lightbox width based on orientation
 		const isPortrait = thumbMeta.height > thumbMeta.width;
@@ -380,12 +380,12 @@ module.exports = function(eleventyConfig) {
 		// Second pass: generate full-size image at the appropriate width
 		const fullMetadata = await Image(input, {
 			widths: [lightboxImageWidth],
-			formats: ["jpeg"],
+			formats: ["auto", "webp"],
 			urlPath: "/img/",
 			outputDir: "./_site/img/"
 		});
 
-		const fullMeta = fullMetadata.jpeg[0];
+		const fullMeta = fullMetadata.webp[0];
 
 		// href points to the standalone photo page so the status bar shows a meaningful gallery URL.
 		// data-pswp-src supplies the full-resolution image URL for the PhotoSwipe lightbox.
@@ -398,7 +398,11 @@ module.exports = function(eleventyConfig) {
 	});
 
 	eleventyConfig.addCollection("featuredProjects", function(collectionApi) {
-		return collectionApi.getFilteredByTag("featured");
+		return collectionApi.getAll().filter(item => item.data.featured === true);
+	});
+
+	eleventyConfig.addCollection("semiFeaturedProjects", function(collectionApi) {
+		return collectionApi.getAll().filter(item => item.data.semiFeatured === true);
 	});
 
 	eleventyConfig.addCollection("process", function(collectionApi) {
@@ -411,6 +415,10 @@ module.exports = function(eleventyConfig) {
 
 	// Photo galleries collection
 	eleventyConfig.addCollection("galleries", function(collectionApi) {
+		// Skip galleries in dev mode if SKIP_GALLERIES is set
+		if (process.env.SKIP_GALLERIES) {
+			return [];
+		}
 		return collectionApi.getFilteredByTag("galleries");
 	});
 
@@ -425,7 +433,7 @@ module.exports = function(eleventyConfig) {
 			  let isGif = image.src.toLowerCase().endsWith(".gif");
 			  let imageOptions = {
 				widths: isGif ? [null] : [480, null],
-				formats: isGif ? ["gif"] : ["jpeg"], // Temporarily reduce to just JPEG for faster builds
+			formats: isGif ? ["gif"] : ["auto", "webp"],
 				urlPath: "/img/",
 				outputDir: "./_site/img/"
 			  };
@@ -435,7 +443,7 @@ module.exports = function(eleventyConfig) {
 
 			  let metadata = await Image(image.src, imageOptions);
 	
-			  let format = isGif ? "gif" : "jpeg";
+		  let format = isGif ? "gif" : "webp";
 			  let imageEntries = metadata[format];
 			  let imageMeta = imageEntries[imageEntries.length - 1];
 			  let pileMeta = imageEntries[0];
@@ -476,6 +484,13 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addShortcode("currentBuildDate", () => {
 		return (new Date()).toISOString();
 	})
+
+	// Skip galleries in dev mode if requested
+	if (process.env.SKIP_GALLERIES) {
+		eleventyConfig.ignores.add("content/galleries/**");
+		eleventyConfig.ignores.add("content/gallery-photo.njk");
+		console.log("[11ty] Skipping photo galleries for faster dev builds.");
+	}
 
 	// Features to make your build faster (when you need them)
 

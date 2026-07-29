@@ -33,7 +33,7 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addAsyncShortcode("image", async function imageShortcode(src, alt, widths, sizes) {
 		// Full list of formats here: https://www.11ty.dev/docs/plugins/image/#output-formats
 		// Warning: Avif can be resource-intensive so take care!
-		let formats = ["jpeg"]; // Temporarily reduce to just JPEG for faster builds
+		let formats = ["auto", "webp"]; // Use "auto" to preserve PNG transparency and JPEG compression, plus WebP for better compression
 		let input;
 		if(isFullUrl(src)) {
 			input = src;

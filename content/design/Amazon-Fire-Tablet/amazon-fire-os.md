@@ -4,6 +4,7 @@ description: Translating material features for fire tablet
 category: Amazon
 date: 2019-05-01
 thumbnail: /img/thumbnails/amazon-fire-os-thumb.png
+semiFeatured: true
 tags:
   - ux
   - product

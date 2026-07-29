@@ -72,7 +72,8 @@ eleventyNavigation:
   flex-wrap: wrap;
   gap: 0.5rem 1.25rem;
   margin-top: 0.4rem;
-  font-size: 0.82rem;
+  font-size: 0.8125rem;
+  align-items: baseline;
 }
 
 .resume-contact a {
@@ -86,14 +87,7 @@ eleventyNavigation:
   text-decoration: underline;
 }
 
-/* ── Clipboard button ───────────────────────────────── */
-.resume-clipboard-bar {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-}
-
+/* ── Clipboard buttons (in contact bar) ─────────────── */
 .btn-clipboard {
   display: inline-flex;
   align-items: center;
@@ -108,6 +102,11 @@ eleventyNavigation:
   color: var(--text-color-muted);
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s, background 0.15s;
+  text-decoration: none;
+}
+
+.btn-clipboard:first-of-type {
+  margin-left: auto;
 }
 
 .btn-clipboard:hover {
@@ -138,7 +137,7 @@ eleventyNavigation:
 }
 
 .resume-section-label {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -172,7 +171,7 @@ eleventyNavigation:
 }
 
 .resume-entry-title {
-  font-size: 0.82rem;
+  font-size: 0.8125rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   text-transform: uppercase;
@@ -181,14 +180,14 @@ eleventyNavigation:
 }
 
 .resume-entry-dates {
-  font-size: 0.78rem;
+  font-size: 0.8125rem;
   color: var(--text-color-subtle);
   white-space: nowrap;
   flex-shrink: 0;
 }
 
 .resume-entry-org {
-  font-size: 0.82rem;
+  font-size: 0.8125rem;
   font-weight: 600;
   color: var(--text-color);
   margin: 0 0 0.35rem;
@@ -202,14 +201,14 @@ eleventyNavigation:
 }
 
 .resume-entry-focus {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: var(--text-color-subtle);
   margin-top: 0.35rem;
 }
 
 /* ── Summary ────────────────────────────────────────── */
 .resume-summary p {
-  font-size: 0.82rem;
+  font-size: 0.8125rem;
   color: var(--text-color-muted);
   line-height: 1.7;
   margin: 0 0 0.65rem;
@@ -221,7 +220,7 @@ eleventyNavigation:
 }
 
 .resume-skills-group-name {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -275,7 +274,7 @@ eleventyNavigation:
 }
 
 .resume-edu-year {
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   color: var(--text-color-subtle);
 }
 
@@ -316,7 +315,7 @@ eleventyNavigation:
 
   /* Hide site chrome */
   .site-header,
-  .resume-clipboard-bar,
+  .btn-clipboard,
   footer,
   .lightbox-overlay {
     display: none !important;
@@ -502,18 +501,6 @@ eleventyNavigation:
 
 <div class="resume-shell">
 
-  {# ── Clipboard bar ── #}
-  <div class="resume-clipboard-bar">
-    <button class="btn-clipboard" id="resume-copy-btn" aria-label="Copy resume as Markdown to clipboard">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="4" width="9" height="11" rx="1.5" fill="var(--background-color)" stroke="currentColor" stroke-width="1.5"/></svg>
-      Copy as Markdown
-    </button>
-    <a class="btn-clipboard" href="/jonny-mcconnell-resume.pdf" download="jonny-mcconnell-resume.pdf" aria-label="Download PDF resume">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="11" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
-      Download PDF
-    </a>
-  </div>
-
   {# ── Header ── #}
   <header class="resume-header">
     <div class="resume-portrait-wrap">
@@ -527,6 +514,14 @@ eleventyNavigation:
         <a href="https://www.jonmccon.com" target="_blank" rel="noopener">jonmccon.com</a>
         <a href="https://github.com/jonmccon" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/jonmccon" target="_blank" rel="noopener">LinkedIn</a>
+        <button class="btn-clipboard" id="resume-copy-btn" aria-label="Copy resume as Markdown to clipboard">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="4" width="9" height="11" rx="1.5" fill="var(--background-color)" stroke="currentColor" stroke-width="1.5"/></svg>
+          Copy as Markdown
+        </button>
+        <a class="btn-clipboard" href="/jonny-mcconnell-resume.pdf" download="jonny-mcconnell-resume.pdf" aria-label="Download PDF resume">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="11" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+          Download PDF
+        </a>
       </div>
     </div>
   </header>

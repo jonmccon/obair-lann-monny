@@ -4,6 +4,7 @@ description: Creating a lovechild from youtube, khan academy & wikipedia
 category: Tether
 date: 2013-06-01
 thumbnail: /img/thumbnails/microsoft-learning-thumb.png
+semiFeatured: true
 tags: 
     - ux
     - product

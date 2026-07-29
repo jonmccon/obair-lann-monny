@@ -11,6 +11,9 @@ layout: layouts/base.njk
     {% image profile.portraitUrl, "Jonny McConnell portrait", [172], "172px" %}
   </div>
   {% if introductionHeading %}<p class="homepage-headline">{{ introductionHeading }}</p>{% endif %}
+</section>
+
+<section class="homepage-main-header" aria-label="Homepage header">
   {% if introductionText %}<p class="homepage-about">{{ introductionText }}</p>{% endif %}
 </section>
 
@@ -20,18 +23,22 @@ layout: layouts/base.njk
   <div class="home-featured-projects" aria-label="Featured projects">
     {% for post in collections.featuredProjects | reverse %}
     {% if loop.index <= featuredProjectThumbnailLimit %}
-    {% set featuredImage = post.data.images | first %}
     <article class="home-featured-project-card">
-      <a class="home-featured-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}"></a>
-      {% if featuredImage %}
-      <div class="home-featured-image-frame">
-        {% homepageImage featuredImage.src, featuredImage.alt | default(post.data.title), 640, "home-featured-image" %}
-      </div>
-      {% endif %}
-      <div class="home-featured-project-copy">
-        <h2>{{ post.data.title }}</h2>
-        {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
-      </div>
+      <a class="home-featured-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
+        <div class="home-featured-pile-container">
+          <div class="home-featured-pile-images" data-image-count="{{ post.data.images.length }}">
+            {% for img in post.data.images | head(5) %}
+              <div class="home-featured-pile-image" data-layer-index="{{ loop.index0 }}" style="--z-index: {{ 10 - loop.index0 }};">
+                {% homepageImage img.src, img.alt | default(post.data.title), 640, "home-featured-pile-img" %}
+              </div>
+            {% endfor %}
+          </div>
+          <div class="home-featured-pile-meta">
+            <span class="home-featured-pile-title">{{ post.data.title }}</span>
+            {% if post.data.description %}<span class="home-featured-pile-description">{{ post.data.description }}</span>{% endif %}
+          </div>
+        </div>
+      </a>
     </article>
     {% endif %}
     {% endfor %}
@@ -59,9 +66,143 @@ layout: layouts/base.njk
 </section>
 {% endif %}
 
-<section class="home-newspaper" aria-label="Homepage project thumbnails">
-  {% include "projectsThumbGrid.njk" %}
+{% if collections.semiFeaturedProjects.length > 0 %}
+<section class="home-semi-featured-grid" aria-label="Selected work">
+  <div class="thumb-grid">
+    {% for post in collections.semiFeaturedProjects | reverse %}
+      {% if loop.index <= 6 %}
+        {% if post.data.thumbnail %}
+          <a href="{{ post.url }}" class="thumb-grid-item">
+            <img src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async" width="300" height="300">
+            <span class="thumb-grid-title">{{ post.data.title }}</span>
+          </a>
+        {% else %}
+          {# Fallback: use first processed image from collections.images #}
+          {% set thumbnail = "" %}
+          {% for image in collections.images %}
+            {% if image.url == post.url and thumbnail == "" %}
+              {% set thumbnail = image.src %}
+            {% endif %}
+          {% endfor %}
+          {% if thumbnail %}
+            <a href="{{ post.url }}" class="thumb-grid-item">
+              <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async">
+              <span class="thumb-grid-title">{{ post.data.title }}</span>
+            </a>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  
+  <div class="home-see-all-link">
+    <a href="/design/">→ See all work</a>
+  </div>
 </section>
+{% endif %}
+
+<script>
+// Featured piles randomization
+(function() {
+  'use strict';
+  
+  const featuredPileGroups = document.querySelectorAll('.home-featured-pile-images');
+  
+  const IMAGE_COUNT_SEED_MULTIPLIER = 97;
+  const HASH_MULTIPLIER = 10000;
+  const WIDTH_WEIGHT = 0.13;
+  const HEIGHT_WEIGHT = 0.17;
+  const LAYER_SEED_MULTIPLIER = 23;
+  const ASPECT_SEED_MULTIPLIER = 11;
+  const ROTATION_MIN = -14;
+  const ROTATION_SPREAD = 28;
+  const SCALE_MIN = 0.75;
+  const SCALE_SPREAD = 0.35;
+  const WIDTH_MIN = 34;
+  const WIDTH_SPREAD = 28;
+  const HEIGHT_MIN = 32;
+  const HEIGHT_SPREAD = 26;
+  const MOBILE_SIZE_BOOST_PCT = 38;
+  const MOBILE_WIDTH_CAP = 118;
+  const MOBILE_HEIGHT_CAP = 108;
+  const OFFSET_X_MIN = -22;
+  const OFFSET_X_SPREAD = 44;
+  const OFFSET_Y_MIN = -16;
+  const OFFSET_Y_SPREAD = 32;
+
+  function deterministicHash(seed) {
+    const x = Math.sin(seed) * HASH_MULTIPLIER;
+    return x - Math.floor(x);
+  }
+
+  function getImageDimensions(img) {
+    const actualImg = img.tagName === 'PICTURE' ? img.querySelector('img') : img;
+    const width = parseInt(actualImg?.getAttribute('width'), 10) || actualImg?.naturalWidth || 1;
+    const height = parseInt(actualImg?.getAttribute('height'), 10) || actualImg?.naturalHeight || 1;
+    return { width, height };
+  }
+
+  function updateFeaturedPileTransforms(group) {
+    const frames = Array.from(group.querySelectorAll('.home-featured-pile-image'));
+    if (!frames.length) return;
+
+    const imageCount = Number(group.dataset.imageCount || frames.length);
+    const visibleCount = Math.max(1, Math.min(frames.length, 5));
+    const sparseCountBoost = Math.max(0, 4 - visibleCount) * 8;
+    
+    let sizeSeed = imageCount * IMAGE_COUNT_SEED_MULTIPLIER;
+    frames.forEach((frame, idx) => {
+      const imgElement = frame.querySelector('img, picture');
+      const dimensions = getImageDimensions(imgElement);
+      sizeSeed += ((dimensions.width * WIDTH_WEIGHT + dimensions.height * HEIGHT_WEIGHT) * (idx + 1));
+    });
+
+    frames.forEach((frame, idx) => {
+      const imgElement = frame.querySelector('img, picture');
+      const dimensions = getImageDimensions(imgElement);
+      const aspectSeed = dimensions.width / dimensions.height;
+      const base = sizeSeed + (idx + 1) * LAYER_SEED_MULTIPLIER + aspectSeed * ASPECT_SEED_MULTIPLIER;
+      const fanProgress = visibleCount > 1 ? (idx / (visibleCount - 1)) : 0.5;
+      const fanCentering = 20 + (fanProgress * 60);
+      const jitterX = -9 + deterministicHash(base + 29) * 18;
+      const jitterY = -7 + deterministicHash(base + 31) * 14;
+
+      const rotation = ROTATION_MIN + deterministicHash(base) * ROTATION_SPREAD;
+      const scale = SCALE_MIN + deterministicHash(base + 3) * SCALE_SPREAD;
+      const width = WIDTH_MIN + sparseCountBoost + deterministicHash(base + 5) * WIDTH_SPREAD;
+      const height = HEIGHT_MIN + (sparseCountBoost * 0.85) + deterministicHash(base + 13) * HEIGHT_SPREAD;
+      const posX = fanCentering + jitterX;
+      const posY = (32 + deterministicHash(base + 19) * 28) + jitterY;
+      const offsetX = OFFSET_X_MIN + deterministicHash(base + 7) * OFFSET_X_SPREAD;
+      const offsetY = OFFSET_Y_MIN + deterministicHash(base + 11) * OFFSET_Y_SPREAD;
+
+      frame.style.setProperty('--rotation', rotation.toFixed(2) + 'deg');
+      frame.style.setProperty('--scale', scale.toFixed(3));
+      frame.style.setProperty('--w', width.toFixed(1) + '%');
+      frame.style.setProperty('--h', height.toFixed(1) + '%');
+      frame.style.setProperty('--w-mobile', Math.min(MOBILE_WIDTH_CAP, width + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
+      frame.style.setProperty('--h-mobile', Math.min(MOBILE_HEIGHT_CAP, height + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
+      frame.style.setProperty('--pos-x', posX.toFixed(1) + '%');
+      frame.style.setProperty('--pos-y', posY.toFixed(1) + '%');
+      frame.style.setProperty('--offset-x', offsetX.toFixed(1) + 'px');
+      frame.style.setProperty('--offset-y', offsetY.toFixed(1) + 'px');
+    });
+  }
+
+  // Initialize all featured piles
+  featuredPileGroups.forEach(updateFeaturedPileTransforms);
+
+  // Re-run on images loaded
+  document.querySelectorAll('.home-featured-pile-image img').forEach(img => {
+    if (img.complete) return;
+    img.addEventListener('load', () => {
+      const group = img.closest('.home-featured-pile-images');
+      if (group) updateFeaturedPileTransforms(group);
+    });
+  });
+})();
+</script>
+
 {% endif %}
 
 {{ content | safe }}
