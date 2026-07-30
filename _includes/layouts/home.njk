@@ -10,12 +10,15 @@ layout: layouts/base.njk
   <div class="homepage-main-avatar">
     {% image profile.portraitUrl, "Jonny McConnell portrait", [172], "172px" %}
   </div>
-  {% if introductionHeading %}<p class="homepage-headline">{{ introductionHeading }}</p>{% endif %}
 </section>
 
 <section class="homepage-main-header" aria-label="Homepage header">
-  {% if introductionText %}<p class="homepage-about">{{ introductionText }}</p>{% endif %}
+
+  {% if introductionHeading %}<p class="homepage-headline">{{ introductionHeading }}</p>{% endif %}
 </section>
+
+  {% if introductionText %}<p class="homepage-about">{{ introductionText }}</p>{% endif %}
+
 
 {% if homeOptions.showFeaturedProjectThumbnails | default(true) or homeOptions.featuredTextLinks or homeOptions.supportingParagraphs %}
 <section class="home-featured-layout" aria-label="Homepage featured content">

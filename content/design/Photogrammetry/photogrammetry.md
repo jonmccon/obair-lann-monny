@@ -4,7 +4,6 @@ description: Photoshopping in three dimensions
 category: Plot Quickens
 date: 2024-06-01
 thumbnail: /img/thumbnails/photogrammetry-thumb.jpg
-featured: true
 tags:
   - generative
   - print
