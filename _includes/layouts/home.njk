@@ -5,69 +5,106 @@ layout: layouts/base.njk
 {% set homeOptions = home | default({}) %}
 {% set introductionHeading = homeOptions.introductionHeading | default(profile.headline) %}
 {% set introductionText = homeOptions.introductionText | default(profile.aboutBio) %}
-{% set featuredProjectThumbnailLimit = homeOptions.featuredProjectThumbnailLimit | default(2) %}
-<section class="homepage-main-header" aria-label="Homepage header">
-  <div class="homepage-main-avatar">
-    {% image profile.portraitUrl, "Jonny McConnell portrait", [172], "172px" %}
-  </div>
-</section>
+{% set featuredProjectThumbnailLimit = homeOptions.featuredProjectThumbnailLimit | default(10) %}
+{% set homeContactLinks = homeOptions.contactLinks | default([
+  { title: "jonmccon@gmail.com", url: "https://mail.google.com/mail/?view=cm&fs=1&to=jonmccon@gmail.com", icon: "mail", external: true },
+  { title: "GitHub", url: "https://github.com/jonmccon", icon: "github" },
+  { title: "LinkedIn", url: "https://www.linkedin.com/in/jonmccon", icon: "linkedin" }
+]) %}
 
-<section class="homepage-main-header" aria-label="Homepage header">
+<section class="homepage-axis-hero" aria-label="Homepage hero">
+  <div class="home-axis-stage" data-axis-stage>
+    <div class="home-axis-grid" aria-hidden="true">
+      <span class="home-axis-line home-axis-line-x"></span>
+      <span class="home-axis-line home-axis-line-y"></span>
+      <span class="home-axis-line home-axis-line-z"></span>
+      <span class="home-axis-origin-point"></span>
+      <span class="home-axis-label home-axis-label-x">technology</span>
+      <span class="home-axis-label home-axis-label-y">human behavior</span>
+      <span class="home-axis-label home-axis-label-z">product strategy</span>
+    </div>
 
-  {% if introductionHeading %}<p class="homepage-headline">{{ introductionHeading }}</p>{% endif %}
-</section>
+    <div class="home-center-lockup">
+      {% if introductionHeading %}<h1 class="homepage-headline-axis">{{ introductionHeading }}</h1>{% endif %}
+      <div class="homepage-main-avatar homepage-main-avatar-overlay">
+        {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
+      </div>
+    </div>
 
-  {% if introductionText %}<p class="homepage-about">{{ introductionText }}</p>{% endif %}
-
-
-{% if homeOptions.showFeaturedProjectThumbnails | default(true) or homeOptions.featuredTextLinks or homeOptions.supportingParagraphs %}
-<section class="home-featured-layout" aria-label="Homepage featured content">
-  {% if homeOptions.showFeaturedProjectThumbnails | default(true) %}
-  <div class="home-featured-projects" aria-label="Featured projects">
     {% for post in collections.featuredProjects | reverse %}
-    {% if loop.index <= featuredProjectThumbnailLimit %}
-    <article class="home-featured-project-card">
-      <a class="home-featured-card-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
-        <div class="home-featured-pile-container">
-          <div class="home-featured-pile-images" data-image-count="{{ post.data.images.length }}">
-            {% for img in post.data.images | head(5) %}
-              <div class="home-featured-pile-image" data-layer-index="{{ loop.index0 }}" style="--z-index: {{ 10 - loop.index0 }};">
-                {% homepageImage img.src, img.alt | default(post.data.title), 640, "home-featured-pile-img" %}
-              </div>
-            {% endfor %}
+    {% if loop.index <= featuredProjectThumbnailLimit and post.data.images and post.data.images.length %}
+    <article class="home-axis-project" data-axis-project data-project-index="{{ loop.index0 }}" data-project-title="{{ post.data.title | slugify }}" data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}">
+      <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
+        <div class="home-axis-pile" data-image-count="{{ post.data.images.length }}">
+          {% for img in post.data.images | head(4) %}
+          <div class="home-axis-pile-image" data-layer-index="{{ loop.index0 }}" style="--z-index: {{ 10 - loop.index0 }};">
+            {% homepageImage img.src, img.alt | default(post.data.title), 360, "home-axis-pile-img" %}
           </div>
-          <div class="home-featured-pile-meta">
-            <span class="home-featured-pile-title">{{ post.data.title }}</span>
-            {% if post.data.description %}<span class="home-featured-pile-description">{{ post.data.description }}</span>{% endif %}
-          </div>
+          {% endfor %}
         </div>
+        <span class="home-axis-project-title">{{ post.data.title }}</span>
       </a>
     </article>
     {% endif %}
     {% endfor %}
+    <div class="home-see-all-link">
+      <a href="/design/">
+        <span>See all work</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
-  {% endif %}
+</section>
 
-  {% if homeOptions.featuredTextLinks %}
-  <div class="home-featured-text-links" aria-label="Featured links">
-    {% for link in homeOptions.featuredTextLinks %}
-    <a class="home-featured-text-link" href="{{ link.url }}">
+<section class="home-supporting-content" aria-label="Homepage supporting content">
+  {% if introductionText %}
+  <p class="homepage-about">{{ introductionText }}</p>
+  {% endif %}
+  <section class="home-supporting-media" aria-label="Podcast appearances and tools">
+    <div class="home-supporting-media-grid">
+      <article class="home-supporting-media-card">
+        <h2 class="home-supporting-media-title">Podcasts</h2>
+        <p class="home-supporting-media-text">Recent conversations on design systems, product strategy, and building thoughtful tools.</p>
+        <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/9fc38fe1-df84-4a61-8348-b4a888606182?dark=false" title="Simplecast podcast player 1"></iframe>
+        <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/a8c63034-9b6c-4d56-b3ed-e440f6a3e031?dark=false" title="Simplecast podcast player 2"></iframe>
+      </article>
+      <article class="home-supporting-feature" aria-label="Featured tool">
+        <div class="home-supporting-feature-image" aria-hidden="true">
+          <span class="home-supporting-feature-image-mark">TB</span>
+        </div>
+        <div class="home-supporting-feature-copy">
+          <h2 class="home-supporting-media-title">Featured Tool</h2>
+          <h3 class="home-supporting-feature-heading">Obsidian Time Blocks Plugin</h3>
+          <p class="home-supporting-feature-text">A lightweight bookmark for planning focused work in Obsidian with a simple time-blocking workflow.</p>
+          <a class="home-supporting-link" href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">Open plugin page</a>
+        </div>
+      </article>
+    </div>
+  </section>
+  <div class="home-supporting-links home-supporting-links-footer" aria-label="Supporting links">
+    {% for link in homeContactLinks %}
+    <a class="home-supporting-link home-supporting-link-footer" href="{{ link.url }}"{% if link.external %} target="_blank" rel="noreferrer"{% endif %}>
+      <span class="home-supporting-link-icon" aria-hidden="true">
+        {% if link.icon == "mail" %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5H3.75z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 7.5 7.5 6 7.5-6" />
+        </svg>
+        {% elif link.icon == "github" %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 .5C5.65.5.5 5.8.5 12.35c0 5.24 3.3 9.68 7.88 11.25.57.11.78-.25.78-.56 0-.28-.01-1.2-.02-2.18-3.2.71-3.88-1.4-3.88-1.4-.52-1.37-1.28-1.74-1.28-1.74-1.05-.74.08-.73.08-.73 1.16.08 1.77 1.23 1.77 1.23 1.03 1.82 2.7 1.29 3.36.99.1-.77.4-1.29.72-1.59-2.56-.3-5.26-1.32-5.26-5.9 0-1.31.46-2.37 1.22-3.2-.12-.31-.53-1.56.12-3.25 0 0 1-.33 3.3 1.22a11.2 11.2 0 0 1 6 0c2.29-1.55 3.29-1.22 3.29-1.22.66 1.69.25 2.94.12 3.25.76.83 1.22 1.89 1.22 3.2 0 4.59-2.7 5.6-5.28 5.9.42.37.79 1.08.79 2.19 0 1.58-.01 2.85-.01 3.24 0 .31.2.68.79.56A11.88 11.88 0 0 0 23.5 12.35C23.5 5.8 18.35.5 12 .5Z" />
+        </svg>
+        {% elif link.icon == "linkedin" %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M4.98 3.5a1.73 1.73 0 1 1 0 3.46 1.73 1.73 0 0 1 0-3.46ZM3.5 8.25h2.96V20.5H3.5V8.25Zm5.31 0h2.84v1.67h.04c.4-.75 1.36-1.94 3.15-1.94 3.37 0 3.99 2.28 3.99 5.24v7.28h-2.96v-6.45c0-1.54-.03-3.52-2.08-3.52-2.08 0-2.4 1.67-2.4 3.4v6.57H8.81V8.25Z" />
+        </svg>
+        {% endif %}
+      </span>
       <span>{{ link.title }}</span>
-      {% if link.description %}<small>{{ link.description }}</small>{% endif %}
     </a>
     {% endfor %}
   </div>
-  {% endif %}
-
-  {% if homeOptions.supportingParagraphs %}
-  <div class="home-supporting-copy">
-    {% for paragraph in homeOptions.supportingParagraphs %}
-    <p>{{ paragraph }}</p>
-    {% endfor %}
-  </div>
-  {% endif %}
 </section>
-{% endif %}
 
 {% if collections.semiFeaturedProjects.length > 0 %}
 <section class="home-semi-featured-grid" aria-label="Selected work">
@@ -98,111 +135,212 @@ layout: layouts/base.njk
     {% endfor %}
   </div>
   
-  <div class="home-see-all-link">
-    <a href="/design/">→ See all work</a>
-  </div>
+
 </section>
 {% endif %}
 
 <script>
-// Featured piles randomization
 (function() {
   'use strict';
-  
-  const featuredPileGroups = document.querySelectorAll('.home-featured-pile-images');
-  
-  const IMAGE_COUNT_SEED_MULTIPLIER = 97;
-  const HASH_MULTIPLIER = 10000;
-  const WIDTH_WEIGHT = 0.13;
-  const HEIGHT_WEIGHT = 0.17;
-  const LAYER_SEED_MULTIPLIER = 23;
-  const ASPECT_SEED_MULTIPLIER = 11;
-  const ROTATION_MIN = -14;
-  const ROTATION_SPREAD = 28;
-  const SCALE_MIN = 0.75;
-  const SCALE_SPREAD = 0.35;
-  const WIDTH_MIN = 34;
-  const WIDTH_SPREAD = 28;
-  const HEIGHT_MIN = 32;
-  const HEIGHT_SPREAD = 26;
-  const MOBILE_SIZE_BOOST_PCT = 38;
-  const MOBILE_WIDTH_CAP = 118;
-  const MOBILE_HEIGHT_CAP = 108;
-  const OFFSET_X_MIN = -22;
-  const OFFSET_X_SPREAD = 44;
-  const OFFSET_Y_MIN = -16;
-  const OFFSET_Y_SPREAD = 32;
 
-  function deterministicHash(seed) {
+  const stage = document.querySelector('[data-axis-stage]');
+  const projects = Array.from(document.querySelectorAll('[data-axis-project]'));
+
+  if (!stage || !projects.length) {
+    return;
+  }
+
+  // Logical plot resolution for placement (not CSS pixels).
+  const GRID_COLUMNS = 24;
+  const GRID_ROWS = 16;
+  // Keep a no-fly zone around headline/avatar so piles orbit the center.
+  const HERO_BLOCK_COL_MIN = 7;
+  const HERO_BLOCK_COL_MAX = 18;
+  const HERO_BLOCK_ROW_MIN = 4;
+  const HERO_BLOCK_ROW_MAX = 13;
+  // Mobile uses a simplified placement pattern for readability/perf.
+  const MOBILE_BREAKPOINT = 768;
+  // Hash scale used to derive deterministic pseudo-random jitter.
+  const HASH_MULTIPLIER = 10000;
+
+  // Tags that contribute to each axis score.
+  const HUMAN_TAGS = new Set(['community', 'branding', 'healthcare', 'event', 'education', 'consumer']);
+  const TECH_TAGS = new Set(['web', 'mobile', 'system', 'ai', 'prototype', 'engineering']);
+  const STRATEGY_TAGS = new Set(['product', 'ux', 'service', 'workflow', 'platform']);
+  // Axis-biased cluster anchors in normalized chart space (0..1, 0..1).
+  const CLUSTER_CENTROIDS = {
+    human: { x: 0.23, y: 0.74 },
+    technology: { x: 0.78, y: 0.24 },
+    strategy: { x: 0.73, y: 0.72 },
+    balanced: { x: 0.52, y: 0.52 }
+  };
+
+  function hash(seed) {
     const x = Math.sin(seed) * HASH_MULTIPLIER;
     return x - Math.floor(x);
   }
 
-  function getImageDimensions(img) {
-    const actualImg = img.tagName === 'PICTURE' ? img.querySelector('img') : img;
-    const width = parseInt(actualImg?.getAttribute('width'), 10) || actualImg?.naturalWidth || 1;
-    const height = parseInt(actualImg?.getAttribute('height'), 10) || actualImg?.naturalHeight || 1;
-    return { width, height };
-  }
+  function scoreAxes(tags) {
+    let human = 0;
+    let technology = 0;
+    let strategy = 0;
 
-  function updateFeaturedPileTransforms(group) {
-    const frames = Array.from(group.querySelectorAll('.home-featured-pile-image'));
-    if (!frames.length) return;
-
-    const imageCount = Number(group.dataset.imageCount || frames.length);
-    const visibleCount = Math.max(1, Math.min(frames.length, 5));
-    const sparseCountBoost = Math.max(0, 4 - visibleCount) * 8;
-    
-    let sizeSeed = imageCount * IMAGE_COUNT_SEED_MULTIPLIER;
-    frames.forEach((frame, idx) => {
-      const imgElement = frame.querySelector('img, picture');
-      const dimensions = getImageDimensions(imgElement);
-      sizeSeed += ((dimensions.width * WIDTH_WEIGHT + dimensions.height * HEIGHT_WEIGHT) * (idx + 1));
+    tags.forEach((tag) => {
+      if (HUMAN_TAGS.has(tag)) {
+        human += 1.15;
+      }
+      if (TECH_TAGS.has(tag)) {
+        technology += 1.2;
+      }
+      if (STRATEGY_TAGS.has(tag)) {
+        strategy += 1.1;
+      }
     });
 
+    return { human, technology, strategy };
+  }
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  // Push normalized coordinates away from center while preserving side/quadrant.
+  function pushAwayFromCenter(value, strength) {
+    const delta = value - 0.5;
+    const direction = delta === 0 ? 1 : Math.sign(delta);
+    // Slightly stronger push when already farther out.
+    const distanceWeight = 0.42 + Math.abs(delta);
+    return clamp(value + (direction * strength * distanceWeight), 0.03, 0.97);
+  }
+
+  // Select the strongest semantic axis for centroid pull.
+  function getDominantAxis(human, technology, strategy) {
+    const maxValue = Math.max(human, technology, strategy);
+    if (maxValue <= 0) {
+      return 'balanced';
+    }
+    if (human === technology && technology === strategy) {
+      return 'balanced';
+    }
+    if (maxValue === human) {
+      return 'human';
+    }
+    if (maxValue === technology) {
+      return 'technology';
+    }
+    return 'strategy';
+  }
+
+  function findAvailableCell(baseCol, baseRow, occupied) {
+    // Spiral-like local search around target to avoid collisions.
+    const searchSteps = [
+      [0, 0], [1, 0], [-1, 0], [0, 1], [0, -1],
+      [2, 0], [-2, 0], [0, 2], [0, -2],
+      [1, 1], [1, -1], [-1, 1], [-1, -1],
+      [3, 1], [-3, -1], [2, -2], [-2, 2]
+    ];
+
+    for (const [dc, dr] of searchSteps) {
+      const col = clamp(baseCol + dc, 1, GRID_COLUMNS);
+      const row = clamp(baseRow + dr, 1, GRID_ROWS);
+      const key = `${col}-${row}`;
+      // Reject cells overlapping the hero lockup region.
+      const inCenterBlock = col >= HERO_BLOCK_COL_MIN && col <= HERO_BLOCK_COL_MAX && row >= HERO_BLOCK_ROW_MIN && row <= HERO_BLOCK_ROW_MAX;
+      if (!occupied.has(key) && !inCenterBlock) {
+        occupied.add(key);
+        return { col, row };
+      }
+    }
+
+    return { col: baseCol, row: baseRow };
+  }
+
+  function placeProjects() {
+    const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
+
+    if (isMobile) {
+      // Lightweight deterministic mobile layout: alternate left/right columns.
+      projects.forEach((project, idx) => {
+        project.style.setProperty('--axis-col', idx % 2 === 0 ? 3 : 22);
+        project.style.setProperty('--axis-row', 10 - Math.floor(idx / 2) * 2);
+      });
+      return;
+    }
+
+    const occupied = new Set();
+
+    projects.forEach((project, idx) => {
+      const titleSeed = project.dataset.projectTitle || String(idx);
+      const tags = (project.dataset.projectTags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
+      const { human, technology, strategy } = scoreAxes(tags);
+
+      // Stable jitter from title/index so the layout stays consistent across loads.
+      const seed = titleSeed.length * 17 + idx * 31;
+      const jitterX = (hash(seed + 3) - 0.5) * 0.09;
+      const jitterY = (hash(seed + 7) - 0.5) * 0.09;
+      // Z jitter nudges both axes slightly to avoid rigid lines.
+      const jitterZ = (hash(seed + 11) - 0.5) * 0.1;
+
+      // Normalize score magnitudes to proportions per project.
+      const totalScore = Math.max(1, human + technology + strategy);
+      const humanRatio = human / totalScore;
+      const techRatio = technology / totalScore;
+      const strategyRatio = strategy / totalScore;
+
+      // Base semantic vector: tech/strategy affect X, human/strategy affect Y.
+      const vectorX = 0.1 + (techRatio * 0.58) + (strategyRatio * 0.34) + (jitterZ * 0.18);
+      const vectorY = 0.11 + (humanRatio * 0.58) + (strategyRatio * 0.34) + (jitterZ * 0.18);
+
+      // Blend with dominant-axis centroid for clearer cluster identity.
+      const dominantAxis = getDominantAxis(human, technology, strategy);
+      const centroid = CLUSTER_CENTROIDS[dominantAxis] || CLUSTER_CENTROIDS.balanced;
+      const baseX = clamp((vectorX * 0.66) + (centroid.x * 0.34) + jitterX, 0.04, 0.95);
+      const baseY = clamp((vectorY * 0.66) + (centroid.y * 0.34) + jitterY, 0.05, 0.95);
+      // Final spread control: pushes clusters farther from center lockup.
+      const xNormalized = pushAwayFromCenter(baseX, 0.42);
+      const yNormalized = pushAwayFromCenter(baseY, 0.42);
+
+      // Convert normalized coordinates to discrete grid cells.
+      const baseCol = clamp(Math.round(xNormalized * (GRID_COLUMNS - 1)) + 1, 1, GRID_COLUMNS);
+      // Invert Y so higher normalized values map visually upward from origin.
+      const baseRow = clamp(GRID_ROWS - Math.round(yNormalized * (GRID_ROWS - 1)), 1, GRID_ROWS);
+      const { col, row } = findAvailableCell(baseCol, baseRow, occupied);
+
+      project.style.setProperty('--axis-col', String(col));
+      project.style.setProperty('--axis-row', String(row));
+    });
+  }
+
+  function updatePileTransforms(pile, pileSeed) {
+    const frames = Array.from(pile.querySelectorAll('.home-axis-pile-image'));
     frames.forEach((frame, idx) => {
-      const imgElement = frame.querySelector('img, picture');
-      const dimensions = getImageDimensions(imgElement);
-      const aspectSeed = dimensions.width / dimensions.height;
-      const base = sizeSeed + (idx + 1) * LAYER_SEED_MULTIPLIER + aspectSeed * ASPECT_SEED_MULTIPLIER;
-      const fanProgress = visibleCount > 1 ? (idx / (visibleCount - 1)) : 0.5;
-      const fanCentering = 20 + (fanProgress * 60);
-      const jitterX = -9 + deterministicHash(base + 29) * 18;
-      const jitterY = -7 + deterministicHash(base + 31) * 14;
+      const seed = pileSeed + idx * 29;
+      // Per-card transform controls for each mini-pile stack.
+      const rotation = -10 + hash(seed + 1) * 20;
+      const scale = 0.78 + hash(seed + 2) * 0.26;
+      const width = 56 + hash(seed + 3) * 22;
+      const height = 54 + hash(seed + 4) * 18;
+      const offsetX = -18 + hash(seed + 5) * 36;
+      const offsetY = -14 + hash(seed + 6) * 28;
 
-      const rotation = ROTATION_MIN + deterministicHash(base) * ROTATION_SPREAD;
-      const scale = SCALE_MIN + deterministicHash(base + 3) * SCALE_SPREAD;
-      const width = WIDTH_MIN + sparseCountBoost + deterministicHash(base + 5) * WIDTH_SPREAD;
-      const height = HEIGHT_MIN + (sparseCountBoost * 0.85) + deterministicHash(base + 13) * HEIGHT_SPREAD;
-      const posX = fanCentering + jitterX;
-      const posY = (32 + deterministicHash(base + 19) * 28) + jitterY;
-      const offsetX = OFFSET_X_MIN + deterministicHash(base + 7) * OFFSET_X_SPREAD;
-      const offsetY = OFFSET_Y_MIN + deterministicHash(base + 11) * OFFSET_Y_SPREAD;
-
-      frame.style.setProperty('--rotation', rotation.toFixed(2) + 'deg');
+      frame.style.setProperty('--rotation', `${rotation.toFixed(2)}deg`);
       frame.style.setProperty('--scale', scale.toFixed(3));
-      frame.style.setProperty('--w', width.toFixed(1) + '%');
-      frame.style.setProperty('--h', height.toFixed(1) + '%');
-      frame.style.setProperty('--w-mobile', Math.min(MOBILE_WIDTH_CAP, width + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
-      frame.style.setProperty('--h-mobile', Math.min(MOBILE_HEIGHT_CAP, height + MOBILE_SIZE_BOOST_PCT).toFixed(1) + '%');
-      frame.style.setProperty('--pos-x', posX.toFixed(1) + '%');
-      frame.style.setProperty('--pos-y', posY.toFixed(1) + '%');
-      frame.style.setProperty('--offset-x', offsetX.toFixed(1) + 'px');
-      frame.style.setProperty('--offset-y', offsetY.toFixed(1) + 'px');
+      frame.style.setProperty('--w', `${width.toFixed(1)}%`);
+      frame.style.setProperty('--h', `${height.toFixed(1)}%`);
+      frame.style.setProperty('--offset-x', `${offsetX.toFixed(1)}px`);
+      frame.style.setProperty('--offset-y', `${offsetY.toFixed(1)}px`);
     });
   }
 
-  // Initialize all featured piles
-  featuredPileGroups.forEach(updateFeaturedPileTransforms);
-
-  // Re-run on images loaded
-  document.querySelectorAll('.home-featured-pile-image img').forEach(img => {
-    if (img.complete) return;
-    img.addEventListener('load', () => {
-      const group = img.closest('.home-featured-pile-images');
-      if (group) updateFeaturedPileTransforms(group);
-    });
+  projects.forEach((project, idx) => {
+    const pile = project.querySelector('.home-axis-pile');
+    if (pile) {
+      updatePileTransforms(pile, (idx + 1) * 97);
+    }
   });
+
+  placeProjects();
+  window.addEventListener('resize', placeProjects, { passive: true });
 })();
 </script>
 

@@ -4,7 +4,7 @@ description: Marketing & ops tools
 category: AIGA
 date: 2014-09-30
 thumbnail: /img/thumbnails/aiga-seattle-thumb.png
-semiFeatured: true
+featured: true
 tags:
   - branding
   - web
