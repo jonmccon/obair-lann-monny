@@ -1,0 +1,24 @@
+{% set featuredPosts = collections.semiFeaturedProjects %}
+{% if featuredPosts and featuredPosts.length %}
+<section class="home-featured-grid" aria-label="Featured work">
+  {% for post in featuredPosts | reverse %}
+  <a href="{{ post.url }}" class="home-featured-card">
+    <div class="home-featured-thumb">
+      {% if post.data.thumbnail %}
+        <img src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" loading="lazy" width="400" height="300">
+      {% elif post.data.images and post.data.images.length %}
+        {% homepageImage post.data.images[0].src, post.data.title, 400, "home-featured-img" %}
+      {% else %}
+        <div class="home-featured-placeholder">
+          <span class="home-featured-placeholder-label">Case study coming soon</span>
+        </div>
+      {% endif %}
+    </div>
+    <div class="home-featured-meta">
+      <span class="home-featured-title">{{ post.data.title }}</span>
+      {% if post.data.description %}<span class="home-featured-tagline">{{ post.data.description }}</span>{% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</section>
+{% endif %}

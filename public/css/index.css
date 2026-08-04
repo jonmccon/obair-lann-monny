@@ -379,8 +379,8 @@ header {
 	display: grid;
 	grid-template-columns: repeat(24, minmax(0, 1fr));
 	grid-template-rows: repeat(16, minmax(0, 1fr));
-	min-height: calc(100svh - var(--homepage-top-offset));
-	max-height: calc(100svh - var(--homepage-top-offset));
+	min-height: clamp(300px, 30vh, 420px);
+	max-height: clamp(300px, 30vh, 420px);
 	border-radius: 1rem;
 	overflow: hidden;
 	padding: 1rem;
@@ -445,7 +445,7 @@ header {
 
 .home-axis-label {
 	position: absolute;
-	font-size: 0.7rem;
+	font-size: 0.85rem;
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
 	font-weight: var(--font-weight-semibold);
@@ -596,6 +596,194 @@ header {
 	background: color-mix(in srgb, var(--surface-color) 84%, transparent);
 	backdrop-filter: blur(2px);
 	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 24%, transparent);
+}
+
+/* --- Axis dot (circle → square on hover) --------------------------------- */
+
+.home-axis-dot {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	overflow: hidden;
+	transition: border-radius 0.22s ease, width 0.22s ease, height 0.22s ease;
+	box-shadow: 0 2px 8px var(--shadow-color);
+	background: var(--surface-color-alt);
+}
+
+.home-axis-dot-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.home-axis-project-link:hover .home-axis-dot {
+	border-radius: 4px;
+	width: 72px;
+	height: 54px;
+}
+
+.home-axis-project-link:hover .home-axis-project-title {
+	display: block;
+}
+
+/* --- Featured projects grid (semi-featured cards) ------------------------ */
+
+.home-featured-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 1.5rem;
+	margin: 2rem 0;
+}
+
+.home-featured-card {
+	text-decoration: none;
+	color: inherit;
+	display: grid;
+	gap: 0.6rem;
+}
+
+.home-featured-thumb {
+	aspect-ratio: 4/3;
+	overflow: hidden;
+	background: var(--surface-color-alt);
+	border-radius: 6px;
+}
+
+.home-featured-thumb img,
+.home-featured-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.home-featured-placeholder {
+	width: 100%;
+	height: 100%;
+	background: var(--surface-color-alt);
+	display: flex;
+	align-items: flex-end;
+	padding: 0.75rem;
+}
+
+.home-featured-placeholder-label {
+	font-size: 0.75rem;
+	color: var(--text-color-muted);
+}
+
+.home-featured-title {
+	font-size: 0.9375rem;
+	font-weight: var(--font-weight-semibold);
+	display: block;
+}
+
+.home-featured-tagline {
+	font-size: 0.8125rem;
+	color: var(--text-color-muted);
+	display: block;
+	line-height: 1.4;
+}
+
+@media (max-width: 640px) {
+	.home-featured-grid { grid-template-columns: 1fr; }
+}
+
+/* --- CTA row (replaces in-stage see-all-link) ----------------------------- */
+
+.home-cta-row {
+	margin: 0.5rem 0 2rem;
+}
+
+.home-cta-row a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.9375rem;
+	font-weight: var(--font-weight-medium);
+	color: var(--text-color-link);
+	text-decoration: none;
+}
+
+.home-cta-row a:hover {
+	text-decoration: underline;
+}
+
+/* --- Podcast feature card ------------------------------------------------ */
+
+.home-podcast-feature {
+	padding: 2rem 0;
+	border-top: 1px solid var(--anp-crust);
+}
+
+.home-podcast-grid {
+	display: grid;
+	grid-template-columns: 240px 1fr;
+	gap: 2rem;
+	align-items: start;
+}
+
+.home-podcast-cover {
+	border-radius: 8px;
+	overflow: hidden;
+	background: var(--surface-color-alt);
+}
+
+.home-podcast-cover img {
+	width: 100%;
+	display: block;
+}
+
+.home-podcast-title {
+	font-size: clamp(1.1rem, 2vw, 1.4rem);
+	font-weight: var(--font-weight-bold);
+	margin: 0 0 0.5rem;
+}
+
+.home-podcast-desc {
+	font-size: 0.9375rem;
+	color: var(--text-color-muted);
+	line-height: 1.5;
+	max-width: 52ch;
+	margin: 0 0 1rem;
+}
+
+.home-podcast-all-link {
+	margin-top: 0.5rem;
+	display: inline-block;
+}
+
+@media (max-width: 640px) {
+	.home-podcast-grid { grid-template-columns: 1fr; }
+	.home-podcast-cover { max-width: 160px; }
+}
+
+/* --- Obsidian aside row -------------------------------------------------- */
+
+.home-aside-row {
+	display: flex;
+	gap: 0.5rem;
+	align-items: baseline;
+	padding: 1rem 0;
+	border-top: 1px solid var(--anp-crust);
+	font-size: 0.85rem;
+	color: var(--text-color-muted);
+}
+
+.home-aside-label {
+	font-weight: var(--font-weight-semibold);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.75rem;
+	flex-shrink: 0;
+}
+
+.home-aside-row a {
+	color: var(--text-color-muted);
+}
+
+.home-aside-row a:hover {
+	color: var(--text-color-link);
 }
 
 .home-supporting-content {
@@ -950,8 +1138,8 @@ header {
 	}
 
 	.home-axis-stage {
-		min-height: calc(100svh - var(--homepage-top-offset-mobile));
-		max-height: calc(100svh - var(--homepage-top-offset-mobile));
+		min-height: clamp(260px, 28vh, 380px);
+		max-height: clamp(260px, 28vh, 380px);
 		grid-template-rows: repeat(12, minmax(0, 1fr));
 	}
 

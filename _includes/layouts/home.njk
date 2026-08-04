@@ -32,27 +32,19 @@ layout: layouts/base.njk
     </div>
 
     {% for post in collections.featuredProjects | reverse %}
-    {% if loop.index <= featuredProjectThumbnailLimit and post.data.images and post.data.images.length %}
+    {% if loop.index <= featuredProjectThumbnailLimit %}
     <article class="home-axis-project" data-axis-project data-project-index="{{ loop.index0 }}" data-project-title="{{ post.data.title | slugify }}" data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}">
       <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
-        <div class="home-axis-pile" data-image-count="{{ post.data.images.length }}">
-          {% for img in post.data.images | head(4) %}
-          <div class="home-axis-pile-image" data-layer-index="{{ loop.index0 }}" style="--z-index: {{ 10 - loop.index0 }};">
-            {% homepageImage img.src, img.alt | default(post.data.title), 360, "home-axis-pile-img" %}
-          </div>
-          {% endfor %}
+        <div class="home-axis-dot">
+          {% if post.data.images and post.data.images.length %}
+            {% homepageImage post.data.images[0].src, post.data.title, 80, "home-axis-dot-img" %}
+          {% endif %}
         </div>
         <span class="home-axis-project-title">{{ post.data.title }}</span>
       </a>
     </article>
     {% endif %}
     {% endfor %}
-    <div class="home-see-all-link">
-      <a href="/design/">
-        <span>See all work</span>
-        <span aria-hidden="true">→</span>
-      </a>
-    </div>
   </div>
 </section>
 
@@ -60,27 +52,35 @@ layout: layouts/base.njk
   {% if introductionText %}
   <p class="homepage-about">{{ introductionText }}</p>
   {% endif %}
-  <section class="home-supporting-media" aria-label="Podcast appearances and tools">
-    <div class="home-supporting-media-grid">
-      <article class="home-supporting-media-card">
-        <h2 class="home-supporting-media-title">Podcasts</h2>
-        <p class="home-supporting-media-text">Recent conversations on design systems, product strategy, and building thoughtful tools.</p>
-        <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/9fc38fe1-df84-4a61-8348-b4a888606182?dark=false" title="Simplecast podcast player 1"></iframe>
-        <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/a8c63034-9b6c-4d56-b3ed-e440f6a3e031?dark=false" title="Simplecast podcast player 2"></iframe>
-      </article>
-      <article class="home-supporting-feature" aria-label="Featured tool">
-        <div class="home-supporting-feature-image" aria-hidden="true">
-          <span class="home-supporting-feature-image-mark">TB</span>
-        </div>
-        <div class="home-supporting-feature-copy">
-          <h2 class="home-supporting-media-title">Featured Tool</h2>
-          <h3 class="home-supporting-feature-heading">Obsidian Time Blocks Plugin</h3>
-          <p class="home-supporting-feature-text">A lightweight bookmark for planning focused work in Obsidian with a simple time-blocking workflow.</p>
-          <a class="home-supporting-link" href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">Open plugin page</a>
-        </div>
-      </article>
+
+  {% include "homeFeaturedProjects.njk" %}
+
+  <div class="home-cta-row">
+    <a href="/design/">See all work <span aria-hidden="true">→</span></a>
+  </div>
+
+  <section class="home-podcast-feature" aria-label="Podcast">
+    <div class="home-podcast-grid">
+      <div class="home-podcast-cover">
+        <img src="/img/podcast/scd-podcast-cover.png" alt="Seattle Creative Directory Podcast" width="300" height="300">
+      </div>
+      <div class="home-podcast-copy">
+        <h2 class="home-podcast-title">Seattle Creative Directory Podcast</h2>
+        <p class="home-podcast-desc">Conversations with Seattle's working creative community — designers, founders, makers, and the people building culture in the Pacific Northwest.</p>
+        <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/9fc38fe1-df84-4a61-8348-b4a888606182?dark=false" title="SCD Podcast episode 1"></iframe>
+        <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/a8c63034-9b6c-4d56-b3ed-e440f6a3e031?dark=false" title="SCD Podcast episode 2"></iframe>
+        <a class="home-supporting-link home-podcast-all-link" href="https://seattlecreative.directory/podcast" target="_blank" rel="noreferrer">All episodes ↗</a>
+      </div>
     </div>
   </section>
+
+  <aside class="home-aside-row">
+    <span class="home-aside-label">Also</span>
+    <a href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
+      Obsidian Time Blocks — a lightweight time-blocking plugin for focused work in Obsidian.
+    </a>
+  </aside>
+
   <div class="home-supporting-links home-supporting-links-footer" aria-label="Supporting links">
     {% for link in homeContactLinks %}
     <a class="home-supporting-link home-supporting-link-footer" href="{{ link.url }}"{% if link.external %} target="_blank" rel="noreferrer"{% endif %}>
@@ -106,39 +106,6 @@ layout: layouts/base.njk
   </div>
 </section>
 
-{% if collections.semiFeaturedProjects.length > 0 %}
-<section class="home-semi-featured-grid" aria-label="Selected work">
-  <div class="thumb-grid">
-    {% for post in collections.semiFeaturedProjects | reverse %}
-      {% if loop.index <= 6 %}
-        {% if post.data.thumbnail %}
-          <a href="{{ post.url }}" class="thumb-grid-item">
-            <img src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async" width="300" height="300">
-            <span class="thumb-grid-title">{{ post.data.title }}</span>
-          </a>
-        {% else %}
-          {# Fallback: use first processed image from collections.images #}
-          {% set thumbnail = "" %}
-          {% for image in collections.images %}
-            {% if image.url == post.url and thumbnail == "" %}
-              {% set thumbnail = image.src %}
-            {% endif %}
-          {% endfor %}
-          {% if thumbnail %}
-            <a href="{{ post.url }}" class="thumb-grid-item">
-              <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async">
-              <span class="thumb-grid-title">{{ post.data.title }}</span>
-            </a>
-          {% endif %}
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-  </div>
-  
-
-</section>
-{% endif %}
-
 <script>
 (function() {
   'use strict';
@@ -153,7 +120,7 @@ layout: layouts/base.njk
   // Logical plot resolution for placement (not CSS pixels).
   const GRID_COLUMNS = 24;
   const GRID_ROWS = 16;
-  // Keep a no-fly zone around headline/avatar so piles orbit the center.
+  // Keep a no-fly zone around headline/avatar so dots orbit the center.
   const HERO_BLOCK_COL_MIN = 7;
   const HERO_BLOCK_COL_MAX = 18;
   const HERO_BLOCK_ROW_MIN = 4;
@@ -310,34 +277,6 @@ layout: layouts/base.njk
       project.style.setProperty('--axis-row', String(row));
     });
   }
-
-  function updatePileTransforms(pile, pileSeed) {
-    const frames = Array.from(pile.querySelectorAll('.home-axis-pile-image'));
-    frames.forEach((frame, idx) => {
-      const seed = pileSeed + idx * 29;
-      // Per-card transform controls for each mini-pile stack.
-      const rotation = -10 + hash(seed + 1) * 20;
-      const scale = 0.78 + hash(seed + 2) * 0.26;
-      const width = 56 + hash(seed + 3) * 22;
-      const height = 54 + hash(seed + 4) * 18;
-      const offsetX = -18 + hash(seed + 5) * 36;
-      const offsetY = -14 + hash(seed + 6) * 28;
-
-      frame.style.setProperty('--rotation', `${rotation.toFixed(2)}deg`);
-      frame.style.setProperty('--scale', scale.toFixed(3));
-      frame.style.setProperty('--w', `${width.toFixed(1)}%`);
-      frame.style.setProperty('--h', `${height.toFixed(1)}%`);
-      frame.style.setProperty('--offset-x', `${offsetX.toFixed(1)}px`);
-      frame.style.setProperty('--offset-y', `${offsetY.toFixed(1)}px`);
-    });
-  }
-
-  projects.forEach((project, idx) => {
-    const pile = project.querySelector('.home-axis-pile');
-    if (pile) {
-      updatePileTransforms(pile, (idx + 1) * 97);
-    }
-  });
 
   placeProjects();
   window.addEventListener('resize', placeProjects, { passive: true });
