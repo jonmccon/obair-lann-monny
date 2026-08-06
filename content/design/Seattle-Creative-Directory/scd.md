@@ -14,12 +14,7 @@ tags:
   - branding
 images:
   - src: "./content/design/Seattle-Creative-Directory/SCD-01-dark-filters.png"
-  - src: "./content/design/Seattle-Creative-Directory/SCD-02-dark-resting.png"
-  - src: "./content/design/Seattle-Creative-Directory/SCD-03-dark-scrolled.png"
   - src: "./content/design/Seattle-Creative-Directory/SCD-04-light-filters-open-2.png"
-  - src: "./content/design/Seattle-Creative-Directory/SCD-05-light-filters-open-3.png"
-  - src: "./content/design/Seattle-Creative-Directory/SCD-06-light-filters-open.png"
-  - src: "./content/design/Seattle-Creative-Directory/SCD-07-light-full-page.png"
   - src: "./content/design/Seattle-Creative-Directory/scd-01.png"
   - src: "./content/design/Seattle-Creative-Directory/scd-02.png"
   - src: "./content/design/Seattle-Creative-Directory/scd-03.png"
@@ -59,20 +54,7 @@ It grew until I had to rebuild from scratch. The static Gatsby site meant one fi
 {% image "./SCD-04-light-filters-open-2.png", "Filter in use: 'recruiter' tag active, narrowing to studios that match a specific hiring context. The taxonomy was the design challenge — getting the right level of specificity without fragmenting the directory." %}
 </div>
 
-<div class="two-column">
 {% image "./SCD-01-dark-filters.png", "The map view plots the whole community geographically — useful for patrons looking by neighborhood, or anyone who thinks spatially about the city's creative scene." %}
-{% image "./SCD-02-dark-resting.png", "Dark mode resting state: listings load clean before filters are applied, with the map anchoring the geographic context." %}
-</div>
-
-<div class="two-column">
-{% image "./SCD-03-dark-scrolled.png", "Scrolled view in dark mode showing the listing grid — studio cards with size, neighborhood, and specialty tags at a glance." %}
-{% image "./SCD-05-light-filters-open-3.png", "Light mode with multiple filters active, demonstrating the compound filter behavior across size, city, and tags." %}
-</div>
-
-<div class="two-column">
-{% image "./SCD-06-light-filters-open.png", "Filter panel open in light mode — the dropdown taxonomy that unlocks the directory's full four-axis filtering capability." %}
-{% image "./SCD-07-light-full-page.png", "Full-page view in light mode: the header, filter bar, map, and listing grid composing the complete directory experience." %}
-</div>
 
 {% image "./scd-01.png", "The live product: 268 listings, interview quote cards from the podcast series, light and dark modes. Six years of continuous iteration, still growing." %}
 
