@@ -13,12 +13,12 @@ tags:
   - product
   - mobile
 images:
-- src: "./content/design/google-meet/goog-01.png"
-- src: "./content/design/google-meet/goog-02.png"
-- src: "./content/design/google-meet/goog-03.png"
-- src: "./content/design/google-meet/goog-04.png"
-- src: "./content/design/google-meet/goog-05.png"
-- src: "./content/design/google-meet/goog-06.png"
+- src: "./content/design/Google-Meet/goog-01.png"
+- src: "./content/design/Google-Meet/goog-02.png"
+- src: "./content/design/Google-Meet/goog-03.png"
+- src: "./content/design/Google-Meet/goog-04.png"
+- src: "./content/design/Google-Meet/goog-05.png"
+- src: "./content/design/Google-Meet/goog-06.png"
 ---
 
 In 2018–2019, Google Meet was a browser tab. The goal was to make it feel like a product — a dedicated tool that worked for people with limited bandwidth, dedicated hardware, or no video at all. I worked on two separate bets toward that: a standalone desktop prototype that escaped the browser, and a phone dial-in feature that let your voice show up as a full meeting participant.
