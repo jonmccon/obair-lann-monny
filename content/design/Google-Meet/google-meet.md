@@ -29,6 +29,8 @@ In 2018–2019, Google Meet was a browser tab. The goal was to make it feel like
 
 ---
 
+## The problem with the browser tab
+
 In 2018, Google Meet ran inside a Chrome tab — and that created a real ceiling for enterprise G Suite customers. Dedicated conference rooms couldn't get hardware-enhanced performance. Users on constrained networks dropped from video calls. And phone participants? They showed up as a generic number in the participant list, disconnected from the meeting experience everyone else had.
 
 The Hangouts Meet team wanted to explore two directions simultaneously: could Meet exist *outside* the browser as a first-class desktop experience? And could the product reach the people who weren't on a computer at all — calling in from a phone, connecting from infrastructure that didn't support [WebRTC](https://webrtc.org/)?
@@ -37,11 +39,15 @@ These weren't cosmetic improvements. The browser tab was a constraint at the arc
 
 ---
 
+## My role
+
 The Meet team brought me in as a UX designer with focus on two separate problem areas. For the desktop prototype, I worked with the Kirkland engineering team to stress-test early standalone window models — forcing a Chromium branch to run Meet as an isolated instance outside the browser, exploring what the native interaction model should look like when you stripped away the address bar and typical controls.
 
 For the phone dial-out feature, I owned the end-to-end UX design from the web-side initiation through the mobile receiver experience. I also collaborated with the Material Design team on early dark mode explorations that fed into what became the official Material dark theme specification.
 
 ---
+
+## Escaping the browser
 
 The problem with running Meet in a Chrome tab was everything that came with the tab: the address bar, the tab strip, the browser chrome that reminded you this was a webpage, not a dedicated application. Enterprise customers with meeting rooms wanted something that *felt* like a native product.
 
@@ -56,6 +62,8 @@ Google Meet shipped as a [Progressive Web App in July 2021](https://support.goog
 {% image "./goog-06.png", "The progression from Chrome tab to standalone app — each step removing another browser dependency." %}
 
 ---
+
+## Making phone a first-class participant
 
 The second problem was simpler to state but harder to design: how do you make a phone participant feel like a real meeting attendee?
 
@@ -85,11 +93,15 @@ Designing the handoff required working both ends. On the web side: the initiatio
 
 ---
 
+## Outcomes
+
 - Phone dial-out shipped; available on Google Workspace and Google One Premium accounts
 - The standalone app prototype fed into the technical roadmap that culminated in the Google Meet PWA release (July 2021) — now one of the top-3 most-used communication tools globally
 - Dark mode explorations contributed to early Material dark theme work, formally specified at Google I/O 2019 and now referenced in accessibility and design standards
 
 ---
+
+## Reflection
 
 Looking back, I underestimated how significant the timing was. In 2018, I was focused on the immediate UX problems — what does dial-out feel like, how does a standalone app behave, and navigating the pressure around these interactions pushing outside Google's primary interaction surface. I didn't have a full view of where the Chromium community was taking PWAs, or that the dark mode work would become a specification. The work felt like careful, incremental problem solving at the time. In context, it was right in the middle of a platform-level shift.
 
