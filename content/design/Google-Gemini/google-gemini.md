@@ -101,17 +101,23 @@ Early Gemini was a capability in search of an interface. This was me spending a 
 
 ---
 
+## The brief
+
 In late 2023, Google had early Gemini capabilities but no clear native UX model for Android. The question wasn't "can AI do this" — it was "how does a person *reach* for this on a phone." BUCK was engaged to pressure-test that question through real interaction patterns: not a spec, not a feature list, a working exploration of what the paradigm could actually be.
 
 Existing AI interfaces in late 2023 were mostly chat boxes. That's fine at a desk, but on a phone it's wrong. The phone is physical, gestural, contextual. If Gemini was going to live on Android it needed to feel like Android.
 
 ---
 
+## My role
+
 BUCK brought me in as a freelance interaction designer with a specific mandate: Google had dropped a significant body of early thinking on the agency and needed someone to work through it systematically. Figuring out which directions had real interaction legs, and developing as many of those as possible into defined, demonstrable patterns. I worked closely with a creative director and two motion designers, with other designers pulling in and out across the engagement.
 
 My contribution was the interaction design and concept development throughline. Taking loose scenarios and frameworks and pressure-testing them into concrete gesture-based UX patterns. I owned the exploration process: framing the right questions, generating concepts across the scenario space, iterating the interaction models, and distilling the output into flows Google could actually use as directional material.
 
 ---
+
+## Week one: drive-to-output
 
 The framing question that drove everything: *what is the human objective, what does the existing process cost them, and how does AI change the gesture?* Starting from that, I mapped scenarios where AI would actually change what someone does, not just speed up something they already do.
 
@@ -149,6 +155,8 @@ The video editing version of this ran the same pattern: Drive to Video, Shake to
 </div>
 
 ---
+
+## Week two: the camera layer
 
 The second week went deep into the camera layer. The hypothesis was simple: if Gemini is going to live on Android, it needs to recognize subjects in photos the way a person would and then give you a way to act on them without typing.
 
@@ -225,6 +233,8 @@ The **Supercut persona screen** was a different direction in the same session �
 
 ---
 
+## Whats That & Refine
+
 Another big concept was **Whats That** — a style/generation UI for when you already have a result but want to move within its aesthetic space without typing a new prompt. A spectrum bar runs across the bottom of the screen. Drag the handle and you slide through aesthetic interpretations: for a room it goes Hollywood → Midcentury → Industrial → Art Deco → Cottage. For an outfit: Gorpcore → Energetic Techwear → Miami Y2K. The whole language of style collapsed into a single draggable gesture.
 
 <div class="three-column">
@@ -238,6 +248,8 @@ The companion to Whats That was the **Refine** concept — not about tuning a re
 {% image "./GEMINI-09-14-android-407.png", "Refine — Gemini personality radar chart: friendly / simple / light / assertive / amused / formal" %}
 
 ---
+
+## Daily explorations
 
 Daily explorations covered scenarios that didn't reach polished flows but that held up as interaction concepts.
 
@@ -255,11 +267,15 @@ Daily explorations covered scenarios that didn't reach polished flows but that h
 
 ---
 
+## Influence
+
 This was concept work, not a production spec, so there's no shipping announcement to point to. But over the following year and a half, using Gemini features across Android, a number of the mechanics explored here have surfaced: gesture-driven AI actions on subjects, contextual action pills that radiate from a recognition point, refinement patterns that let you tune AI output rather than re-prompt. Whether these directions arrived at Google independently or through this work isn't something I can claim definitively. What I can say is the design space we were exploring in late 2023 was the right one.
 
 Scope delivered: 7 interaction pattern families across 4 major scenario clusters developed from initial scenario mapping through polished interaction flows — Drive-to-output, camera-as-AI-interface, contextual web actions, AI personality tuning.
 
 ---
+
+## Reflection
 
 Looking back at it, this was one of those projects where the brief was intentionally loose because the territory was — and still is — new. The scenarios that resonated most were the ones where the AI was reducing the effort of a *specific moment* rather than adding a general capability. Whats That works because it collapses a search-and-iterate loop into a single draggable handle. Dots & Handles works because it makes AI output feel editable rather than final.
 
