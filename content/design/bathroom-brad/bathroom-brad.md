@@ -39,6 +39,8 @@ images:
     alt: "Brand mockups"
 ---
 
+## The Brief
+
 A full branding system for a bathroom remodeling company, from logo sketches to a working HTML/CSS design system ready to hand off to a developer.
 
 **Role:** Brand Designer · **Company:** Bathroom Brad — bathroom remodeling services · **Timeline:** 2026 · **Team:** Solo · **Platform:** Print, digital, web · **Tools:** Figma, HTML/CSS, GitHub Pages · **Status:** Shipped — brand guidelines complete, design system live at [jonmccon.github.io/brb-design-system](https://jonmccon.github.io/brb-design-system/)
@@ -50,6 +52,8 @@ I started with the name. "Bathroom Brad" has a good rhythm to it, a little playf
 The color system is more opinionated than you'd expect for the category. Primary orange, pink accent, mint green, and a slate blue. It holds up across print and screen and gives the brand room to be itself without feeling like it's trying too hard to be something it isn't.
 
 {% image "./BRB-12-v3-refinements.png", "Bathroom Brad Brand Guidelines — V3 Refinements" %}
+
+## Logo System
 
 The logo system is built around two marks: a B-stamp monogram and a badge with the full name. But they aren't meant to be prescriptive, more that each can be a smaller system unto themselves, and should respond to where they're used.
 
@@ -65,6 +69,8 @@ The badge is probably my favorite piece. The circular ring type runs the tagline
 {% image "./BRB-01-card-a.png", "Business card — primary wordmark layout" %}
 </div>
 
+## Color & Typography
+
 The palette started with the orange — warm, visible, the kind of color that reads as confident without tipping into aggressive. From there I built out a full ramp and added the accent colors to give the system flexibility for UI work without requiring everyone to use orange for everything.
 
 Typography is Hanken Grotesk paired with JetBrains Mono. Hanken handles everything from display down to body copy — extrabold headings, regular body text. JetBrains Mono handles the spec and data text, which shows up naturally in a remodeling context (dimensions, serial numbers, product specs). That pairing ended up informing the design system directly — the type tokens map straight into CSS variables.
@@ -73,6 +79,8 @@ Typography is Hanken Grotesk paired with JetBrains Mono. Hanken handles everythi
 {% image "./BRB-05-colors.png", "Color palette — full ramp with accent colors" %}
 {% image "./BRB-10-type.png", "Typography system — Hanken Grotesk and JetBrains Mono" %}
 </div>
+
+## Design System Handoff
 
 This is where it got interesting. Rather than hand off a PDF or a Figma link and call it done, I built the design system as a working HTML/CSS page — tokens, components, and all. It lives at [jonmccon.github.io/brb-design-system](https://jonmccon.github.io/brb-design-system/) and the source is on [GitHub](https://github.com/jonmccon/brb-design-system).
 
@@ -85,6 +93,8 @@ The semantic token table is probably the most useful piece for a developer — i
 {% image "./BRB-11-usage.png", "Usage examples — typography in context" %}
 </div>
 
+## Business Cards
+
 The business card system covers multiple stakeholders without requiring a full redesign for each person — the layout is fixed, the variables are name, title, and contact info. That kind of repeatability is what makes a brand system actually work for a small company.
 
 <div class="three-column">
@@ -95,11 +105,15 @@ The business card system covers multiple stakeholders without requiring a full r
 
 {% image "./BRB-07-mockups.png", "Brand mockups — van wrap and environmental applications" %}
 
+## What a Working Handoff Looks Like
+
 The HTML design system is the deliverable, not the Figma file. A lot of branding work ends at guidelines that live in a folder somewhere and never get opened again. Publishing it as a live page changes the dynamic — it's linkable, it's updatable, it's already built.
 
 The design challenges this format unlocks: tokens are testable before implementation, not just documented; button states are actually interactive (hover, disabled, active); typography samples render in the real font stack, not a screenshot; color previews are actual hex values with working swatches, not images.
 
 That's what I want from a handoff. Something someone can actually use.
+
+## Reflection
 
 Small business branding projects are a good forcing function — there's no big stakeholder meetings to defer decisions to. You just have to make the call and move forward and keep the stakeholders in the room to be a part of the conversation as the work develops.
 
