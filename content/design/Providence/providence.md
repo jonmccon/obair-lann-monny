@@ -43,9 +43,13 @@ Designing high-stakes clinical workflows for on-demand emergency care. From a re
 
 **Role:** Product Designer · **Company:** Providence Health & Services — Digital Innovation Group · **Timeline:** 2017–2018 · **Platform:** Web, iOS, Android · **Tools:** Sketch, InVision (Craft), Zeplin, Abstract, Adobe Creative Cloud, Storybook, React Toolbox, Source Sans Pro
 
+## The Problem
+
 Providence's Digital Innovation Group was building two distinct healthcare products simultaneously, each with fundamentally different users and stakes. On one side: emergency clinicians managing time-critical stroke alerts across a distributed hospital network, switching between four separate systems during a patient handoff — every second of context-switching a clinical risk. On the other: patients trying to navigate between four separate care services (Urgent Care, Virtual, Primary, Same-Day) that had no shared scheduling layer, no common identity, and no consistent experience.
 
 The existing tools had been built for billing and back-office workflows. Neither was designed for how clinical staff actually worked under pressure, or for patients making care decisions in moments of stress or uncertainty.
+
+## My Role
 
 Providence's Digital Innovation Group brought me in as a product designer with a dual mandate: design the clinical workflows for a new video-based emergency care platform, and rearchitect four existing care services into a unified scheduling and marketing suite with a shared multitenant architecture. I worked with [Sunny Lee](https://www.linkedin.com/in/sunnyleedesign/) and [Kelly Elston](https://www.linkedin.com/in/kellyelston/) on the research and service design phases across both products, and led visual design and interaction design from early wireframes through the Storybook component library. My contribution spanned discovery research, service design, interaction design, design system development, and engineering collaboration through to production.
 
