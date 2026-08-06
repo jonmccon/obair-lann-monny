@@ -17,13 +17,42 @@ images:
     alt: Classroom lecture
   - src: ./content/design/teaching/WWU-02-lettering-workshop-a.png
     alt: Lettering workshop
-  - src: ./content/design/teaching/WWU-05-lettering-workshop-b.png
-    alt: Lettering workshop detail
   - src: ./content/design/teaching/WWU-01-guest-lecture-series.png
     alt: Guest lecture series
-  - src: ./content/design/teaching/WWU-03-classroom-lecture-a.png
-    alt: Classroom lecture
 ---
+
+{%- css %}
+.image-credit {
+  font-size: 0.8125rem;
+  color: var(--text-color-muted);
+  margin-top: -0.75rem;
+  margin-bottom: 2rem;
+}
+.image-credit a {
+  color: var(--text-color-muted);
+  text-decoration: underline;
+}
+.image-credit a:hover {
+  color: var(--text-color-link);
+}
+.speaker-credits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 2rem;
+  font-size: 0.875rem;
+  color: var(--text-color-muted);
+}
+.speaker-credits a {
+  color: var(--text-color-muted);
+  text-decoration: underline;
+}
+.speaker-credits a:hover {
+  color: var(--text-color-link);
+}
+{% endcss %}
 
 I designed two 20-student senior seminars on UX design and branding campaigns as an Adjunct Professor of Design at Western Washington University's Design BFA Program — in addition to supporting courses in typography, storytelling, and core principles of the Adobe Creative Suite.
 
@@ -39,26 +68,30 @@ What parts of this education were beneficial? What parts were not? How do I dete
 
 I was the primary lecturer responsible for creating and maintaining a schedule of lessons, assignments, writing individual feedback, organizing group critique, and managing the focus of a room of students. I was given much support and resources from the fulltime staff — of whom I am forever grateful — and guidance as a first-time teacher.
 
-<div class="two-column">
-
 {% image "./content/design/teaching/WWU-04-classroom-lecture-b.png", "Classroom lecture in session" %}
-
-{% image "./content/design/teaching/WWU-03-classroom-lecture-a.png", "Classroom at Western Washington University" %}
-
-</div>
 
 ## Workshops & Guest Artists
 
 In addition to my own lectures, I organized nine former colleagues as guest speakers to share hands-on work from the full range of directions a graduate can go. This exposure to creative professionals was helpful to many students who hadn't yet witnessed what it was they had gotten themselves into.
 
-<div class="two-column">
-
 {% image "./content/design/teaching/WWU-02-lettering-workshop-a.png", "Lettering workshop led by Benjamin Hubbard" %}
 
-{% image "./content/design/teaching/WWU-05-lettering-workshop-b.png", "Lettering workshop detail" %}
-
-</div>
+<p class="image-credit">Lettering workshop by <a href="https://www.linkedin.com/in/benjaminhubbard/" target="_blank" rel="noreferrer">Benjamin Hubbard</a></p>
 
 ## Bringing the Field into the Room
 
-{% image "./content/design/teaching/WWU-01-guest-lecture-series.png", "Guest lecture series bringing a range of professional perspectives — Marla Moore, Damon Nakagawa, Drew Hamlet, Paul Lau, Ann Kaufman, Fan Zhang, Katrina Noble, Glenn Newcomer, Natalie Sulpizio, Bryan Mamaril, and Brad LaTour" %}
+{% image "./content/design/teaching/WWU-01-guest-lecture-series.png", "Guest lecture series at Western Washington University" %}
+
+<ul class="speaker-credits">
+  <li><a href="https://www.linkedin.com/in/marlamakesstuff/" target="_blank" rel="noreferrer">Marla Moore</a></li>
+  <li><a href="https://www.linkedin.com/in/damonnakagawa/" target="_blank" rel="noreferrer">Damon Nakagawa</a></li>
+  <li><a href="https://www.linkedin.com/in/drewhamlet/" target="_blank" rel="noreferrer">Drew Hamlet</a></li>
+  <li><a href="https://www.linkedin.com/in/paul-lau-69b0199/" target="_blank" rel="noreferrer">Paul Lau</a></li>
+  <li><a href="https://www.linkedin.com/in/ann-kaufman-2946299/" target="_blank" rel="noreferrer">Ann Kaufman</a></li>
+  <li><a href="https://www.linkedin.com/in/stanfordfan/" target="_blank" rel="noreferrer">Fan Zhang</a></li>
+  <li><a href="https://www.linkedin.com/in/noblekatrina/" target="_blank" rel="noreferrer">Katrina Noble</a></li>
+  <li><a href="https://www.linkedin.com/in/glenn-%E2%98%95%EF%B8%8F-newcomer-927471192/" target="_blank" rel="noreferrer">Glenn Newcomer</a></li>
+  <li><a href="https://www.linkedin.com/in/nataliesulpizio/" target="_blank" rel="noreferrer">Natalie Sulpizio</a></li>
+  <li><a href="https://www.linkedin.com/in/mamaril/" target="_blank" rel="noreferrer">Bryan Mamaril</a></li>
+  <li><a href="https://www.linkedin.com/in/brad-latour-52a46a208/" target="_blank" rel="noreferrer">Brad LaTour</a></li>
+</ul>
