@@ -34,11 +34,11 @@ Resonance AI had built something different: a machine learning pipeline that ext
 
 My opportunity was to take what took multiple days of manual reporting to compile and annotate, and turn it into two things: a simple daily digest production teams could act on, and a deeper self-serve analysis platform for their customers at production houses. The constraint wasn't technical — the analysis pipeline worked. The gap was trust and actionability: how do you present machine-generated insights so a human believes them and knows what to do next?
 
-**My Role**
+## My Role
 
 Resonance AI brought me in as sole product designer with a clear mandate: give the company a coherent public face and turn raw ML output into something clients could act on. I was responsible for everything from brand identity through product UX, working directly with the founders, data scientists, technical project manager, and lead frontend engineer. My contribution was the full design system, the automated email reporting format, and the interaction design for the self-serve analysis platform.
 
-**Audit: A Great Product Not Being Seen**
+## The Audit
 
 My first pass through the work Resonance was doing exposed an immediate tension: the machine learning underneath was genuinely sophisticated — correlating real audience behavior against on-screen content at a granularity Nielsen couldn't touch — but the presentation was fragmented. Reports were assembled by hand in slide decks every time a client needed them. Data points came out as individual charts with no thread between them. The brand materials were inconsistent. The product looked less credible than it was.
 
@@ -46,7 +46,7 @@ The initial audit was a mix of desk research, conversations with the team, and s
 
 {% image "./RAI-07-research-ideation-sketches.png", "Early ideation: information hierarchy sketches, whiteboard sessions with the team exploring the data model, and a 9-variant layout grid testing how to arrange the metrics." %}
 
-**Design System: Building the Container**
+## Design System
 
 Before the product could be redesigned, the brand needed a foundation to design against. The rebrand work established the visual language the whole product would run on: two type families, a structured icon system, a dark-first color palette suited to data-dense environments, and the existing spiral mark that signaled signal-from-noise.
 
@@ -62,7 +62,7 @@ Critically, this wasn't just cosmetic. The design system encoded decisions about
 
 Part of establishing that visual language meant doing real color research in Python — building and testing diverging and sequential palette scales against actual data outputs to find what was perceptually accurate, not just aesthetically pleasing.
 
-**Daily Pulse — Automated Email Report**
+## Daily Pulse
 
 The Daily Pulse was the flagship automated deliverable: a nightly email sent directly to broadcast news production teams with their audience data packaged into a scannable digest. Each report surfaced competitor ranking, audience completion trend, episode topic resonance (the treemap), and talent performance — all data that previously required days of manual analyst work.
 
@@ -76,7 +76,7 @@ The report was prototyped in Python, iterated against real data, and shipped to 
 
 </div>
 
-**Self-Serve Analysis Platform**
+## Analysis Platform
 
 The natural next step was letting clients build their own questions. The individual daily reports demonstrated the signal. The platform let production teams explore it themselves — selecting shows, adjusting date ranges, drilling into topic coverage, talent correlation, and audience completion without waiting for an analyst to compile a deck.
 
@@ -94,7 +94,7 @@ Think of it as Google Analytics for broadcast TV: the same data that powered the
 
 {% image "./RAI-09-topic-coverage-dashboard.png", "Topic coverage analysis: a horizontal resonance breakdown by news category, showing both share and resonance delta — which topics landed, which didn't, and by how much." %}
 
-**Outcomes**
+## Outcomes
 
 - Reporting cadence increased from weekly to daily — production teams could act on the previous night's data before the day's editorial meeting
 - Automated the full report compilation and delivery pipeline, reducing client manager task time by 95% — what took multiple hours of manual analyst work per client per week became overnight and hands-off
@@ -103,7 +103,7 @@ Think of it as Google Analytics for broadcast TV: the same data that powered the
 - Built the information architecture and interaction design for the self-serve analysis platform, enabling clients to explore audience data independently for the first time
 - Company was acquihired; the product's value drove the outcome
 
-**Reflection**
+## Reflection
 
 Looking back, the questions the Resonance AI pipeline was asking of video data were precursors to what large language models are doing at scale now: extracting meaning from unstructured media, correlating behavior signals, surfacing the "why" behind human attention. We were doing that work in 2021, but there wasn't yet a shared vocabulary for it — and I think the clients needed the charts and the branded presentation partly as a trust layer, a way to feel like the machine was showing its work.
 
