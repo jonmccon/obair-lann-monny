@@ -2218,16 +2218,18 @@ img {
 	margin-bottom: 2rem;
 }
 
-/* Any direct paragraph in post body gets breathing room + optimal reading width */
+/* Any direct paragraph in post body gets breathing room + optimal reading width, centered */
 .post-body > p {
 	margin-bottom: 1rem;
 	max-width: 68ch;
-	font-size: 1.125rem;
+	margin-inline: auto;
+	font-size: 1.3rem;
 	line-height: 1.7;
 }
 
 /* Intro paragraph — same width, extra space before images */
 .post-body > p:first-child {
 	max-width: 68ch;
+	margin-inline: auto;
 	margin-bottom: 2.5rem;
 }
