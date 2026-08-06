@@ -31,6 +31,8 @@ In early 2020, tens of thousands of hospital employees needed a way to prove the
 
 **Role:** Product Designer · **Company:** Lumedic, a Providence St. Joseph Health portfolio company · **Timeline:** 2019–2021 · **Team:** Primary designer on this platform within a 5-person design team · **Platform:** Web, iOS, Android · **Tools:** Figma, Miro, IBM Carbon Design System · **Status:** Shipped — previously available on App Store and Google Play
 
+## The Problem
+
 Medical records are controlled by healthcare systems for good reason. FHIR-compliant APIs live behind institutional firewalls, accessible only to licensed staff at licensed facilities. Patients are not parties to their own records. That architecture works for billing and clinical workflow, but it breaks entirely when a hospital employee needs to prove their vaccination status to enter a facility at 6am.
 
 Lumedic's platform inverted this model: the patient becomes a trusted holder of their own verified credentials, able to share selectively with authorized parties. The design challenge wasn't the cryptography — it was building an experience that made that trust transfer feel obvious, safe, and fast to people who had no reason to understand what was happening underneath.
@@ -38,6 +40,8 @@ Lumedic's platform inverted this model: the patient becomes a trusted holder of 
 The problem evolved in real time. What began as a general health wallet in 2019 became a COVID-19 testing passport in spring 2020 and then expanded to vaccine status as the science changed. Every release required us to adapt the IA and the interaction model alongside the regulatory and political landscape.
 
 {% image "./lum-20.png", "Early caregiver user flow mapping the COVID research & testing journey — from email outreach through onsite blood draw to MyChart results." %}
+
+## My Role
 
 Lumedic brought me in as the primary product designer on the patient-facing wallet app. I owned the end-to-end design across all three releases: from the initial UX audit of the boilerplate wallet, through the multimodal architecture, to the final Carbon-based design system adaptation. I worked directly with research partner [Jeanine Ledoux](https://www.linkedin.com/in/jeanineledoux/) on user testing, collaborated closely with engineering to spec interactions, and partnered with Seattle studio Smashing Ideas on the custom illustration system. The broader design team of five was focused on other parts of the company platform — the patient wallet was mine to ship.
 
