@@ -13,15 +13,15 @@ tags:
   - community
 thumbnail: /img/thumbnails/teaching-thumb.png
 images:
-  - src: ./content/design/teaching/WWU-04-classroom-lecture-b.png
+  - src: "content/design/teaching/WWU-04-classroom-lecture-b.png"
     alt: Classroom lecture
-  - src: ./content/design/teaching/WWU-02-lettering-workshop-a.png
+  - src: "content/design/teaching/WWU-02-lettering-workshop-a.png"
     alt: Lettering workshop
-  - src: ./content/design/teaching/WWU-05-lettering-workshop-b.png
+  - src: "content/design/teaching/WWU-05-lettering-workshop-b.png"
     alt: Lettering workshop detail
-  - src: ./content/design/teaching/WWU-01-guest-lecture-series.png
+  - src: "content/design/teaching/WWU-01-guest-lecture-series.png"
     alt: Guest lecture series
-  - src: ./content/design/teaching/WWU-03-classroom-lecture-a.png
+  - src: "content/design/teaching/WWU-03-classroom-lecture-a.png"
     alt: Classroom lecture
 ---
 
@@ -41,9 +41,9 @@ I was the primary lecturer responsible for creating and maintaining a schedule o
 
 <div class="two-column">
 
-{% image "./content/design/teaching/WWU-04-classroom-lecture-b.png", "Classroom lecture in session" %}
+{% image "./WWU-04-classroom-lecture-b.png", "Classroom lecture in session" %}
 
-{% image "./content/design/teaching/WWU-03-classroom-lecture-a.png", "Classroom at Western Washington University" %}
+{% image "./WWU-03-classroom-lecture-a.png", "Classroom at Western Washington University" %}
 
 </div>
 
@@ -53,12 +53,12 @@ In addition to my own lectures, I organized nine former colleagues as guest spea
 
 <div class="two-column">
 
-{% image "./content/design/teaching/WWU-02-lettering-workshop-a.png", "Lettering workshop led by Benjamin Hubbard" %}
+{% image "./WWU-02-lettering-workshop-a.png", "Lettering workshop led by Benjamin Hubbard" %}
 
-{% image "./content/design/teaching/WWU-05-lettering-workshop-b.png", "Lettering workshop detail" %}
+{% image "./WWU-05-lettering-workshop-b.png", "Lettering workshop detail" %}
 
 </div>
 
 ## Bringing the Field into the Room
 
-{% image "./content/design/teaching/WWU-01-guest-lecture-series.png", "Guest lecture series bringing a range of professional perspectives — Marla Moore, Damon Nakagawa, Drew Hamlet, Paul Lau, Ann Kaufman, Fan Zhang, Katrina Noble, Glenn Newcomer, Natalie Sulpizio, Bryan Mamaril, and Brad LaTour" %}
+{% image "./WWU-01-guest-lecture-series.png", "Guest lecture series bringing a range of professional perspectives — Marla Moore, Damon Nakagawa, Drew Hamlet, Paul Lau, Ann Kaufman, Fan Zhang, Katrina Noble, Glenn Newcomer, Natalie Sulpizio, Bryan Mamaril, and Brad LaTour" %}
