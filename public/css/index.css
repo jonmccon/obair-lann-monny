@@ -705,7 +705,6 @@ header {
 	font-family: var(--font-family-headline-flex);
 	font-size: clamp(1.75rem, 4vw, 2.5rem);
 	line-height: 0.95;
-	font-weight: var(--font-weight-black);
 	font-variation-settings: 'wght' 800, 'wdth' 50, 'opsz' 64, 'slnt' -5;
 	letter-spacing: -0.02em;
 	color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base));
