@@ -627,68 +627,137 @@ header {
 	display: block;
 }
 
-/* --- Featured projects grid (semi-featured cards) ------------------------ */
+/* --- Featured projects grid (semi-featured rows) ------------------------- */
 
 .home-featured-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-	gap: 1.5rem;
 	margin: 2rem 0;
+	display: grid;
 }
 
-.home-featured-card {
+.home-featured-row {
+	width: 100vw;
+	margin-left: calc(50% - 50vw);
+	position: relative;
+	display: flex;
+	align-items: center;
+	min-height: clamp(4.5rem, 8vw, 6rem);
+	padding: clamp(1rem, 2.4vw, 1.4rem) max(var(--site-gutter), 1.25rem);
+	border-top: 1px solid var(--anp-crust);
+	background: var(--surface-color);
 	text-decoration: none;
 	color: inherit;
-	display: grid;
-	gap: 0.6rem;
-}
-
-.home-featured-thumb {
-	aspect-ratio: 4/3;
 	overflow: hidden;
-	background: var(--surface-color-alt);
-	border-radius: 6px;
+	isolation: isolate;
+	transition: color 0.22s ease, background-color 0.22s ease;
 }
 
-.home-featured-thumb img,
-.home-featured-img {
+.home-featured-row:last-child {
+	border-bottom: 1px solid var(--anp-crust);
+}
+
+.home-featured-row::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, rgba(24, 21, 16, 0.86) 0%, rgba(24, 21, 16, 0.58) 46%, rgba(24, 21, 16, 0.18) 100%);
+	opacity: 0;
+	transition: opacity 0.22s ease;
+	z-index: 1;
+}
+
+.home-featured-row-media {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	opacity: 0;
+	transform: scale(1.02);
+	transition: opacity 0.22s ease, transform 0.22s ease;
+	z-index: 0;
+}
+
+.home-featured-row-media-frame {
+	flex: 1 1 0;
+	min-width: 0;
+	overflow: hidden;
+}
+
+.home-featured-row-media-frame picture {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+.home-featured-row-media-frame img,
+.home-featured-row-media-img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	display: block;
 }
 
-.home-featured-placeholder {
-	width: 100%;
-	height: 100%;
+.home-featured-row-title {
+	position: relative;
+	z-index: 2;
+	display: block;
+	font-family: var(--font-family-headline-flex);
+	font-size: clamp(1.35rem, 3vw, 2.7rem);
+	font-weight: var(--font-weight-black);
+	line-height: 0.95;
+	letter-spacing: -0.03em;
+	max-width: 12ch;
+	text-wrap: balance;
+}
+
+.home-featured-row:hover,
+.home-featured-row:focus-visible {
+	color: var(--text-color-on-accent);
+	background-color: #1f1b15;
+}
+
+.home-featured-row:hover::after,
+.home-featured-row:focus-visible::after,
+.home-featured-row:hover .home-featured-row-media,
+.home-featured-row:focus-visible .home-featured-row-media {
+	opacity: 1;
+}
+
+.home-featured-row:hover .home-featured-row-media,
+.home-featured-row:focus-visible .home-featured-row-media {
+	transform: scale(1);
+}
+
+.home-featured-row:hover,
+.home-featured-row:focus-visible,
+.home-featured-row:hover:visited,
+.home-featured-row:focus-visible:visited {
+	text-decoration: none;
+	color: var(--text-color-on-accent);
+}
+
+.home-featured-row--no-media::after,
+.home-featured-row--no-media .home-featured-row-media {
+	display: none;
+}
+
+.home-featured-row--no-media:hover,
+.home-featured-row--no-media:focus-visible,
+.home-featured-row--no-media:hover:visited,
+.home-featured-row--no-media:focus-visible:visited {
 	background: var(--surface-color-alt);
-	display: flex;
-	align-items: flex-end;
-	padding: 0.75rem;
-}
-
-.home-featured-placeholder-label {
-	font-size: 0.75rem;
-	color: var(--text-color-muted);
-}
-
-.home-featured-title {
-	font-size: 0.9375rem;
-	font-weight: var(--font-weight-semibold);
-	display: block;
-}
-
-.home-featured-tagline {
-	font-size: 0.8125rem;
-	color: var(--text-color-muted);
-	display: block;
-	line-height: 1.4;
+	color: inherit;
 }
 
 @media (max-width: 640px) {
-	.home-featured-grid { grid-template-columns: 1fr; }
-}
+	.home-featured-row {
+		min-height: auto;
+		padding-block: 1.05rem;
+	}
 
+	.home-featured-row-title {
+		font-size: clamp(1.2rem, 8vw, 2rem);
+		max-width: 100%;
+	}
+}
 /* --- CTA row (replaces in-stage see-all-link) ----------------------------- */
 
 .home-cta-row {

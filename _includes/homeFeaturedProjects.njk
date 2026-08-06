@@ -1,23 +1,27 @@
 {% set featuredPosts = collections.semiFeaturedProjects %}
+{% if not featuredPosts or not featuredPosts.length %}
+  {% set featuredPosts = collections.featuredProjects %}
+{% endif %}
 {% if featuredPosts and featuredPosts.length %}
 <section class="home-featured-grid" aria-label="Featured work">
   {% for post in featuredPosts | reverse %}
-  <a href="{{ post.url }}" class="home-featured-card">
-    <div class="home-featured-thumb">
-      {% if post.data.thumbnail %}
-        <img src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" loading="lazy" width="400" height="300">
-      {% elif post.data.images and post.data.images.length %}
-        {% homepageImage post.data.images[0].src, post.data.title, 400, "home-featured-img" %}
-      {% else %}
-        <div class="home-featured-placeholder">
-          <span class="home-featured-placeholder-label">Case study coming soon</span>
-        </div>
+  <a href="{{ post.url }}" class="home-featured-row{% if not (post.data.images and post.data.images.length) and not post.data.thumbnail %} home-featured-row--no-media{% endif %}">
+    <span class="home-featured-row-media" aria-hidden="true">
+      {% if post.data.images and post.data.images.length %}
+        {% for image in post.data.images %}
+          {% if loop.index <= 3 %}
+          <span class="home-featured-row-media-frame">
+            {% homepageImage image.src, "", 720, "home-featured-row-media-img" %}
+          </span>
+          {% endif %}
+        {% endfor %}
+      {% elif post.data.thumbnail %}
+        <span class="home-featured-row-media-frame">
+          <img src="{{ post.data.thumbnail }}" alt="" loading="lazy" width="1200" height="320" class="home-featured-row-media-img">
+        </span>
       {% endif %}
-    </div>
-    <div class="home-featured-meta">
-      <span class="home-featured-title">{{ post.data.title }}</span>
-      {% if post.data.description %}<span class="home-featured-tagline">{{ post.data.description }}</span>{% endif %}
-    </div>
+    </span>
+    <span class="home-featured-row-title">{{ post.data.title }}</span>
   </a>
   {% endfor %}
 </section>
