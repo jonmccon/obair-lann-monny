@@ -24,7 +24,8 @@ images:
   - src: "./content/design/PTR/PTR-87-calculator-landing-page-modal.png"
   - src: "./content/design/PTR/PTR-80-technical-performance-baseline-audit-Section-1-2003-2.png"
   - src: "./content/design/PTR/PTR-43-ptr-handoff.png"
-  - src: "./content/design/PTR/PTR-113-design-kit-full-page.png"
+  - src: "./content/design/PTR/PTR-113a-design-kit-top.png"
+  - src: "./content/design/PTR/PTR-113b-design-kit-bottom.png"
   - src: "./content/design/PTR/PTR-85-brand-positioning.png"
   - src: "./content/design/PTR/PTR-81-brand-customer-profile.png"
   - src: "./content/design/PTR/PTR-82-brand-goals.png"
@@ -216,6 +217,14 @@ I also designed updated email signatures, meeting agenda templates, and a projec
 
 The brand system, the operational templates, and the internal product ran off the same engine: the PTR Design Kit — a component library I built and published that made all three coherent simultaneously: brand-aligned, accessible, documented, and usable by engineering without a designer in the room.
 
+<div class="two-column">
+
+{% image "./PTR-113a-design-kit-top.png", "PTR Design Kit — component library overview: color system, typography, and foundational UI components." %}
+
+{% image "./PTR-113b-design-kit-bottom.png", "PTR Design Kit — full component catalog: buttons, forms, data tables, navigation patterns, and usage documentation." %}
+
+</div>
+
 While brand work was running, I started the product side with research. I conducted stakeholder interviews across every department — sales, operations, legal, finance, compliance — and built out a full departmental process map alongside a customer journey. This wasn't just documentation; I was looking for where data got stuck, where people were doing work the system should have been doing automatically.
 
 {% image "./PTR-12-customer-research_departmental-process-mapping-customer-journey-wip_360-2548.jpg", "Full departmental process map — the complete customer journey from prospect to resolution, mapped across every internal handoff. Built over several weeks of stakeholder sessions. The breadth of this FigJam board is the point: this is what one case actually touched." %}
@@ -287,8 +296,6 @@ I used the design system and a DaisyUI-based theme to build a clickable HTML pro
 {% image "./PTR-125-product-case-detail-success.png", "Product CRM — Case detail success state showing completed case with all documents attached." %}
 
 </div>
-
-{% image "./PTR-113-design-kit-full-page.png", "PTR Design Kit — the published npm component library showing full component catalog and documentation." %}
 
 ---
 
