@@ -13,30 +13,30 @@ tags:
   - mobile
   - design-systems
 images:
-- src: "./content/design/pwc/PWC-24-responsive-homepage-1440px.png"
-- src: "./content/design/pwc/PWC-18-responsive-dashboard-1440px.png"
-- src: "./content/design/pwc/PWC-21-responsive-deliverables-1440px.png"
-- src: "./content/design/pwc/PWC-20-responsive-dashboard-mobile.png"
-- src: "./content/design/pwc/PWC-19-responsive-dashboard-mobile-menu.png"
-- src: "./content/design/pwc/PWC-23-responsive-deliverables-mobile.png"
-- src: "./content/design/pwc/PWC-22-responsive-deliverables-mobile-menu.png"
-- src: "./content/design/pwc/PWC-26-responsive-homepage-mobile.png"
-- src: "./content/design/pwc/PWC-25-responsive-homepage-mobile-menu.png"
-- src: "./content/design/pwc/PWC-11-mobile-40-home.png"
-- src: "./content/design/pwc/PWC-15-mobile-80-workspace.png"
-- src: "./content/design/pwc/PWC-14-mobile-70-notifications.png"
-- src: "./content/design/pwc/PWC-12-mobile-50-expanded-overdue.png"
-- src: "./content/design/pwc/PWC-16-mobile-90-overdue-filter.png"
-- src: "./content/design/pwc/PWC-13-mobile-60-menu.png"
-- src: "./content/design/pwc/PWC-02-mobile-100-filters.png"
-- src: "./content/design/pwc/PWC-03-mobile-110-people.png"
-- src: "./content/design/pwc/PWC-05-mobile-120-work-item-detail.png"
-- src: "./content/design/pwc/PWC-06-mobile-120-work-item-status.png"
-- src: "./content/design/pwc/PWC-04-mobile-110-work-item-expanded.png"
-- src: "./content/design/pwc/PWC-07-mobile-130-work-item-menu.png"
-- src: "./content/design/pwc/PWC-08-mobile-140-document.png"
-- src: "./content/design/pwc/PWC-01-mobile-10-login.png"
-- src: "./content/design/pwc/PWC-10-mobile-30-login-success.png"
+- src: "content/design/pwc/PWC-24-responsive-homepage-1440px.png"
+- src: "content/design/pwc/PWC-18-responsive-dashboard-1440px.png"
+- src: "content/design/pwc/PWC-21-responsive-deliverables-1440px.png"
+- src: "content/design/pwc/PWC-20-responsive-dashboard-mobile.png"
+- src: "content/design/pwc/PWC-19-responsive-dashboard-mobile-menu.png"
+- src: "content/design/pwc/PWC-23-responsive-deliverables-mobile.png"
+- src: "content/design/pwc/PWC-22-responsive-deliverables-mobile-menu.png"
+- src: "content/design/pwc/PWC-26-responsive-homepage-mobile.png"
+- src: "content/design/pwc/PWC-25-responsive-homepage-mobile-menu.png"
+- src: "content/design/pwc/PWC-11-mobile-40-home.png"
+- src: "content/design/pwc/PWC-15-mobile-80-workspace.png"
+- src: "content/design/pwc/PWC-14-mobile-70-notifications.png"
+- src: "content/design/pwc/PWC-12-mobile-50-expanded-overdue.png"
+- src: "content/design/pwc/PWC-16-mobile-90-overdue-filter.png"
+- src: "content/design/pwc/PWC-13-mobile-60-menu.png"
+- src: "content/design/pwc/PWC-02-mobile-100-filters.png"
+- src: "content/design/pwc/PWC-03-mobile-110-people.png"
+- src: "content/design/pwc/PWC-05-mobile-120-work-item-detail.png"
+- src: "content/design/pwc/PWC-06-mobile-120-work-item-status.png"
+- src: "content/design/pwc/PWC-04-mobile-110-work-item-expanded.png"
+- src: "content/design/pwc/PWC-07-mobile-130-work-item-menu.png"
+- src: "content/design/pwc/PWC-08-mobile-140-document.png"
+- src: "content/design/pwc/PWC-01-mobile-10-login.png"
+- src: "content/design/pwc/PWC-10-mobile-30-login-success.png"
 ---
 
 Designed the responsive web experience for Concourse, PwC's internal platform for managing consulting engagements. As the sole designer on this workstream, I extended a desktop-first enterprise tool into a fully responsive web application, covering mobile through large desktop. The work touched login flows, the home workspace overview, a multi-view deliverables system, dashboard analytics, files, digital assets, tools, and reports — and produced a suite of touch-adapted design system components that were adopted across all mobile work at PwC.
@@ -82,26 +82,26 @@ The other thing I'd carry forward: change management is a design problem. You're
 **Responsive Web — Desktop (1440px)**
 
 <div class="two-column">
-{% image "./content/design/pwc/PWC-24-responsive-homepage-1440px.png", "Home — Workspace Overview at 1440px" %}
-{% image "./content/design/pwc/PWC-18-responsive-dashboard-1440px.png", "Dashboard — Work Items and Analytics at 1440px" %}
+{% image "./PWC-24-responsive-homepage-1440px.png", "Home — Workspace Overview at 1440px" %}
+{% image "./PWC-18-responsive-dashboard-1440px.png", "Dashboard — Work Items and Analytics at 1440px" %}
 </div>
 
-{% image "./content/design/pwc/PWC-21-responsive-deliverables-1440px.png", "Deliverables — List, Gantt, and Board views at 1440px" %}
+{% image "./PWC-21-responsive-deliverables-1440px.png", "Deliverables — List, Gantt, and Board views at 1440px" %}
 
 ---
 
 **Responsive Web — Mobile**
 
 <div class="three-column">
-{% image "./content/design/pwc/PWC-20-responsive-dashboard-mobile.png", "Dashboard Mobile" %}
-{% image "./content/design/pwc/PWC-19-responsive-dashboard-mobile-menu.png", "Dashboard Mobile — Nav Menu Open" %}
-{% image "./content/design/pwc/PWC-23-responsive-deliverables-mobile.png", "Deliverables Mobile" %}
+{% image "./PWC-20-responsive-dashboard-mobile.png", "Dashboard Mobile" %}
+{% image "./PWC-19-responsive-dashboard-mobile-menu.png", "Dashboard Mobile — Nav Menu Open" %}
+{% image "./PWC-23-responsive-deliverables-mobile.png", "Deliverables Mobile" %}
 </div>
 
 <div class="three-column">
-{% image "./content/design/pwc/PWC-22-responsive-deliverables-mobile-menu.png", "Deliverables Mobile — Menu Open" %}
-{% image "./content/design/pwc/PWC-26-responsive-homepage-mobile.png", "Home Mobile" %}
-{% image "./content/design/pwc/PWC-25-responsive-homepage-mobile-menu.png", "Home Mobile — Menu Open" %}
+{% image "./PWC-22-responsive-deliverables-mobile-menu.png", "Deliverables Mobile — Menu Open" %}
+{% image "./PWC-26-responsive-homepage-mobile.png", "Home Mobile" %}
+{% image "./PWC-25-responsive-homepage-mobile-menu.png", "Home Mobile — Menu Open" %}
 </div>
 
 ---
@@ -109,31 +109,31 @@ The other thing I'd carry forward: change management is a design problem. You're
 **Mobile Prototype**
 
 <div class="three-column">
-{% image "./content/design/pwc/PWC-11-mobile-40-home.png", "Home — My Workspaces" %}
-{% image "./content/design/pwc/PWC-15-mobile-80-workspace.png", "Workspace / Project Overview" %}
-{% image "./content/design/pwc/PWC-14-mobile-70-notifications.png", "Notifications" %}
+{% image "./PWC-11-mobile-40-home.png", "Home — My Workspaces" %}
+{% image "./PWC-15-mobile-80-workspace.png", "Workspace / Project Overview" %}
+{% image "./PWC-14-mobile-70-notifications.png", "Notifications" %}
 </div>
 
 <div class="three-column">
-{% image "./content/design/pwc/PWC-12-mobile-50-expanded-overdue.png", "Expanded Overdue Items" %}
-{% image "./content/design/pwc/PWC-16-mobile-90-overdue-filter.png", "Overdue Filter" %}
-{% image "./content/design/pwc/PWC-13-mobile-60-menu.png", "Navigation Menu" %}
+{% image "./PWC-12-mobile-50-expanded-overdue.png", "Expanded Overdue Items" %}
+{% image "./PWC-16-mobile-90-overdue-filter.png", "Overdue Filter" %}
+{% image "./PWC-13-mobile-60-menu.png", "Navigation Menu" %}
 </div>
 
 <div class="three-column">
-{% image "./content/design/pwc/PWC-02-mobile-100-filters.png", "Filters" %}
-{% image "./content/design/pwc/PWC-03-mobile-110-people.png", "People / Team View" %}
-{% image "./content/design/pwc/PWC-05-mobile-120-work-item-detail.png", "Work Item Detail" %}
+{% image "./PWC-02-mobile-100-filters.png", "Filters" %}
+{% image "./PWC-03-mobile-110-people.png", "People / Team View" %}
+{% image "./PWC-05-mobile-120-work-item-detail.png", "Work Item Detail" %}
 </div>
 
 <div class="three-column">
-{% image "./content/design/pwc/PWC-06-mobile-120-work-item-status.png", "Work Item Status Panel" %}
-{% image "./content/design/pwc/PWC-04-mobile-110-work-item-expanded.png", "Work Item Detail — Expanded" %}
-{% image "./content/design/pwc/PWC-07-mobile-130-work-item-menu.png", "Work Item Context Menu" %}
+{% image "./PWC-06-mobile-120-work-item-status.png", "Work Item Status Panel" %}
+{% image "./PWC-04-mobile-110-work-item-expanded.png", "Work Item Detail — Expanded" %}
+{% image "./PWC-07-mobile-130-work-item-menu.png", "Work Item Context Menu" %}
 </div>
 
 <div class="three-column">
-{% image "./content/design/pwc/PWC-08-mobile-140-document.png", "Document Detail View" %}
-{% image "./content/design/pwc/PWC-01-mobile-10-login.png", "Login Step 1" %}
-{% image "./content/design/pwc/PWC-10-mobile-30-login-success.png", "Login Success" %}
+{% image "./PWC-08-mobile-140-document.png", "Document Detail View" %}
+{% image "./PWC-01-mobile-10-login.png", "Login Step 1" %}
+{% image "./PWC-10-mobile-30-login-success.png", "Login Success" %}
 </div>
