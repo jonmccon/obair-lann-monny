@@ -13,11 +13,11 @@ tags:
   - community
 thumbnail: /img/thumbnails/teaching-thumb.png
 images:
-  - src: ./content/design/teaching/WWU-04-classroom-lecture-b.png
+  - src: "content/design/teaching/WWU-04-classroom-lecture-b.png"
     alt: Classroom lecture
-  - src: ./content/design/teaching/WWU-02-lettering-workshop-a.png
+  - src: "content/design/teaching/WWU-02-lettering-workshop-a.png"
     alt: Lettering workshop
-  - src: ./content/design/teaching/WWU-01-guest-lecture-series.png
+  - src: "content/design/teaching/WWU-01-guest-lecture-series.png"
     alt: Guest lecture series
 ---
 
@@ -68,19 +68,19 @@ What parts of this education were beneficial? What parts were not? How do I dete
 
 I was the primary lecturer responsible for creating and maintaining a schedule of lessons, assignments, writing individual feedback, organizing group critique, and managing the focus of a room of students. I was given much support and resources from the fulltime staff — of whom I am forever grateful — and guidance as a first-time teacher.
 
-{% image "./content/design/teaching/WWU-04-classroom-lecture-b.png", "Classroom lecture in session" %}
+{% image "./WWU-04-classroom-lecture-b.png", "Classroom lecture in session" %}
 
 ## Workshops & Guest Artists
 
 In addition to my own lectures, I organized nine former colleagues as guest speakers to share hands-on work from the full range of directions a graduate can go. This exposure to creative professionals was helpful to many students who hadn't yet witnessed what it was they had gotten themselves into.
 
-{% image "./content/design/teaching/WWU-02-lettering-workshop-a.png", "Lettering workshop led by Benjamin Hubbard" %}
+{% image "./WWU-02-lettering-workshop-a.png", "Lettering workshop led by Benjamin Hubbard" %}
 
 <p class="image-credit">Lettering workshop by <a href="https://www.linkedin.com/in/benjaminhubbard/" target="_blank" rel="noreferrer">Benjamin Hubbard</a></p>
 
 ## Bringing the Field into the Room
 
-{% image "./content/design/teaching/WWU-01-guest-lecture-series.png", "Guest lecture series at Western Washington University" %}
+{% image "./WWU-01-guest-lecture-series.png", "Guest lecture series at Western Washington University" %}
 
 <ul class="speaker-credits">
   <li><a href="https://www.linkedin.com/in/marlamakesstuff/" target="_blank" rel="noreferrer">Marla Moore</a></li>
