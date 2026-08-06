@@ -26,9 +26,13 @@ images:
 
 ---
 
+## The Problem
+
 The Pacific Northwest has a dense, proud creative community — and no single place to find it. So I built one. The Seattle Creative Directory is a living resource connecting creative businesses across the region, paired with an interview series where the people behind those businesses tell their own stories.
 
 **Role:** Founder, designer, developer, researcher, producer · **Company:** Seattle Creative Directory · **Timeline:** 2020 – Present · **Platform:** Responsive web, podcast, Google Ads, social media · **Tools:** Figma, Audition, Descript, Next.js, Notion, Typeform, Mapbox, Simplecast, Vercel, NeonDB · **Status:** 268 live listings, 15 episodes on iTunes and Spotify
+
+## The Design Problem
 
 The Seattle Creative Directory covers design studios, creative agencies, and creative businesses across the Pacific Northwest. The community here has a fiercely strong identity and its data is scattered. Resources existed but they were incomplete, hard to find, or years out of date. There was no single place that let you filter by neighborhood, size, or specialty, or see the whole community on a map.
 
@@ -36,9 +40,13 @@ The design problem was taxonomic as much as technical: how do you organize 268 b
 
 > What was a series of disparate mailing lists is made tangible and open.
 
+## My Role
+
 Seattle Creative Directory is a project born out of a shared vision with peer Ben Hubbard, that I founded, owned the product decisions, and have rebuilt it twice. I'm the designer, developer, researcher, and producer.
 
 The mandate I gave myself: build the resource I wished existed. That meant owning every layer from the information architecture and filter taxonomy to the database schema and deployment pipeline. I brought in Ben Hubbard for the logo, Dustin Horn to master the audio, and Lee Gehrig for data wrangling support. Small, well-chosen contributions that multiplied the quality without diluting the product direction.
+
+## From Static List to Living Directory
 
 At first it was a manual list and a static site — every listing was its own Markdown file, updated by hand, with no way to filter or search. I pulled it together simply because I wanted a list of everyone I knew in town. Then I added studio mailing lists. Then companies started signing up after I implemented a simple form.
 
@@ -68,14 +76,20 @@ It grew until I had to rebuild from scratch. The static Gatsby site meant one fi
 
 {% image "./scd-01.png", "The live product: 268 listings, interview quote cards from the podcast series, light and dark modes. Six years of continuous iteration, still growing." %}
 
+## Where It's Going
+
 Where it's growing currently is broader reach: more listings because they're easier to manage, more natural filters for different types of users, from industry research to agency hiring. And display advertising to start pulling these goals together. The 15-episode interview series is also ongoing qualitative research into how Pacific Northwest creative businesses think about their industry, their peers, and what they're building.
 
 It's expanding beyond design studios. This platform has legs to represent architecture and photography, letterpress and illustration, dance and theater, choir groups, musicians, glass artists, painters, woodworkers. It's a living directory for patrons to find creative individuals and a resource for cross-discipline mentorship.
+
+## Impact
 
 - 268 live listings across design studios, agencies, and creative businesses
 - 15 podcast episodes with over 40k plays across iTunes and Spotify
 - Admin dashboard supporting listing approval workflow, bulk import, and ad placement management
 - Full-stack product: design, development, database architecture, and content production — all owned solo
+
+## Why It Keeps Going
 
 This project has lived on the back burner and come roaring back more times than I can count, and that's exactly why it matters. It has supporters. It's building something up, strengthening a community. Every time I return, there's more reason to.
 
