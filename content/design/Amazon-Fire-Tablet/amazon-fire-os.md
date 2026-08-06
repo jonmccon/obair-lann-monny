@@ -27,15 +27,21 @@ Designing at the OS level means your decisions don't ship to a userbase, they sh
 
 **Role:** UX/UI Designer · **Company:** Amazon, Digital Devices Group · **Timeline:** 2018–2019 · **Team:** 6-person tablet design team; 2 designers dedicated to the OS-level update · **Platform:** Android & Fire Tablets (OS-level) · **Tools:** Sketch, Photoshop, Amazon internal design system · **Status:** Shipped in 2019 on new devices; OTA upgrade rollout 2020
 
+## The Problem
+
 Fire OS was already a version behind Android's release cycle when I joined the project. The gap was causing real user pain — not just a cosmetic update. Devices were stalling, media playback was desyncing, and on lower-end hardware you'd see single-digit frame rates as the device tried to cache Amazon's full content integration layer. Essentially, all the work that had gone into making an Android fork into a custom Amazon experience was choking the cheaper hardware that Amazon was leveraging as a sales advantage.
 
 Android 9 Pie's core upgrades were around memory management and performance scaling, which made it the right release to close the gap on. But beyond the stability fixes, there was a long list of new interaction patterns to work through: how does a Pie feature land in a Fire mindset? What does a user on a $50 Fire 7 expect versus someone on a new Fire HD 10?
+
+## Designing for the Floor, Not the Ceiling
 
 The constraints were real. Many of the new Android features assumed hardware we didn't have — built around high-refresh displays, ample RAM, and fast storage. We were designing for 1GB and 2GB RAM ceilings, not the upper-end models.
 
 I was one of two designers focused specifically on the OS-level update, working within a 6-person tablet design team where others were focused on individual apps and experiences. My specific contributions spanned the system UI layer: the new Quick Settings panel, App Shelf, Pane Navigation redesign, Settings app reorganization, and the visual accessibility updates across font and icon systems. I also worked closely with engineering to review and resolve the performance/fidelity tradeoffs that came up throughout.
 
 My background with Material Design gave me a working translation layer — I understood the intent behind Android's patterns well enough to adapt them rather than just copy them.
+
+## Progressive Enhancement at the OS Level
 
 I approached this work from the lens of progressive enhancement. The newest Android features weren't designed to run on budget hardware, but the *user experiences* they enabled — faster task switching, cleaner notification management, better accessibility controls — those goals were achievable at lower fidelity. The question was how to get there without taxing the hardware.
 
@@ -47,7 +53,7 @@ That meant a lot of time sitting with the engineering team reviewing specific tr
 
 The answer we landed on was a deliberate simplification: not cutting features, but cutting complexity from how they were expressed. Perceived panel physics tuned down, lower frame rate targets for transitions, load-in placeholders timed to user expectations. The goal was to anticipate what the user expected without overtaxing what the hardware could actually deliver.
 
-**Net new features shipped:**
+## What Shipped
 
 - **App Shelf** — reorganized the home screen app layer, making primary content more accessible without deep navigation
 - **Pane Navigation** — consolidated content panels to increase readability and fit more inventory in view (measured outcome: increased on-screen ASIN count by 2–3×)
@@ -82,7 +88,11 @@ The answer we landed on was a deliberate simplification: not cutting features, b
 
 {% image "./ama-09.png", "Fire OS 7 — shipped to 40M+ active Amazon tablet devices" %}
 
+## Impact
+
 The Fire OS 7 rollout shipped on new device hardware in 2019, then via OTA upgrade to existing devices in 2020 — reaching 40M+ active users. The Pane Navigation redesign increased on-screen ASIN count by 2–3×, and the memory and performance work served as the software baseline for every mainstream Amazon tablet sold over a three-year period.
+
+## In Retrospect
 
 In the moment I was focused squarely on the translation problem — how do you adapt Google's design language into what's appropriate for an Amazon fork? It felt like that framing limited me. There was a bigger opportunity to look at all of Amazon's apps and pull the whole interaction language together into something more coherent, rather than treating each update as a porting exercise.
 
