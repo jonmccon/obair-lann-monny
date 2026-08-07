@@ -196,7 +196,7 @@ footer {
 
 /* Related Projects Styles */
 .related-projects {
-	margin-top: 3rem;
+	margin-inline: 0 auto;
 	padding-top: 2rem;
 	border-top: 1px solid var(--anp-crust);
 }
@@ -212,7 +212,7 @@ footer {
 
 .related-projects-grid {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(100px, 120px));
+	grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
 	gap: 0.75rem;
 	margin-bottom: 2rem;
 }
@@ -239,7 +239,7 @@ footer {
 .related-project-thumbnail {
 	width: 100%;
 	aspect-ratio: 4 / 3;
-	max-height: 90px;
+	max-height: 120px;
 	overflow: hidden;
 	background: var(--surface-color-alt);
 }
@@ -2096,14 +2096,23 @@ img {
 	color: var(--anp-sky);
 }
 
+.post-header {
+	justify-content: center;
+}
+
 .post-header h1 {
 	margin-top: 0;
 	margin-bottom: 0;
+	max-width: 68ch;
+	margin-inline: auto;
 	font-family: var(--font-family-headline);
+	text-align: center;
 }
 
 .post-metadata {
 	margin-bottom: 0;
+	max-width: 68ch;
+	margin-inline: auto;
 }
 
 /* Password protection overlay */
@@ -2156,6 +2165,15 @@ img {
 .password-error {
 	color: var(--text-color-link-active);
 	font-size: 0.875rem;
+}
+
+/* Archive intro paragraph (e.g. /design/ page) — matches post-body reading column */
+.archive-intro {
+	max-width: 68ch;
+	margin-inline: auto;
+	font-size: 1.3rem;
+	line-height: 1.7;
+	margin-bottom: 2.5rem;
 }
 
 /* =====================================================
@@ -2218,13 +2236,27 @@ img {
 	margin-bottom: 2rem;
 }
 
-/* Any direct paragraph in post body gets breathing room */
-.post-body > p {
+/* Section headings in post body — constrained to reading column, centered */
+.post-body > :is(h2, h3, h4, h5, h6) {
+	max-width: 50ch;
+	margin-top: 2rem;
 	margin-bottom: 1rem;
+	margin-inline: auto;
+	padding-top: 0;
 }
 
-/* Intro paragraph — narrower, extra space before images */
+/* Any direct paragraph in post body gets breathing room + optimal reading width, centered */
+.post-body > p {
+	margin-bottom: 1rem;
+	max-width: 68ch;
+	margin-inline: auto;
+	font-size: 1.3rem;
+	line-height: 1.7;
+}
+
+/* Intro paragraph — same width, extra space before images */
 .post-body > p:first-child {
-	max-width: 52ch;
+	max-width: 68ch;
+	margin-inline: auto;
 	margin-bottom: 2.5rem;
 }
