@@ -83,6 +83,9 @@
   width: 100%;
   perspective: 1000px;
   padding: 0.45rem;
+  /* Clip overflow so portrait-format or small images
+     don't escape the card boundary */
+  overflow: hidden;
 }
 
 /* Title/metadata band above each pile */
@@ -143,8 +146,16 @@
 .pile-images {
   position: relative;
   width: 85%;
-  aspect-ratio: 3/2;
-  min-height: 170px;
+  /* Use a fixed height range instead of a strict aspect-ratio so the
+     container is equally stable for landscape screenshots, portrait
+     business-card images, and small icons. aspect-ratio: 3/2 was too
+     rigid — portrait images overflowed and small images left too much
+     empty space. The JS positions children as absolute % values so the
+     container height is purely a visual stage; consistent min/max is
+     all it needs. */
+  height: 180px;
+  min-height: 150px;
+  max-height: 220px;
   overflow: visible;
 }
 
@@ -153,8 +164,11 @@
   position: absolute;
   top: var(--pos-y, 50%);
   left: var(--pos-x, 50%);
-  width: var(--w, 56%);
-  height: var(--h, 50%);
+  /* Default sizes before JS runs — kept smaller and more square so
+     any aspect ratio lands inside the container until naturalWidth/
+     naturalHeight are known. JS overwrites these on load. */
+  width: var(--w, 50%);
+  height: var(--h, 45%);
   transform: 
     translate(-50%, -50%)
     translate(var(--offset-x), var(--offset-y))
@@ -274,8 +288,9 @@
   }
 
   .pile-images {
-    min-height: 140px;
-    aspect-ratio: 4/3;
+    min-height: 130px;
+    height: 155px;
+    max-height: 190px;
   }
 }
 
