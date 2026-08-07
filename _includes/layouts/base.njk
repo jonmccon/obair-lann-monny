@@ -33,7 +33,7 @@
 		{
 			"@context": "https://schema.org",
 			"@type": "Article",
-			"headline": {{ title | dump | safe }},
+			"headline": {{ (pageHeadline or title) | dump | safe }},
 			"description": {{ seoDescription | dump | safe }},
 			"url": {{ canonicalUrl | dump | safe }},
 			"datePublished": {{ page.date | dateToRfc3339 | dump | safe }},

@@ -1,5 +1,6 @@
 ---
-title: Priority | Brand & Product Designer | Jonny McConnell
+title: Priority | Brand and Product Designer | Jonny McConnell
+pageHeadline: Priority Tax Relief
 description: Design director across branding, marketing, and internal product UX/UI for a national tax relief company - solo designer supporting 200+ people with a $7M MRR operation. Delivered a full rebrand, design system published, replatformed marketing site, and a CRM product strategy.
 category: Priority Tax Relief
 bgColor: black
@@ -79,9 +80,7 @@ Solo designer for a 200-person, $7M MRR national tax relief company. I owned the
 
 **Outcome:** Shipped rebrand, design system released, replatformed website, Chrome extension, internal CRM prototype.
 
----
-
-The brief I walked into was really two briefs wearing one coat.
+## Two briefs wearing the same coat
 
 The brand was fragmented and inconsistent across every channel I could find: TV spots, PPC ads, website, emails, letterhead, merch. It had good ideas and decent bones, but no steward, no guidelines, no system. That inconsistency was bleeding credibility in a category where trust is the entire product. There was a real opportunity to raise the professional bar above competitors and build something the internal teams could rally around.
 
@@ -107,15 +106,11 @@ Fix the face. Fix the engine. Both at once. Solo.
 
 {% image "./PTR-86-brand-survey-results.png", "Brand survey results — stakeholder and customer feedback aggregated into key themes. The survey validated the brand direction and surfaced unexpected priorities around trust signals and clarity." %}
 
----
-
 ## My Role
 
 Priority brought me in as their first dedicated designer with a specific mandate: build the design infrastructure the company had been operating without. I worked directly with the ownership group, embedded with engineering, marketing, IT, and senior leadership simultaneously.
 
 My contribution was the throughline across all three tracks — brand, product, and marketing — owned from brief to delivery. I set the visual direction, ran the research, made the system decisions, and produced the final artifacts. Every surface the company touched externally or internally went through me.
-
----
 
 ## Starting with Research, Not Opinions
 
@@ -138,8 +133,6 @@ That analysis fed everything that came after — who we were talking to, what th
 {% image "./PTR-82-brand-goals.png", "Brand goals visualized — the decision-making criteria framed as a working reference for the team. Increase readability, retain market recognition, develop brand voice, consistent representation." %}
 
 </div>
-
----
 
 ## The Brand System
 
@@ -174,8 +167,6 @@ Everything got collected into a brand guidelines document and a formal brand boo
 {% image "./PTR-101-merch-cap-mockup-2.png", "Brand extension — color variations of the cap mockup for seasonal campaigns." %}
 
 </div>
-
----
 
 ## Operations: the Surface Designers Usually Skip
 
@@ -253,7 +244,6 @@ The idea was to start *putting the data to work for people* rather than making p
 
 This was an appropriately humble first step. It proved the concept, got buy-in from users who saw immediate value, and gave us a real behavioral baseline before designing the next phase.
 
----
 
 ## Building Toward a Platform
 
@@ -297,7 +287,6 @@ I used the design system and a DaisyUI-based theme to build a clickable HTML pro
 
 </div>
 
----
 
 ## Marketing Across Every Surface
 
@@ -317,7 +306,6 @@ I built a full email component system covering the complete funnel with modular 
 
 </div>
 
----
 
 ## The Tax Forgiveness Calculator
 
@@ -333,7 +321,6 @@ One of the primary marketing surfaces was a tax forgiveness estimator — a qual
 
 </div>
 
----
 
 ## Replatforming the Marketing Site
 
@@ -381,7 +368,6 @@ The handoff package is a static build that engineering can lift into production 
 
 {% image "./PTR-43-ptr-handoff.png", "Engineering handoff package — the complete static build hosted on GitHub Pages with annotated pages, decision log, component inventory, and full asset structure." %}
 
----
 
 ## Outcomes
 
@@ -393,7 +379,6 @@ The handoff package is a static build that engineering can lift into production 
 - Published design system, standardizing engineering and design expectations across teams
 - Rebuilt 80+ operational documents on the new brand template system
 
----
 
 ## Reflection
 
