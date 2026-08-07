@@ -2100,10 +2100,13 @@ img {
 	margin-top: 0;
 	margin-bottom: 0;
 	font-family: var(--font-family-headline);
+	text-align: center;
 }
 
 .post-metadata {
 	margin-bottom: 0;
+	max-width: 68ch;
+	margin-inline: auto;
 }
 
 /* Password protection overlay */
@@ -2156,6 +2159,15 @@ img {
 .password-error {
 	color: var(--text-color-link-active);
 	font-size: 0.875rem;
+}
+
+/* Archive intro paragraph (e.g. /design/ page) — matches post-body reading column */
+.archive-intro {
+	max-width: 68ch;
+	margin-inline: auto;
+	font-size: 1.3rem;
+	line-height: 1.7;
+	margin-bottom: 2.5rem;
 }
 
 /* =====================================================
@@ -2216,6 +2228,16 @@ img {
 .post-body .two-column,
 .post-body .three-column {
 	margin-bottom: 2rem;
+}
+
+/* Section headings in post body — constrained to reading column, centered */
+.post-body > h2,
+.post-body > h3,
+.post-body > h4,
+.post-body > h5,
+.post-body > h6 {
+	max-width: 68ch;
+	margin-inline: auto;
 }
 
 /* Any direct paragraph in post body gets breathing room + optimal reading width, centered */
