@@ -34,10 +34,24 @@ module.exports = eleventyConfig => {
 	let logged = false;
 	eleventyConfig.on("eleventy.before", ({runMode}) => {
 		let text = "Excluding";
-		// Only show drafts in serve/watch modes
-		if(runMode === "serve" || runMode === "watch") {
-			process.env.BUILD_DRAFTS = true;
-			text = "Including";
+		
+		// Check if BUILD_DRAFTS is explicitly set in environment
+		if (process.env.BUILD_DRAFTS !== undefined) {
+			// Normalize string "true"/"false" to boolean or delete if false
+			if (process.env.BUILD_DRAFTS === "true" || process.env.BUILD_DRAFTS === true) {
+				process.env.BUILD_DRAFTS = true;
+				text = "Including";
+			} else {
+				// Delete the env var so !process.env.BUILD_DRAFTS is true
+				delete process.env.BUILD_DRAFTS;
+				text = "Excluding";
+			}
+		} else {
+			// Default behavior: only show drafts in serve/watch modes
+			if(runMode === "serve" || runMode === "watch") {
+				process.env.BUILD_DRAFTS = true;
+				text = "Including";
+			}
 		}
 
 		// Only log once.

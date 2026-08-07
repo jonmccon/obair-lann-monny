@@ -3,6 +3,7 @@ title: Early Work
 description: Student and independent work from 2009–2011 — WWU, Bellingham, and the Pacific Northwest
 category: WWU
 date: 2011-09-01
+draft: true
 thumbnail: /img/thumbnails/early-work-thumb.png
 tags:
   - print
