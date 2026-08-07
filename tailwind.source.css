@@ -89,10 +89,6 @@
     @apply mb-0;
   }
 
-  .rich-text > :where(p, ul, ol, blockquote, pre, figure) {
-    @apply my-0;
-  }
-
   .rich-text > h2 {
     @apply pt-4;
   }
