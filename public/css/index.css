@@ -4,6 +4,7 @@
 	--font-family: 'Outfit', system-ui, sans-serif;
 	--font-family-headline: 'Outfit', system-ui, sans-serif;
 	--font-family-headline-flex: 'Google Sans Flex', 'Outfit', system-ui, sans-serif;
+	--font-family-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
 	--font-weight-body: 400;
 	--font-weight-medium: 500;
 	--font-weight-semibold: 600;
@@ -274,7 +275,7 @@ table th {
 
 pre,
 code {
-	font-family: var(--font-family);
+	font-family: var(--font-family-mono);
 }
 pre:not([class*="language-"]) {
 	line-height: 1.375; /* 22px /16 */
@@ -289,9 +290,35 @@ pre:not([class*="language-"]) {
 	white-space: pre;
 	word-spacing: normal;
 	word-break: normal;
+	overflow-x: auto;
+	font-family: var(--font-family-mono);
+	font-size: 0.875em;
+	padding: 1em 1.25em;
+	background-color: var(--anp-surface0);
+	color: var(--anp-text);
+	border: 1px solid var(--anp-surface1);
+	border-radius: 0.5em;
+}
+
+pre:not([class*="language-"]) code {
+	font-family: inherit;
 }
 code {
 	word-break: break-all;
+}
+
+/* Inline code — scoped to exclude syntax-highlighted pre blocks */
+:not(pre) > code {
+	font-family: var(--font-family-mono);
+	font-size: 0.875em;
+	font-weight: var(--font-weight-body);
+	padding: 0.12em 0.4em;
+	background-color: var(--anp-surface0);
+	color: var(--anp-text);
+	border: 1px solid var(--anp-surface1);
+	border-radius: 0.35em;
+	word-break: normal;
+	overflow-wrap: anywhere;
 }
 
 /* Header */
@@ -2299,6 +2326,15 @@ img {
 	margin-bottom: 2.5rem;
 }
 
+/* Align block-level content (code, quotes, lists) to the same reading column as body paragraphs (68ch of Outfit @ 1.3rem ≈ 58rem) */
+.post-body > pre,
+.post-body > blockquote,
+.post-body > ul,
+.post-body > ol {
+	max-width: 58rem;
+	margin-inline: auto;
+}
+
 /* ─── Homepage Callout Strip ─────────────────────────────── */
 .home-callout-strip {
   width: 100%;
@@ -2326,6 +2362,7 @@ img {
   gap: 0.2rem;
   min-width: 220px;
   max-width: 320px;
+  text-align: left;
 }
 
 .home-callout:last-child {
@@ -2339,42 +2376,43 @@ img {
 
 .home-callout-quote {
   font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-color);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-color-muted););
   line-height: 1.25;
   margin: 0;
 }
 
 .home-callout-source {
   font-size: 0.75rem;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-color-muted);
   font-style: normal;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 .home-testimonial-strip {
-  margin: -0.5rem 0 2.5rem;
+  margin: 0 0 1.5rem;
 }
 
 .home-testimonial-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .home-testimonial {
   margin: 0;
-  padding: 1rem 1.1rem;
+  padding: 0.75rem 0.85rem;
   border: 1px solid var(--anp-crust);
-  background: color-mix(in srgb, var(--surface-color) 76%, white 24%);
+  background: transparent;
+  text-align: left;
 }
 
 .home-testimonial-quote {
-  margin: 0 0 1rem;
-  font-size: clamp(1rem, 1.35vw, 1.1rem);
-  line-height: 1.45;
+  margin: 0 0 0.75rem;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  line-height: 1.5;
   font-style: italic;
 }
 
@@ -2397,6 +2435,14 @@ img {
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.home-testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .home-testimonial-attribution {
@@ -2408,7 +2454,7 @@ img {
 
 .home-testimonial-attribution a {
   color: var(--text-color);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   font-weight: var(--font-weight-semibold);
   text-decoration: none;
 }
@@ -2420,8 +2466,9 @@ img {
 
 .home-testimonial-role {
   color: var(--text-color-muted);
-  font-size: 0.76rem;
-  letter-spacing: 0.03em;
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 

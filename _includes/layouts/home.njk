@@ -53,49 +53,14 @@ layout: layouts/base.njk
   <p class="homepage-about">{{ introductionText }}</p>
   {% endif %}
 
-  <div class="home-callout-strip" aria-label="Selected outcomes">
-    <div class="home-callout-scroll">
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Shipped to 40M+ active devices</p>
-        <cite class="home-callout-source">Amazon Fire OS 7</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Reduced report task time by 95%</p>
-        <cite class="home-callout-source">Resonance AI — company acquihired</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Increased conversions by 14×</p>
-        <cite class="home-callout-source">Priority Tax Relief rebrand</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Meet PWA is now a top-3 global communication tool</p>
-        <cite class="home-callout-source">Google Meet — dial-out &amp; standalone prototype</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Tens of thousands of healthcare workers verified daily</p>
-        <cite class="home-callout-source">Lumedic Connect — Providence Health network</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Design system adopted across PwC's internal ecosystem</p>
-        <cite class="home-callout-source">PwC Concourse — mobile platform</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">268 listings · 15 episodes · 40k+ plays</p>
-        <cite class="home-callout-source">Seattle Creative Directory</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Interaction patterns surfaced in Gemini for Android</p>
-        <cite class="home-callout-source">BUCK × Google — early Gemini concepts</cite>
-      </blockquote>
-    </div>
-  </div>
-
   <section class="home-testimonial-strip" aria-label="Recommendations">
     <div class="home-testimonial-grid">
       <blockquote class="home-testimonial">
         <p class="home-testimonial-quote">“He challenged the status quo with his design process and methodology and consistently designed meaningful experiences for our users.”</p>
         <footer class="home-testimonial-footer">
-          <span class="home-testimonial-avatar" aria-hidden="true">MV</span>
+          <span class="home-testimonial-avatar" aria-hidden="true">
+            <img src="/img/testimonials/mike-vw.png" alt="Mike Van Wagoner" width="40" height="40">
+          </span>
           <cite class="home-testimonial-attribution">
             <a href="https://www.linkedin.com/in/mike-van-wagoner/" target="_blank" rel="noreferrer">Mike Van Wagoner</a>
             <span class="home-testimonial-role">Product Design Leader</span>
@@ -106,7 +71,7 @@ layout: layouts/base.njk
       <blockquote class="home-testimonial">
         <p class="home-testimonial-quote">“Jonny's end-to-end design process is impressive, as he is able to take an idea from conception to delivery while ensuring that the end product meets the needs of the users.”</p>
         <footer class="home-testimonial-footer">
-          <span class="home-testimonial-avatar" aria-hidden="true">JW</span>
+          <span class="home-testimonial-avatar" aria-hidden="true"><img src="/img/testimonials/jeremy-w.png" alt="Jeremy Wheat" width="40" height="40"></span>
           <cite class="home-testimonial-attribution">
             <a href="https://www.linkedin.com/in/jeremywheat/" target="_blank" rel="noreferrer">Jeremy Wheat</a>
             <span class="home-testimonial-role">Senior Manager, Cloud Engineering, Data &amp; Analytics</span>
@@ -115,6 +80,43 @@ layout: layouts/base.njk
       </blockquote>
     </div>
   </section>
+
+    <div class="home-callout-strip" aria-label="Selected outcomes">
+    <div class="home-callout-scroll">
+      <blockquote class="home-callout">
+        <p class="home-callout-quote">Shipped to 40M+ active devices</p>
+        <cite class="home-callout-source">Amazon Fire OS</cite>
+      </blockquote>
+      <blockquote class="home-callout">
+        <p class="home-callout-quote">Reduced report task time by 95%</p>
+        <cite class="home-callout-source">Resonance AI</cite>
+      </blockquote>
+      <blockquote class="home-callout">
+        <p class="home-callout-quote">Increased conversion surfaces by 14×</p>
+        <cite class="home-callout-source">Priority Tax Relief rebrand</cite>
+      </blockquote>
+      {# <blockquote class="home-callout">
+        <p class="home-callout-quote">Meet PWA is now a top-3 global communication tool</p>
+        <cite class="home-callout-source">Google Meet — dial-out &amp; standalone prototype</cite>
+      </blockquote> #}
+      <blockquote class="home-callout">
+        <p class="home-callout-quote">Tens of thousands of healthcare workers verified daily</p>
+        <cite class="home-callout-source">Lumedic Connect — Providence Health network</cite>
+      </blockquote>
+      {# <blockquote class="home-callout">
+        <p class="home-callout-quote">Design system adopted across PwC's internal ecosystem</p>
+        <cite class="home-callout-source">PwC Concourse — mobile platform</cite>
+      </blockquote> #}
+      <blockquote class="home-callout">
+        <p class="home-callout-quote">268 listings · 15 episodes · 50k+ plays</p>
+        <cite class="home-callout-source">Seattle Creative Directory</cite>
+      </blockquote>
+      {# <blockquote class="home-callout">
+        <p class="home-callout-quote">Interaction patterns surfaced in Gemini for Android</p>
+        <cite class="home-callout-source">BUCK × Google — early Gemini concepts</cite>
+      </blockquote> #}
+    </div>
+  </div>
 
   {% include "homeFeaturedProjects.njk" %}
 
