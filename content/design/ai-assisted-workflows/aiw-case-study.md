@@ -83,7 +83,35 @@ Design questions:
 
 Structured conversational process board to get the group asking the right questions and stepping through a process of understanding the issue at hand, along with the business and customer context that it's happening in.
 
-{% image "./AIW-05-research-synthesis-figma.png", "Discovery session synthesis in Figma, sticky note analysis tool breaking down themes by topic" %}
+**Before:**
+```
+Identify challenges  
+Opportunity  
+HMW statements  
+Ideas from outside the company  
+Reverse brainstorming  
+Possible constraints  
+Actionables
+```
+
+{% image "../priority-tax-relief/feat-customer-access.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
+
+**After:**
+
+```
+Customer portal and self-service solutions  
+Customer service operations and support models  
+Document management and sharing  
+Scalability and operational efficiency  
+Process transparency and workflow management  
+Client communication and status tracking pain points  
+Client experience and engagement  
+Communication channels and methods  
+Account access and data rights  
+Budget and resource constraints
+```
+
+{% image "../priority-tax-relief/PTR-88-platform-feature-discovery-workshop.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
 
 *Discovery session synthesis, instead of going through every recording manually, AI boils it down into key design questions and themes. I can jump straight to "people wrote the most about information transparency and client confidence" and map that to a feature prototype.*
 
@@ -93,9 +121,91 @@ The analysis that used to take a dedicated researcher a week (tagging, theming, 
 
 To test the understanding of the latest reporting dashboard I made, I didn't write every test question myself. I gave an AI the structure of the test I wanted, the visual pages, the tasks I wanted to see and I got back a pretty good first draft. Then I rewrote it to understand and solidify the test.
 
+```
+...
+
+Task 5: Add Tracking Snippets
+- Add two types of tracking snippets to the landing page
+    
+Success Criteria
+- Both snippet types added successfully
+- User understands when and why each is used
+
+Observation Focus
+- Technical confidence
+- Error prevention and recovery
+
+---
+
+Task 6: To-Do Items & Comments
+- Add a to-do item related to the landing page
+- Leave a comment about progress or an issue
+
+Success Criteria
+- To-do and comment created successfully
+- User understands visibility and ownership
+    
+Observation Focus
+- Marketing & IT responsibility boundaries
+- Comprehends two way communication
+
+---
+
+Task 7: Analytics Reporting & Analysis
+- Review analytics for the landing page
+- Identify # of unique users and lead form completions
+    
+Success Criteria
+- Correct metrics identified
+- User can explain trends or changes
+
+Probe
+- "How does this compare to how you previously accessed this data?"
+
+Reflection Questions
+- What felt faster than your previous workflow?
+- What felt slower or more confusing?
+- Where did you feel unsure about data accuracy?
+- What would prevent full adoption of this system?
+- What data, if any, would you still export to CSV?
+    
+Confidence Ratings (1–5)
+- Ease of use
+- Data trust
+- Reporting clarity
+- Collaboration support
+
+...
+```
+
 Generation, refinement, then actual usability sessions. Take the recordings and the script, feed it back: "did someone get to that feature? How fast? What was their sentiment?" Go crunch the numbers and give me a chart of task-to-completion.
 
+
+Quantitative Metrics
+- Task completion rate
+- Time on task, per task
+- Error frequency
+- Help requests
+
+Qualitative Metrics
+- Confidence language
+- Trust indicators
+- Workflow comparisons (legacy vs new)
+- Cross-team friction points
+
+Research Deliverables
+- Executive summary
+- Task success and failure matrix
+- Severity-ranked usability issues
+- Workflow comparison insights
+
+Recommendations:
+- UX and architecture improvements
+- Training and documentation needs
+- Feature gaps related to data integration
+
 The better the structured test is, the better the structured results. Design research is about finding out what's actually happening. By leveraging AI tools to study and breakdown our hunches faster, we can better see and understand our blind spots too.
+
 
 ## From Conversation → Product Definition
 
@@ -174,7 +284,7 @@ Experiment → Pattern → Component → System
 
 With Figma MCP running locally, I can pull any changes to the theme variables and update the tokens used to generate the Daisy UI theme. The goal: bidirectional sync. Design tokens in Figma (colors, spacing, fonts) exactly match the actual project. Components named the same. Build out a new button or form series in Figma, go directly into prototyping with real components instead of static HTML pages.
 
-I can be on a call with stakeholders: real-time changes in Figma become a pull request instead of email back-and-forth. Avoiding rounds of 'I meant this, I meant that.' The goal here is speeding up the feedback loop between product, design, and engineering.
+I can be on a call with stakeholders: real-time changes in Figma become a pull request instead of email back-and-forth. Avoiding rounds of 'I meant this, I meant that.' The goal here is speeding up the feedback loop between product, design, and engineering. [See the full hosted brand-kit package](https://jonmccon.github.io/ptr-design-kit/)
 
 ## Hermes as Orchestration Layer
 

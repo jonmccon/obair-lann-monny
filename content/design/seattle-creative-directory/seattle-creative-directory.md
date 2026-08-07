@@ -34,11 +34,19 @@ The Pacific Northwest has a dense, proud creative community and no single place 
 
 ## The Design Problem
 
-The Seattle Creative Directory covers design studios, creative agencies, and creative businesses across the Pacific Northwest. The community here has a fiercely strong identity and its data is scattered. Resources existed but they were incomplete, hard to find, or years out of date. There was no single place that let you filter by neighborhood, size, or specialty, or see the whole community on a map.
+The [Seattle Creative Directory](https://www.seattlecreative.directory/) covers design studios, creative agencies, and creative businesses across the Pacific Northwest. The community here has a fiercely strong identity and its data is scattered. Resources existed but they were incomplete, hard to find, or years out of date. There was no single place that let you filter by neighborhood, size, or specialty, or see the whole community on a map.
 
 The design problem was taxonomic as much as technical: how do you organize 268 businesses across disciplines, scales, and geographies in a way that's useful to a recruiter, a student, and a patron all at once? The answer became a four-axis filter system: size, neighborhood, city, and tags built on a proper relational database so it could actually stay current.
 
 What was a series of disparate mailing lists is made tangible and open.
+
+<div class="two-column">
+{% image "./SCD-04-light-filters-open-2.png", "Filter in use: 'recruiter' tag active, narrowing to studios that match a specific hiring context. The taxonomy was the design challenge — getting the right level of specificity without fragmenting the directory." %}
+
+{% image "./SCD-01-dark-filters.png", "The map view plots the whole community geographically — useful for patrons looking by neighborhood, or anyone who thinks spatially about the city's creative scene." %}
+
+</div>
+
 
 ## My Role
 
@@ -55,13 +63,13 @@ At first it was a manual list and a static site, every listing was its own Markd
 It grew until I had to rebuild from scratch. The static Gatsby site meant one file per listing, no live filtering, and no search. The move to Next.js with a proper Postgres database changed all of that, suddenly a recruiter could filter by size and neighborhood, a student could search by specialty, and anyone could see the whole community plotted on a map. The stack is Next.js 14 with TypeScript, Prisma over Neon Postgres, Clerk for authentication, Stripe for ad placements, and Mapbox for the geographic layer, deployed on Vercel.
 
 <div class="two-column">
-{% image "./scd-02.png", "The rebuilt filter system: Size, Neighborhood, City, and Tags — four axes that let different users find what they need without seeing everything at once." %}
-{% image "./SCD-04-light-filters-open-2.png", "Filter in use: 'recruiter' tag active, narrowing to studios that match a specific hiring context. The taxonomy was the design challenge — getting the right level of specificity without fragmenting the directory." %}
-</div>
-
-{% image "./SCD-01-dark-filters.png", "The map view plots the whole community geographically — useful for patrons looking by neighborhood, or anyone who thinks spatially about the city's creative scene." %}
 
 {% image "./scd-01.png", "The live product: 268 listings, interview quote cards from the podcast series, light and dark modes. Six years of continuous iteration, still growing." %}
+
+{% image "./scd-02.png", "The rebuilt filter system: Size, Neighborhood, City, and Tags — four axes that let different users find what they need without seeing everything at once." %}
+
+</div>
+
 
 ## Where It's Going
 
