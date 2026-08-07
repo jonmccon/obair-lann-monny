@@ -2096,9 +2096,15 @@ img {
 	color: var(--anp-sky);
 }
 
+.post-header {
+	justify-content: center;
+}
+
 .post-header h1 {
 	margin-top: 0;
 	margin-bottom: 0;
+	max-width: 68ch;
+	margin-inline: auto;
 	font-family: var(--font-family-headline);
 	text-align: center;
 }
@@ -2231,13 +2237,12 @@ img {
 }
 
 /* Section headings in post body — constrained to reading column, centered */
-.post-body > h2,
-.post-body > h3,
-.post-body > h4,
-.post-body > h5,
-.post-body > h6 {
+.post-body > :is(h2, h3, h4, h5, h6) {
 	max-width: 68ch;
+	margin-top: 0;
+	margin-bottom: 1rem;
 	margin-inline: auto;
+	padding-top: 0;
 }
 
 /* Any direct paragraph in post body gets breathing room + optimal reading width, centered */
