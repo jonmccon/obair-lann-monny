@@ -1,12 +1,13 @@
 ---
 title: Amazon Digital Devices Group | UX Designer | Jonny McConnell
+pageHeadline: Fire OS 7 Upgrades
 description: UX case study — adapting Android 9 Pie features for Fire OS 7, shipped to 40M+ active devices as part of Amazon's largest OS rollout.
 category: Amazon
 date: 2019-05-01
 thumbnail: /img/thumbnails/amazon-fire-os-thumb.png
 draft: false
-featured: false
-semiFeatured: false
+featured: true
+semiFeatured: true
 tags:
   - ux
   - product

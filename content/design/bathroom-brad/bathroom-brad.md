@@ -1,9 +1,10 @@
 ---
-title: "Brand Designer | Bathroom Brad | Jonny McConnell"
+title: Brand Designer | Bathroom Brad | Jonny McConnell
+pageHeadline: Bathroom Brad - Brand Study
 description: "Built a branding system for a bathroom remodeling company — logo family, color palette, typography, business card system, and a working HTML/CSS design system shipped as a GitHub Pages handoff."
 date: 2026-01-01
 draft: false
-featured: false
+featured: true
 semiFeatured: false
 thumbnail: /img/thumbnails/bathroom-brad-thumb.png
 tags:

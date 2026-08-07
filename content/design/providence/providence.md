@@ -1,11 +1,12 @@
 ---
-title: Product Designer | Providence Healthcare
+title: Product Designer | Providence Healthcare | Jonny McConnell
+pageHeadline: Providence Telestroke & Express Care
 description: End-to-end UX for a real-time telestroke platform and a multi-product Express Care scheduling suite — where design decisions carried direct clinical stakes.
 category: Providence
 date: 2018-05-01
 draft: false
 featured: false
-semiFeatured: false
+semiFeatured: true
 thumbnail: /img/thumbnails/providence-thumb.png
 tags:
   - ux

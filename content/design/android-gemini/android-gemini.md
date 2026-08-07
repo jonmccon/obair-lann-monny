@@ -1,5 +1,6 @@
 ---
 title: Android Gemini Studies | Interaction Designer | Jonny McConnell
+pageHeadline: Android Gemini Patterns
 description: Explorations for BUCK × Google, gesture-based AI interaction patterns for early Gemini features on Android. Mobile-first concept work translating what AI could actually feel like on a phone.
 category: BUCK
 date: 2023-12-01
@@ -9,8 +10,8 @@ tags:
   - ai
   - mobile
 draft: false
-featured: false
-semiFeatured: false
+featured: true
+semiFeatured: true
 images:
   - src: "./content/design/android-gemini/GEMINI-10-concept-frame-800.png"
     alt: "Holistic context menu — resting state and broader folder actions"

@@ -1,13 +1,14 @@
 ---
 title: AI Assisted Workflows | Product Designer | Jonny McConnell
+pageHeadline: AI Assisted Workflows
 description: How I use AI as a collaborative partner across research synthesis, spec writing, rapid prototyping, and design system development - showing the actual setup with Gemini, Claude, Hermes, and Figma MCP.
 category: AI Assisted Workflows
 bgColor: black
 date: 2025-01-01
 permalink: /design/ai-assisted-workflows/
 draft: false
-featured: false
-semiFeatured: false
+featured: true
+semiFeatured: true
 thumbnail: /img/thumbnails/ai-assisted-workflows-thumb.png
 tags:
   - ai

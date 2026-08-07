@@ -7,7 +7,7 @@ bgColor: black
 date: 2025-01-01
 permalink: /design/PTR/
 draft: false
-featured: false
+featured: true
 semiFeatured: false
 thumbnail: /img/thumbnails/ptr-thumb.png
 tags:
@@ -15,6 +15,8 @@ tags:
   - ux
   - product
   - web
+  - print
+  - marketing
 images:
   - src: "./content/design/priority-tax-relief/PTR-65-ptr_brand_Final_logo_color_and_lockup_variations_-_PTR-Logo_Stacked_PTR-Stacked-MixedOnWhite_2965-840.png"
   - src: "./content/design/priority-tax-relief/PTR-114-product-my-inbox.png"

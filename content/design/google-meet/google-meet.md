@@ -1,12 +1,13 @@
 ---
 title: Google Meet | UX Designer | Jonny McConnell
+pageHeadline: Google Meet - Connection Pathways
 description: Designed connection alternatives for Google Meet - a standalone desktop prototype during the Chrome Packaged Apps transition, and the web-to-phone dial-out feature that lets a phone participant join a meeting as a peer.
 category: Google
 bgColor: white
 date: 2018-06-01
 draft: false
-featured: false
-semiFeatured: false
+featured: true
+semiFeatured: true
 thumbnail: /img/thumbnails/google-meet-thumb.jpg
 tags:
   - ux

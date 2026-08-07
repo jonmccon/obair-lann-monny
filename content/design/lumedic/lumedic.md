@@ -5,7 +5,7 @@ category: Lumedic
 bgColor: gray
 date: 2021-01-01
 draft: false
-featured: false
+featured: true
 semiFeatured: false
 thumbnail: /img/thumbnails/lumedic-thumb.png
 tags:
