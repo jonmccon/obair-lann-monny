@@ -92,23 +92,20 @@ Internally, the employees were drowning in a stack of tools they'd outgrown. Get
 
 Fix the face. Fix the engine. Both at once. Solo.
 
-<div class="two-column">
-
-{% image "./PTR-60-ptr_brand_Final_logo_before_after_-_rd5-Artboard_2@8x_5008-8808.png", "Logo before, existing brand mark" %}
-
-{% image "./PTR-61-ptr_brand_Final_logo_before_after_-_rd5Artboard_2_copy_10@8x_1_5008-8807.png", "Logo after, refined hawk mark with cleaner geometry and consistent construction" %}
-
-</div>
+{% image "./PTR-128-brand-survey-cropped.png", "Logo before, existing brand mark" %}
 
 <div class="two-column">
 
-{% image "./PTR-75-ptr_brand_Survey_where_we_started_-_about_1_2-95.png", "Where we started, existing About page before rebrand" %}
+{% image "./PTR-00-before.png", "Where we started, existing About page before rebrand" %}
 
-{% image "./PTR-76-ptr_brand_Survey_where_we_started_-_thankyou_1_2-96.jpg", "Where we started, existing Thank You page before rebrand" %}
+{% image "./PTR-00-afer.png", "Where we started, existing Thank You page after rebrand" %}
 
 </div>
 
 {% image "./PTR-86-brand-survey-results.png", "Brand survey results, stakeholder and customer feedback aggregated into key themes. The survey validated the brand direction and surfaced unexpected priorities around trust signals and clarity." %}
+
+{% image "./PTR-82-brand-goals.png", "Brand goals visualized, the decision-making criteria framed as a working reference for the team. Increase readability, retain market recognition, develop brand voice, consistent representation." %}
+
 
 ## My Role
 
@@ -131,10 +128,9 @@ Before touching anything I needed to understand the landscape. I ran a full mult
 That analysis fed everything that came after, who we were talking to, what they needed to hear, what would build trust versus what would feel like a sales pitch. I used it to anchor every brand platform decision.
 
 <div class="two-column">
+{% image "./PTR-129-brand-customer-data.png", "Customer profile from survey research, demographics, psychographics, and debt ranges mapped across the paying customer base. This quantitative layer grounded every brand decision in real data." %}
 
 {% image "./PTR-81-brand-customer-profile.png", "Customer profile from survey research, demographics, psychographics, and debt ranges mapped across the paying customer base. This quantitative layer grounded every brand decision in real data." %}
-
-{% image "./PTR-82-brand-goals.png", "Brand goals visualized, the decision-making criteria framed as a working reference for the team. Increase readability, retain market recognition, develop brand voice, consistent representation." %}
 
 </div>
 
@@ -143,6 +139,14 @@ That analysis fed everything that came after, who we were talking to, what they 
 The logo wasn't a from-scratch redesign, it was a refinement and systematization of an existing concept. The hawk mark had presence. What it needed were tighter geometry, consistent construction rules, and a full system of lockups that would work from a broadcast lower-third to a Chrome extension favicon.
 
 I explored a wide range before narrowing down, including a serif collegiate direction that got pretty far along before being retired, an eagle variant, several weight and spacing variations. The key decision was moving from the existing busy treatment to a cleaner, more confident mark.
+
+<div class="two-column">
+
+{% image "./PTR-130-moodboard.png", "Brand images moodboard." %}
+
+{% image "./PTR-134-brand-merch-ideas.png", "Brand extension, color variations of the cap mockup for seasonal campaigns." %}
+
+</div>
 
 The Marlboro Cup racing program from 1987 isn't obvious reference material for a tax firm. But it captured exactly the feeling we were after: authority without stuffiness, the kind of visual confidence that makes a nervous customer feel like they're in capable hands. The moodboard grounded the brand direction in that specific register, confident, direct, American, and gave the team a shared reference point for every creative decision that followed.
 
@@ -154,23 +158,11 @@ The orange-and-green palette that existed before had the right instincts around 
 
 Everything got collected into a brand guidelines document and a formal brand book, handed to stakeholders as the source of truth.
 
-<div class="two-column">
-
-{% image "./PTR-65-ptr_brand_Final_logo_color_and_lockup_variations_-_PTR-Logo_Stacked_PTR-Stacked-MixedOnWhite_2965-840.png", "Final logo lockup system, the stacked logo with the orange hawk mark and forest green wordmark, the primary brand expression." %}
-
-{% image "./PTR-62-ptr_brand_Final_logo_color_and_lockup_variations_-_PTR-Logo_Horz_PTR-Horz-BlackOnWhite_2965-547.png", "Horizontal lockup, the final wordmark in black. This is the version that lives in browser headers and broadcast lower-thirds." %}
-
-</div>
-
 {% image "./PTR-98-logo-package.png", "Complete logo package, all lockup variants, file formats, and usage specifications delivered to the team." %}
 
-<div class="two-column">
+{% image "./PTR-00-brand-guide-v1.png", "Complete brand book, all lockup variants, file formats, and usage specifications delivered to the team." %}
 
-{% image "./PTR-100-merch-cap-mockup-1.png", "Brand extension, merch concepts showing consistent logo application across touchpoints." %}
-
-{% image "./PTR-101-merch-cap-mockup-2.png", "Brand extension, color variations of the cap mockup for seasonal campaigns." %}
-
-</div>
+{% image "./PTR-00-color-preso.png", "Complete brand book, all lockup variants, file formats, and usage specifications delivered to the team." %}
 
 ## Operations: the Surface Designers Usually Skip
 
@@ -178,15 +170,9 @@ The brand guidelines covered external-facing work, but I also extended the syste
 
 The most impactful was letterhead. PTR had 80+ Word documents that all had their own ad-hoc header: screenshots of the logo at different resolutions, inconsistent address formatting, no grid. I redesigned the system as proper Word templates: embedded fonts, dynamic fields for case number and date, structured layout, consistent footer with address and pagination. Then rebuilt all 80+ documents using the new template.
 
-<div class="two-column">
+<div class="three-column">
 
 {% image "./PTR-97-letterhead-before.png", "Original letterhead, pre-rebrand version with image-based header, inconsistent formatting." %}
-
-{% image "./PTR-94-letterhead-redesign-1.png", "Letterhead redesign, clean grid, dynamic fields for case number and date, structured layout with address footer." %}
-
-</div>
-
-<div class="two-column">
 
 {% image "./PTR-95-letterhead-redesign-2.png", "Letterhead redesign variant, with industry-specific callout banner for specialized tax services." %}
 
@@ -194,15 +180,7 @@ The most impactful was letterhead. PTR had 80+ Word documents that all had their
 
 </div>
 
-<div class="three-column">
-
-{% image "./PTR-93-email-signature-doc.png", "Email signature document, standardized format with logo, name, title, contact info, and compliance disclaimer." %}
-
-{% image "./PTR-99-meeting-agenda-template.png", "Meeting agenda template, structured format with objectives, attendees, action items, and timing blocks." %}
-
 {% image "./PTR-105-project-description-template.png", "Project description document, Amazon-style one-pager with problem, solution, metrics, and resources sections." %}
-
-</div>
 
 I also designed updated email signatures, meeting agenda templates, and a project description format based on the Amazon one-pager. Small things that collectively changed how the company communicated internally and with clients.
 
@@ -249,6 +227,8 @@ This was an appropriately humble first step. It proved the concept, got buy-in f
 ## Building Toward a Platform
 
 With research validated and an early win in hand, I moved to the full internal platform. Feature discovery sessions with stakeholders, design language exploration, and eventually a high-fidelity prototype modeling the complete case management workflow from intake through resolution.
+
+{% image "./feat-customer-access.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
 
 {% image "./PTR-88-platform-feature-discovery-workshop.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
 
@@ -312,13 +292,18 @@ I built a full email component system covering the complete funnel with modular 
 
 One of the primary marketing surfaces was a tax forgiveness estimator, a qualification tool that pre-qualifies prospects before they ever see the brand. The original was a linear step-through form. I redesigned it as a modular multi-step modal, reducing the apparent burden of the form and increasing completion rates.
 
+{% image "./PTR-136-modular-estimator-v1.png", "Calculator landing page with modal variant, A/B test version showing modal approach reducing friction in the qualification flow." %}
+
+
 {% image "./PTR-87-calculator-landing-page-modal.png", "Calculator landing page with modal variant, A/B test version showing modal approach reducing friction in the qualification flow." %}
 
-<div class="two-column">
+<div class="three-column">
 
 {% image "./PTR-07-calculator-design-Q---Amount-A---with-Nav-1-5905.png", "Calculator amount question, input for tax debt amount with navigation visible." %}
 
 {% image "./PTR-02-calculator-design-Contact-A-1-5999.png", "Calculator contact step,  initial screen asking for preferred contact method." %}
+
+{% image "./PTR-06-calculator.png", "Calculator amount question, input for tax debt amount with navigation visible." %}
 
 </div>
 
@@ -328,18 +313,6 @@ One of the primary marketing surfaces was a tax forgiveness estimator, a qualifi
 The existing WordPress site had a performance score of 68 and 64 accessibility issues. I built the case for migrating to Django/Wagtail with a formal technical audit, then designed and built the new site in-browser using Claude for rapid iteration.
 
 {% image "./PTR-80-technical-performance-baseline-audit-Section-1-2003-2.png", "Performance baseline audit, side-by-side Lighthouse scores. WordPress site: Performance 68, Accessibility 74, 64 issues. New platform: Performance 91–100, Accessibility 88, 15 issues. This is the slide that made the migration case to leadership." %}
-
-**Before:**
-
-<div class="two-column">
-
-{% image "./PTR-103-marketing-settle-before.png", "The old Settle page, dense text, no clear hierarchy, trust signals buried." %}
-
-{% image "./PTR-104-marketing-tax-news-before.png", "The old Tax News page, disconnected from brand, no system applied." %}
-
-</div>
-
-**After:**
 
 <div class="two-column">
 
@@ -351,17 +324,9 @@ The existing WordPress site had a performance score of 68 and 64 accessibility i
 
 <div class="two-column">
 
-{% image "./PTR-110-site-settle-after.png", "Redesigned marketing site, Settle/Back Payroll Tax page with clear process steps and trust signals." %}
-
 {% image "./PTR-111-site-tax-news-after.png", "Redesigned marketing site, Tax News/IRS Audit page with timely updates and expert commentary." %}
 
-</div>
-
-<div class="two-column">
-
 {% image "./ptr-after-client-portal-3-dashboard.png", "Client-facing portal, case progress tracker, document upload surface, assigned specialist card, and live timeline. The external face of the same system. Built on the PTR Design Kit." %}
-
-{% image "./PTR-108-client-portal-map-view.png", "Client-facing portal, map/pin view showing specialist location and service area." %}
 
 </div>
 

@@ -116,33 +116,34 @@ The framing question that drove everything: *what is the human objective, what d
 
 The first week's scenarios covered things like shopping for a winter jacket (the whole research-compare-decide loop collapsed into a weighted query you could tune on a slider), deck building from a folder of class notes (Holistic context menu → select content → describe the goal by voice → reviewed deck), message sorting (shake to break the reverse-chronological thread apart into meaningful groupings), and camera as a universal remote (point at a device, the phone figures out how to connect).
 
+<div class="two-column">
 {% image "./GEMINI-10-concept-frame-800.png", "Holistic context menu, resting state and broader folder actions" %}
 
-The "Drive to Deck" flow was one of the cleaner end-to-end ideas: you're in your Drive folder, you ask it to make a presentation, it surfaces a Gemini panel where you can either tap an action or hold and speak a goal *"I want to build a presentation of vacation photos from my Mexico trip with historical data from all the places I saw"*, and it listens, surfaces the key intent back to you highlighted as a chip, and then generates the deck.
-
-<div class="two-column">
-{% image "./GEMINI-11-concept-frame-801.png", "Drive to Deck, Select to continue, Review generated deck" %}
 {% image "./GEMINI-13-concept-frame-803.png", "Describe the goal, hold to add direction, listening state, output deck" %}
 </div>
 
+The "Drive to Deck" flow was one of the cleaner end-to-end ideas: you're in your Drive folder, you ask it to make a presentation, it surfaces a Gemini panel where you can either tap an action or hold and speak a goal *"I want to build a presentation of vacation photos from my Mexico trip with historical data from all the places I saw"*, and it listens, surfaces the key intent back to you highlighted as a chip, and then generates the deck.
+
 After that initial output there are a few different refinement paths: Tune the goal (sliders for detail vs length, images vs text, or theme selection), Shake to Refine (breaks the deck apart by content type so you can reorganize before squeezing it back together), or just take the optional outputs, share deck with notes, or present with audio recording and transcription.
 
-<div class="three-column">
+<div class="two-column">
 {% image "./GEMINI-14-concept-frame-804.png", "Tune the goal, color palette, typeface, emphasis tuning" %}
 {% image "./GEMINI-12-concept-frame-802.png", "Shake to Refine, break out into analyzation & grouping, user edits, squeeze back" %}
-{% image "./GEMINI-15-concept-frame-805.png", "Optional outputs, share with notes, present with audio recording" %}
 </div>
 
 The video editing version of this ran the same pattern: Drive to Video, Shake to Refine, Rotate to Tune (landscape breaks into a drag-and-drop timeline), Zoom on Text (expand transcript for collaborative script editing), Hold & Drag to Tune (XY graph for a clip's emphasis: color vs audio correction, video vs motion graphics), Update Seed Content.
 
-<div class="three-column">
+<div class="two-column">
 {% image "./GEMINI-16-concept-frame-806.png", "Drive to Video, analyze & group key scenes, faces, transcription" %}
 {% image "./GEMINI-17-concept-frame-807.png", "Shake to Refine (video), break back up, remembers analyzation chunks for collaborative editing" %}
-{% image "./GEMINI-18-concept-frame-808.png", "Rotate to Tune, landscape timeline editing, drag & drop" %}
 </div>
 
-<div class="three-column">
+<div class="two-column">
+{% image "./GEMINI-18-concept-frame-808.png", "Rotate to Tune, landscape timeline editing, drag & drop" %}
 {% image "./GEMINI-19-concept-frame-809.png", "Hold & drag to Tune, XY graph emphasis dial on a clip" %}
+</div>
+
+<div class="two-column">
 {% image "./GEMINI-20-concept-frame-810.png", "Zoom on text, expand transcript, collaborative script editing, pinch to see refined video" %}
 {% image "./GEMINI-21-concept-frame-811.png", "Update seed content, new clips emphasized, missing content deprioritized but remembered" %}
 </div>
@@ -153,7 +154,15 @@ The second week went deep into the camera layer. The hypothesis was simple: if G
 
 The earliest concept frames had both you and your dog rigged simultaneously. Two subjects, each with their own pink dot and white skeleton lines extending to joint points. The system sees everything in the frame, not just the person you tapped on.
 
-{% image "./GEMINI-37-s2-phone-454.png", "Two subjects rigged simultaneously, Gemini skeleton dots on both the person and the dog" %}
+<div class="three-column">
+
+{% image "./GEMINI-38-s2-phone-456.png", "Early icon radial, three unlabeled bubbles: Image, Video, Text icons" %}
+
+{% image "./GEMINI-47-s2-phone-473.png", "Refined bubble radial, Pose / Emotion / Background / Style, Gemini spark center" %}
+
+{% image "./GEMINI-30-s1-phone-383.png", "Full labeled action state, green/blue/yellow pills, color-coded by action type" %}
+
+</div>
 
 **Iteration 1, Icon radial.** Tap, and three unlabeled bubbles bloom out from the spark: Image, Video, Text (icon-only). No labels yet, just the shape of the system.
 
@@ -161,35 +170,27 @@ The earliest concept frames had both you and your dog rigged simultaneously. Two
 
 **Iteration 3, Full action pills.** The system opens up into a full labeled state: green pills for subject-level actions (Change Emotion, Repose Person, Effects Filter), blue for gallery actions (Show me more photos, Add someone else), yellow for social (Chat with Jonny). Color-coded by intent, the pill shape is distinct from the earlier bubble approach.
 
-<div class="three-column">
-{% image "./GEMINI-38-s2-phone-456.png", "Early icon radial, three unlabeled bubbles: Image, Video, Text icons" %}
-{% image "./GEMINI-39-s2-phone-457.png", "Labeled icon radial, Video / Image / Text with profile thumbnail at bottom" %}
-{% image "./GEMINI-30-s1-phone-383.png", "Full labeled action state, green/blue/yellow pills, color-coded by action type" %}
-</div>
-
 One alternative explored at this stage was **zone mapping** instead of a radial menu, the photo itself becomes the selector. The face region highlights yellow (tap for Emotion), the body highlights teal (tap for Pose), the background pinks out (Background), a blue diamond appears at the top (Style). You pick by tapping the zone on the actual subject rather than a separate UI element. Different mental model entirely.
 
 The iteration that stuck was a tighter bubble radial, Pose / Emotion / Background / Style centered on the Gemini spark with a clean X to dismiss. Much less noise than the full pill state.
 
-<div class="two-column">
+<div class="three-column">
 {% image "./GEMINI-48-s2-phone-476.png", "Zone-mapped selector, body regions color-coded as tappable action zones: Emotion/Pose/Background/Style" %}
-{% image "./GEMINI-47-s2-phone-473.png", "Refined bubble radial, Pose / Emotion / Background / Style, Gemini spark center" %}
+{% image "./GEMINI-45-s2-phone-469.png", "Wireframe rig, body pose editing with draggable joint handles" %}
+{% image "./GEMINI-49-s2-phone-479-rich.png", "Green landmark rig, accepted pose, facial feature points, ready to apply" %}
+
 </div>
 
 **From here, each action branches into its own selector:**
 
 Selecting **Pose** drops a white wireframe rig onto the person, skeleton lines, joint dots, a grid oval over the face. You drag the joints to repose. Once the rig is confirmed, it switches to green facial landmark dots, feature points at eye corners, nose bridge, jaw, skeleton extending to shoulders. Accepted, ready to render.
 
-<div class="two-column">
-{% image "./GEMINI-45-s2-phone-469.png", "Wireframe rig, body pose editing with draggable joint handles" %}
-{% image "./GEMINI-49-s2-phone-479-rich.png", "Green landmark rig, accepted pose, facial feature points, ready to apply" %}
-</div>
-
 Selecting **Emotion** opens an emoji ring, ~20 emoji floating in a circle around a green center dot, overlaid on the face. You spin the ring to land on the target expression. Not a dropdown, not a text field. You pick 😎 or 😂 and that becomes the generation target.
 
 The flip side of that is selecting from your own face history, "Show me more photos" surfaces a ring of your actual face crops from the camera roll, each one a different hat, expression, lighting condition. Same green center dot, but instead of emoji you're picking a *reference photo* to move toward. Two ways to say the same thing: one abstract (emoji), one literal (your own face).
 
-<div class="two-column">
+<div class="three-column">
+{% image "./GEMINI-52-s3-phone-399.png", "Color picker, drag the handle across the full spectrum to set the grade" %}
 {% image "./GEMINI-51-s3-phone-398.png", "Emoji ring, spin to select target emotion, overlaid on the face" %}
 {% image "./GEMINI-23-node-393-fresh.png", "Show me more, face thumbnails from camera roll arranged as a ring around the green center dot" %}
 </div>
@@ -198,15 +199,13 @@ Selecting **Effects Filter** opens a full-spectrum color blob with a white circl
 
 Selecting **Show me more photos** expands into a thumbnail strip of every photo of you from your camera roll, different hats, lighting, expressions, plus emoji bubbles and large "Show me more" / "Add someone" CTA buttons at the bottom. The AI is showing you a selection to move toward rather than asking you to describe what you want.
 
-<div class="two-column">
-{% image "./GEMINI-52-s3-phone-399.png", "Color picker, drag the handle across the full spectrum to set the grade" %}
-{% image "./GEMINI-33-s1-phone-400.png", "Show me more, camera roll thumbnail strip, emoji bubbles, Show me more / Add someone buttons" %}
-</div>
-
 The earlier hand-annotated sketch that framed all of this, yellow callouts on a selfie: *Expressions, Back Ground, Pose Character, Style Transfer (Manga Comic)*, was the clearest version of the concept. Sometimes the sketch is the spec.
 
-<div class="two-column">
+<div class="three-column">
+{% image "./GEMINI-33-s1-phone-400.png", "Show me more, camera roll thumbnail strip, emoji bubbles, Show me more / Add someone buttons" %}
+
 {% image "./GEMINI-26-polished-441.png", "Working sketch, USER SELECTS POSE OWNACTZ, yellow and blue rig markers on face close-up" %}
+
 {% image "./GEMINI-25-polished-440-high-child.png", "Hand-annotated selfie sketch, face rig concept, drawn directly on the photo" %}
 </div>
 
@@ -220,7 +219,13 @@ The **Dots & Handles** abstraction came out of all of this, the same rig-point i
 
 The **Supercut persona screen** was a different direction in the same session, Gemini surfacing a collage built from your phone data: faces of people you've photographed, a map of your home area, books, cities, saved rooms. The argument being that an AI that actually knows you shouldn't need a form. It should just show you what it's built.
 
+<div class="three-column" style="margin:0 auto;">
+{% image %}
 {% image "./GEMINI-34-s1-phone-403-richest.png", "Supercut persona screen, Gemini contextual collage from phone data: people, places, books, cities" %}
+{% image %}
+
+
+</div>
 
 ## Whats That & Refine
 
@@ -233,8 +238,6 @@ Another big concept was **Whats That**, a style/generation UI for when you alrea
 </div>
 
 The companion to Whats That was the **Refine** concept, not about tuning a result, but tuning the AI itself. A radar/spider chart with six personality axes: friendly, simple, light, assertive, amused, formal. The shape you draw on the chart becomes the filter on how Gemini interprets and responds to everything. Not a settings panel, more like giving the model a personality dial you can reshape. The framing: *instead of refining your results, you manipulate a set of simple parameters to adjust your entire search personality.* The prompt field stays blank, you're not writing more text, you're moving handles.
-
-{% image "./GEMINI-09-14-android-407.png", "Refine, Gemini personality radar chart: friendly / simple / light / assertive / amused / formal" %}
 
 ## Daily explorations
 
@@ -249,7 +252,7 @@ Daily explorations covered scenarios that didn't reach polished flows but that h
 <div class="three-column">
 {% image "./GEMINI-53-s3-phone-405.png", "Gemini over NYT article, action pills: Summarize, Play summary, Who is in this story?" %}
 {% image "./GEMINI-35-s1-phone-406.png", "Article screen expanded, audio summary playing, Send to Erika contact pill, Can I trust this article?" %}
-{% image "./GEMINI-22-daily-1205-full.png", "Shake to sort Messages, Camera Universal Remote, Pinch to summarize, daily session concepts" %}
+{% image "./GEMINI-09-14-android-407.png", "Refine, Gemini personality radar chart: friendly / simple / light / assertive / amused / formal" %}
 </div>
 
 ## Influence
