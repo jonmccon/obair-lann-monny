@@ -1,5 +1,6 @@
 ---
 title: "Lumedic Health Records | Product Designer | Jonny McConnell"
+pageHeadline: Lumedic Health Passport
 description: "Designing trust flows for patient-held medical records — from digital health wallet to COVID-19 vaccine passport, shipped across iOS, Android, and web for the Providence Health network."
 category: Lumedic
 bgColor: gray
@@ -29,13 +30,19 @@ images:
 
 In early 2020, tens of thousands of hospital employees needed a way to prove their COVID-19 status to get into work and no trustworthy, patient-controlled system existed to do it. I designed the multiplatform experience that filled that gap: a digital health wallet letting patients hold and share their own verified medical records, used across iOS, Android, and web within the Providence Health network.
 
-**Role:** Product Designer · **Company:** Lumedic, a Providence St. Joseph Health portfolio company · **Timeline:** 2019–2021 · **Team:** Primary designer on this platform within a 5-person design team · **Platform:** Web, iOS, Android · **Tools:** Figma, Miro, IBM Carbon Design System · **Status:** Shipped — previously available on App Store and Google Play
+- **Role:** Product Designer
+- **Company:** Lumedic, a Providence St. Joseph Health portfolio company
+- **Timeline:** 2019–2021
+- **Team:** Primary designer on this platform within a 5-person design team
+- **Platform:** Web, iOS, Android
+- **Tools:** Figma, Miro, IBM Carbon Design System
+- **Status:** Shipped, previously available on App Store and Google Play
 
 ## The Problem
 
 Medical records are controlled by healthcare systems for good reason. FHIR-compliant APIs live behind institutional firewalls, accessible only to licensed staff at licensed facilities. Patients are not parties to their own records. That architecture works for billing and clinical workflow, but it breaks entirely when a hospital employee needs to prove their vaccination status to enter a facility at 6am.
 
-Lumedic's platform inverted this model: the patient becomes a trusted holder of their own verified credentials, able to share selectively with authorized parties. The design challenge wasn't the cryptography — it was building an experience that made that trust transfer feel obvious, safe, and fast to people who had no reason to understand what was happening underneath.
+Lumedic's platform inverted this model: the patient becomes a trusted holder of their own verified credentials, able to share selectively with authorized parties. The design challenge wasn't the cryptography, it was building an experience that made that trust transfer feel obvious, safe, and fast to people who had no reason to understand what was happening underneath.
 
 The problem evolved in real time. What began as a general health wallet in 2019 became a COVID-19 testing passport in spring 2020 and then expanded to vaccine status as the science changed. Every release required us to adapt the IA and the interaction model alongside the regulatory and political landscape.
 
@@ -43,13 +50,13 @@ The problem evolved in real time. What began as a general health wallet in 2019 
 
 ## My Role
 
-Lumedic brought me in as the primary product designer on the patient-facing wallet app. I owned the end-to-end design across all three releases: from the initial UX audit of the boilerplate wallet, through the multimodal architecture, to the final Carbon-based design system adaptation. I worked directly with research partner [Jeanine Ledoux](https://www.linkedin.com/in/jeanineledoux/) on user testing, collaborated closely with engineering to spec interactions, and partnered with Seattle studio Smashing Ideas on the custom illustration system. The broader design team of five was focused on other parts of the company platform — the patient wallet was mine to ship.
+Lumedic brought me in as the primary product designer on the patient-facing wallet app. I owned the end-to-end design across all three releases: from the initial UX audit of the boilerplate wallet, through the multimodal architecture, to the final Carbon-based design system adaptation. I worked directly with research partner [Jeanine Ledoux](https://www.linkedin.com/in/jeanineledoux/) on user testing, collaborated closely with engineering to spec interactions, and partnered with Seattle studio Smashing Ideas on the custom illustration system. The broader design team of five was focused on other parts of the company platform, the patient wallet was my responsibilty to ship.
 
 ## Release 1: Establishing a Foundation
 
 The first release started with an audit. The boilerplate was a digital wallet from Evernym, an existing "Holder & Verifier handshake" infrastructure built for self-sovereign identity. My job was to understand every screen, identify what needed to be reskinned vs. redesigned, and ship something trustworthy to the App Store fast enough to matter.
 
-I worked screenshot by screenshot through the onboarding, authentication, and credential flows, annotating what was confusing, what was honest, and what was just ugly. The goal wasn't a beautiful app — it was a working foundation with enough trust signal to get users through setup and into their first credential.
+I worked screenshot by screenshot through the onboarding, authentication, and credential flows, annotating what was confusing, what was honest, and what was just ugly. The goal wasn't a beautiful app, it was a working foundation with enough trust signal to get users through setup and into their first credential.
 
 {% image "./lum-30.png", "Release 1 UX audit — the Evernym boilerplate onboarding flow with Lumedic reskinning notes, annotated from splash through wallet setup and first credential receipt." %}
 
@@ -59,7 +66,7 @@ We shipped to the App Store. That meant we had something real to test with real 
 
 The second release is where the product got genuinely hard. We were designing a trust handshake that could happen across multiple surfaces simultaneously: a patient's phone sharing credentials with a hospital's desktop kiosk via QR code; a verifier's device scanning a holder's device; two phones scanning each other. Each scenario had a different set of mental models, permission states, and failure modes.
 
-[Jeanine Ledoux](https://www.linkedin.com/in/jeanineledoux/) and I ran user research with hospital employees to test how much context people actually needed — and how much they resisted. The findings were clarifying: users didn't need to understand the credential system. They needed to understand the outcome. "Scan this and they'll see your vaccination record" was enough. Every layer of explanation beneath that was noise that eroded trust rather than building it.
+[Jeanine Ledoux](https://www.linkedin.com/in/jeanineledoux/) and I ran user research with hospital employees to test how much context people actually needed and how much they resisted. The findings were clarifying: users didn't need to understand the credential system. They needed to understand the outcome. "Scan this and they'll see your vaccination record" was enough. Every layer of explanation beneath that was noise that eroded trust rather than building it.
 
 That insight restructured the permission flows. We stripped back the onboarding copy, removed the technical explanations, and made the verification moment as kinetic and obvious as possible: point phone, scan QR, wait for green.
 
@@ -81,15 +88,12 @@ This meant defining which Carbon components translated directly to mobile, which
 
 Custom illustration was developed in parallel with Seattle studio Smashing Ideas, a deliberate choice to give the app a warmer, more human register than the clinical platform it was tethered to.
 
-<div class="two-column">
-
 {% image "./lum-10.png", "Shipped iOS and Android screens — the Lumedic Connect app showing COVID-19 vaccine record card, QR scan connection flow, and credential detail view with Providence Health branding." %}
+
+<div class="three-column">
 
 {% image "./lum-110.png", "Verifier kiosk web interface — the Lumedic Connect verification kiosk for hospital staff, showing the QR code display waiting for employee scan." %}
 
-</div>
-
-<div class="two-column">
 
 {% image "./lum-120.png", "Verifier kiosk — active state with \"Waiting for record holder to share information\" banner while QR code is being scanned." %}
 
@@ -99,7 +103,7 @@ Custom illustration was developed in parallel with Seattle studio Smashing Ideas
 
 ## Issuer Side
 
-The patient wallet was only half the system. Hospital administrators and clinic staff needed a separate web interface to create, batch-upload, and issue credentials — the Issuer Dashboard. I designed the CSV bulk upload flow for administering vaccine records at facility scale, including error validation states for malformed rows.
+The patient wallet was only half the system. Hospital administrators and clinic staff needed a separate web interface to create, batch-upload, and issue credentials in an Issuer Dashboard. I designed the CSV bulk upload flow for administering vaccine records at facility scale, including error validation states for malformed rows.
 
 <div class="two-column">
 
@@ -109,7 +113,7 @@ The patient wallet was only half the system. Hospital administrators and clinic 
 
 </div>
 
-This surface had a different user than the patient wallet — it was designed for clinic coordinators managing hundreds of records, not patients managing their own handful. The error states were the critical design challenge: what does a non-technical healthcare administrator do when row 234 has an invalid vaccine serial? The answer had to be immediate, specific, and actionable.
+This surface had a different user than the patient wallet, it was designed for clinic coordinators managing hundreds of records, not patients managing their own handful. The error states were the critical design challenge: what does a non-technical healthcare administrator do when row 234 has an invalid vaccine serial? The answer had to be immediate, specific, and actionable.
 
 ## Outcome
 
@@ -126,9 +130,9 @@ The platform also contributed to a broader industry initiative on digital health
 
 The most durable design lesson from this project came from language, not layout. In early testing, we included explanations of how the verification system worked: the credential exchange, the trust handshake, the fact that nothing was stored centrally. We thought transparency would build trust.
 
-It didn't. Users didn't want to understand the system. They wanted to trust the people who built it, and they trusted those people because their employer had sanctioned the app. What they needed from us wasn't technical honesty — it was clarity about what to do and what would happen. We dropped the word "blockchain" entirely. We dropped most of the explanatory copy. The interface got simpler, and trust went up.
+It didn't. Users didn't want to understand the system. They wanted to trust the people who built it, and they trusted those people because their employer had sanctioned the app. What they needed from us wasn't technical honesty, it was clarity about what to do and what would happen. We dropped the word "blockchain" entirely. We dropped most of the explanatory copy. The interface got simpler, and trust went up.
 
-For enterprise deployments — onboarding partner organizations, getting IT sign-off, walking hospital administrators through data governance — we did need to explain the architecture. But that audience came with a different baseline. The design insight was knowing which audience was in front of you and giving them exactly what that moment required: action and confidence for the patient, detail and control for the administrator.
+For enterprise deployments, onboarding partner organizations, getting IT sign-off, walking hospital administrators through data governance, we did need to explain the architecture. But that audience came with a different baseline. The design insight was knowing which audience was in front of you and giving them exactly what that moment required: action and confidence for the patient, detail and control for the administrator.
 
 <!-- PREVIOUS BODY (backed up from pre-migration stub):
 Covid-19 Passport

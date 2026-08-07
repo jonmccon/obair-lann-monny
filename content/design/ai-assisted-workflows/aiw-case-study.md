@@ -29,11 +29,13 @@ images:
 
 Designing assisted systems that compress the distance between research, product definition, prototyping, and engineering implementation.
 
-**Role:** Product Designer · **Company:** Priority Tax Relief · **Timeline:** 2025–2026 · **Platform:** Responsive web, internal CRM tools, design system · **Team:** Solo designer supporting engineering and marketing teams
-
-**Tools:** Claude, Hermes Agent, Figma, Figma MCP, Claude Design, ChatGPT, Gemini, Daisy UI, Tailwind, React, HTML/CSS/JS, GitHub Pages, WordPress
-
-**Outcome:** Shipped rebranded website, design system package, and clickable prototypes in hours instead of days.
+- **Role:** Product Designer
+- **Company:** Priority Tax Relief
+- **Timeline:** 2025–2026
+- **Platform:** Responsive web, internal CRM tools, design system
+- **Team:** Solo designer supporting engineering and marketing teams
+- **Tools:** Claude, Hermes Agent, Figma, Figma MCP, Claude Design, ChatGPT, Gemini, Daisy UI, Tailwind, React, HTML/CSS/JS, GitHub Pages, WordPress
+- **Outcome:** Shipped rebranded website, design system package, and clickable prototypes in hours instead of days.
 
 
 {% image "./AIW-04-jonny-presenting.png", "Jonny presenting AI-assisted workflow process" %}
@@ -196,7 +198,7 @@ The key insight: Hermes lets me treat AI as infrastructure, not just one-off cha
 
 The next generation of software will not only be tools people operate - they will be collaborators people guide.
 
-> Across healthcare systems, enterprise software, AI products, and independent tools, my work has focused on one recurring challenge: helping humans interact with increasingly complex technology. Multimodal AI represents the next evolution of that challenge - designing interfaces where intelligent systems become more contextual, transparent, and collaborative.
+Across healthcare systems, enterprise software, AI products, and independent tools, my work has focused on one recurring challenge: helping humans interact with increasingly complex technology. Multimodal AI represents the next evolution of that challenge - designing interfaces where intelligent systems become more contextual, transparent, and collaborative.
 
 The value wasn't that AI generated answers. The value was reducing the distance between human intent and machine collaboration.
 

@@ -276,6 +276,7 @@ table th {
 pre,
 code {
 	font-family: var(--font-family-mono);
+	font-weight: var(--font-weight-medium);
 }
 pre:not([class*="language-"]) {
 	line-height: 1.375; /* 22px /16 */
@@ -311,7 +312,7 @@ code {
 :not(pre) > code {
 	font-family: var(--font-family-mono);
 	font-size: 0.875em;
-	font-weight: var(--font-weight-body);
+	font-weight: var(--font-weight-medium);
 	padding: 0.12em 0.4em;
 	background-color: var(--anp-surface0);
 	color: var(--anp-text);
@@ -2338,12 +2339,12 @@ img {
 /* ─── Homepage Callout Strip ─────────────────────────────── */
 .home-callout-strip {
   width: 100%;
-  overflow: hidden;
-  padding: 1.5rem 0;
-  border-top: 1px solid var(--anp-crust);
-  border-bottom: 1px solid var(--anp-crust);
-  margin: 2rem 0 2.5rem;
-}
+    overflow: hidden;
+	  padding: 1.5rem 0;
+	    border-top: 1px solid var(--anp-crust);
+		  border-bottom: 1px solid var(--anp-crust);
+		    margin: 2rem 0 2.5rem;
+			}
 
 .home-callout-scroll {
   display: flex;

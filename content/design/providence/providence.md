@@ -1,7 +1,7 @@
 ---
 title: Product Designer | Providence Healthcare | Jonny McConnell
 pageHeadline: Providence Telestroke & Express Care
-description: End-to-end UX for a real-time telestroke platform and a multi-product Express Care scheduling suite — where design decisions carried direct clinical stakes.
+description: End-to-end UX for a real-time telestroke platform and a multi-product Express Care scheduling suite, where design decisions carried direct clinical stakes.
 category: Providence
 date: 2018-05-01
 draft: false
@@ -42,11 +42,15 @@ images:
 
 Designing high-stakes clinical workflows for on-demand emergency care. From a real-time telestroke platform with remote diagnostic hardware to a multi-product Express Care scheduling suite used by patients across Providence's network.
 
-**Role:** Product Designer · **Company:** Providence Health & Services — Digital Innovation Group · **Timeline:** 2017–2018 · **Platform:** Web, iOS, Android · **Tools:** Sketch, InVision (Craft), Zeplin, Abstract, Adobe Creative Cloud, Storybook, React Toolbox, Source Sans Pro
+- **Role:** Product Designer
+- **Company:** Providence Health & Services, Digital Innovation Group
+- **Timeline:** 2017–2018
+- **Platform:** Web, iOS, Android
+- **Tools:** Sketch, InVision (Craft), Zeplin, Abstract, Adobe Creative Cloud, Storybook, React Toolbox, Source Sans Pro
 
 ## The Problem
 
-Providence's Digital Innovation Group was building two distinct healthcare products simultaneously, each with fundamentally different users and stakes. On one side: emergency clinicians managing time-critical stroke alerts across a distributed hospital network, switching between four separate systems during a patient handoff — every second of context-switching a clinical risk. On the other: patients trying to navigate between four separate care services (Urgent Care, Virtual, Primary, Same-Day) that had no shared scheduling layer, no common identity, and no consistent experience.
+Providence's Digital Innovation Group was building two distinct healthcare products simultaneously, each with fundamentally different users and stakes. On one side: emergency clinicians managing time-critical stroke alerts across a distributed hospital network, switching between four separate systems during a patient handoff, every second of context-switching a clinical risk. On the other: patients trying to navigate between four separate care services (Urgent Care, Virtual, Primary, Same-Day) that had no shared scheduling layer, no common identity, and no consistent experience.
 
 The existing tools had been built for billing and back-office workflows. Neither was designed for how clinical staff actually worked under pressure, or for patients making care decisions in moments of stress or uncertainty.
 
@@ -54,7 +58,7 @@ The existing tools had been built for billing and back-office workflows. Neither
 
 Providence's Digital Innovation Group brought me in as a product designer with a dual mandate: design the clinical workflows for a new video-based emergency care platform, and rearchitect four existing care services into a unified scheduling and marketing suite with a shared multitenant architecture. I worked with [Sunny Lee](https://www.linkedin.com/in/sunnyleedesign/) and [Kelly Elston](https://www.linkedin.com/in/kellyelston/) on the research and service design phases across both products, and led visual design and interaction design from early wireframes through the Storybook component library. My contribution spanned discovery research, service design, interaction design, design system development, and engineering collaboration through to production.
 
-## Product 1 — Telestroke Platform
+## Telestroke Platform
 
 Providence needed an on-demand emergency room video call platform that could handle remote diagnostic instruments (cameras, handheld [JedMed](https://www.jedmed.com/) tools, and hardware mounted on carts) alongside a live patient record pulled from the medical database [Epic](https://www.epic.com/). The clinical UX challenge was significant: providers rarely looked at a screen during the critical first minutes of a telestroke consult. They used the interface as a reference *after* the initial assessment. Observing clinical staff during actual patient handoffs revealed this early and it inverted our original information hierarchy. We moved the patient vitals and NIH Stroke Scale tool from a secondary panel into the primary video overlay where they could be scanned peripherally, not hunted for.
 
@@ -66,19 +70,11 @@ After partnering with Sunny Lee and Kelly Elston to research Providence's establ
 
 {% image "./prov-03.png", "Telestroke dashboard for centralized management of session requests and hardware connectivity with partial Epic API integration for patient records." %}
 
-<div class="two-column">
-
-{% image "./prov-11.png", "Pared-down video interface for virtual triage service, with text chat." %}
-
-{% image "./prov-17.png", "Post-visit summary and feedback screen. The final step in the virtual visit flow needed to feel conclusive, not clinical." %}
-
-</div>
-
 {% image "./prov-29.png", "Progression of screens for a hardware diagnostic system. During an onsite research session a nurse described their training for medical hardware: as soon as a tool wasn't working, there was no time for diagnostics — just move on to the next procedural step. This helped us rework a technician-led diagnostic tool to instead run automatically on the platform side, checking its own status and reporting to an IT lead." %}
 
-## Product 2 — Express Care Suite
+## Express Care Suite
 
-A quartet of established care services — Urgent Care, Virtual Care, Primary Care, and Same-Day Care — were rearchitected as a suite of Express Care options and brought together on a shared marketing and scheduling platform with a multitenant architecture. The user problem: patients experiencing a non-emergency health issue faced four separate websites, four separate scheduling systems, and no guidance on which type of care they actually needed.
+A quartet of established care services, Urgent Care, Virtual Care, Primary Care, and Same-Day Care, were rearchitected as a suite of Express Care options and brought together on a shared marketing and scheduling platform with a multitenant architecture. The user problem: patients experiencing a non-emergency health issue faced four separate websites, four separate scheduling systems, and no guidance on which type of care they actually needed.
 
 The design challenge was building one shared experience that could surface the right care option for a patient's specific situation: handling symptom triage, insurance coverage and cost transparency, appointment selection, and registration across four distinct service contexts and multiple Providence locations.
 
@@ -106,11 +102,11 @@ The design challenge was building one shared experience that could surface the r
 
 </div>
 
-## Design System — Material for Healthcare
+## Modifying Material for Healthcare
 
-Material Design out of the box felt too clinical for healthcare — too cold for a platform where both patients and caregivers were under stress. We warmed it systematically: Source Sans Pro for its humanistic feel, increased corner radii, expanded padding throughout. Those weren't aesthetic choices — they were empathy decisions, backed by feedback from users who described the default Material feel as "like a database."
+Material Design out of the box felt too clinical for healthcare, too cold for a platform where both patients and caregivers were under stress. We warmed it systematically: Source Sans Pro for its humanistic feel, increased corner radii, expanded padding throughout. Those weren't aesthetic choices, they were empathy decisions, backed by feedback from users who described the default Material feel as "like a database."
 
-The system was grounded in a 960px wide 12-column structure and 16px baseline grid. Material's theming architecture let us maintain visual consistency across multiple Providence brand applications — including a dark theme for the telestroke clinical context and lighter variants for patient-facing Express Care screens — from a single component set.
+The system was grounded in a 960px wide 12-column structure and 16px baseline grid. Material's theming architecture let us maintain visual consistency across multiple Providence brand applications, including a dark theme for the telestroke clinical context and lighter variants for patient-facing Express Care screens, from a single component set.
 
 The engineering collaboration was built directly into the workflow. Working with the team in Storybook, taking React Toolbox and subbing in custom typography, rounded corners, and opened-up styles, meant interaction patterns migrated into components without a handoff gap. Design decisions stayed intact through to production.
 
@@ -156,7 +152,7 @@ The engineering collaboration was built directly into the workflow. Working with
 
 The telestroke platform launched as Providence's on-demand emergency video service, integrating with Epic for live patient record access during active sessions. The Express Care suite consolidated four separate scheduling experiences onto a shared multitenant platform, reducing friction for patients navigating between Urgent Care, Virtual, Primary, and Same-Day appointment types.
 
-The design system established during this engagement — Material-based with healthcare-specific modifications — was adopted by subsequent product teams within the Digital Innovation Group. Working directly in Storybook with engineering meant components shipped with design intent intact, without a separate handoff cycle.
+The design system established during this engagement, Material-based with healthcare-specific modificationsm was adopted by subsequent product teams within the Digital Innovation Group. Working directly in Storybook with engineering meant components shipped with design intent intact, without a separate handoff cycle.
 
 <!-- PREVIOUS BODY (backed up from pre-migration stub):
 

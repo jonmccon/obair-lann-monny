@@ -1,11 +1,12 @@
 ---
-title: Resonance AI
+title: Resonance AI | AI ML Product Design | Jonny McConnell
+pageHeadline: Resonance AI
 description: Designed Resonance AI's ML platform end-to-end, automated reporting that cut analyst work by 95%, shipped to broadcast TV studios and acquihired on product value.
 category: Resonance AI
 bgColor: black
 date: 2021-08-01
 draft: false
-featured: false
+featured: true
 semiFeatured: false
 thumbnail: /img/thumbnails/resai-thumb.png
 tags:
@@ -27,7 +28,13 @@ images:
 
 Machine learning had never been translated into something a TV producer could act on. I designed the end-to-end product experience for Resonance AI's machine learning platform focused on transforming ML-generated video analysis into actionable audience intelligence for live TV production studios, and building the automated reporting pipeline that replaced days of manual analyst work.
 
-**Role:** Product Designer · **Company:** Resonance AI, local tech startup · **Timeline:** 2021 · **Team:** 15 person company, solo designer · **Platform:** Responsive Web, Email · **Tools:** Figma, Databricks, Python, HTML, CSS, JS · **Status:** Shipped, acquihired
+- **Role:** Product Designer
+- **Company:** Resonance AI, local tech startup
+- **Timeline:** 2021
+- **Team:** 15 person company, solo designer
+- **Platform:** Responsive Web, Email ·
+- **Tools:** Figma, Databricks, Python, HTML, CSS, JS
+- **Status:** Shipped, acquihired
 
 Production teams at broadcast news stations made scheduling, talent, and content decisions largely blind. Nielsen TV Ratings provided a score, but it was self-reported by viewers, not truly representative of how audiences actually behaved in front of their TVs.
 
@@ -61,7 +68,7 @@ Critically, this wasn't just cosmetic. The design system encoded decisions about
 
 </div>
 
-Part of establishing that visual language meant doing real color research in Python — building and testing diverging and sequential palette scales against actual data outputs to find what was perceptually accurate, not just aesthetically pleasing.
+Part of establishing that visual language meant doing real color research in Python, building and testing diverging and sequential palette scales against actual data outputs to find what was perceptually accurate, not just aesthetically pleasing.
 
 ## Daily Pulse
 
@@ -89,11 +96,11 @@ Think of it as Google Analytics for broadcast TV: the same data that powered the
 
 {% image "./RAI-06-wireframes-analysis-platform.png", "Wireframes for the analysis platform: the video player + correlated data timeline, metric groups, single vs. multi-episode navigation modes, and filter interaction patterns." %}
 
-{% image "./RAI-09-topic-coverage-dashboard.png", "Topic coverage analysis: a horizontal resonance breakdown by news category, showing both share and resonance delta — which topics landed, which didn't, and by how much." %}
+{% image "./RAI-09-topic-coverage-dashboard.png", "Topic coverage analysis: a horizontal resonance breakdown by news category, showing both share and resonance delta, which topics landed, which didn't, and by how much." %}
 
 </div>
 
-{% image "./RAI-04-weekly-recap-ktrk.png", "The Weekly Recap variant: a longer-form digest combining talent radar charts, topic treemap, sentiment heatmap, and completion trend lines — designed for editorial strategy meetings." %}
+{% image "./RAI-04-weekly-recap-ktrk.png", "The Weekly Recap variant: a longer-form digest combining talent radar charts, topic treemap, sentiment heatmap, and completion trend lines, designed for editorial strategy meetings." %}
 
 ## Outcomes
 

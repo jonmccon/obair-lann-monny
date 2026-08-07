@@ -76,11 +76,13 @@ images:
 
 Solo designer for a 200-person, $7M MRR national tax relief company. I owned the brand, every marketing surface, and the internal product simultaneously, for about a year, and built a design system that tied all three together.
 
-**Role:** Brand & Product Designer · **Company:** Priority Tax Relief, national tax attorney services firm · **Timeline:** 2025–2026 · **Platform:** Responsive web, digital advertising, email, print, broadcast TV, social media, internal CRM · **Team:** Solo designer embedded with engineering, marketing, and senior leadership
-
-**Tools:** Figma, Adobe Suite, Claude, VS Code, Jupyter Notebooks, Django/Wagtail, WordPress, npm, Microsoft Office
-
-**Outcome:** Shipped rebrand, design system released, replatformed website, Chrome extension, internal CRM prototype.
+- **Role:** Brand & Product Designer
+- **Company:** Priority Tax Relief, national tax attorney services firm 
+- **Timeline:** 2025–2026
+- **Platform:** Responsive web, digital advertising, email, print, broadcast TV, social media, internal CRM
+- **Team:** Solo designer embedded with engineering, marketing, and senior leadership
+- **Tools:** Figma, Adobe Suite, Claude, VS Code, Jupyter Notebooks, Django/Wagtail, WordPress, npm, Microsoft Office
+- **Outcome:** Shipped rebrand, design system released, replatformed website, Chrome extension, internal CRM prototype.
 
 ## Two briefs wearing the same coat
 
