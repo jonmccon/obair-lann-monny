@@ -805,6 +805,7 @@ header {
 @media (max-width: 640px) {
 	.home-featured-row-title {
 		font-size: clamp(1.2rem, 7vw, 1.85rem);
+		text-align: left;
 	}
 }
 /* --- CTA row (replaces in-stage see-all-link) ----------------------------- */
@@ -954,7 +955,7 @@ header {
 .homepage-about {
 	max-width: 72ch;
 	margin: 0;
-	font-size: clamp(0.95rem, 3vw, 2.2rem);
+	font-size: clamp(1.05rem, 3vw, 2.4rem);
 	line-height: 1.45;
 	text-wrap: pretty;
 }
@@ -1385,7 +1386,17 @@ header {
 
 	.homepage-about {
 		max-width: 100%;
-		font-size: 0.95rem;
+		font-size: 1.05rem;
+		text-align: left;
+	}
+
+	.home-supporting-content {
+		text-align: left;
+		justify-items: stretch;
+	}
+
+	.home-supporting-links {
+		justify-content: flex-start;
 	}
 
 	.home-newspaper {
