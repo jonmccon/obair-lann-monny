@@ -614,6 +614,7 @@ header {
 		scale(calc(var(--scale) * 1.02));
 }
 
+/* Temporarily commented out for performance - will revisit later
 .home-axis-project-title {
 	font-family: var(--font-family);
 	font-size: 0.66rem;
@@ -630,6 +631,7 @@ header {
 	overflow: hidden;
 	transition: opacity 0.22s ease;
 }
+*/
 
 /* --- Axis dot (circle, composited for smooth hover) ---------------------- */
 
@@ -667,10 +669,12 @@ header {
 	border-radius: 50%;
 }
 
+/* Temporarily commented out for performance - will revisit later
 .home-axis-project-link:hover .home-axis-project-title {
 	opacity: 1;
 	max-height: 4rem;
 }
+*/
 
 /* --- Featured projects grid (semi-featured rows) ------------------------- */
 
@@ -1381,9 +1385,11 @@ header {
 		display: none;
 	}
 
+	/* Temporarily commented out for performance - will revisit later
 	.home-axis-project-title {
 		font-size: 0.58rem;
 	}
+	*/
 
 	.home-axis-dot {
 		width: 22px;

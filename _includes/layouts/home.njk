@@ -40,7 +40,9 @@ layout: layouts/base.njk
             {% homepageImage post.data.images[0].src, post.data.pageHeadline, 80, "home-axis-dot-img" %}
           {% endif %}
         </div>
+        {# Temporarily commented out for performance - will revisit later
         <span class="home-axis-project-title">{{ post.data.pageHeadline }}</span>
+        #}
       </a>
     </article>
     {% endif %}
