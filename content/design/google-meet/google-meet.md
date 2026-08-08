@@ -5,6 +5,7 @@ description: Designed connection alternatives for Google Meet - a standalone des
 category: Google
 bgColor: white
 date: 2018-06-01
+permalink: /design/google-meet-alternate-connections/
 draft: false
 featured: true
 semiFeatured: true

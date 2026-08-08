@@ -5,6 +5,7 @@ description: "Designing trust flows for patient-held medical records — from di
 category: Lumedic
 bgColor: gray
 date: 2021-01-01
+permalink: /design/lumedic-platform-healthcare-records/
 draft: false
 featured: true
 semiFeatured: false

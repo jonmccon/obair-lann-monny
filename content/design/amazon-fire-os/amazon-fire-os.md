@@ -5,6 +5,7 @@ description: Adapting Android 9 Pie features for Fire OS 7, shipped to 40M+ acti
 category: Amazon
 date: 2019-05-01
 thumbnail: /img/thumbnails/amazon-fire-os-thumb.png
+permalink: /design/amazon-fire-os-upgrades/
 draft: false
 featured: true
 semiFeatured: true

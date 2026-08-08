@@ -1,7 +1,7 @@
 ---
 layout: layouts/base.njk
 title: Resume
-description: Jonny McConnell — Systems-focused Product Designer creating intuitive experiences between people and emerging technology.
+description: Jonny McConnell - Systems-focused Product Designer creating intuitive experiences between people and emerging technology.
 permalink: /resume/
 eleventyNavigation:
   key: Resume
@@ -15,6 +15,12 @@ eleventyNavigation:
   max-width: 100%;
   margin: 0;
   padding: 2rem 0;
+}
+
+/* Resume renders on a white page (scoped to this page only) */
+body:has(.resume-shell),
+.site-wrapper:has(.resume-shell) {
+  background: #fff;
 }
 
 /* ── Header: portrait + identity block ──────────────── */
@@ -324,9 +330,10 @@ eleventyNavigation:
   /* Reset body/shell */
   body {
     width: 100% !important;
-    color: #1a1814 !important;
+    color: var(--text-color) !important;
+    background: #fff !important;
     font-size: 8.5pt !important;
-    font-family: 'Outfit', system-ui, sans-serif !important;
+    font-family: var(--font-family) !important;
   }
 
   .site-wrapper {
@@ -345,7 +352,7 @@ eleventyNavigation:
     padding-bottom: 0.5rem;
     gap: 0.75rem;
     break-inside: avoid;
-    border-bottom: 1.5pt solid #ccd0da;
+    border-bottom: 1.5pt solid var(--anp-crust);
   }
 
   .resume-portrait-wrap {
@@ -408,7 +415,7 @@ eleventyNavigation:
   .resume-entry {
     margin-bottom: 0.45rem;
     padding-bottom: 0.4rem;
-    border-bottom: 0.5pt solid #dce0e8;
+    border-bottom: 0.5pt solid var(--anp-crust);
   }
 
   .resume-entry-header {
@@ -438,7 +445,7 @@ eleventyNavigation:
   .resume-entry-focus {
     font-size: 6pt !important;
     margin-top: 0.15rem;
-    color: #6c6f85;
+    color: var(--text-color-subtle);
   }
 
   /* Summary */
@@ -452,7 +459,7 @@ eleventyNavigation:
   .resume-edu-entry {
     margin-bottom: 0.4rem;
     padding-bottom: 0.35rem;
-    border-bottom: 0.5pt solid #dce0e8;
+    border-bottom: 0.5pt solid var(--anp-crust);
   }
 
   .resume-edu-degree,
@@ -480,7 +487,9 @@ eleventyNavigation:
   .resume-skill-tag {
     font-size: 5.5pt !important;
     padding: 0.06rem 0.28rem;
-    background: #e6e9ef !important;
+    background: var(--surface-color) !important;
+    border: 0.5pt solid var(--anp-crust);
+    color: var(--text-color-muted) !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -536,7 +545,7 @@ eleventyNavigation:
       <section class="resume-section resume-summary">
         <span class="resume-section-label">Summary</span>
         <p>Product designer and creative technologist with 15+ years of experience across UX, interaction design, digital product development, UI systems, and brand definition. I lead at the intersection of human behavior, technology, and product strategy to make complex systems understandable.</p>
-        <p>My experience spans AI-assisted products, enterprise platforms, healthcare technology, boutique branding &amp; advertising, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating with engineering teams.</p>
+        <p>My experience spans AI-assisted products, enterprise platforms, healthcare technology, boutique branding &amp; advertising, and independent software products. I use code as a design tool - prototyping ideas, exploring interactions, understanding technical constraints, and collaborating with engineering teams.</p>
       </section>
 
       {# Experience #}
@@ -558,8 +567,8 @@ eleventyNavigation:
             <p class="resume-entry-title">Senior UX Designer</p>
             <span class="resume-entry-dates">2021 – 2023</span>
           </div>
-          <p class="resume-entry-org">PwC — Concourse Innovation Group</p>
-          <p class="resume-entry-body">Sole designer on the responsive build within a 12-person design team spanning platform and design system. Led mobile adaptation across all screen sizes — mobile through 1900px — with user research conducted across US and British offices. Touch-adapted design system components were adopted as the mobile baseline across PwC's internal product ecosystem.</p>
+          <p class="resume-entry-org">PwC - Concourse Innovation Group</p>
+          <p class="resume-entry-body">Sole designer on the responsive build within a 12-person design team spanning platform and design system. Led mobile adaptation across all screen sizes with user research conducted across US and British offices. Touch-adapted design system components were adopted as the mobile baseline across PwC's internal product ecosystem.</p>
           <p class="resume-entry-focus">Enterprise Systems · Mobile UX · Research · Design Systems</p>
         </div>
 
@@ -579,7 +588,7 @@ eleventyNavigation:
             <span class="resume-entry-dates">2019 – 2021</span>
           </div>
           <p class="resume-entry-org">Lumedic</p>
-          <p class="resume-entry-body">Primary product designer on a patient-facing healthcare wallet app shipped to the App Store and Google Play. Tens of thousands of healthcare workers used it during the pandemic. Designed across all three releases on web, iOS, and Android — adapting IBM Carbon Design System within a 3-party trust architecture.</p>
+          <p class="resume-entry-body">Primary product designer on a patient-facing healthcare wallet app shipped to the App Store and Google Play. Tens of thousands of healthcare workers used it during the pandemic. Designed across all three releases on web, iOS, and Android, adapting IBM Carbon Design System within a 3-party trust architecture.</p>
           <p class="resume-entry-focus">Healthcare Technology · Trust-Centered Design · Complex Systems</p>
         </div>
 
@@ -588,7 +597,7 @@ eleventyNavigation:
             <p class="resume-entry-title">Co-Founder &amp; Product Lead</p>
             <span class="resume-entry-dates">2014 – 2019</span>
           </div>
-          <p class="resume-entry-org">Metastream — Social Mapping Startup</p>
+          <p class="resume-entry-org">Metastream - Social Mapping Startup</p>
           <p class="resume-entry-body">Co-founded a location-based data platform using mapping technologies and user-generated geographic information. Owned product strategy, user research, and experience design. Represented the product within open mapping and civic technology communities, and worked with co-founder to define technical architecture.</p>
           <p class="resume-entry-focus">Emerging Technology · Product Strategy · Data Systems · Research</p>
         </div>
@@ -598,8 +607,8 @@ eleventyNavigation:
             <p class="resume-entry-title">UX/UI Designer</p>
             <span class="resume-entry-dates">2018 – 2019</span>
           </div>
-          <p class="resume-entry-org">Amazon — Device Design Group</p>
-          <p class="resume-entry-body">Designed Fire OS 7, shipped to 40M+ active users and the software baseline for Amazon tablets for three years. Designed for hardware constraints (1–2GB RAM) rather than the ceiling — features shipped include App Shelf, Pane Navigation, Quick Settings, and Visual Accessibility. Pane Navigation increased on-screen ASIN count by 2–3×.</p>
+          <p class="resume-entry-org">Amazon - Device Design Group</p>
+          <p class="resume-entry-body">Designed Fire OS 7, shipped to 40M+ active users and the software baseline for Amazon tablets for three years. Designed for hardware constraints (1–2GB RAM) rather than the ceiling - features shipped include App Shelf, Pane Navigation, Quick Settings, and Visual Accessibility. Pane Navigation increased on-screen ASIN count by 2–3×.</p>
           <p class="resume-entry-focus">Platform Design · Systems Thinking · Cross-functional Collaboration</p>
         </div>
 
@@ -608,7 +617,7 @@ eleventyNavigation:
             <p class="resume-entry-title">UX Designer</p>
             <span class="resume-entry-dates">2018</span>
           </div>
-          <p class="resume-entry-org">Google — G Suite, Hangouts Meet</p>
+          <p class="resume-entry-org">Google - G Suite, Hangouts Meet</p>
           <p class="resume-entry-body">Designed communication experiences for Google Meet within the G Suite ecosystem. Shipped phone dial-out and designed connection pathways for joining from different devices and environments. Contributed to Material Design dark mode specifications; a standalone app prototype fed into the Meet PWA release in July 2021.</p>
           <p class="resume-entry-focus">Communication Systems · Interaction Design · Design Systems</p>
         </div>
@@ -618,7 +627,7 @@ eleventyNavigation:
             <p class="resume-entry-title">UX Designer</p>
             <span class="resume-entry-dates">2016 – 2018</span>
           </div>
-          <p class="resume-entry-org">Providence Health &amp; Services — Digital Innovation Group</p>
+          <p class="resume-entry-org">Providence Health &amp; Services - Digital Innovation Group</p>
           <p class="resume-entry-body">Shipped two products: a Telestroke platform and an Express Care scheduling suite. Field research with clinicians inverted the information hierarchy; Epic API integration brought live patient records into the workflows. The design system was adopted by subsequent teams in the Digital Innovation Group.</p>
           <p class="resume-entry-focus">Human-Centered Systems · Research · Critical Workflows</p>
         </div>
@@ -691,19 +700,19 @@ eleventyNavigation:
         <span class="resume-section-label">Education</span>
 
         <div class="resume-edu-entry">
-          <p class="resume-edu-degree">Certificate — Business Management</p>
+          <p class="resume-edu-degree">Certificate - Business Management</p>
           <p class="resume-edu-school">Western Washington University</p>
           <span class="resume-edu-year">2021</span>
         </div>
 
         <div class="resume-edu-entry">
-          <p class="resume-edu-degree">Certificate — Emerging Technologies</p>
-          <p class="resume-edu-school">MIT Media Lab — Beyond Smart Cities</p>
+          <p class="resume-edu-degree">Certificate - Emerging Technologies</p>
+          <p class="resume-edu-school">MIT Media Lab - Beyond Smart Cities</p>
           <span class="resume-edu-year">2019</span>
         </div>
 
         <div class="resume-edu-entry">
-          <p class="resume-edu-degree">BFA — Graphic Design</p>
+          <p class="resume-edu-degree">BFA - Graphic Design</p>
           <p class="resume-edu-school">Western Washington University</p>
           <span class="resume-edu-year">2006 – 2010</span>
         </div>
@@ -788,7 +797,7 @@ eleventyNavigation:
 (function() {
   var MARKDOWN = `# Jonny McConnell
 
-Product Designer & Creative Technologist — Human-AI Interaction · Enterprise Systems · Developer Tools
+Product Designer & Creative Technologist - Human-AI Interaction · Enterprise Systems · Developer Tools
 
 jonmccon@gmail.com | jonmccon.com | github.com/jonmccon | linkedin.com/in/jonmccon
 
@@ -798,13 +807,13 @@ jonmccon@gmail.com | jonmccon.com | github.com/jonmccon | linkedin.com/in/jonmcc
 
 Product designer and creative technologist with 15+ years of experience across UX, interaction design, digital product development, UI systems, and brand definition. I lead at the intersection of human behavior, technology, and product strategy to make complex systems understandable.
 
-My experience spans AI-assisted products, enterprise platforms, healthcare technology, boutique branding & advertising, and independent software products. I use code as a design tool — prototyping ideas, exploring interactions, understanding technical constraints, and collaborating with engineering teams.
+My experience spans AI-assisted products, enterprise platforms, healthcare technology, boutique branding & advertising, and independent software products. I use code as a design tool - prototyping ideas, exploring interactions, understanding technical constraints, and collaborating with engineering teams.
 
 ---
 
 ## Experience
 
-### Founder & Product Designer — Seattle Creative Directory
+### Founder & Product Designer - Seattle Creative Directory
 **2020 – Present**
 
 Built and launched an independent platform mapping the Pacific Northwest creative technology ecosystem. Designed and developed a full-stack directory using Next.js, PostgreSQL, Prisma, and Vercel. Built information architecture supporting hundreds of creative businesses with structured discovery across location, discipline, and organization type. Conducted research through interviews and podcast production.
@@ -813,16 +822,16 @@ Built and launched an independent platform mapping the Pacific Northwest creativ
 
 ---
 
-### Senior UX Designer — PwC — Concourse Innovation Group
+### Senior UX Designer - PwC - Concourse Innovation Group
 **2021 – 2023**
 
-Sole designer on the responsive build within a 12-person design team spanning platform and design system. Led mobile adaptation across all screen sizes — mobile through 1900px — with user research across US and British offices. Touch-adapted design system components were adopted as the mobile baseline across PwC's internal product ecosystem.
+Sole designer on the responsive build within a 12-person design team spanning platform and design system. Led mobile adaptation across all screen sizes - mobile through 1900px - with user research across US and British offices. Touch-adapted design system components were adopted as the mobile baseline across PwC's internal product ecosystem.
 
 *Enterprise Systems · Mobile UX · Research · Design Systems*
 
 ---
 
-### Product Designer — Resonance AI
+### Product Designer - Resonance AI
 **2021**
 
 As the sole product designer, automated report compilation reduced analyst task time by 95% and increased reporting cadence from weekly to daily. Shipped Daily Pulse to all active clients and built a full design system covering type, iconography, chart language, and color. The product's value drove an acquihire outcome.
@@ -831,7 +840,7 @@ As the sole product designer, automated report compilation reduced analyst task 
 
 ---
 
-### Product Designer — Lumedic
+### Product Designer - Lumedic
 **2019 – 2021**
 
 Primary product designer on a patient-facing healthcare wallet app shipped to the App Store and Google Play. Tens of thousands of healthcare workers used it during the pandemic. Designed across all three releases on web, iOS, and Android, adapting IBM Carbon Design System within a 3-party trust architecture.
@@ -840,7 +849,7 @@ Primary product designer on a patient-facing healthcare wallet app shipped to th
 
 ---
 
-### Co-Founder & Product Lead — Metastream
+### Co-Founder & Product Lead - Metastream
 **2014 – 2019**
 
 Co-founded a location-based data platform. Owned product strategy, user research, and experience design. Represented the product within open mapping and civic technology communities.
@@ -849,16 +858,16 @@ Co-founded a location-based data platform. Owned product strategy, user research
 
 ---
 
-### UX/UI Designer — Amazon (Device Design Group)
+### UX/UI Designer - Amazon (Device Design Group)
 **2018 – 2019**
 
-Designed Fire OS 7, shipped to 40M+ active users and the software baseline for Amazon tablets for three years. Designed for hardware constraints (1–2GB RAM) — features shipped include App Shelf, Pane Navigation, Quick Settings, and Visual Accessibility. Pane Navigation increased on-screen ASIN count by 2–3×.
+Designed Fire OS 7, shipped to 40M+ active users and the software baseline for Amazon tablets for three years. Designed for hardware constraints (1–2GB RAM) features shipped include App Shelf, Pane Navigation, Quick Settings, and Visual Accessibility. Pane Navigation increased on-screen ASIN count by 2–3×.
 
 *Platform Design · Systems Thinking · Cross-functional Collaboration*
 
 ---
 
-### UX Designer — Google (G Suite, Hangouts Meet)
+### UX Designer - Google (G Suite, Hangouts Meet)
 **2018**
 
 Designed communication experiences for Google Meet within the G Suite ecosystem. Shipped phone dial-out and designed connection pathways for joining from different devices and environments. Contributed to Material Design dark mode specifications; a standalone app prototype fed into the Meet PWA release in July 2021.
@@ -867,7 +876,7 @@ Designed communication experiences for Google Meet within the G Suite ecosystem.
 
 ---
 
-### UX Designer — Providence Health & Services
+### UX Designer - Providence Health & Services
 **2016 – 2018**
 
 Shipped two products: a Telestroke platform and an Express Care scheduling suite. Field research with clinicians inverted the information hierarchy; Epic API integration brought live patient records into the workflows. The design system was adopted by subsequent teams in the Digital Innovation Group.
@@ -878,25 +887,25 @@ Shipped two products: a Telestroke platform and an Express Care scheduling suite
 
 ## Additional Experience
 
-**Adjunct Professor of Design** — Western Washington University, 2023–2025
-**Professional Mentor** — Designlab, 2023–2024
-**Programming Co-Director** — AIGA Seattle, 2013–2015
-**Designer in Residence / Director of Outreach** — Thomas Street Studio, 2015–2016
+**Adjunct Professor of Design** - Western Washington University, 2023–2025
+**Professional Mentor** - Designlab, 2023–2024
+**Programming Co-Director** - AIGA Seattle, 2013–2015
+**Designer in Residence / Director of Outreach** - Thomas Street Studio, 2015–2016
 
 ---
 
 ## Publication
 
-**Founder & Host** — Seattle Creative Directory, 2020–Present
+**Founder & Host** - Seattle Creative Directory, 2020–Present
 Comprehensive phonebook website & podcast chronicling the creative community in the Pacific Northwest. Designed & built website, recorded & produced podcast with over 50k plays.
 
 ---
 
 ## Education
 
-**Certificate — Business Management** — Western Washington University, 2021
-**Certificate — Emerging Technologies** — MIT Media Lab (Beyond Smart Cities), 2019
-**BFA — Graphic Design** — Western Washington University, 2006–2010
+**Certificate - Business Management** - Western Washington University, 2021
+**Certificate - Emerging Technologies** - MIT Media Lab (Beyond Smart Cities), 2019
+**BFA - Graphic Design** - Western Washington University, 2006–2010
 
 ---
 

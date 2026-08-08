@@ -4,8 +4,9 @@ title: "WWU Faculty | Adjunct Professor of Design | Jonny McConnell"
 pageHeadline: Professor McConnell
 description: "Taught graphic design, typography, UX research, digital product thinking, and interaction modelling at Western Washington University's Design BFA Program."
 date: 2023-01-01
+permalink: /design/western-washington-university-design-department/
 draft: false
-featured: false
+featured: true
 semiFeatured: false
 tags:
   - education

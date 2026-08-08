@@ -5,7 +5,7 @@ description: Design director across branding, marketing, and internal product UX
 category: Priority Tax Relief
 bgColor: black
 date: 2025-01-01
-permalink: /design/PTR/
+permalink: /design/priority-tax-relief/
 draft: false
 featured: true
 semiFeatured: false

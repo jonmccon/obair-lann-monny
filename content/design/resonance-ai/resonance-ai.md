@@ -5,6 +5,7 @@ description: Designed Resonance AI's ML platform end-to-end, automated reporting
 category: Resonance AI
 bgColor: black
 date: 2021-08-01
+permalink: /design/resonance-ai-ml-platform/
 draft: false
 featured: true
 semiFeatured: false

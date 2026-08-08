@@ -4,9 +4,10 @@ pageHeadline: PwC Concourse
 description: As the sole designer on the responsive workstream, I brought PwC's internal consulting platform to mobile, designing the full experience from login through project delivery while extending the enterprise design system with touch-adapted patterns adopted across all mobile product work at PwC. Change management is a design problem, and this project proved it.
 category: pwc
 date: 2021-01-01
+permalink: /design/pwc-concourse-platform/
 thumbnail: /img/thumbnails/pwc-thumb.png
 draft: false
-featured: false
+featured: true
 semiFeatured: false
 protected: true
 tags:

@@ -37,10 +37,10 @@ layout: layouts/base.njk
       <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
         <div class="home-axis-dot">
           {% if post.data.images and post.data.images.length %}
-            {% homepageImage post.data.images[0].src, post.data.title, 80, "home-axis-dot-img" %}
+            {% homepageImage post.data.images[0].src, post.data.pageHeadline, 80, "home-axis-dot-img" %}
           {% endif %}
         </div>
-        <span class="home-axis-project-title">{{ post.data.title }}</span>
+        <span class="home-axis-project-title">{{ post.data.pageHeadline }}</span>
       </a>
     </article>
     {% endif %}
@@ -49,9 +49,9 @@ layout: layouts/base.njk
 </section>
 
 <section class="home-supporting-content" aria-label="Homepage supporting content">
-  {% if introductionText %}
-  <p class="homepage-about">{{ introductionText }}</p>
-  {% endif %}
+
+      
+
 
   <section class="home-testimonial-strip" aria-label="Recommendations">
     <div class="home-testimonial-grid">
@@ -81,42 +81,11 @@ layout: layouts/base.njk
     </div>
   </section>
 
-    <div class="home-callout-strip" aria-label="Selected outcomes">
-    <div class="home-callout-scroll">
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Shipped to 40M+ active devices</p>
-        <cite class="home-callout-source">Amazon Fire OS</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Reduced report task time by 95%</p>
-        <cite class="home-callout-source">Resonance AI</cite>
-      </blockquote>
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Increased conversion surfaces by 14×</p>
-        <cite class="home-callout-source">Priority Tax Relief</cite>
-      </blockquote>
-      {# <blockquote class="home-callout">
-        <p class="home-callout-quote">Meet PWA is now a top-3 global communication tool</p>
-        <cite class="home-callout-source">Google Meet — dial-out &amp; standalone prototype</cite>
-      </blockquote> #}
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">Thousands of workers verified daily</p>
-        <cite class="home-callout-source">Lumedic Connect</cite>
-      </blockquote>
-      {# <blockquote class="home-callout">
-        <p class="home-callout-quote">Design system adopted across PwC's internal ecosystem</p>
-        <cite class="home-callout-source">PwC Concourse — mobile platform</cite>
-      </blockquote> #}
-      <blockquote class="home-callout">
-        <p class="home-callout-quote">268 listings · 15 episodes · 50k+ plays</p>
-        <cite class="home-callout-source">Seattle Creative Directory</cite>
-      </blockquote>
-      {# <blockquote class="home-callout">
-        <p class="home-callout-quote">Interaction patterns surfaced in Gemini for Android</p>
-        <cite class="home-callout-source">BUCK × Google — early Gemini concepts</cite>
-      </blockquote> #}
-    </div>
-  </div>
+
+
+  {% if introductionText %}
+    <p class="homepage-about">{{ introductionText }}</p>
+  {% endif %}
 
   {% include "homeFeaturedProjects.njk" %}
 
@@ -138,6 +107,53 @@ layout: layouts/base.njk
       </div>
     </div>
   </section>
+
+  <div class="home-callout-strip" aria-label="Selected outcomes">
+    <div class="home-callout-scroll">
+      <blockquote class="home-callout">
+        <a class="home-callout-link" href="/design/amazon-fire-os-upgrades/">
+          <p class="home-callout-quote">Shipped to 40M+ active devices</p>
+          <cite class="home-callout-source">Amazon Fire OS</cite>
+        </a>
+      </blockquote>
+      <blockquote class="home-callout">
+        <a class="home-callout-link" href="/design/resonance-ai-ml-platform/">
+          <p class="home-callout-quote">Reduced report task time by 95%</p>
+          <cite class="home-callout-source">Resonance AI</cite>
+        </a>
+      </blockquote>
+      <blockquote class="home-callout">
+        <a class="home-callout-link" href="/design/priority-tax-relief/">
+          <p class="home-callout-quote">Conversion surfaces up by 14×</p>
+          <cite class="home-callout-source">Priority Tax Relief</cite>
+        </a>
+      </blockquote>
+      {# <blockquote class="home-callout">
+        <a class="home-callout-link" href="/design/google-meet-alternate-connections/">
+          <p class="home-callout-quote">Meet PWA is now a top-3 global communication tool</p>
+          <cite class="home-callout-source">Google Meet — dial-out &amp; standalone prototype</cite>
+        </a>
+      </blockquote> #}
+      <blockquote class="home-callout">
+        <a class="home-callout-link" href="/design/lumedic-platform-healthcare-records/">
+          <p class="home-callout-quote">Thousands of workers verified daily</p>
+          <cite class="home-callout-source">Lumedic Connect</cite>
+        </a>
+      </blockquote>
+      <blockquote class="home-callout">
+        <a class="home-callout-link" href="/design/seattle-creative-directory/">
+          <p class="home-callout-quote">268 listings · 15 episodes · 50k+ plays</p>
+          <cite class="home-callout-source">Seattle Creative Directory</cite>
+        </a>
+      </blockquote>
+      <blockquote class="home-callout">
+        <a class="home-callout-link" href="/design/android-gemini-interaction/">
+          <p class="home-callout-quote">Interaction patterns surfaced in Gemini for Android</p>
+          <cite class="home-callout-source">BUCK × Google — early Gemini concepts</cite>
+        </a>
+      </blockquote>
+    </div>
+  </div>
 
   <aside class="home-aside-row">
     <span class="home-aside-label">Also</span>
@@ -200,6 +216,8 @@ layout: layouts/base.njk
   const MOBILE_BREAKPOINT = 768;
   // Hash scale used to derive deterministic pseudo-random jitter.
   const HASH_MULTIPLIER = 10000;
+  // Strength of the outward push that separates clusters from the center lockup.
+  const SPREAD_STRENGTH = 0.58;
 
   // Tags that contribute to each axis score.
   const HUMAN_TAGS = new Set(['community', 'branding', 'healthcare', 'event', 'education', 'consumer']);
@@ -335,8 +353,8 @@ layout: layouts/base.njk
       const baseX = clamp((vectorX * 0.66) + (centroid.x * 0.34) + jitterX, 0.04, 0.95);
       const baseY = clamp((vectorY * 0.66) + (centroid.y * 0.34) + jitterY, 0.05, 0.95);
       // Final spread control: pushes clusters farther from center lockup.
-      const xNormalized = pushAwayFromCenter(baseX, 0.42);
-      const yNormalized = pushAwayFromCenter(baseY, 0.42);
+      const xNormalized = pushAwayFromCenter(baseX, SPREAD_STRENGTH);
+      const yNormalized = pushAwayFromCenter(baseY, SPREAD_STRENGTH);
 
       // Convert normalized coordinates to discrete grid cells.
       const baseCol = clamp(Math.round(xNormalized * (GRID_COLUMNS - 1)) + 1, 1, GRID_COLUMNS);

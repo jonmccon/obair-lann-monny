@@ -6,7 +6,9 @@ document.querySelectorAll('.photo-gallery').forEach((galleryEl) => {
 		gallery: galleryEl,
 		children: 'a',
 		pswpModule: PhotoSwipe,
-		preload: [1, 1]
+		preload: [1, 1],
+		// Open/close instantly with no zoom or fade transition.
+		showHideAnimationType: 'none'
 	});
 
 	// Add a chain-link button to the lightbox top bar that links to the standalone photo page.
