@@ -1416,7 +1416,7 @@ header {
 
 	.homepage-headline-axis {
 		font-size: clamp(1.95rem, 10vw, 3.2rem);
-		font-variation-settings: 'wght' 760, 'wdth' 88, 'opsz' 40, 'slnt' 0;
+		font-variation-settings: 'wght' 800, 'wdth' 50, 'opsz' 40, 'slnt' -5;
 		max-width: 28ch;
 	}
 
