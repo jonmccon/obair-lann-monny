@@ -76,6 +76,12 @@ eleventyNavigation:
   align-items: baseline;
 }
 
+.resume-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+
 .resume-contact a {
   color: var(--text-color-link);
   text-decoration: none;
@@ -103,10 +109,6 @@ eleventyNavigation:
   cursor: pointer;
   transition: color 0.15s, border-color 0.15s, background 0.15s;
   text-decoration: none;
-}
-
-.btn-clipboard:first-of-type {
-  margin-left: auto;
 }
 
 .btn-clipboard:hover {
@@ -292,8 +294,9 @@ eleventyNavigation:
 /* ─── Mobile: single column ─────────────────────────── */
 @media (max-width: 640px) {
   .resume-header {
-    grid-template-columns: auto 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    justify-items: start;
   }
 
   .resume-body {
@@ -303,6 +306,28 @@ eleventyNavigation:
   .resume-portrait-wrap {
     width: 64px;
     height: 64px;
+  }
+
+  .resume-identity {
+    width: 100%;
+  }
+
+  .resume-contact {
+    gap: 0.5rem 0.75rem;
+  }
+
+  .resume-actions {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .resume-actions .btn-clipboard {
+    flex: 1 1 0;
+    justify-content: center;
+    min-width: 0;
+    padding-inline: 0.6rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
   }
 }
 
@@ -502,14 +527,16 @@ eleventyNavigation:
         <a href="https://www.jonmccon.com" target="_blank" rel="noopener">jonmccon.com</a>
         <a href="https://github.com/jonmccon" target="_blank" rel="noopener">GitHub</a>
         <a href="https://www.linkedin.com/in/jonmccon" target="_blank" rel="noopener">LinkedIn</a>
-        <button class="btn-clipboard" id="resume-copy-btn" aria-label="Copy resume as Markdown to clipboard">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="4" width="9" height="11" rx="1.5" fill="var(--background-color)" stroke="currentColor" stroke-width="1.5"/></svg>
-          Copy as Markdown
-        </button>
-        <button class="btn-clipboard" id="resume-pdf-btn" type="button" aria-label="Print or save resume as PDF">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="11" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
-          Print / Save PDF
-        </button>
+        <div class="resume-actions">
+          <button class="btn-clipboard" id="resume-copy-btn" aria-label="Copy resume as Markdown to clipboard">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="4" width="9" height="11" rx="1.5" fill="var(--background-color)" stroke="currentColor" stroke-width="1.5"/></svg>
+            Copy as Markdown
+          </button>
+          <button class="btn-clipboard" id="resume-pdf-btn" type="button" aria-label="Print or save resume as PDF">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2v8m0 0-3-3m3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="11" width="12" height="3" rx="1" stroke="currentColor" stroke-width="1.5"/></svg>
+            Print / Save PDF
+          </button>
+        </div>
       </div>
     </div>
   </header>
