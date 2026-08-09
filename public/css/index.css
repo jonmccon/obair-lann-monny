@@ -815,17 +815,27 @@ header {
 }
 
 .home-cta-row a {
-	display: inline-flex;
+	display: flex;
+	width: 100%;
 	align-items: center;
+	justify-content: center;
 	gap: 0.5rem;
-	font-size: 0.9375rem;
-	font-weight: var(--font-weight-medium);
-	color: var(--text-color-link);
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	font-weight: var(--font-weight-semibold);
+	color: var(--text-color);
 	text-decoration: none;
+	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
+	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
+	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	letter-spacing: 0.02em;
 }
 
 .home-cta-row a:hover {
-	text-decoration: underline;
+	background: var(--text-color-link);
+	color: var(--text-color-on-accent);
+	border-color: var(--text-color-link);
+	text-decoration: none;
 }
 
 /* --- Podcast feature card ------------------------------------------------ */
@@ -837,8 +847,8 @@ header {
 
 .home-podcast-grid {
 	display: grid;
-	grid-template-columns: 240px 1fr;
-	gap: 2rem;
+	grid-template-columns: 160px 1fr;
+	gap: 1.5rem;
 	align-items: start;
 }
 
@@ -846,6 +856,7 @@ header {
 	border-radius: 8px;
 	overflow: hidden;
 	background: var(--surface-color-alt);
+	flex-shrink: 0;
 }
 
 .home-podcast-cover img {
@@ -853,10 +864,14 @@ header {
 	display: block;
 }
 
+.home-podcast-copy {
+	padding-left: 0.5rem;
+}
+
 .home-podcast-title {
 	font-size: clamp(1.1rem, 2vw, 1.4rem);
 	font-weight: var(--font-weight-bold);
-	margin: 1rem 0 0.5rem;
+	margin: 0 0 0.5rem;
 }
 
 .home-podcast-desc {
@@ -868,29 +883,58 @@ header {
 }
 
 .home-podcast-all-link {
-	margin-top: 0.5rem;
-	display: inline-block;
+	margin-top: 0.75rem;
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	font-weight: var(--font-weight-semibold);
+	text-transform: none;
+	letter-spacing: 0.02em;
+	color: var(--text-color);
+	text-decoration: none;
+	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
+	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
+	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	box-sizing: border-box;
+}
+
+.home-podcast-all-link:hover {
+	background: var(--text-color-link);
+	color: var(--text-color-on-accent);
+	border-color: var(--text-color-link);
 }
 
 @media (max-width: 640px) {
-	.home-podcast-grid { grid-template-columns: 1fr; }
-	.home-podcast-cover { max-width: 160px; }
+	.home-podcast-grid { grid-template-columns: 100px 1fr; gap: 1rem; }
+	.home-podcast-cover { max-width: 100px; }
 }
 
 /* --- Obsidian aside row -------------------------------------------------- */
 
 .home-aside-row {
 	display: flex;
-	gap: 0.55rem;
+	flex-direction: column;
+	gap: 0.4rem;
 	align-items: center;
-	justify-content: center;
-	padding: 0.7rem 1rem;
+	padding: 0.8rem 1rem;
 	border: 1px solid #fff;
 	border-radius: 999px;
 	background-color: transparent;
 	transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 	font-size: 0.85rem;
 	color: var(--text-color-muted);
+	text-align: left;
+}
+
+.home-aside-header {
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+	justify-content: center;
 }
 
 .home-aside-label {
@@ -918,6 +962,8 @@ header {
 .home-aside-row a {
 	color: inherit;
 	text-decoration: none;
+	text-align: left;
+	align-self: flex-start;
 }
 
 .home-aside-row:hover,
@@ -936,11 +982,6 @@ header {
 	.home-aside-row {
 		border-radius: 1rem;
 		padding: 0.75rem 0.9rem;
-		align-items: flex-start;
-	}
-
-	.home-aside-icon {
-		margin-top: 0.15rem;
 	}
 }
 
@@ -1393,10 +1434,6 @@ header {
 	.home-supporting-content {
 		text-align: left;
 		justify-items: stretch;
-	}
-
-	.home-supporting-links {
-		justify-content: flex-start;
 	}
 
 	.home-newspaper {
@@ -1899,6 +1936,8 @@ img {
 	.nav {
 		flex-wrap: wrap;
 		gap: 0.5em;
+		justify-content: space-between;
+		width: 100%;
 	}
 	
 	/* Improved mobile padding */
@@ -2457,15 +2496,15 @@ img {
 
 .home-testimonial {
   margin: 0;
-  padding: 0.75rem 0.85rem;
+  padding: 0.6rem 0.75rem;
   border: 1px solid var(--anp-crust);
   background: transparent;
   text-align: left;
 }
 
 .home-testimonial-quote {
-  margin: 0 0 0.75rem;
-  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  margin: 0 0 0.6rem;
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
   line-height: 1.5;
   font-style: italic;
 }
@@ -2507,7 +2546,7 @@ img {
 }
 
 .home-testimonial-attribution a {
-  color: var(--text-color);
+  color: var(--text-color-link);
   font-size: 0.9rem;
   font-weight: var(--font-weight-semibold);
   text-decoration: none;
