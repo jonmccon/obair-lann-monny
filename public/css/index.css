@@ -1364,9 +1364,9 @@ header {
 	}
 
 	.homepage-headline-axis {
-		font-size: clamp(2.4rem, 12vw, 4rem);
+		font-size: clamp(1.95rem, 10vw, 3.2rem);
 		font-variation-settings: 'wght' 760, 'wdth' 88, 'opsz' 40, 'slnt' 0;
-		max-width: 43ch;
+		max-width: 28ch;
 	}
 
 	.homepage-main-avatar-overlay {

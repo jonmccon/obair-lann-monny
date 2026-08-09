@@ -317,10 +317,10 @@ layout: layouts/base.njk
     const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
 
     if (isMobile) {
-      // Lightweight deterministic mobile layout: alternate left/right columns.
+      // Lightweight deterministic mobile layout: alternate left/right columns, inset from edges.
       projects.forEach((project, idx) => {
-        project.style.setProperty('--axis-col', idx % 2 === 0 ? 3 : 22);
-        project.style.setProperty('--axis-row', 10 - Math.floor(idx / 2) * 2);
+        project.style.setProperty('--axis-col', idx % 2 === 0 ? 4 : 19);
+        project.style.setProperty('--axis-row', 9 - Math.floor(idx / 2) * 2);
       });
       return;
     }
