@@ -58,7 +58,18 @@ layout: layouts/base.njk
   <section class="home-testimonial-strip" aria-label="Recommendations">
     <div class="home-testimonial-grid">
       <blockquote class="home-testimonial">
-        <p class="home-testimonial-quote">“He challenged the status quo with his design process and methodology and consistently designed meaningful experiences for our users.”</p>
+        <p class="home-testimonial-quote">"Jonny's end-to-end design process is impressive, as he is able to take an idea from conception to delivery while ensuring that the end product meets the needs of the users."</p>
+        <footer class="home-testimonial-footer">
+          <span class="home-testimonial-avatar" aria-hidden="true"><img src="/img/testimonials/jeremy-w.png" alt="Jeremy Wheat" width="40" height="40"></span>
+          <cite class="home-testimonial-attribution">
+            <a href="https://www.linkedin.com/in/jeremywheat/" target="_blank" rel="noreferrer">Jeremy Wheat</a>
+            <span class="home-testimonial-role">Senior Manager, Cloud Engineering, Data &amp; Analytics</span>
+          </cite>
+        </footer>
+      </blockquote>
+
+      <blockquote class="home-testimonial">
+        <p class="home-testimonial-quote">"He challenged the status quo with his design process and methodology and consistently designed meaningful experiences for our users."</p>
         <footer class="home-testimonial-footer">
           <span class="home-testimonial-avatar" aria-hidden="true">
             <img src="/img/testimonials/mike-vw.png" alt="Mike Van Wagoner" width="40" height="40">
@@ -66,17 +77,6 @@ layout: layouts/base.njk
           <cite class="home-testimonial-attribution">
             <a href="https://www.linkedin.com/in/mike-van-wagoner/" target="_blank" rel="noreferrer">Mike Van Wagoner</a>
             <span class="home-testimonial-role">Product Design Leader</span>
-          </cite>
-        </footer>
-      </blockquote>
-
-      <blockquote class="home-testimonial">
-        <p class="home-testimonial-quote">“Jonny's end-to-end design process is impressive, as he is able to take an idea from conception to delivery while ensuring that the end product meets the needs of the users.”</p>
-        <footer class="home-testimonial-footer">
-          <span class="home-testimonial-avatar" aria-hidden="true"><img src="/img/testimonials/jeremy-w.png" alt="Jeremy Wheat" width="40" height="40"></span>
-          <cite class="home-testimonial-attribution">
-            <a href="https://www.linkedin.com/in/jeremywheat/" target="_blank" rel="noreferrer">Jeremy Wheat</a>
-            <span class="home-testimonial-role">Senior Manager, Cloud Engineering, Data &amp; Analytics</span>
           </cite>
         </footer>
       </blockquote>
@@ -99,14 +99,16 @@ layout: layouts/base.njk
     <div class="home-podcast-grid">
       <div class="home-podcast-cover">
         <img src="/img/podcast/scd-podcast-cover.png" alt="Seattle Creative Directory Podcast" width="300" height="300">
-      <h2 class="home-podcast-title">Seattle Creative Directory Podcast</h2>
-        <p class="home-podcast-desc">Conversations with Seattle's working creative community — designers, founders, makers, and the people building culture in the Pacific Northwest.</p>
       </div>
       <div class="home-podcast-copy">
+        <h2 class="home-podcast-title">Seattle Creative Directory Podcast</h2>
+        <p class="home-podcast-desc">Conversations with Seattle's working creative community — designers, founders, makers, and the people building culture in the Pacific Northwest.</p>
+      </div>
+      <div class="home-podcast-players">
         <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/9fc38fe1-df84-4a61-8348-b4a888606182?dark=false" title="SCD Podcast episode 1"></iframe>
         <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/a8c63034-9b6c-4d56-b3ed-e440f6a3e031?dark=false" title="SCD Podcast episode 2"></iframe>
-        <a class="home-supporting-link home-podcast-all-link" href="https://seattlecreative.simplecast.com/" target="_blank" rel="noreferrer">All episodes ↗</a>
       </div>
+      <a class="home-supporting-link home-podcast-all-link" href="https://seattlecreative.simplecast.com/" target="_blank" rel="noreferrer">All episodes ↗</a>
     </div>
   </section>
 
@@ -158,13 +160,15 @@ layout: layouts/base.njk
   </div>
 
   <aside class="home-aside-row">
-    <span class="home-aside-label">Also</span>
-    <span class="home-aside-icon" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-        <circle cx="12" cy="12" r="8.25" />
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
-      </svg>
-    </span>
+    <div class="home-aside-header">
+      <span class="home-aside-label">Check it out</span>
+      <span class="home-aside-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <circle cx="12" cy="12" r="8.25" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
+        </svg>
+      </span>
+    </div>
     <a href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
       Obsidian Time Blocks — a lightweight time-blocking plugin for focused work in Obsidian.
     </a>
