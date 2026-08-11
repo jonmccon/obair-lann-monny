@@ -52,10 +52,6 @@
 	--background-color: #e6e6e6;
 	--surface-color: #f0ede8;
 	--surface-color-alt: #e6e2db;
-	/* Progressive section shading — each step reads darker as the page descends */
-	--section-shade-1: color-mix(in srgb, var(--background-color) 94%, var(--text-color));
-	--section-shade-2: color-mix(in srgb, var(--background-color) 87%, var(--text-color));
-	--section-divider: color-mix(in srgb, var(--text-color) 14%, transparent);
 	--shadow-color: rgba(30, 25, 20, 0.10);
 	--shadow-color-strong: rgba(30, 25, 20, 0.18);
 
@@ -683,7 +679,7 @@ header {
 /* --- Featured projects grid (semi-featured rows) ------------------------- */
 
 .home-featured-grid {
-	margin: 2rem 0;
+	margin: 2rem 0 0 0;
 	display: grid;
 }
 
@@ -857,13 +853,9 @@ header {
 /* --- Podcast feature card ------------------------------------------------ */
 
 .home-podcast-feature {
-	width: 100%;
-	box-sizing: border-box;
-	margin-top: 1rem;
-	padding: 2.25rem clamp(1.25rem, 4vw, 2.5rem);
-	background: var(--section-shade-1);
-	border-radius: 14px;
-	text-align: left;
+	margin: 2rem 0 0;
+	padding: 2rem 0;
+	border-top: 1px solid var(--surface-color);
 }
 
 .home-podcast-grid {
@@ -911,10 +903,10 @@ header {
 }
 
 .home-podcast-all-link {
-	grid-column: 1 / -1;
-	margin-top: 0.75rem;
+	/* grid-column: 1 / -1; */
+	margin-top: 1rem !important;
 	display: flex;
-	width: 100%;
+	width: fit-content;
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
@@ -1147,7 +1139,7 @@ header {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	padding: 0.45rem 0.85rem;
+	/* padding: 0.45rem 0.85rem; */
 	text-decoration: none;
 	font-size: 0.75rem;
 	font-weight: var(--font-weight-semibold);
@@ -1458,6 +1450,10 @@ header {
 	.home-supporting-content {
 		text-align: left;
 		justify-items: stretch;
+	}
+
+	.home-podcast-all-link {
+		width: 100%;
 	}
 
 	.home-newspaper {
@@ -2475,13 +2471,10 @@ img {
 /* ─── Homepage Callout Strip ─────────────────────────────── */
 .home-callout-strip {
   width: 100%;
-  box-sizing: border-box;
   overflow: hidden;
-  margin: 1rem 0 0 0;
-  padding: 1.75rem clamp(1.25rem, 4vw, 2.5rem);
-  background: var(--section-shade-2);
-  border-radius: 14px;
-}
+  border-top: 1px solid var(--anp-crust);
+  border-bottom: 1px solid var(--anp-crust);
+  margin: 2rem 0 0 0;	}
 
 .home-callout-scroll {
   display: flex;
@@ -2494,7 +2487,7 @@ img {
   margin: 0;
   padding: 0.5rem 2rem 0.5rem 0;
   border-left: none;
-  border-right: 1px solid var(--section-divider);
+  border-right: 1px solid var(--anp-crust);
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -2648,7 +2641,7 @@ img {
     /* allow horizontal scroll on mobile */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 1.5rem 1.25rem;
+    padding: 1.25rem 0;
   }
 
   .home-callout {
