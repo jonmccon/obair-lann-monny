@@ -4,7 +4,7 @@ pageHeadline: Resonance AI
 description: Designed Resonance AI's ML platform end-to-end, automated reporting that cut analyst work by 95%, shipped to broadcast TV studios and acquihired on product value.
 category: Resonance AI
 bgColor: black
-date: 2021-08-01
+date: 2026-05-01
 permalink: /design/resonance-ai-ml-platform/
 draft: false
 featured: true

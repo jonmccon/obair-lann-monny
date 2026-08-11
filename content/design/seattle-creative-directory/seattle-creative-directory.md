@@ -3,7 +3,7 @@ title: Seattle Creative Directory | Platform Design | Jonny McConnell
 pageHeadline: Seattle Creative Directory
 description: Founded and built a living directory and interview series connecting creative businesses across the Pacific Northwest — design, research, development, and production, all owned solo.
 category: Directory
-date: 2021-06-01
+date: 2026-02-01
 permalink: /design/seattle-creative-directory/
 thumbnail: /img/thumbnails/scd-thumb.png
 draft: false
