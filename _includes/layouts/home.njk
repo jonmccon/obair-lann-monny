@@ -91,9 +91,11 @@ layout: layouts/base.njk
 
   {% include "homeFeaturedProjects.njk" %}
 
-  <div class="home-cta-row">
-    <a href="/design/">See all work <span aria-hidden="true">→</span></a>
-  </div>
+  <a href="/design/">
+    <div class="home-supporting-link home-podcast-all-link" aria-label="See all work">
+      See all work <span aria-hidden="true">→</span>
+    </div>
+  </a>
 
   <section class="home-podcast-feature" aria-label="Podcast">
     <div class="home-podcast-grid">
@@ -108,8 +110,12 @@ layout: layouts/base.njk
         <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/9fc38fe1-df84-4a61-8348-b4a888606182?dark=false" title="SCD Podcast episode 1"></iframe>
         <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/a8c63034-9b6c-4d56-b3ed-e440f6a3e031?dark=false" title="SCD Podcast episode 2"></iframe>
       </div>
-      <a class="home-supporting-link home-podcast-all-link" href="https://seattlecreative.simplecast.com/" target="_blank" rel="noreferrer">All episodes ↗</a>
     </div>
+          <a href="https://seattlecreative.simplecast.com/" target="_blank" rel="noreferrer">
+        <div class="home-supporting-link home-podcast-all-link">
+          Hear all episodes ↗
+        </div>
+      </a>
   </section>
 
   <div class="home-callout-strip" aria-label="Selected outcomes">

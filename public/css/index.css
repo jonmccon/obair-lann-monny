@@ -679,7 +679,7 @@ header {
 /* --- Featured projects grid (semi-featured rows) ------------------------- */
 
 .home-featured-grid {
-	margin: 2rem 0;
+	margin: 2rem 0 0 0;
 	display: grid;
 }
 
@@ -853,8 +853,9 @@ header {
 /* --- Podcast feature card ------------------------------------------------ */
 
 .home-podcast-feature {
+	margin: 2rem 0 0;
 	padding: 2rem 0;
-	border-top: 1px solid var(--anp-crust);
+	border-top: 1px solid var(--surface-color);
 }
 
 .home-podcast-grid {
@@ -902,10 +903,10 @@ header {
 }
 
 .home-podcast-all-link {
-	grid-column: 1 / -1;
-	margin-top: 0.75rem;
+	/* grid-column: 1 / -1; */
+	margin-top: 1rem !important;
 	display: flex;
-	width: 100%;
+	width: fit-content;
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
@@ -924,7 +925,7 @@ header {
 
 .home-podcast-all-link:hover {
 	background: var(--text-color-link);
-	color: var(--text-color-on-accent);
+	color: var(--surface-color);
 	border-color: var(--text-color-link);
 }
 
@@ -1138,7 +1139,7 @@ header {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	padding: 0.45rem 0.85rem;
+	/* padding: 0.45rem 0.85rem; */
 	text-decoration: none;
 	font-size: 0.75rem;
 	font-weight: var(--font-weight-semibold);
@@ -1200,34 +1201,17 @@ header {
 }
 
 .home-see-all-link {
-	grid-column: 9 / span 8;
-	grid-row: 12 / span 2;
-	align-self: end;
-	justify-self: center;
-	margin: 0;
-	padding: 0;
 	text-align: center;
 	z-index: 9;
 }
 
 .home-see-all-link a {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.65rem;
-	padding: 0.75rem 1.5rem;
-	font-size: 1rem;
-	font-weight: 500;
-	color: var(--text-color-on-accent);
-	text-decoration: none;
-	border: 1px solid var(--text-color);
-	border-radius: 4px;
-	transition: all 0.3s ease;
-	background: var(--text-color);
+
 }
 
 .home-see-all-link a:hover {
-	background: color-mix(in srgb, var(--surface-color) 80%, transparent);
-	color: var(--text-color);
+	/* background: color-mix(in srgb, var(--surface-color) 80%, transparent); */
+	color: var(--surface-color);
 	border-color: color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -1466,6 +1450,10 @@ header {
 	.home-supporting-content {
 		text-align: left;
 		justify-items: stretch;
+	}
+
+	.home-podcast-all-link {
+		width: 100%;
 	}
 
 	.home-newspaper {
@@ -2305,7 +2293,7 @@ img {
 	font-weight: var(--font-weight-body);
 	font-size: 1.0625rem;
 	line-height: 1.65;
-	color: var(--text-color-subtle);
+	color: var(--text-color);
 	margin: 0 0 1rem;
 }
 
@@ -2338,7 +2326,6 @@ img {
 .nda-password-form {
 	display: flex;
 	gap: 0.5rem;
-	opacity: 0.6;
 	transition: opacity 0.2s ease;
 }
 
