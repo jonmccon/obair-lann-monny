@@ -2274,42 +2274,92 @@ img {
 	margin-inline: auto;
 }
 
-/* Password protection overlay */
+/* Password protection overlay — NDA splash */
 .password-overlay {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 60vh;
+	min-height: 70vh;
+	padding: 2rem 1rem;
 }
 
 .password-form-container {
 	text-align: center;
-	max-width: 320px;
+	max-width: 52ch;
 	width: 100%;
 }
 
-.password-form-container p {
+/* NDA headline — uses headline font, prominent */
+.nda-headline {
+	font-family: var(--font-family-headline);
+	font-weight: var(--font-weight-black);
+	font-size: clamp(1.75rem, 4vw, 2.5rem);
+	line-height: 1.15;
+	margin: 0 0 1.25rem;
+	color: var(--text-color);
+}
+
+/* NDA body copy — readable, slightly muted */
+.nda-body {
+	font-family: var(--font-family);
+	font-weight: var(--font-weight-body);
+	font-size: 1.0625rem;
+	line-height: 1.65;
+	color: var(--text-color-subtle);
 	margin: 0 0 1rem;
 }
 
-#password-form {
+/* CTA line before the email address */
+.nda-cta {
+	font-family: var(--font-family);
+	font-weight: var(--font-weight-medium);
+	font-size: 1rem;
+	color: var(--text-color);
+	margin: 0 0 0.5rem;
+}
+
+/* Mailto link — styled prominently */
+.nda-email-link {
+	display: inline-block;
+	font-family: var(--font-family-headline);
+	font-weight: var(--font-weight-semibold);
+	font-size: 1.125rem;
+	color: var(--text-color-link);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	margin-bottom: 2.5rem;
+}
+
+.nda-email-link:hover {
+	color: var(--text-color-link-active);
+}
+
+/* Password form — de-emphasized, secondary affordance */
+.nda-password-form {
 	display: flex;
 	gap: 0.5rem;
+	opacity: 0.6;
+	transition: opacity 0.2s ease;
+}
+
+.nda-password-form:focus-within {
+	opacity: 1;
 }
 
 #password-input {
 	flex: 1;
-	padding: 0.5rem;
-	font-size: 1rem;
+	padding: 0.5rem 0.75rem;
+	font-size: 0.9375rem;
 	font-family: var(--font-family);
 	border: 1px solid var(--color-gray-50);
 	background: var(--background-color);
 	color: var(--text-color);
 }
 
-#password-form button {
+#password-form button,
+.nda-password-form button {
 	padding: 0.5rem 1rem;
-	font-size: 1rem;
+	font-size: 0.9375rem;
 	font-family: var(--font-family);
 	cursor: pointer;
 	border: 1px solid var(--color-gray-50);
@@ -2317,13 +2367,15 @@ img {
 	color: var(--text-color);
 }
 
-#password-form button:hover {
+#password-form button:hover,
+.nda-password-form button:hover {
 	background: var(--color-gray-20);
 }
 
 .password-error {
 	color: var(--text-color-link-active);
 	font-size: 0.875rem;
+	margin-top: 0.5rem;
 }
 
 /* Archive intro paragraph (e.g. /design/ page) — matches post-body reading column */

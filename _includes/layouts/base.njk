@@ -167,11 +167,14 @@
 		{% if protected and password.enabled %}
 			<div id="password-overlay" class="password-overlay">
 				<div class="password-form-container">
-					<p>This page is password protected</p>
-					<form id="password-form">
+					<h1 class="nda-headline">This work is under NDA</h1>
+					<p class="nda-body">This project contains confidential information shared under a non-disclosure agreement. Case study details, screenshots, and process documentation are not publicly available.</p>
+					<p class="nda-cta">Interested in seeing the work? Reach out and I'll share access directly.</p>
+					<a href="mailto:jonmccon@gmail.com" class="nda-email-link">jonmccon@gmail.com</a>
+					<form id="password-form" class="nda-password-form">
 						<label for="password-input" class="visually-hidden">Password</label>
-						<input type="password" id="password-input" placeholder="Enter password" autocomplete="off" required>
-						<button type="submit">Submit</button>
+						<input type="password" id="password-input" placeholder="Have the password? Enter it here" autocomplete="off" required>
+						<button type="submit">Unlock</button>
 					</form>
 					<p id="password-error" class="password-error" hidden>Incorrect password</p>
 				</div>
