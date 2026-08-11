@@ -2,7 +2,7 @@
 title: Job Intelligence Scraper | Product Design | Jonny McConnell
 pageHeadline: Job Intelligence Scraper
 description: A personal job-search assistant that scrapes 15+ job boards, filters by role and geography using a two-tier keyword gate, then runs on-demand LLM fit analysis against my resume - all served via a local LAN dashboard with interactive filtering, cover letter generation, and ATS question scraping.
-date: 2026-07-31
+date: 2026-04-31
 permalink: /design/job-intelligence-scraper/
 draft: false
 featured: true

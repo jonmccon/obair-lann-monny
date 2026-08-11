@@ -4,7 +4,7 @@ pageHeadline: Priority Tax Relief
 description: Design director across branding, marketing, and internal product UX/UI for a national tax relief company - solo designer supporting 200+ people with a $7M MRR operation. Delivered a full rebrand, design system published, replatformed marketing site, and a CRM product strategy.
 category: Priority Tax Relief
 bgColor: black
-date: 2025-01-01
+date: 2026-08-01
 permalink: /design/priority-tax-relief/
 draft: false
 featured: true
