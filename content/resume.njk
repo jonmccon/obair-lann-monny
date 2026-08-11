@@ -419,10 +419,11 @@ eleventyNavigation:
     font-size: 6.75pt !important;
   }
 
+  /* Keep links visibly styled so they read as clickable in the saved PDF */
   .resume-contact a,
   .resume-contact a:visited {
-    color: inherit !important;
-    text-decoration: none !important;
+    color: var(--text-color-link) !important;
+    text-decoration: underline !important;
   }
 
   .resume-body {
@@ -525,8 +526,8 @@ eleventyNavigation:
       <div class="resume-contact">
         <a href="mailto:jonmccon@gmail.com">jonmccon@gmail.com</a>
         <a href="https://www.jonmccon.com" target="_blank" rel="noopener">jonmccon.com</a>
-        <a href="https://github.com/jonmccon" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://www.linkedin.com/in/jonmccon" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/jonmccon" target="_blank" rel="noopener">github.com/jonmccon</a>
+        <a href="https://www.linkedin.com/in/jonmccon" target="_blank" rel="noopener">linkedin.com/in/jonmccon</a>
         <div class="resume-actions">
           <button class="btn-clipboard" id="resume-copy-btn" aria-label="Copy resume as Markdown to clipboard">
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true"><rect x="5" y="1" width="9" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="2" y="4" width="9" height="11" rx="1.5" fill="var(--background-color)" stroke="currentColor" stroke-width="1.5"/></svg>
