@@ -52,6 +52,10 @@
 	--background-color: #e6e6e6;
 	--surface-color: #f0ede8;
 	--surface-color-alt: #e6e2db;
+	/* Progressive section shading — each step reads darker as the page descends */
+	--section-shade-1: color-mix(in srgb, var(--background-color) 94%, var(--text-color));
+	--section-shade-2: color-mix(in srgb, var(--background-color) 87%, var(--text-color));
+	--section-divider: color-mix(in srgb, var(--text-color) 14%, transparent);
 	--shadow-color: rgba(30, 25, 20, 0.10);
 	--shadow-color-strong: rgba(30, 25, 20, 0.18);
 
@@ -853,8 +857,13 @@ header {
 /* --- Podcast feature card ------------------------------------------------ */
 
 .home-podcast-feature {
-	padding: 2rem 0;
-	border-top: 1px solid var(--anp-crust);
+	width: 100%;
+	box-sizing: border-box;
+	margin-top: 1rem;
+	padding: 2.25rem clamp(1.25rem, 4vw, 2.5rem);
+	background: var(--section-shade-1);
+	border-radius: 14px;
+	text-align: left;
 }
 
 .home-podcast-grid {
@@ -924,7 +933,7 @@ header {
 
 .home-podcast-all-link:hover {
 	background: var(--text-color-link);
-	color: var(--text-color-on-accent);
+	color: var(--surface-color);
 	border-color: var(--text-color-link);
 }
 
@@ -1200,34 +1209,17 @@ header {
 }
 
 .home-see-all-link {
-	grid-column: 9 / span 8;
-	grid-row: 12 / span 2;
-	align-self: end;
-	justify-self: center;
-	margin: 0;
-	padding: 0;
 	text-align: center;
 	z-index: 9;
 }
 
 .home-see-all-link a {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.65rem;
-	padding: 0.75rem 1.5rem;
-	font-size: 1rem;
-	font-weight: 500;
-	color: var(--text-color-on-accent);
-	text-decoration: none;
-	border: 1px solid var(--text-color);
-	border-radius: 4px;
-	transition: all 0.3s ease;
-	background: var(--text-color);
+
 }
 
 .home-see-all-link a:hover {
-	background: color-mix(in srgb, var(--surface-color) 80%, transparent);
-	color: var(--text-color);
+	/* background: color-mix(in srgb, var(--surface-color) 80%, transparent); */
+	color: var(--surface-color);
 	border-color: color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
 	transform: translateY(-2px);
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -2305,7 +2297,7 @@ img {
 	font-weight: var(--font-weight-body);
 	font-size: 1.0625rem;
 	line-height: 1.65;
-	color: var(--text-color-subtle);
+	color: var(--text-color);
 	margin: 0 0 1rem;
 }
 
@@ -2338,7 +2330,6 @@ img {
 .nda-password-form {
 	display: flex;
 	gap: 0.5rem;
-	opacity: 0.6;
 	transition: opacity 0.2s ease;
 }
 
@@ -2484,10 +2475,13 @@ img {
 /* ─── Homepage Callout Strip ─────────────────────────────── */
 .home-callout-strip {
   width: 100%;
+  box-sizing: border-box;
   overflow: hidden;
-  border-top: 1px solid var(--anp-crust);
-  border-bottom: 1px solid var(--anp-crust);
-  margin: 2rem 0 0 0;	}
+  margin: 1rem 0 0 0;
+  padding: 1.75rem clamp(1.25rem, 4vw, 2.5rem);
+  background: var(--section-shade-2);
+  border-radius: 14px;
+}
 
 .home-callout-scroll {
   display: flex;
@@ -2500,7 +2494,7 @@ img {
   margin: 0;
   padding: 0.5rem 2rem 0.5rem 0;
   border-left: none;
-  border-right: 1px solid var(--anp-crust);
+  border-right: 1px solid var(--section-divider);
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -2654,7 +2648,7 @@ img {
     /* allow horizontal scroll on mobile */
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 1.25rem 0;
+    padding: 1.5rem 1.25rem;
   }
 
   .home-callout {
