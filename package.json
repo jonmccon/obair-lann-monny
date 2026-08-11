@@ -1,6 +1,7 @@
 {
 	"name": "obair-lann-monny",
 	"version": "1.0",
+	"type": "module",
 	"description": "a design & art studio",
 	"scripts": {
 		"build": "npm run build:styles && npx @11ty/eleventy",
