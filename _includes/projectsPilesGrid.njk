@@ -25,6 +25,8 @@
         {% if projectImages.length > 0 %}
           {# Get tags for filtering #}
           {% set postTags = post.data.tags | filterTagList %}
+          {% set primaryTag = postTags[0] if postTags.length else "" %}
+          {% set pileTitle = post.data.pageHeadline or post.data.category %}
           {% set wordCount = post.templateContent | wordCount %}
           {% set orderedImages = projectImages %}
           {% if post.data.pileOrder and post.data.pileOrder.length %}
@@ -46,7 +48,7 @@
             {% set tagClasses = tagClasses + " tag-" + (tag | slugify) %}
           {% endfor %}
         
-        <div class="project-pile" data-tags="{{ tagClasses }}">
+        <div class="project-pile pile-accent-{{ primaryTag | slugify }}" data-tags="{{ tagClasses }}">
           <a href="{{ post.url }}" class="pile-link" data-project-link>
             <div class="pile-container">
               <div class="pile-images"
@@ -66,7 +68,16 @@
               </div>
 
               <div class="pile-meta-band">
-                <span class="pile-title">{{ post.data.pageHeadline }}</span>
+                <span class="pile-title">{{ pileTitle }}</span>
+                <span class="pile-spec">
+                  <span class="pile-spec-tags">
+                    {%- for tag in postTags | head(4) -%}
+                      <span class="pile-spec-tag">{{ tag }}</span>{%- if not loop.last %}<span class="pile-spec-sep" aria-hidden="true">/</span>{% endif -%}
+                    {%- endfor -%}
+                    {%- if postTags.length > 4 %}<span class="pile-spec-more">+{{ postTags.length - 4 }}</span>{% endif -%}
+                  </span>
+                  <span class="pile-spec-count">{{ orderedImages.length }} img</span>
+                </span>
               </div>
             </div>
           </a>

@@ -66,6 +66,7 @@
 /* Individual project pile */
 .project-pile {
   position: relative;
+  --pile-accent: var(--text-color-link);
   transition: opacity 0.3s ease;
 }
 
@@ -85,7 +86,7 @@
   padding: 0.45rem;
 }
 
-/* Title/metadata band above each pile */
+/* Title/metadata band below each pile */
 .pile-meta-band {
   font-family: var(--font-family);
   border: none;
@@ -101,9 +102,48 @@
   line-height: 1.2;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
   color: var(--text-color);
   transition: color 0.2s ease;
+}
+
+/* Space Mono spec caption: tags / image count */
+.pile-spec {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.15rem 0.6rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.68rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-color-muted);
+  transition: color 0.2s ease;
+}
+
+.pile-spec-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.pile-spec-sep {
+  color: var(--text-color-muted);
+  opacity: 0.85;
+}
+
+.pile-spec-more {
+  color: var(--text-color-link);
+}
+
+.pile-spec-count {
+  white-space: nowrap;
+  color: var(--text-color-link);
+  font-weight: 700;
 }
 
 .pile-meta-line {
@@ -197,8 +237,10 @@
   color: var(--text-color-on-accent);
 }
 
-.pile-link:hover .meta-label,
-.pile-link:hover .meta-value {
+.pile-link:hover .pile-spec,
+.pile-link:hover .pile-spec-sep,
+.pile-link:hover .pile-spec-more,
+.pile-link:hover .pile-spec-count {
   color: var(--text-color-on-accent);
 }
 
@@ -227,6 +269,7 @@
 .projects-piles-container.pile-effects-disabled .tag-filter-button,
 .projects-piles-container.pile-effects-disabled .pile-meta-band,
 .projects-piles-container.pile-effects-disabled .pile-title,
+.projects-piles-container.pile-effects-disabled .pile-spec,
 .projects-piles-container.pile-effects-disabled .meta-label,
 .projects-piles-container.pile-effects-disabled .meta-value {
   transition: none;
@@ -260,6 +303,10 @@
     margin-bottom: 0.3rem;
   }
 
+  .pile-spec {
+    font-size: 0.62rem;
+  }
+
   .meta-label {
     font-size: 0.6rem;
   }
@@ -285,6 +332,7 @@
   .tag-filter-button,
   .pile-meta-band,
   .pile-title,
+  .pile-spec,
   .meta-label,
   .meta-value {
     transition: none;
