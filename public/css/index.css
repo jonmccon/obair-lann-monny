@@ -685,7 +685,9 @@ header {
 
 .home-featured-row {
 	width: 100vw;
+	width: 100dvw;
 	margin-left: calc(50% - 50vw);
+	margin-left: calc(50% - 50dvw);
 	position: relative;
 	display: flex;
 	justify-content: center;
