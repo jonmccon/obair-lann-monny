@@ -61,7 +61,7 @@
                          alt="{{ img.alt or post.data.title }}"
                          width="{{ img.pileWidth or img.width }}"
                          height="{{ img.pileHeight or img.height }}"
-                         loading="lazy"
+                         loading="eager"
                          decoding="async">
                   </div>
                 {% endfor %}
