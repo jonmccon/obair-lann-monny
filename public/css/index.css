@@ -888,6 +888,16 @@ header {
 	gap: 1rem;
 }
 
+.home-podcast-player-frame {
+	--home-podcast-frame-height: 188px;
+	display: block;
+	width: 100%;
+	height: var(--home-podcast-frame-height);
+	overflow: hidden;
+	border-radius: 8px;
+	background: var(--surface-color-alt);
+}
+
 .home-podcast-title {
 	font-size: clamp(1.1rem, 2vw, 1.4rem);
 	font-weight: var(--font-weight-bold);
@@ -1073,6 +1083,7 @@ header {
 .home-supporting-player {
 	display: block;
 	width: 100%;
+	height: 200px;
 	border: 0;
 	background: transparent;
 }
@@ -1651,29 +1662,6 @@ img {
 
 .homepage-projects h2 {
 	margin-bottom: 1.5rem;
-}
-
-.homepage-podcast {
-	padding: 2rem 1.5rem 0;
-}
-
-.homepage-podcast h2 {
-	margin-bottom: 1rem;
-}
-
-.homepage-podcast-players {
-	display: grid;
-	gap: 1rem;
-}
-
-.homepage-podcast iframe {
-	display: block;
-	width: 100%;
-	height: auto;
-	aspect-ratio: 16 / 3;
-	min-height: 200px;
-	max-width: 100%;
-	border: 0;
 }
 
 .homepage-photos {
