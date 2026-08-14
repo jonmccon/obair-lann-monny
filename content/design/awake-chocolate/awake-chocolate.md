@@ -1,9 +1,13 @@
 ---
-title: Awake Chocolate
+title: Awake Chocolate | Product Design | Jonny McConnell
+pageHeadline: Awake Chocolate
 description: A store locator built from a custom Google Maps theme and a lot of geocoding
 category: Tether
 date: 2013-06-01
+permalink: /design/awake-chocolate/
 draft: true
+featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/awake-thumb.png
 tags:
   - web
@@ -18,13 +22,25 @@ images:
 - src: "content/design/awake-chocolate/awake-05.png"
 ---
 
-Awake Chocolate made caffeinated chocolate bars and needed a way to help people find them. I built a store locator — a simple enough idea that turned into a deep dive on Google Maps JSON theming and a lot of manual geocoding.
+## The Brief
 
-The design had to feel like the product: rich browns, warm leather textures, the brand's blocky type. Getting Google Maps to match that meant tuning every road, water, and label layer through the Styled Map Wizard until the map looked less like a utility and more like part of the interface. The desktop view, the mobile search, the results list, the directions screen — all of it had to hold together in one colour story.
+Awake Chocolate needed a store locator that felt like part of the brand, not a generic utility bolted onto the website.
 
-The harder part was the data. Awake was distributed across gas stations in Ontario at the time, and none of that was in a clean database. I geocoded the locations by hand, one by one, until the map had enough pins to be useful.
+**Role:** Designer / front-end implementation · **Client:** Awake Chocolate · **Timeline:** 2013 · **Platform:** Responsive web store locator · **Status:** Early-career project, archived draft
 
-Early career work, but it taught me that map-based UIs are almost entirely a data problem dressed up as a design problem.
+Awake Chocolate made caffeinated chocolate bars and needed a way to help people find them in the real world. I designed and built a locator experience that worked across desktop and mobile, then pushed Google Maps styling much further than I expected to make it feel consistent with the rest of the site.
+
+## The Problem
+
+A store locator sounds straightforward until the map becomes the interface. The challenge was not just dropping pins on a default embed, it was making the experience feel like Awake. Rich browns, warm leather textures, and the brand's blocky type all had to carry through from the surrounding site into the search, results, and directions views.
+
+That meant tuning the Google Maps JSON theme layer by layer until the roads, water, and labels stopped fighting the interface and started supporting it.
+
+## The Constraint
+
+The harder part was the data. Awake was distributed across gas stations in Ontario at the time, and the locations were not sitting in a clean, ready-to-use dataset. I geocoded the stores by hand, one by one, until the locator had enough useful coverage to work as an actual customer tool instead of just a visual concept.
+
+That project left a lasting lesson: map-based products often look like a visual design challenge on the surface, but the real work is usually structure, coverage, and accuracy underneath.
 
 <div class="two-column">
 
