@@ -1,7 +1,6 @@
 {
 	"name": "obair-lann-monny",
 	"version": "1.0",
-	"type": "module",
 	"description": "a design & art studio",
 	"scripts": {
 		"build": "npm run build:styles && npx @11ty/eleventy",
@@ -12,7 +11,7 @@
 		"debugstart": "DEBUG=Eleventy* npx @11ty/eleventy --serve --quiet",
 		"benchmark": "DEBUG=Eleventy:Benchmark* npx @11ty/eleventy",
 		"build:styles": "npx @tailwindcss/cli -i ./tailwind.source.css -o ./public/css/tailwind.css --minify",
-		"test": "node --test --experimental-vm-modules tests/**/*.test.js"
+		"test": "node --test tests/**/*.test.mjs"
 	},
 	"repository": {
 		"type": "git",

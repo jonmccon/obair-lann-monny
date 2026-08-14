@@ -8,7 +8,7 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { DateTime } from 'luxon';
 import { JSDOM } from 'jsdom';
-import { sampleCollection, sampleHtmlContent } from './helpers/fixtures.js';
+import { sampleCollection, sampleHtmlContent } from './helpers/fixtures.mjs';
 
 // ─── readableDate filter ──────────────────────────────────────────────────────
 

@@ -6,7 +6,7 @@
 
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { createMockCollectionItem } from './helpers/test-utils.js';
+import { createMockCollectionItem } from './helpers/test-utils.mjs';
 
 // ─── projects collection ──────────────────────────────────────────────────────
 
