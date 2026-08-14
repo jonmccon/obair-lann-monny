@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /feed/
+Disallow: /tags/
+Disallow: /inProgress/
+Disallow: /link-tpq/
+
+Sitemap: https://jonmccon.com/sitemap.xml
