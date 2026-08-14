@@ -1,6 +1,6 @@
 _site/
 node_modules/
-package-lock.json
+# package-lock.json
 .cache
 .ds_store
 public/css/tailwind.css
