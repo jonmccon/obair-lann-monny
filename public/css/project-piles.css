@@ -323,6 +323,7 @@
   .pile-images {
     min-height: 140px;
     aspect-ratio: 4/3;
+    overflow: hidden;
   }
 }
 
