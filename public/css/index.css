@@ -399,6 +399,7 @@ header {
 	position: relative;
 	margin: 0;
 	padding: 0.25rem 0 0;
+	overflow-x: clip; /* contain axis dot bleed without affecting vertical overflow */
 }
 
 .home-axis-stage {
@@ -2474,9 +2475,11 @@ img {
 .home-callout-strip {
   width: 100%;
   overflow: hidden;
+  overflow: clip; /* prevents iOS Safari bounce-scroll from exposing max-content child */
   border-top: 1px solid var(--anp-crust);
   border-bottom: 1px solid var(--anp-crust);
-  margin: 2rem 0 0 0;	}
+  margin: 2rem 0 0 0;
+}
 
 .home-callout-scroll {
   display: flex;
