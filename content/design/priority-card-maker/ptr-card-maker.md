@@ -7,7 +7,7 @@ permalink: /design/priority-business-card-maker/
 draft: false
 featured: false
 semiFeatured: false
-thumbnail: /img/thumbnails/ptr-card-maker-thumb.png
+thumbnail: /img/thumbnails/priority-card-maker-thumb.png
 tags:
   - branding
   - identity
@@ -15,11 +15,11 @@ tags:
   - print
   - web
 images:
-  - src: ./content/design/ptr-card-maker/PTRCM-01-ink.png
+  - src: ./content/design/priority-card-maker/PTRCM-01-ink.png
     alt: PTR Business Card Maker — Ink theme, Morgan Kestrel, Creative Director
-  - src: ./content/design/ptr-card-maker/PTRCM-02-ptr-green.png
+  - src: ./content/design/priority-card-maker/PTRCM-02-ptr-green.png
     alt: PTR Business Card Maker — PTR Green theme, Rafael Duran, Senior Tax Advisor
-  - src: ./content/design/ptr-card-maker/PTRCM-03-orange.png
+  - src: ./content/design/priority-card-maker/PTRCM-03-orange.png
     alt: PTR Business Card Maker — Orange theme, Diane Holloway, Client Relations Manager
 ---
 
