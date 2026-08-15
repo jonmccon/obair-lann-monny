@@ -1,5 +1,5 @@
 ---
-title: Awake Chocolate | Product Design | Jonny McConnell
+title: Awake Chocolate | Branding | Jonny McConnell
 pageHeadline: Awake Chocolate
 description: A store locator built from a custom Google Maps theme and a lot of geocoding
 category: Tether
