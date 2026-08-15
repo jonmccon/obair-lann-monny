@@ -26,7 +26,11 @@ images:
 
 Awake Chocolate needed a store locator that felt like part of the brand, not a generic utility bolted onto the website.
 
-**Role:** Designer / front-end implementation · **Client:** Awake Chocolate · **Timeline:** 2013 · **Platform:** Responsive web store locator · **Status:** Early-career project, archived draft
+- **Role:** Designer / front-end implementation
+- **Client:** Awake Chocolate
+- **Timeline:** 2013
+- **Platform:** Responsive web store locator
+- **Status:** [Released](https://awakechocolate.com/pages/store-locator)
 
 Awake Chocolate made caffeinated chocolate bars and needed a way to help people find them in the real world. I designed and built a locator experience that worked across desktop and mobile, then pushed Google Maps styling much further than I expected to make it feel consistent with the rest of the site.
 
