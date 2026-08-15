@@ -17,14 +17,23 @@ tags:
   - process
 images:
   - src: "./content/design/ai-assisted-workflows/AIW-04-jonny-presenting.png"
+    alt: "Jonny presenting his AI-assisted workflow process"
   - src: "./content/design/ai-assisted-workflows/AIW-05-research-synthesis-figma.png"
+    alt: "Research synthesis board in Figma used for AI-assisted analysis"
   - src: "./content/design/ai-assisted-workflows/AIW-07-figma-mcp-tokens.png"
+    alt: "Figma MCP syncing design token updates into the project theme"
   - src: "./content/design/ai-assisted-workflows/AIW-08-figma-components.png"
+    alt: "Figma component library aligned to implementation-ready design tokens"
   - src: "./content/design/ai-assisted-workflows/PTR-102-marketing-about-before.png"
+    alt: "Priority Tax Relief marketing About page before redesign"
   - src: "./content/design/ai-assisted-workflows/PTR-106-site-about-after.png"
+    alt: "Priority Tax Relief marketing About page after redesign"
   - src: "./content/design/ai-assisted-workflows/PTR-108-client-portal-map-view.png"
+    alt: "Client portal prototype map view for case progress tracking"
   - src: "./content/design/ai-assisted-workflows/ptr-after-client-portal-3-dashboard.png"
+    alt: "Client portal dashboard prototype showing account summary and workflow status"
   - src: "./content/design/ai-assisted-workflows/PTR-43-ptr-handoff.png"
+    alt: "Engineering handoff documentation for implementation"
 ---
 
 Designing assisted systems that compress the distance between research, product definition, prototyping, and engineering implementation.
