@@ -5,7 +5,7 @@ description: A store locator built from a custom Google Maps theme and a lot of 
 category: Tether
 date: 2013-06-01
 permalink: /design/awake-chocolate/
-draft: true
+draft: false
 featured: false
 semiFeatured: false
 thumbnail: /img/thumbnails/awake-thumb.png
