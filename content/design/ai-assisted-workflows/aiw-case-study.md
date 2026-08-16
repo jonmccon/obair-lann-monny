@@ -17,23 +17,23 @@ tags:
   - process
 images:
   - src: "./content/design/ai-assisted-workflows/AIW-04-jonny-presenting.png"
-    alt: "Jonny presenting his AI-assisted workflow process"
+    alt: "Jonny presenting the AI-assisted workflow process"
   - src: "./content/design/ai-assisted-workflows/AIW-05-research-synthesis-figma.png"
-    alt: "Research synthesis board in Figma used for AI-assisted analysis"
+    alt: "Research synthesis board in Figma grouping discussion themes, hypotheses, and design questions"
   - src: "./content/design/ai-assisted-workflows/AIW-07-figma-mcp-tokens.png"
-    alt: "Figma MCP syncing design token updates into the project theme"
+    alt: "Figma MCP syncing design token changes into the Daisy UI theme"
   - src: "./content/design/ai-assisted-workflows/AIW-08-figma-components.png"
-    alt: "Figma component library aligned to implementation-ready design tokens"
+    alt: "Figma component library with tokens aligned to the implemented design system"
   - src: "./content/design/ai-assisted-workflows/PTR-102-marketing-about-before.png"
-    alt: "Priority Tax Relief marketing About page before redesign"
+    alt: "Priority Tax Relief marketing about page before redesign"
   - src: "./content/design/ai-assisted-workflows/PTR-106-site-about-after.png"
-    alt: "Priority Tax Relief marketing About page after redesign"
+    alt: "Priority Tax Relief marketing about page after redesign with the new design system"
   - src: "./content/design/ai-assisted-workflows/PTR-108-client-portal-map-view.png"
-    alt: "Client portal prototype map view for case progress tracking"
+    alt: "Client portal prototype showing a map-based workflow view"
   - src: "./content/design/ai-assisted-workflows/ptr-after-client-portal-3-dashboard.png"
-    alt: "Client portal dashboard prototype showing account summary and workflow status"
+    alt: "Client portal dashboard prototype with status cards and account details"
   - src: "./content/design/ai-assisted-workflows/PTR-43-ptr-handoff.png"
-    alt: "Engineering handoff documentation for implementation"
+    alt: "Engineering handoff documentation for the reusable component system"
 ---
 
 Designing assisted systems that compress the distance between research, product definition, prototyping, and engineering implementation.
