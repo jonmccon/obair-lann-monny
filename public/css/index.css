@@ -685,7 +685,9 @@ header {
 
 .home-featured-row {
 	width: 100vw;
+	width: 100dvw;
 	margin-left: calc(50% - 50vw);
+	margin-left: calc(50% - 50dvw);
 	position: relative;
 	display: flex;
 	justify-content: center;
@@ -2471,10 +2473,13 @@ img {
 /* ─── Homepage Callout Strip ─────────────────────────────── */
 .home-callout-strip {
   width: 100%;
+  min-width: 0; /* prevent max-content child from inflating parent grid column */
   overflow: hidden;
+  overflow: clip; /* prevents iOS Safari bounce-scroll from exposing max-content child */
   border-top: 1px solid var(--anp-crust);
   border-bottom: 1px solid var(--anp-crust);
-  margin: 2rem 0 0 0;	}
+  margin: 2rem 0 0 0;
+}
 
 .home-callout-scroll {
   display: flex;
