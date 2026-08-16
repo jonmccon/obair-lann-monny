@@ -1,18 +1,18 @@
 ---
-title: Baked.in
+title: Baked.in | Brand Positioning | Jonny McConnell
 pageHeadline: Baked.in
 description: An embeddable image wrapper that tracked where your infographic traveled
 category: Baked.in
-bgColor: black
 date: 2012-03-01
 permalink: /design/bakedin/
-draft: true
+draft: false
 featured: false
 semiFeatured: false
 thumbnail: /img/thumbnails/bakedin-thumb.png
 tags:
   - web
   - product
+  - brand
 images:
   - src: "content/design/bakedin/bi-01.png"
     alt: "Baked.in marketing homepage — host, embed, and track infographic content"
