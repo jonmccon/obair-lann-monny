@@ -45,18 +45,39 @@ The custom theme was built with help from the National office and [Graphiti](htt
 
 <div class="two-column">
 
+<figure>
 {% image "./aiga-01.png", "AIGA Seattle website homepage with geometric brand graphics and event calendar" %}
+<figcaption>AIGA Seattle website homepage with geometric brand graphics and event calendar.</figcaption>
+</figure>
 
-{% image "./aiga-02.png", "AIGA Seattle Index/Map — interactive directory of Seattle design studios, agencies, and institutions" %}
-
-{% image "./aiga-03.png", "Community event submission form with event-type categorization" %}
-
+<figure>
 {% image "./aiga-04.png", "Responsive mobile layout and volunteer signup form" %}
+<figcaption>Responsive mobile layout and volunteer signup form.</figcaption>
+</figure>
 
+<figure>
+{% image "./aiga-03.png", "Community event submission form with event-type categorization" %}
+<figcaption>Community event submission form with event-type categorization.</figcaption>
+</figure>
+
+<figure>
+{% image "./aiga-02.png", "AIGA Seattle Index/Map — interactive directory of Seattle design studios, agencies, and institutions" %}
+<figcaption>AIGA Seattle Index/Map — interactive directory of Seattle design studios, agencies, and institutions.</figcaption>
+</figure>
+
+<figure>
 {% image "./aiga-05.png", "Google Sheets event proposal template with strategic overview and financial impact fields" %}
+<figcaption>Google Sheets event proposal template with strategic overview and financial impact fields.</figcaption>
+</figure>
 
+<figure>
 {% image "./aiga-06.png", "Google Sheets budget template with ticket tier breakdown and expense categories" %}
+<figcaption>Google Sheets budget template with ticket tier breakdown and expense categories.</figcaption>
+</figure>
 
+<figure>
 {% image "./aiga-07.png", "Event production folder structure and file hierarchy diagram for the 2014–2015 season" %}
+<figcaption>Event production folder structure and file hierarchy diagram for the 2014–2015 season.</figcaption>
+</figure>
 
 </div>
