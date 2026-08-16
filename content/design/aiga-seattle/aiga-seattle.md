@@ -1,10 +1,13 @@
 ---
 title: AIGA Seattle
+pageHeadline: AIGA Seattle
 description: Volunteer board work as Programming Co-Director — website design, custom WordPress theme, and an ops toolkit (event proposals, budgets, intake forms, folder structure) for a chapter that runs entirely on volunteer labor.
 category: AIGA
 date: 2014-09-30
+permalink: /design/aiga-seattle/
 draft: true
 featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/aiga-seattle-thumb.png
 tags:
   - branding
@@ -13,12 +16,19 @@ tags:
   - event
 images: 
 - src: "content/design/aiga-seattle/aiga-01.png"
+  alt: "AIGA Seattle website homepage with geometric brand graphics and event calendar"
 - src: "content/design/aiga-seattle/aiga-02.png"
+  alt: "AIGA Seattle Index/Map — interactive directory of Seattle design studios, agencies, and institutions"
 - src: "content/design/aiga-seattle/aiga-03.png"
+  alt: "Community event submission form with event-type categorization"
 - src: "content/design/aiga-seattle/aiga-04.png"
+  alt: "Responsive mobile layout and volunteer signup form"
 - src: "content/design/aiga-seattle/aiga-05.png"
+  alt: "Google Sheets event proposal template with strategic overview and financial impact fields"
 - src: "content/design/aiga-seattle/aiga-06.png"
+  alt: "Google Sheets budget template with ticket tier breakdown and expense categories"
 - src: "content/design/aiga-seattle/aiga-07.png"
+  alt: "Event production folder structure and file hierarchy diagram for the 2014–2015 season"
 ---
 
 **Role:** Programming Co-Director, AIGA Seattle (volunteer board)
