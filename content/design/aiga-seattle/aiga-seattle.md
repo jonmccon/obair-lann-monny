@@ -1,12 +1,12 @@
 ---
-title: AIGA Seattle
-pageHeadline: AIGA Seattle
-description: Volunteer board work as Programming Co-Director — website design, custom WordPress theme, and an ops toolkit (event proposals, budgets, intake forms, folder structure) for a chapter that runs entirely on volunteer labor.
+title: AIGA Seattle | Platform Design | Jonny McConnell
+pageHeadline: AIGA Seattle Platform
+description: Volunteer board work as Programming Co-Director, website design, custom WordPress theme, and an ops toolkit (event proposals, budgets, intake forms, folder structure) for a chapter that runs entirely on volunteer labor.
 category: AIGA
 date: 2014-09-30
 permalink: /design/aiga-seattle/
-draft: true
-featured: false
+draft: false
+featured: true
 semiFeatured: false
 thumbnail: /img/thumbnails/aiga-seattle-thumb.png
 tags:
@@ -31,17 +31,17 @@ images:
   alt: "Event production folder structure and file hierarchy diagram for the 2014–2015 season"
 ---
 
-**Role:** Programming Co-Director, AIGA Seattle (volunteer board)
-**Collaborators:** Ben Hubbard (theme design), Calvin Carter (Google Apps infrastructure), Kiss Me I'm Polish (membership rebrand / geometric identity)
-**Built on:** WordPress (AIGA National iKit platform), Google Apps, Eventbrite, Square
+- **Role:** Programming Co-Director, AIGA Seattle (volunteer board)
+- **Collaborators:** Ben Hubbard (theme design), Calvin Carter (Google Apps infrastructure), Kiss Me I'm Polish (membership rebrand / geometric identity)
+- **Built on:** WordPress (AIGA National iKit platform), Google Apps, Eventbrite, Square
 
-The AIGA Seattle chapter runs entirely on volunteer labor — from the board down to the people greeting attendees at the door. When I joined as Programming Co-Director, event production was largely improvised. I set out to change that.
+The AIGA Seattle chapter runs entirely on volunteer labor from the board down to the people greeting attendees at the door. When I joined as Programming Co-Director, event production was largely improvised. I set out to change that.
 
 On the design side, I co-developed a custom WordPress theme on top of AIGA National's iKit platform, incorporating the geometric identity system from Kiss Me I'm Polish's concurrent membership rebrand. The site featured an event calendar, editorial Broadsheet section, a community Index/Map of Seattle design businesses, responsive mobile layouts, volunteer recruitment flows, and a calendar submission form with event-type categorization.
 
 On the operations side, I built a standardized event production toolkit: a Google Sheets proposal template requiring strategic overview, financial projections, and post-event actuals; a budget template covering ticket tiers, partnership funding, and expense categories; a Google Drive folder hierarchy for all production assets; and a Google Forms request system that routed inquiries automatically to the correct board member. Square card readers were distributed across volunteer phones under shared chapter accounts for flexible at-door ticketing and merch sales.
 
-The custom theme was designed and built but ultimately the chapter opted to ship the default AIGA National theme. The operational infrastructure, however, was adopted chapter-wide for the 2014–2015 season.
+The custom theme was built with help from the National office and [Graphiti](https://www.graphiti.com/). The operational infrastructure was adopted chapter-wide during the 2014–2015 season.
 
 <div class="two-column">
 
