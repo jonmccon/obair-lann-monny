@@ -1,9 +1,14 @@
 ---
 title: Baked.in
+pageHeadline: Baked.in
 description: An embeddable image wrapper that tracked where your infographic traveled
-category: Stripes
+category: Baked.in
+bgColor: black
 date: 2012-03-01
+permalink: /design/bakedin/
 draft: true
+featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/bakedin-thumb.png
 tags:
   - web
