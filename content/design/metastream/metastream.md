@@ -5,7 +5,7 @@ description: A location-locked social layer for Seattle, content unlocked by phy
 category: Metastream
 date: 2019-08-01
 permalink: /design/metastream-location-chat/
-draft: true
+draft: false
 featured: true
 semiFeatured: true
 thumbnail: /img/thumbnails/metastream-thumb.png
