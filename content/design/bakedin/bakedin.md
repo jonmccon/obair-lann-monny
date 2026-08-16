@@ -22,11 +22,11 @@ images:
     alt: "Design spec — type scale, color palette, and embed widget states"
 ---
 
-Baked.in was a product idea around a problem that kept coming up in infographic publishing: you'd spend weeks on a piece, post it, and then watch it get rehosted somewhere with the credits stripped out. The tool gave creators an embeddable wrapper — a lightweight iframe that traveled with the image — with the author name, source links, and a promotional partner baked directly into it. Any site that embedded your graphic via the widget kept your attribution intact.
+Baked.in was a product idea around a problem that kept coming up in infographic publishing: you'd spend weeks on a piece, post it, and then watch it get rehosted somewhere with the credits stripped out. The tool gave creators an embeddable wrapper, a lightweight iframe that traveled with the image with the author name, source links, and a promotional partner baked directly into it. Any site that embedded your graphic via the widget kept your attribution intact.
 
 The analytics layer was the more ambitious part. Every embed reported back: where the graphic had been posted, how many views it was getting at each location, whether links were being clicked. The goal was to let creators actually follow their content across the web instead of losing track of it after the first share.
 
-I designed the marketing site, the three-step upload wizard, and the embed widget itself — including the dark and light variants, the expand/collapse state, the copy-to-clipboard interaction, and the full type and color spec. Early career work, but it was one of the first times I had to think about a design system that lived outside our own site and had to hold up on surfaces I couldn't control.
+I designed the marketing site, the three-step upload wizard, and the embed widget itself, including the dark and light variants, the expand/collapse state, the copy-to-clipboard interaction, and the full type and color spec. Early career work, but it was one of the first times I had to think about a design system that lived outside our own site and had to hold up on surfaces I couldn't control.
 
 <div class="two-column">
 
