@@ -33,7 +33,7 @@ layout: layouts/base.njk
 
     {% for post in collections.featuredProjects | reverse %}
     {% if loop.index <= featuredProjectThumbnailLimit %}
-    <article class="home-axis-project" data-axis-project data-project-index="{{ loop.index0 }}" data-project-title="{{ post.data.title | slugify }}" data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}">
+    <article class="home-axis-project" data-axis-project data-project-index="{{ loop.index0 }}" data-project-title="{{ post.data.title | slugify }}" data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}" data-chart-duration="{{ post.data.chart.duration | default(6) }}" data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}" data-chart-medium="{{ post.data.chart.medium | default(50) }}">
       <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
         <div class="home-axis-dot">
           {% if post.data.images and post.data.images.length %}
