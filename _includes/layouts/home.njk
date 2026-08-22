@@ -14,6 +14,7 @@ layout: layouts/base.njk
 
 <section class="homepage-axis-hero" aria-label="Homepage hero">
   <div class="home-axis-stage" data-axis-stage>
+    <div class="home-axis-scene" data-axis-scene>
     <div class="home-axis-grid" aria-hidden="true">
       <span class="home-axis-line home-axis-line-x"></span>
       <span class="home-axis-line home-axis-line-y"></span>
@@ -47,6 +48,7 @@ layout: layouts/base.njk
     </article>
     {% endif %}
     {% endfor %}
+    </div>
   </div>
 </section>
 
@@ -206,180 +208,75 @@ layout: layouts/base.njk
 </section>
 
 <script>
-(function() {
+(function () {
   'use strict';
 
   const stage = document.querySelector('[data-axis-stage]');
+  const scene = document.querySelector('[data-axis-scene]');
   const projects = Array.from(document.querySelectorAll('[data-axis-project]'));
+  if (!stage || !scene || !projects.length) return;
 
-  if (!stage || !projects.length) {
-    return;
-  }
+  const MIN_RADIUS = 80;
+  const MAX_RADIUS = 280;
+  const MAX_DURATION = 70;   // ~67mo for Metastream is the ceiling
+  const LINE_MAX_PX  = 200;  // maximum line width for longest projects
 
-  // Logical plot resolution for placement (not CSS pixels).
-  const GRID_COLUMNS = 24;
-  const GRID_ROWS = 16;
-  // Keep a no-fly zone around headline/avatar so dots orbit the center.
-  const HERO_BLOCK_COL_MIN = 7;
-  const HERO_BLOCK_COL_MAX = 18;
-  const HERO_BLOCK_ROW_MIN = 4;
-  const HERO_BLOCK_ROW_MAX = 13;
-  // Mobile uses a simplified placement pattern for readability/perf.
-  const MOBILE_BREAKPOINT = 768;
-  // Hash scale used to derive deterministic pseudo-random jitter.
-  const HASH_MULTIPLIER = 10000;
-  // Strength of the outward push that separates clusters from the center lockup.
-  const SPREAD_STRENGTH = 0.58;
-
-  // Tags that contribute to each axis score.
-  const HUMAN_TAGS = new Set(['community', 'branding', 'healthcare', 'event', 'education', 'consumer']);
-  const TECH_TAGS = new Set(['web', 'mobile', 'system', 'ai', 'prototype', 'engineering']);
-  const STRATEGY_TAGS = new Set(['product', 'ux', 'service', 'workflow', 'platform']);
-  // Axis-biased cluster anchors in normalized chart space (0..1, 0..1).
-  const CLUSTER_CENTROIDS = {
-    human: { x: 0.23, y: 0.74 },
-    technology: { x: 0.78, y: 0.24 },
-    strategy: { x: 0.73, y: 0.72 },
-    balanced: { x: 0.52, y: 0.52 }
-  };
-
-  function hash(seed) {
-    const x = Math.sin(seed) * HASH_MULTIPLIER;
-    return x - Math.floor(x);
-  }
-
-  function scoreAxes(tags) {
-    let human = 0;
-    let technology = 0;
-    let strategy = 0;
-
-    tags.forEach((tag) => {
-      if (HUMAN_TAGS.has(tag)) {
-        human += 1.15;
-      }
-      if (TECH_TAGS.has(tag)) {
-        technology += 1.2;
-      }
-      if (STRATEGY_TAGS.has(tag)) {
-        strategy += 1.1;
-      }
-    });
-
-    return { human, technology, strategy };
-  }
-
-  function clamp(value, min, max) {
-    return Math.min(max, Math.max(min, value));
-  }
-
-  // Push normalized coordinates away from center while preserving side/quadrant.
-  function pushAwayFromCenter(value, strength) {
-    const delta = value - 0.5;
-    const direction = delta === 0 ? 1 : Math.sign(delta);
-    // Slightly stronger push when already farther out.
-    const distanceWeight = 0.42 + Math.abs(delta);
-    return clamp(value + (direction * strength * distanceWeight), 0.03, 0.97);
-  }
-
-  // Select the strongest semantic axis for centroid pull.
-  function getDominantAxis(human, technology, strategy) {
-    const maxValue = Math.max(human, technology, strategy);
-    if (maxValue <= 0) {
-      return 'balanced';
-    }
-    if (human === technology && technology === strategy) {
-      return 'balanced';
-    }
-    if (maxValue === human) {
-      return 'human';
-    }
-    if (maxValue === technology) {
-      return 'technology';
-    }
-    return 'strategy';
-  }
-
-  function findAvailableCell(baseCol, baseRow, occupied) {
-    // Spiral-like local search around target to avoid collisions.
-    const searchSteps = [
-      [0, 0], [1, 0], [-1, 0], [0, 1], [0, -1],
-      [2, 0], [-2, 0], [0, 2], [0, -2],
-      [1, 1], [1, -1], [-1, 1], [-1, -1],
-      [3, 1], [-3, -1], [2, -2], [-2, 2]
-    ];
-
-    for (const [dc, dr] of searchSteps) {
-      const col = clamp(baseCol + dc, 1, GRID_COLUMNS);
-      const row = clamp(baseRow + dr, 1, GRID_ROWS);
-      const key = `${col}-${row}`;
-      // Reject cells overlapping the hero lockup region.
-      const inCenterBlock = col >= HERO_BLOCK_COL_MIN && col <= HERO_BLOCK_COL_MAX && row >= HERO_BLOCK_ROW_MIN && row <= HERO_BLOCK_ROW_MAX;
-      if (!occupied.has(key) && !inCenterBlock) {
-        occupied.add(key);
-        return { col, row };
-      }
-    }
-
-    return { col: baseCol, row: baseRow };
-  }
+  function toRad(deg) { return deg * Math.PI / 180; }
 
   function placeProjects() {
-    const isMobile = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT}px)`).matches;
+    projects.forEach((el) => {
+      const duration = Math.min(parseInt(el.dataset.chartDuration     || '6',  10), MAX_DURATION);
+      const collab   = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
+      const medium   = parseInt(el.dataset.chartMedium        || '50', 10) / 100;
 
-    if (isMobile) {
-      // Lightweight deterministic mobile layout: alternate left/right columns, inset from edges.
-      projects.forEach((project, idx) => {
-        project.style.setProperty('--axis-col', idx % 2 === 0 ? 4 : 19);
-        project.style.setProperty('--axis-row', 9 - Math.floor(idx / 2) * 2);
-      });
-      return;
-    }
+      // Z axis = collaboration (depth / orbit distance from center)
+      const r     = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
+      const theta = collab * 2 * Math.PI;
+      const phi   = (medium - 0.5) * toRad(126);
 
-    const occupied = new Set();
+      const x = r * Math.cos(phi) * Math.cos(theta);
+      const y = r * Math.sin(phi);
+      const z = r * Math.cos(phi) * Math.sin(theta);
 
-    projects.forEach((project, idx) => {
-      const titleSeed = project.dataset.projectTitle || String(idx);
-      const tags = (project.dataset.projectTags || '').split(',').map((tag) => tag.trim()).filter(Boolean);
-      const { human, technology, strategy } = scoreAxes(tags);
+      // X axis = duration → rendered as a horizontal line segment
+      // Minimum 6px so even 1-month projects are visible; scales to LINE_MAX_PX
+      const lineWidth = Math.max(6, (duration / MAX_DURATION) * LINE_MAX_PX);
 
-      // Stable jitter from title/index so the layout stays consistent across loads.
-      const seed = titleSeed.length * 17 + idx * 31;
-      const jitterX = (hash(seed + 3) - 0.5) * 0.09;
-      const jitterY = (hash(seed + 7) - 0.5) * 0.09;
-      // Z jitter nudges both axes slightly to avoid rigid lines.
-      const jitterZ = (hash(seed + 11) - 0.5) * 0.1;
-
-      // Normalize score magnitudes to proportions per project.
-      const totalScore = Math.max(1, human + technology + strategy);
-      const humanRatio = human / totalScore;
-      const techRatio = technology / totalScore;
-      const strategyRatio = strategy / totalScore;
-
-      // Base semantic vector: tech/strategy affect X, human/strategy affect Y.
-      const vectorX = 0.1 + (techRatio * 0.58) + (strategyRatio * 0.34) + (jitterZ * 0.18);
-      const vectorY = 0.11 + (humanRatio * 0.58) + (strategyRatio * 0.34) + (jitterZ * 0.18);
-
-      // Blend with dominant-axis centroid for clearer cluster identity.
-      const dominantAxis = getDominantAxis(human, technology, strategy);
-      const centroid = CLUSTER_CENTROIDS[dominantAxis] || CLUSTER_CENTROIDS.balanced;
-      const baseX = clamp((vectorX * 0.66) + (centroid.x * 0.34) + jitterX, 0.04, 0.95);
-      const baseY = clamp((vectorY * 0.66) + (centroid.y * 0.34) + jitterY, 0.05, 0.95);
-      // Final spread control: pushes clusters farther from center lockup.
-      const xNormalized = pushAwayFromCenter(baseX, SPREAD_STRENGTH);
-      const yNormalized = pushAwayFromCenter(baseY, SPREAD_STRENGTH);
-
-      // Convert normalized coordinates to discrete grid cells.
-      const baseCol = clamp(Math.round(xNormalized * (GRID_COLUMNS - 1)) + 1, 1, GRID_COLUMNS);
-      // Invert Y so higher normalized values map visually upward from origin.
-      const baseRow = clamp(GRID_ROWS - Math.round(yNormalized * (GRID_ROWS - 1)), 1, GRID_ROWS);
-      const { col, row } = findAvailableCell(baseCol, baseRow, occupied);
-
-      project.style.setProperty('--axis-col', String(col));
-      project.style.setProperty('--axis-row', String(row));
+      el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+      el.style.width      = `${lineWidth}px`;
     });
   }
 
+  let isDragging = false;
+  let startX = 0, startY = 0;
+  let rotX = -20, rotY = 15;
+
+  function applyRotation() {
+    scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  }
+
+  stage.addEventListener('mousedown',  (e) => { isDragging = true; startX = e.clientX; startY = e.clientY; });
+  window.addEventListener('mouseup',   ()  => { isDragging = false; });
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    rotY += (e.clientX - startX) * 0.4;
+    rotX -= (e.clientY - startY) * 0.4;
+    startX = e.clientX; startY = e.clientY;
+    applyRotation();
+  });
+
+  stage.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+  window.addEventListener('touchend',  ()  => { isDragging = false; });
+  window.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    rotY += (e.touches[0].clientX - startX) * 0.4;
+    rotX -= (e.touches[0].clientY - startY) * 0.4;
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+    applyRotation();
+  }, { passive: true });
+
   placeProjects();
+  applyRotation();
   window.addEventListener('resize', placeProjects, { passive: true });
 })();
 </script>

@@ -1,0 +1,10 @@
+.home-axis-stage {
+  perspective: 900px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+}
+.home-axis-scene {
+  transform-style: preserve-3d;
+  transition: transform 0.05s linear;
+  will-change: transform;
+}
