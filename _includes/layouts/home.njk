@@ -27,15 +27,16 @@ layout: layouts/base.njk
 
     {% for post in collections.featuredProjects | reverse %}
     {% if loop.index <= featuredProjectThumbnailLimit %}
-    {% set blobSize = (post.data.chart.duration | default(6)) / 80 * 52 + 20 %}
+    {%- set _duration = post.data.chart.duration | default(6) -%}
+    {%- set _lineWidth = (_duration / 80 * 220 + 8) | round -%}
     <article class="home-axis-project" data-axis-project
       data-project-index="{{ loop.index0 }}"
       data-project-title="{{ post.data.title | slugify }}"
       data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}"
-      data-chart-duration="{{ post.data.chart.duration | default(6) }}"
+      data-chart-duration="{{ _duration }}"
       data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}"
       data-chart-medium="{{ post.data.chart.medium | default(50) }}"
-      style="--blob-size: {{ blobSize | round }}px;">
+      style="--line-width: {{ _lineWidth }}px;">
       <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
         <div class="home-axis-dot">
           {% if post.data.images and post.data.images.length %}
@@ -224,26 +225,26 @@ layout: layouts/base.njk
   const projects = Array.from(document.querySelectorAll('[data-axis-project]'));
   if (!stage || !scene || !projects.length) return;
 
-  const MIN_RADIUS = 80;
-  const MAX_RADIUS = 280;
-  const MAX_DURATION = 70;   // ~67mo for Metastream is the ceiling
-  const LINE_MAX_PX  = 200;  // maximum line width for longest projects
-
-  function toRad(deg) { return deg * Math.PI / 180; }
+  const MIN_RADIUS   = 80;
+  const MAX_RADIUS   = 280;
+  const MAX_DURATION = 80;   // Metastream ceiling ~80mo
+  const LINE_MIN_PX  = 8;    // shortest possible line (< 1mo projects)
+  const LINE_MAX_PX  = 228;  // longest possible line (80mo)
 
   function placeProjects() {
-    const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5)); // ~137.5 degrees in radians
+    const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5)); // ~137.5°
     projects.forEach((el, i) => {
-        const collab = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
-        const medium = parseInt(el.dataset.chartMedium || '50', 10) / 100;
+        const collab    = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
+        const medium    = parseInt(el.dataset.chartMedium  || '50', 10) / 100;
+        const duration  = parseInt(el.dataset.chartDuration || '6',  10);
 
-        // Radius from collaboration (0=solo=close to center, 1=team=far out)
+        // Radius from collaboration (solo = close, team = far)
         const r = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
 
-        // Golden-angle azimuth — spreads all N projects evenly around the sphere
+        // Golden-angle azimuth — spreads N projects evenly around the sphere
         const theta = i * GOLDEN_ANGLE;
 
-        // Elevation from medium (0=technical/bottom, 1=visual/top), ±63deg
+        // Elevation from medium (0=technical/bottom, 1=visual/top), ±63°
         const phi = (medium - 0.5) * (Math.PI * 0.7);
 
         const x = r * Math.cos(phi) * Math.cos(theta);
@@ -251,7 +252,12 @@ layout: layouts/base.njk
         const z = r * Math.cos(phi) * Math.sin(theta);
 
         el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
-        // NOTE: no el.style.width — blob size comes from CSS --blob-size custom property
+
+        // Duration → line half-width (extends symmetrically left + right of center)
+        // CSS --line-width is set in Nunjucks at build time, but we also update on
+        // resize so responsive scaling can be added here later.
+        const lineW = Math.round(LINE_MIN_PX + (duration / MAX_DURATION) * (LINE_MAX_PX - LINE_MIN_PX));
+        el.style.setProperty('--line-width', lineW + 'px');
     });
   }
 
