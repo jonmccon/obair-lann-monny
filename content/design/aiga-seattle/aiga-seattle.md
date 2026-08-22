@@ -7,7 +7,7 @@ date: 2014-09-30
 permalink: /design/aiga-seattle/
 draft: false
 featured: true
-semiFeatured: false
+
 thumbnail: /img/thumbnails/aiga-seattle-thumb.png
 tags:
   - branding

@@ -40,6 +40,10 @@ images:
   - src: "./content/design/providence/prov-32.jpg"
   - src: "./content/design/providence/prov-16.png"
 cardEnergy: loud
+chart:
+  duration: 21
+  collaboration: 80
+  medium: 60
 ---
 
 Designing high-stakes clinical workflows for on-demand emergency care. From a real-time telestroke platform with remote diagnostic hardware to a multi-product Express Care scheduling suite used by patients across Providence's network.

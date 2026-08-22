@@ -25,6 +25,10 @@ images:
   - src: "./content/design/resonance-ai/RAI-07-research-ideation-sketches.png"
   - src: "./content/design/resonance-ai/RAI-08-data-viz-color-research.png"
   - src: "./content/design/resonance-ai/RAI-09-topic-coverage-dashboard.png"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 Machine learning had never been translated into something a TV producer could act on. I designed the end-to-end product experience for Resonance AI's machine learning platform focused on transforming ML-generated video analysis into actionable audience intelligence for live TV production studios, and building the automated reporting pipeline that replaced days of manual analyst work.

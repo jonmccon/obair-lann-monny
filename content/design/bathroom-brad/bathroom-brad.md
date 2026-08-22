@@ -39,6 +39,10 @@ images:
     alt: "Business card, badge"
   - src: ./content/design/bathroom-brad/BRB-07-mockups.png
     alt: "Brand mockups"
+chart:
+  duration: 2
+  collaboration: 15
+  medium: 90
 ---
 
 ## The Brief

@@ -72,6 +72,10 @@ images:
   - src: "./content/design/priority-tax-relief/PTR-02-calculator-design-Contact-A-1-5999.png"
   - src: "./content/design/priority-tax-relief/PTR-60-ptr_brand_Final_logo_before_after_-_rd5-Artboard_2@8x_5008-8808.png"
   - src: "./content/design/priority-tax-relief/PTR-61-ptr_brand_Final_logo_before_after_-_rd5Artboard_2_copy_10@8x_1_5008-8807.png"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 Solo designer for a 200-person, $7M MRR national tax relief company. I owned the brand, every marketing surface, and the internal product simultaneously, for about a year, and built a design system that tied all three together.

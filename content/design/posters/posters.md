@@ -19,6 +19,10 @@ images:
 - src: "content/design/posters/post-04.png"
 - src: "content/design/posters/post-08.jpeg"
 - src: "content/design/posters/post-09.jpeg"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 Posters

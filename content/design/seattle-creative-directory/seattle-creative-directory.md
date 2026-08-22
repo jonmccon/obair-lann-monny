@@ -20,6 +20,10 @@ images:
   - src: "./content/design/seattle-creative-directory/scd-01.png"
   - src: "./content/design/seattle-creative-directory/scd-02.png"
   - src: "./content/design/seattle-creative-directory/scd-03.png"
+chart:
+  duration: 80
+  collaboration: 25
+  medium: 40
 ---
 
 ## The Problem

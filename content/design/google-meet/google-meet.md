@@ -22,6 +22,10 @@ images:
 - src: "./content/design/google-meet/goog-05.png"
 - src: "./content/design/google-meet/goog-06.png"
 cardEnergy: image
+chart:
+  duration: 7
+  collaboration: 85
+  medium: 60
 ---
 
 In 2018–2019, Google Meet was a browser tab. The goal was to make it feel like a product, a dedicated tool that worked for people with limited bandwidth, dedicated hardware, or no video at all. I worked on two separate bets toward that: a standalone desktop prototype that escaped the browser, and a phone dial-in feature that let your voice show up as a full meeting participant.

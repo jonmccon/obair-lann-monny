@@ -37,6 +37,10 @@ images:
 - src: "./content/design/metastream/ms-125.png"
 - src: "./content/design/metastream/ms-130.png"
 cardEnergy: loud
+chart:
+  duration: 67
+  collaboration: 60
+  medium: 50
 ---
 
 Metastream sought to engage with the cohabitants of Seattle through an augmented reflection our environmental timeline. A map to see and understand surrounding realtime data and accessible only by being near a physical locale.
