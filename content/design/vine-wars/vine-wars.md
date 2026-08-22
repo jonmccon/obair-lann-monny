@@ -18,6 +18,10 @@ images:
 - src: "content/design/vine-wars/vw-08.png"
 - src: "content/design/vine-wars/vw-07.png"
 
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 

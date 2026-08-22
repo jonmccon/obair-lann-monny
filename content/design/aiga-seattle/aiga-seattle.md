@@ -29,6 +29,10 @@ images:
   alt: "Google Sheets budget template with ticket tier breakdown and expense categories"
 - src: "content/design/aiga-seattle/aiga-07.png"
   alt: "Event production folder structure and file hierarchy diagram for the 2014–2015 season"
+chart:
+  duration: 49
+  collaboration: 40
+  medium: 60
 ---
 
 - **Role:** Programming Co-Director, AIGA Seattle (volunteer board)

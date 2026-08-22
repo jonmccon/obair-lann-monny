@@ -15,6 +15,10 @@ images:
 - src: "content/design/a-few-from-western/afew-03.png"
 - src: "content/design/a-few-from-western/afew-04.png"
 - src: "content/design/a-few-from-western/afew-00.jpg"
+chart:
+  duration: 6
+  collaboration: 100
+  medium: 88
 ---
 
 ## In the North, near an arboretum strewn with brick, was a small tower dedicated to learning the craft of applied design thinking. Problem was, no one ventured up there much.

@@ -16,6 +16,10 @@ images:
 - src: "content/design/photogrammetry/plot-15.jpeg"
 - src: "content/design/photogrammetry/plot-01.jpg"
 - src: "content/design/photogrammetry/plot-00.jpg"
+chart:
+  duration: 3
+  collaboration: 10
+  medium: 50
 ---
 
 
