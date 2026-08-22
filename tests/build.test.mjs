@@ -112,3 +112,26 @@ describe('Build with SKIP_GALLERIES', () => {
 		}
 	});
 });
+
+describe('homepage integration', () => {
+	const indexPath = path.join(ROOT, '_site', 'index.html');
+	let html = '';
+
+	// Read the built homepage HTML once
+	try {
+		html = fs.readFileSync(indexPath, 'utf8');
+	} catch (error) {
+		// If the file doesn't exist, tests will fail gracefully
+		console.log('Warning: _site/index.html not found for integration tests');
+	}
+
+	test('headline, 3D chart, and energy cards all present', () => {
+		assert.ok(html.includes('The work has its own energy'), 'headline missing');
+		assert.ok(html.includes('data-axis-scene'), '3D scene wrapper missing');
+		assert.ok(html.includes('energy-card'), 'energy cards missing');
+	});
+
+	test('at least one project has data-chart-duration set', () => {
+		assert.ok(html.includes('data-chart-duration'), 'no duration attributes found');
+	});
+});
