@@ -5,8 +5,8 @@ import assert from 'node:assert/strict';
 describe('homepage 3D chart', () => {
   const html = readFileSync('_site/index.html', 'utf8');
 
-  it('renders the axis scene wrapper', () => {
-    assert.ok(html.includes('data-axis-scene'), 'data-axis-scene wrapper missing');
+  it('renders the axis canvas (WebGL target)', () => {
+    assert.ok(html.includes('data-axis-canvas'), 'data-axis-canvas WebGL target missing');
   });
 
   it('renders data-chart-duration on at least one project', () => {

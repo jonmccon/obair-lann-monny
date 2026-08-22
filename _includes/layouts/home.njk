@@ -14,41 +14,38 @@ layout: layouts/base.njk
 
 <section class="homepage-axis-hero" aria-label="Homepage hero">
   <div class="home-axis-stage" data-axis-stage>
-    <div class="home-axis-scene" data-axis-scene>
-    <div class="home-axis-grid" aria-hidden="true">
-      <span class="home-axis-line home-axis-line-x"></span>
-      <span class="home-axis-line home-axis-line-y"></span>
-      <span class="home-axis-line home-axis-line-z"></span>
-      <span class="home-axis-origin-point"></span>
+    {# Canvas target for Three.js WebGL renderer #}
+    <canvas class="home-axis-canvas" data-axis-canvas aria-hidden="true"></canvas>
+
+    {# Axis labels — positioned by CSS over the canvas #}
+    <div class="home-axis-labels" aria-hidden="true">
       <span class="home-axis-label home-axis-label-x">duration ←→</span>
       <span class="home-axis-label home-axis-label-y">technical ↔ visual</span>
       <span class="home-axis-label home-axis-label-z">solo ↔ team</span>
     </div>
 
+    {# Project data + title overlays — invisible data carriers, titles shown via JS screen-projection #}
     {% for post in collections.featuredProjects | reverse %}
     {% if loop.index <= featuredProjectThumbnailLimit %}
     {%- set _duration = post.data.chart.duration | default(6) -%}
-    {%- set _lineWidth = (_duration / 80 * 220 + 8) | round -%}
     <article class="home-axis-project" data-axis-project
       data-project-index="{{ loop.index0 }}"
-      data-project-title="{{ post.data.title | slugify }}"
+      data-project-title="{{ post.data.pageHeadline }}"
+      data-project-url="{{ post.url }}"
       data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}"
       data-chart-duration="{{ _duration }}"
       data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}"
       data-chart-medium="{{ post.data.chart.medium | default(50) }}"
-      style="--line-width: {{ _lineWidth }}px;">
-      <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
-        <div class="home-axis-dot">
-          {% if post.data.images and post.data.images.length %}
-            {% homepageImage post.data.images[0].src, post.data.pageHeadline, 80, "home-axis-dot-img" %}
-          {% endif %}
-        </div>
-        <span class="home-axis-project-title">{{ post.data.pageHeadline }}</span>
-      </a>
+      aria-label="{{ post.data.title }}">
+      {# Hidden image — src read by Three.js texture loader #}
+      {% if post.data.images and post.data.images.length %}
+        {% homepageImage post.data.images[0].src, post.data.pageHeadline, 80, "home-axis-dot-img" %}
+      {% endif %}
+      {# Title label — positioned absolutely via JS screen-projection each frame #}
+      <a class="home-axis-project-title-label" href="{{ post.url }}" data-title-label>{{ post.data.pageHeadline }}</a>
     </article>
     {% endif %}
     {% endfor %}
-    </div>
   </div>
 </section>
 
@@ -216,83 +213,252 @@ layout: layouts/base.njk
   </div>
 </section>
 
-<script>
-(function () {
-  'use strict';
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://esm.sh/three@0.169.0"
+  }
+}
+</script>
 
-  const stage = document.querySelector('[data-axis-stage]');
-  const scene = document.querySelector('[data-axis-scene]');
-  const projects = Array.from(document.querySelectorAll('[data-axis-project]'));
-  if (!stage || !scene || !projects.length) return;
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer,
+  CapsuleGeometry, SphereGeometry,
+  MeshStandardMaterial, MeshBasicMaterial,
+  Mesh,
+  LineSegments, BufferGeometry, Float32BufferAttribute,
+  LineBasicMaterial,
+  AmbientLight, DirectionalLight, PointLight,
+  TextureLoader,
+  Color, Raycaster, Vector2,
+  Group
+} from 'three';
 
-  const MIN_RADIUS   = 80;
-  const MAX_RADIUS   = 280;
-  const MAX_DURATION = 80;   // Metastream ceiling ~80mo
-  const LINE_MIN_PX  = 8;    // shortest possible line (< 1mo projects)
-  const LINE_MAX_PX  = 228;  // longest possible line (80mo)
+// ── Guard ────────────────────────────────────────────────────────────────────
+const stage      = document.querySelector('[data-axis-stage]');
+const canvas     = document.querySelector('[data-axis-canvas]');
+const projectEls = Array.from(document.querySelectorAll('[data-axis-project]'));
+if (!stage || !canvas || !projectEls.length) throw new Error('[axis] missing DOM');
 
-  function placeProjects() {
-    const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5)); // ~137.5°
-    projects.forEach((el, i) => {
-        const collab    = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
-        const medium    = parseInt(el.dataset.chartMedium  || '50', 10) / 100;
-        const duration  = parseInt(el.dataset.chartDuration || '6',  10);
+// ── Renderer ─────────────────────────────────────────────────────────────────
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setClearColor(0x000000, 0);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Radius from collaboration (solo = close, team = far)
-        const r = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
+function syncSize() {
+  const w = stage.clientWidth;
+  const h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+}
 
-        // Golden-angle azimuth — spreads N projects evenly around the sphere
-        const theta = i * GOLDEN_ANGLE;
+// ── Scene + Camera ───────────────────────────────────────────────────────────
+const scene  = new Scene();
+const camera = new PerspectiveCamera(52, 1, 0.1, 2000);
+camera.position.set(0, 0, 500);
 
-        // Elevation from medium (0=technical/bottom, 1=visual/top), ±63°
-        const phi = (medium - 0.5) * (Math.PI * 0.7);
+// ── Lights ───────────────────────────────────────────────────────────────────
+scene.add(new AmbientLight(0xffffff, 0.6));
 
-        const x = r * Math.cos(phi) * Math.cos(theta);
-        const y = r * Math.sin(phi);
-        const z = r * Math.cos(phi) * Math.sin(theta);
+const sun = new DirectionalLight(0xd0eeff, 1.3);
+sun.position.set(1, 1.6, 2);
+scene.add(sun);
 
-        el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+const fill = new PointLight(0x04a5e5, 1.0, 1400);
+fill.position.set(-200, 120, 300);
+scene.add(fill);
 
-        // Duration → line half-width (extends symmetrically left + right of center)
-        // CSS --line-width is set in Nunjucks at build time, but we also update on
-        // resize so responsive scaling can be added here later.
-        const lineW = Math.round(LINE_MIN_PX + (duration / MAX_DURATION) * (LINE_MAX_PX - LINE_MIN_PX));
-        el.style.setProperty('--line-width', lineW + 'px');
+// ── Axis lines through origin ────────────────────────────────────────────────
+const AXIS_LEN = 270;
+const axisVerts = new Float32Array([
+  -AXIS_LEN, 0, 0,   AXIS_LEN, 0, 0,  // X — duration
+   0, -AXIS_LEN, 0,  0,  AXIS_LEN, 0, // Y — medium
+   0, 0, -AXIS_LEN,  0, 0,  AXIS_LEN, // Z — collaboration
+]);
+const axisGeo = new BufferGeometry();
+axisGeo.setAttribute('position', new Float32BufferAttribute(axisVerts, 3));
+scene.add(new LineSegments(axisGeo, new LineBasicMaterial({
+  color: 0x9ca0b0, transparent: true, opacity: 0.25
+})));
+
+// Origin dot
+const originMesh = new Mesh(
+  new SphereGeometry(5, 10, 10),
+  new MeshBasicMaterial({ color: 0x7287fd, transparent: true, opacity: 0.75 })
+);
+scene.add(originMesh);
+
+// ── Constants ────────────────────────────────────────────────────────────────
+const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
+const MIN_RADIUS   = 80;
+const MAX_RADIUS   = 255;
+const MAX_DURATION = 80;
+const TUBE_RADIUS  = 5.5;   // capsule tube radius
+const MIN_FLAT     = 0;     // flat section for shortest project → pure sphere
+const MAX_FLAT     = 200;   // flat section for longest project (80mo)
+const SKY          = new Color(0x04a5e5);
+
+// ── Build meshes ─────────────────────────────────────────────────────────────
+const loader    = new TextureLoader();
+const meshGroup = new Group();
+scene.add(meshGroup);
+
+// Store per-mesh metadata for raycasting + title overlay
+const meshMeta = [];  // [{ mesh, titleEl, url }]
+
+projectEls.forEach((el, i) => {
+  const collab   = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
+  const medium   = parseInt(el.dataset.chartMedium        || '50', 10) / 100;
+  const duration = parseInt(el.dataset.chartDuration      || '6',  10);
+  const url      = el.dataset.projectUrl || '#';
+  const titleEl  = el.querySelector('[data-title-label]');
+
+  // ── 3D position (all radiate from origin) ──────────────────────────────────
+  const r     = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
+  const theta = i * GOLDEN_ANGLE;
+  const phi   = (medium - 0.5) * (Math.PI * 0.72);
+
+  const px = r * Math.cos(phi) * Math.cos(theta);
+  const py = r * Math.sin(phi);
+  const pz = r * Math.cos(phi) * Math.sin(theta);
+
+  // ── Capsule: lies along X axis, length driven by duration ──────────────────
+  const flatLen = MIN_FLAT + (duration / MAX_DURATION) * (MAX_FLAT - MIN_FLAT);
+  const geo = new CapsuleGeometry(TUBE_RADIUS, flatLen, 8, 24);
+
+  // Material: sky-blue default, replaced with blurred texture on load
+  const mat = new MeshStandardMaterial({
+    color: SKY.clone(),
+    roughness: 0.40,
+    metalness: 0.10,
+    transparent: true,
+    opacity: 0.80,
+  });
+
+  const imgEl  = el.querySelector('.home-axis-dot-img');
+  const imgSrc = imgEl ? imgEl.getAttribute('src') : null;
+  if (imgSrc) {
+    loader.load(imgSrc, (tex) => {
+      mat.map = tex;
+      mat.color.set(0xffffff);
+      mat.roughness = 0.55;
+      mat.opacity   = 0.90;
+      mat.needsUpdate = true;
     });
   }
 
-  let isDragging = false;
-  let startX = 0, startY = 0;
-  let rotX = -20, rotY = 15;
+  const mesh = new Mesh(geo, mat);
 
-  function applyRotation() {
-    scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  // CapsuleGeometry is vertical by default; rotate 90° → horizontal (X-axis aligned)
+  mesh.rotation.z = Math.PI / 2;
+
+  mesh.position.set(px, py, pz);
+  mesh.userData = { url, title: el.dataset.projectTitle || '', index: i };
+
+  meshGroup.add(mesh);
+  meshMeta.push({ mesh, titleEl, url });
+});
+
+// ── Drag rotation ────────────────────────────────────────────────────────────
+let isDragging = false;
+let startX = 0, startY = 0;
+let rotX = -18, rotY = 12;
+
+function applyGroupRotation() {
+  meshGroup.rotation.x = rotX * Math.PI / 180;
+  meshGroup.rotation.y = rotY * Math.PI / 180;
+  // Also rotate axis lines with the group
+  scene.children.forEach(c => {
+    if (c instanceof LineSegments) {
+      c.rotation.x = rotX * Math.PI / 180;
+      c.rotation.y = rotY * Math.PI / 180;
+    }
+  });
+}
+
+stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; });
+window.addEventListener('mouseup',   () => { isDragging = false; });
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  rotY += (e.clientX - startX) * 0.4;
+  rotX -= (e.clientY - startY) * 0.4;
+  startX = e.clientX; startY = e.clientY;
+  applyGroupRotation();
+});
+
+stage.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+window.addEventListener('touchend',  () => { isDragging = false; });
+window.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  rotY += (e.touches[0].clientX - startX) * 0.4;
+  rotX -= (e.touches[0].clientY - startY) * 0.4;
+  startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+  applyGroupRotation();
+}, { passive: true });
+
+// ── Hover via raycaster ───────────────────────────────────────────────────────
+const raycaster   = new Raycaster();
+const pointerVec  = new Vector2();
+let hoveredMesh   = null;
+
+stage.addEventListener('mousemove', e => {
+  const rect = stage.getBoundingClientRect();
+  pointerVec.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
+  pointerVec.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+  raycaster.setFromCamera(pointerVec, camera);
+  const hits = raycaster.intersectObjects(meshGroup.children);
+  if (hits.length) {
+    const h = hits[0].object;
+    if (h !== hoveredMesh) {
+      if (hoveredMesh) hoveredMesh.material.emissiveIntensity = 0;
+      hoveredMesh = h;
+      hoveredMesh.material.emissive = new Color(0x04a5e5);
+      hoveredMesh.material.emissiveIntensity = 0.3;
+      stage.style.cursor = 'pointer';
+    }
+  } else {
+    if (hoveredMesh) { hoveredMesh.material.emissiveIntensity = 0; hoveredMesh = null; }
+    stage.style.cursor = 'grab';
   }
+});
 
-  stage.addEventListener('mousedown',  (e) => { isDragging = true; startX = e.clientX; startY = e.clientY; });
-  window.addEventListener('mouseup',   ()  => { isDragging = false; });
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    rotY += (e.clientX - startX) * 0.4;
-    rotX -= (e.clientY - startY) * 0.4;
-    startX = e.clientX; startY = e.clientY;
-    applyRotation();
+stage.addEventListener('click', e => {
+  if (hoveredMesh) window.location.href = hoveredMesh.userData.url;
+});
+
+// ── Title overlay projection ──────────────────────────────────────────────────
+function projectToScreen(worldPos) {
+  const v = worldPos.clone().project(camera);
+  const rect = stage.getBoundingClientRect();
+  return {
+    x: ( v.x * 0.5 + 0.5) * rect.width,
+    y: (-v.y * 0.5 + 0.5) * rect.height,
+  };
+}
+
+// ── Render loop ───────────────────────────────────────────────────────────────
+function animate() {
+  requestAnimationFrame(animate);
+
+  // Update title label positions each frame
+  meshMeta.forEach(({ mesh, titleEl }) => {
+    if (!titleEl) return;
+    const screen = projectToScreen(mesh.position.clone().applyEuler(meshGroup.rotation));
+    titleEl.style.left = screen.x + 'px';
+    titleEl.style.top  = (screen.y - TUBE_RADIUS - 18) + 'px';
   });
 
-  stage.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
-  window.addEventListener('touchend',  ()  => { isDragging = false; });
-  window.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    rotY += (e.touches[0].clientX - startX) * 0.4;
-    rotX -= (e.touches[0].clientY - startY) * 0.4;
-    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-    applyRotation();
-  }, { passive: true });
+  renderer.render(scene, camera);
+}
 
-  placeProjects();
-  applyRotation();
-  window.addEventListener('resize', placeProjects, { passive: true });
-})();
+// ── Init ──────────────────────────────────────────────────────────────────────
+syncSize();
+applyGroupRotation();
+animate();
+
+window.addEventListener('resize', syncSize, { passive: true });
 </script>
 
 {% endif %}

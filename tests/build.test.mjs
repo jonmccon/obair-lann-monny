@@ -127,7 +127,7 @@ describe('homepage integration', () => {
 
 	test('headline, 3D chart, and energy cards all present', () => {
 		assert.ok(html.includes('The work has its own energy'), 'headline missing');
-		assert.ok(html.includes('data-axis-scene'), '3D scene wrapper missing');
+		assert.ok(html.includes('data-axis-canvas'), '3D canvas (WebGL target) missing');
 		assert.ok(html.includes('energy-card'), 'energy cards missing');
 	});
 

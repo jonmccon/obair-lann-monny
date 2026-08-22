@@ -1,25 +1,7 @@
-/* 3D Axis Chart Styles */
+/* 3D Axis Chart — WebGL canvas approach (Three.js) */
 .home-axis-stage {
-  perspective: 900px;
-  perspective-origin: 50% 50%;
-  transform-style: preserve-3d;
-}
-.home-axis-scene {
-	position: absolute;
-	inset: 0;
-	transform-style: preserve-3d;
-	transition: transform 0.05s linear;
-	will-change: transform;
-}
-.home-axis-label {
-  font-size: 0.6rem;
-  opacity: 0.35;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.home-axis-stage:hover .home-axis-label {
-  opacity: 0.7;
-  transition: opacity 0.3s ease;
+  perspective: none; /* no CSS 3D needed — Three.js owns the rendering */
+  transform-style: flat;
 }
 
 /* Defaults */
@@ -425,14 +407,21 @@ header {
 	padding: 0.25rem 0 0;
 }
 
+/* Stage: contains the WebGL canvas + overlays */
 .home-axis-stage {
 	position: relative;
 	overflow: hidden;
 	min-height: clamp(520px, 70vh, 840px);
 	border-radius: 1rem;
-	padding: 1rem;
+	padding: 0;
+	cursor: grab;
 }
 
+.home-axis-stage:active {
+	cursor: grabbing;
+}
+
+/* Background gradient behind the canvas (CSS, not Three.js background) */
 .home-axis-stage::before {
 	content: "";
 	position: absolute;
@@ -446,87 +435,98 @@ header {
 		linear-gradient(20deg, color-mix(in srgb, var(--surface-color) 84%, var(--background-color)) 0%, var(--background-color) 100%);
 }
 
-.home-axis-grid {
+/* WebGL canvas fills the stage */
+.home-axis-canvas {
 	position: absolute;
-	inset: 1rem;
-	pointer-events: none;
-	background-image:
-		linear-gradient(to right, color-mix(in srgb, var(--anp-overlay0) 20%, transparent) 1px, transparent 1px),
-		linear-gradient(to bottom, color-mix(in srgb, var(--anp-overlay0) 20%, transparent) 1px, transparent 1px);
-	background-size: calc(100% / 24) calc(100% / 16);
-	mask-image: radial-gradient(circle at 38% 72%, rgba(0, 0, 0, 1) 52%, rgba(0, 0, 0, 0.25) 100%);
-}
-
-.home-axis-line {
-	position: absolute;
+	inset: 0;
+	width: 100% !important;
+	height: 100% !important;
 	display: block;
-	background: color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	opacity: 0.65;
+	border-radius: 1rem;
+	z-index: 1;
 }
 
-.home-axis-line-x {
-	left: 0.9rem;
-	right: 1.4rem;
-	bottom: 1.35rem;
-	height: 1px;
-}
-
-.home-axis-line-y {
-	left: 0.9rem;
-	top: 1.4rem;
-	bottom: 1.35rem;
-	width: 1px;
-}
-
-.home-axis-line-z {
-	left: 1rem;
-	bottom: 1.35rem;
-	width: 1px;
-	height: clamp(48%, 62%, 74%);
-	transform-origin: bottom left;
-	transform: rotate(45deg);
-}
-
-.home-axis-origin-point {
+/* Axis labels — corner-anchored over canvas */
+.home-axis-labels {
 	position: absolute;
-	left: 0.7rem;
-	bottom: 1.05rem;
-	width: 0.45rem;
-	height: 0.45rem;
-	border-radius: 50%;
-	background: color-mix(in srgb, var(--anp-text) 80%, var(--anp-overlay0));
-	box-shadow: 0 0 0 2px color-mix(in srgb, var(--surface-color) 72%, transparent);
+	inset: 0;
+	pointer-events: none;
+	z-index: 2;
 }
 
 .home-axis-label {
-	display: none;
 	position: absolute;
-	font-size: 0.85rem;
-	letter-spacing: 0.16em;
+	font-size: 0.62rem;
+	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	font-weight: var(--font-weight-semibold);
-	color: color-mix(in srgb, var(--text-color) 70%, var(--anp-overlay0));
+	color: color-mix(in srgb, var(--text-color) 55%, var(--anp-overlay0));
 	font-family: var(--font-family);
 	white-space: nowrap;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.home-axis-stage:hover .home-axis-label {
+	opacity: 1;
 }
 
 .home-axis-label-x {
-	right: 1rem;
-	bottom: 1.7rem;
+	right: 1.25rem;
+	bottom: 1.5rem;
 }
 
 .home-axis-label-y {
-	left: 1.7rem;
-	bottom: 3.25rem;
-	transform: rotate(-90deg);
-	transform-origin: left bottom;
+	left: 1.5rem;
+	top: 50%;
+	transform: translateY(-50%) rotate(-90deg);
+	transform-origin: left center;
 }
 
 .home-axis-label-z {
-	left: 4%;
-	bottom: 11%;
-	transform: rotate(-45deg);
-	transform-origin: left center;
+	left: 1.5rem;
+	bottom: 2.5rem;
+}
+
+/* Project data carriers — invisible in DOM, data read by Three.js */
+.home-axis-project {
+	display: none; /* hidden — Three.js reads data-* attrs and renders to canvas */
+}
+
+/* The image carried inside each article — read by Three.js TextureLoader */
+.home-axis-dot-img {
+	display: none; /* used only as src carrier for JS */
+}
+
+/* Title labels — positioned by JS via screen-space projection each frame */
+.home-axis-project-title-label {
+	position: absolute;
+	transform: translateX(-50%);
+	white-space: nowrap;
+	font-family: var(--font-family);
+	font-size: 0.6rem;
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--text-color);
+	background: color-mix(in srgb, var(--surface-color) 88%, transparent);
+	padding: 0.18rem 0.45rem;
+	border-radius: 4px;
+	text-decoration: none;
+	pointer-events: auto;
+	opacity: 0;
+	transition: opacity 0.18s ease;
+	z-index: 3;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
+
+.home-axis-stage:hover .home-axis-project-title-label {
+	opacity: 0.75;
+}
+
+.home-axis-project-title-label:hover {
+	opacity: 1 !important;
 }
 
 .home-center-lockup {
@@ -581,206 +581,6 @@ header {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-}
-
-/* --- Duration timeline track + sphere node -------------------------------- */
-
-/*
- * Layout: .home-axis-project holds a flex row centered at its translate3d origin.
- * The ::before pseudo creates the horizontal timeline bar (symmetrical, duration-driven).
- * .home-axis-dot is the fixed-size sphere node, centered on the bar.
- *
- *  ←——[  sphere  ]——→
- *     ← --line-width →
- */
-
-.home-axis-project {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	translate: -50% -50%;
-	transform-origin: center center;
-	z-index: 8;
-	/* flex row so the timeline bar + sphere sit on the same axis */
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.home-axis-project:hover {
-	z-index: 20;
-}
-
-/* Timeline track — spans full --line-width, sphere overlays the center */
-.home-axis-project::before {
-	content: "";
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: var(--line-width, 8px);
-	height: 2px;
-	translate: -50% -50%;
-	background: linear-gradient(
-		90deg,
-		transparent 0%,
-		color-mix(in srgb, var(--anp-sky) 30%, transparent) 15%,
-		color-mix(in srgb, var(--anp-sky) 55%, transparent) 50%,
-		color-mix(in srgb, var(--anp-sky) 30%, transparent) 85%,
-		transparent 100%
-	);
-	border-radius: 1px;
-	pointer-events: none;
-	transition: width 0.3s ease, opacity 0.2s ease;
-}
-
-.home-axis-project:hover::before {
-	opacity: 1;
-	background: linear-gradient(
-		90deg,
-		transparent 0%,
-		color-mix(in srgb, var(--anp-sky) 55%, transparent) 15%,
-		color-mix(in srgb, var(--anp-sky) 80%, white) 50%,
-		color-mix(in srgb, var(--anp-sky) 55%, transparent) 85%,
-		transparent 100%
-	);
-}
-
-/* Duration tick marks at the ends of the bar */
-.home-axis-project::after {
-	content: "";
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	width: var(--line-width, 8px);
-	height: 6px;
-	translate: -50% -50%;
-	background:
-		linear-gradient(90deg, color-mix(in srgb, var(--anp-sky) 50%, transparent) 0px, transparent 1px) left / 1px 100%,
-		linear-gradient(90deg, transparent calc(100% - 1px), color-mix(in srgb, var(--anp-sky) 50%, transparent) 100%) right / 1px 100%;
-	background-repeat: no-repeat;
-	pointer-events: none;
-	opacity: 0.5;
-}
-
-/* --- Sphere node ---------------------------------------------------------- */
-
-.home-axis-dot {
-	--sphere-size: 44px;
-	position: relative;
-	width: var(--sphere-size);
-	height: var(--sphere-size);
-	border-radius: 50%;
-	overflow: hidden;
-	flex-shrink: 0;
-	isolation: isolate;
-	/* Outer glow */
-	box-shadow:
-		0 0 calc(var(--sphere-size) * 0.9) calc(var(--sphere-size) * 0.2)
-			color-mix(in srgb, var(--anp-sky) 22%, transparent),
-		0 0 calc(var(--sphere-size) * 0.4) calc(var(--sphere-size) * 0.05)
-			color-mix(in srgb, white 30%, transparent) inset;
-	transition: box-shadow 0.25s ease;
-	z-index: 2;
-}
-
-.home-axis-project-link:hover .home-axis-dot {
-	box-shadow:
-		0 0 calc(var(--sphere-size) * 1.4) calc(var(--sphere-size) * 0.35)
-			color-mix(in srgb, var(--anp-sky) 38%, transparent),
-		0 0 calc(var(--sphere-size) * 0.6) calc(var(--sphere-size) * 0.08)
-			color-mix(in srgb, white 50%, transparent) inset;
-}
-
-/* Blurred project image fills the sphere */
-.home-axis-dot-img {
-	display: block;
-	position: absolute;
-	inset: -6px; /* bleed slightly to avoid edge artifacts on the blur */
-	width: calc(100% + 12px);
-	height: calc(100% + 12px);
-	object-fit: cover;
-	object-position: center;
-	filter: blur(5px) saturate(1.3) brightness(0.92);
-	transform: scale(1.1); /* fill after blur softens edges */
-	transition: filter 0.3s ease;
-}
-
-.home-axis-project-link:hover .home-axis-dot-img {
-	filter: blur(3px) saturate(1.5) brightness(1.0);
-}
-
-/* Sphere highlight overlay — radial gradient on top of the image */
-.home-axis-dot::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: 50%;
-	background: radial-gradient(
-		circle at 32% 28%,
-		color-mix(in srgb, white 55%, transparent) 0%,
-		color-mix(in srgb, white 15%, transparent) 28%,
-		transparent 60%,
-		color-mix(in srgb, var(--anp-sky) 14%, transparent) 80%,
-		color-mix(in srgb, var(--anp-sky) 28%, transparent) 100%
-	);
-	pointer-events: none;
-	z-index: 1;
-}
-
-/* Fallback sphere (no image) — pure CSS gradient ball */
-.home-axis-dot:not(:has(img))::before,
-.home-axis-dot:has(.home-axis-dot-img[src=""]):not(:has(img[src]))::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: 50%;
-	background: radial-gradient(
-		circle at 35% 35%,
-		color-mix(in srgb, var(--anp-sky) 90%, white) 0%,
-		color-mix(in srgb, var(--anp-sky) 40%, transparent) 50%,
-		transparent 75%
-	);
-}
-
-/* Mobile: smaller sphere */
-@media (max-width: 640px) {
-	.home-axis-dot {
-		--sphere-size: 32px;
-	}
-}
-
-/* Project title tooltip */
-.home-axis-project-title {
-	position: absolute;
-	bottom: calc(100% + 8px);
-	left: 50%;
-	transform: translateX(-50%);
-	white-space: nowrap;
-	font-family: var(--font-family);
-	font-size: 0.62rem;
-	font-weight: 500;
-	letter-spacing: 0.06em;
-	text-transform: uppercase;
-	color: var(--text-color);
-	background: color-mix(in srgb, var(--surface-color) 88%, transparent);
-	padding: 0.2rem 0.5rem;
-	border-radius: 4px;
-	pointer-events: none;
-	opacity: 0;
-	transition: opacity 0.18s ease;
-	z-index: 3;
-}
-
-.home-axis-project:hover .home-axis-project-title {
-	opacity: 1;
-}
-
-.home-axis-project-link {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-decoration: none;
-	color: inherit;
 }
 
 /* --- Featured projects grid (semi-featured rows) ------------------------- */
@@ -1282,56 +1082,25 @@ header {
 	}
 
 	.home-axis-stage {
-		min-height: clamp(260px, 28vh, 380px);
-		max-height: clamp(260px, 28vh, 380px);
-		grid-template-rows: repeat(12, minmax(0, 1fr));
-	}
-
-	.home-axis-grid {
-		background-size: calc(100% / 12) calc(100% / 12);
+		min-height: clamp(260px, 40vh, 500px);
 	}
 
 	.home-axis-label {
-		font-size: 0.58rem;
+		font-size: 0.52rem;
 	}
 
 	.home-axis-label-x {
-		right: 0.5rem;
-		bottom: 1.5rem;
+		right: 0.6rem;
+		bottom: 0.8rem;
 	}
 
 	.home-axis-label-y {
-		left: 1.05rem;
-		top: 0.9rem;
+		left: 0.6rem;
 	}
 
 	.home-axis-label-z {
-		top: 18%;
-		left: 42%;
-	}
-
-	.home-axis-line-x {
 		left: 0.6rem;
-		right: 0.8rem;
-		bottom: 1.1rem;
-	}
-
-	.home-axis-line-y {
-		left: 0.6rem;
-		top: 1rem;
-		bottom: 1.1rem;
-	}
-
-	.home-axis-line-z {
-		left: 0.7rem;
-		bottom: 1.1rem;
-		height: 50%;
-		transform: rotate(45deg);
-	}
-
-	.home-axis-origin-point {
-		left: 0.45rem;
-		bottom: 0.82rem;
+		bottom: 1.6rem;
 	}
 
 	.home-center-lockup {
@@ -1348,29 +1117,6 @@ header {
 	.homepage-main-avatar-overlay {
 		width: 88px;
 		height: 88px;
-	}
-
-	.home-axis-project {
-		/* Mobile: no fixed width override — let --line-width drive the bar */
-	}
-
-	/* Simplify mobile: keep only first six projects for readability and paint cost. */
-	.home-axis-project:nth-of-type(n + 7) {
-		display: none;
-	}
-
-	/* Temporarily commented out for performance - will revisit later
-	.home-axis-project-title {
-		font-size: 0.58rem;
-	}
-	*/
-
-	.home-axis-dot {
-		/* sphere size handled by the @media (max-width: 640px) block above */
-	}
-
-	.home-axis-project-link:hover .home-axis-dot {
-		/* hover glow handled by base styles */
 	}
 
 	.home-see-all-link {
