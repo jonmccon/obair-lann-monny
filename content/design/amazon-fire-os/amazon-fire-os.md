@@ -25,6 +25,7 @@ images:
   - src: "./content/design/amazon-fire-os/ama-07.png"
   - src: "./content/design/amazon-fire-os/ama-08.png"
   - src: "./content/design/amazon-fire-os/ama-09.png"
+cardEnergy: loud
 ---
 
 Designing at the OS level means your decisions don't ship to a userbase, they ship to a baseline. The Fire OS 7 rollout reached 40 million active Kindle and Fire devices. Every UI pattern, memory tradeoff, and accessibility update I contributed became part of the software layer that every mainstream Amazon tablet ran on for the next three years.

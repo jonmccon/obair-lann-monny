@@ -87,6 +87,7 @@ images:
     alt: "Article screen expanded — audio summary playing, Send to Erika contact pill, Can I trust this article?"
   - src: "./content/design/android-gemini/GEMINI-22-daily-1205-full.png"
     alt: "Shake to sort Messages, Camera Universal Remote, Pinch to summarize — daily session concepts"
+cardEnergy: loud
 ---
 
 Early Gemini was a capability in search of an interface. This was me spending a few weeks figuring out what that interface might actually feel like not in theory, but in your hand, on your phone.
