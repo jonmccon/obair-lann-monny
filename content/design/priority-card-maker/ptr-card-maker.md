@@ -21,6 +21,10 @@ images:
     alt: PTR Business Card Maker — PTR Green theme, Rafael Duran, Senior Tax Advisor
   - src: ./content/design/priority-card-maker/PTRCM-03-orange.png
     alt: PTR Business Card Maker — Orange theme, Diane Holloway, Client Relations Manager
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 A browser-based business card generator built for Priority Tax Relief. Staff fill in a simple form, pick a color theme, and download two bleed-correct PDFs ready to upload directly to Vistaprint. Simple and done.

@@ -19,6 +19,10 @@ images:
 - src: "content/design/pixels-of-fury/pof-07.jpeg"
 - src: "content/design/pixels-of-fury/pof-08.jpeg"
 - src: "content/design/pixels-of-fury/pof-09.jpeg"
+chart:
+  duration: 2
+  collaboration: 25
+  medium: 90
 ---
 
 [] 2012 not listed on the shutterstock page! reach out to them

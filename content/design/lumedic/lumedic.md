@@ -27,6 +27,10 @@ images:
 - src: "./content/design/lumedic/lum-110.png"
 - src: "./content/design/lumedic/lum-120.png"
 - src: "./content/design/lumedic/lum-130.png"
+chart:
+  duration: 14
+  collaboration: 75
+  medium: 60
 ---
 
 In early 2020, tens of thousands of hospital employees needed a way to prove their COVID-19 status to get into work and no trustworthy, patient-controlled system existed to do it. I designed the multiplatform experience that filled that gap: a digital health wallet letting patients hold and share their own verified medical records, used across iOS, Android, and web within the Providence Health network.

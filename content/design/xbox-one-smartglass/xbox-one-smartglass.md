@@ -13,6 +13,10 @@ images:
 - src: "content/design/xbox-one-smartglass/xbox-01.png"
 - src: "content/design/xbox-one-smartglass/xbox-02.png"
 - src: "content/design/xbox-one-smartglass/xbox-03.jpeg"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 

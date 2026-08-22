@@ -20,6 +20,10 @@ images:
 - src: "content/design/awake-chocolate/awake-03.png"
 - src: "content/design/awake-chocolate/awake-04.png"
 - src: "content/design/awake-chocolate/awake-05.png"
+chart:
+  duration: 2
+  collaboration: 20
+  medium: 95
 ---
 
 ## The Brief

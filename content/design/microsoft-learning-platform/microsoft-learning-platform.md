@@ -15,6 +15,10 @@ images:
 - src: "content/design/microsoft-learning-platform/MLX-03.png"
 - src: "content/design/microsoft-learning-platform/MLX-04.png"
 - src: "content/design/microsoft-learning-platform/MLX-05.png"
+chart:
+  duration: 3
+  collaboration: 65
+  medium: 65
 ---
 
 

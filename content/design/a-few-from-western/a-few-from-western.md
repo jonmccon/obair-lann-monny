@@ -15,6 +15,8 @@ images:
 - src: "content/design/a-few-from-western/afew-03.png"
 - src: "content/design/a-few-from-western/afew-04.png"
 - src: "content/design/a-few-from-western/afew-00.jpg"
+semiFeatured: true
+cardEnergy: loud
 ---
 
 ## In the North, near an arboretum strewn with brick, was a small tower dedicated to learning the craft of applied design thinking. Problem was, no one ventured up there much.
@@ -39,4 +41,4 @@ https://tether.com/
 
 </div>
 
-{% image "./afew-00.jpg", "A Few from Western project image" %} 
+{% image "./afew-00.jpg", "A Few from Western project image" %}
