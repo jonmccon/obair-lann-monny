@@ -1,0 +1,176 @@
+/* ── Color palette ──────────────────────────────── */
+:root {
+  --card-loud-yellow: #f0d000;
+  --card-loud-yellow-shade: #c4ab00;
+  --card-loud-red: #e01e00;
+  --card-loud-red-shade: #b01800;
+  --card-loud-blue: #0060e0;
+  --card-loud-blue-shade: #004db5;
+  --card-loud-green: #00b040;
+  --card-loud-green-shade: #008c33;
+  --card-frame-offblack: #1a1a1a;
+  --card-text-black: #111;
+}
+
+/* ── Base card shell ────────────────────────────── */
+.energy-card {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  overflow: hidden;
+  border-radius: 2px;
+  transition: transform 0.18s ease;
+}
+.energy-card:hover { transform: translateY(-2px); }
+
+/* ── Layout: auto-flow masonry-ish grid ────────── */
+.home-featured-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-auto-rows: 200px;
+  gap: 12px;
+}
+/* Loud + image cards span 2 columns when room exists */
+.energy-card--loud,
+.energy-card--image { grid-column: span 2; }
+
+/* ── LOUD card ──────────────────────────────────── */
+.energy-card--loud {
+  background: var(--card-loud-yellow);
+  color: var(--card-text-black);
+  border: 2px solid var(--card-frame-offblack);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.energy-card--loud .energy-card-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+.energy-card--loud .energy-card-title {
+  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  line-height: 1.05;
+  font-weight: 700;
+  margin: 0.25rem 0 0;
+  color: var(--card-text-black);
+}
+
+/* ── QUIET card ─────────────────────────────────── */
+.energy-card--quiet {
+  background: var(--color-surface, #1a1a1a);
+  color: var(--color-text, #e8e8e8);
+  padding: 1.75rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.energy-card--quiet .energy-card-title {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.3;
+}
+.energy-card--quiet .energy-card-excerpt {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-top: 0.75rem;
+  line-height: 1.5;
+}
+
+/* ── IMAGE card ─────────────────────────────────── */
+.energy-card--image {
+  background: #111;
+  grid-row: span 2;
+}
+.energy-card--image .energy-card-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.energy-card--image:hover .energy-card-img { opacity: 1; }
+.energy-card--image .energy-card-title-overlay {
+  position: absolute;
+  bottom: 1rem; left: 1rem; right: 1rem;
+  font-size: 0.9rem;
+  color: #fff;
+  font-weight: 500;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+}
+
+/* ── BADGE card ─────────────────────────────────── */
+.energy-card--badge {
+  background: #0d0d0d;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+  padding: 1.5rem;
+}
+.energy-card-badge-ring {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.25);
+  margin-bottom: 0.75rem;
+}
+.energy-card--badge .energy-card-title {
+  font-size: 0.8rem;
+  line-height: 1.25;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #e8e8e8;
+}
+.energy-card--badge .energy-card-year {
+  font-size: 0.6rem;
+  opacity: 0.4;
+  margin-top: 0.5rem;
+  letter-spacing: 0.1em;
+}
+
+/* ── ARTIFACT card ──────────────────────────────── */
+.energy-card--artifact {
+  background: #0c0c0c;
+  padding: 1.25rem;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-family: var(--font-mono, monospace);
+}
+.energy-card-meta {
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.04em;
+  white-space: pre;
+  margin: 0 0 0.75rem;
+}
+.energy-card--artifact .energy-card-title {
+  font-size: 0.85rem;
+  color: #e8e8e8;
+  line-height: 1.3;
+}
+.energy-card-specs {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: flex;
+  gap: 0.75rem;
+}
+.energy-card-specs li {
+  font-size: 0.6rem;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Responsive collapse ─────────────────────────── */
+@media (max-width: 640px) {
+  .home-featured-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 180px;
+  }
+  .energy-card--loud,
+  .energy-card--image {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
