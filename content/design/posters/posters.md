@@ -1,63 +1,80 @@
 ---
-title: Selected Poster Work
-description: I like to put myself in my work
+title: Selected Poster Work | Graphic Designer | Jonny McConnell
+pageHeadline: Selected Poster Work
+description: Print and screen work from WWU — campus promotional posters, Sasquatch! gig prints, a scanned self-portrait in large-format Epson, and a split fountain demo for thermographic printing.
 category: Publicity Center
 date: 2010-01-01
+permalink: /design/posters/
 draft: true
 thumbnail: /img/thumbnails/posters-thumb.png
 tags:
   - print
   - illustration
-images: 
-- src: "content/design/posters/post-01.png"
-- src: "content/design/posters/post-02.png"
-- src: "content/design/posters/post-03.png"
-- src: "content/design/posters/post-10.jpeg"
-- src: "content/design/posters/post-06.png"
-- src: "content/design/posters/post-07.png"
-- src: "content/design/posters/post-05.png"
-- src: "content/design/posters/post-04.png"
-- src: "content/design/posters/post-08.jpeg"
-- src: "content/design/posters/post-09.jpeg"
+images:
+  - src: "./content/design/posters/post-01.png"
+    alt: "Large-format scanned self-portrait printed on Epson with screen-printed clear thermographic lettering"
+  - src: "./content/design/posters/post-02.png"
+    alt: "Nacho Picasso for Sasquatch! — two-color print on brown package paper"
+  - src: "./content/design/posters/post-03.png"
+    alt: "STRFKR for Sasquatch! poster — with Nicole Mills"
+  - src: "./content/design/posters/post-10.jpeg"
+    alt: "Campus promotional poster — tabloid format for WWU event"
+  - src: "./content/design/posters/post-06.png"
+    alt: "Split fountain progression demo — showing ink gradation technique for screen printing"
+  - src: "./content/design/posters/post-07.png"
+    alt: "Campus promotional poster — tabloid format"
+  - src: "./content/design/posters/post-05.png"
+    alt: "Campus promotional poster — tabloid format"
+  - src: "./content/design/posters/post-04.png"
+    alt: "Campus promotional poster — tabloid format"
+  - src: "./content/design/posters/post-08.jpeg"
+    alt: "Print work — event poster with hand-drawn illustration"
+  - src: "./content/design/posters/post-09.jpeg"
+    alt: "Print work — event poster, large format"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
-Posters
-I like to put myself in my work
-Campus promotional work is all tabloid while the rest are 18 x 24"
+Print work from WWU — campus promotional posters, Sasquatch! gig prints, and experiments with screen printing and thermographic type.
 
-Scanned self-portrait, large format Epson print, with screen printed clear thermographic lettering.
+- **Role:** Graphic Designer / Print Production
+- **Company:** WWU Publicity Center
+- **Timeline:** 2008–2011
+- **Platform:** Print — tabloid, 18×24"
+- **Tools:** Illustrator, Photoshop, screen printing, Epson large-format
 
-Nacho Picasso for Sasquatch! We printed this two color Sasquatch! poster on the crummiest brown package paper and it was just perfect.
+Campus promotional work is tabloid. Everything else is 18×24".
 
-STRFKR for Sasquatch! with Nicole Mills.
+The self-portrait piece was a scan printed large-format on Epson, then screen-printed with clear thermographic lettering — the kind of print that catches light differently depending on where you're standing.
 
-Demonstrating the progression of a split fountain to get other students up to the printing attic.
+The Nacho Picasso print for Sasquatch! was two-color on the crummiest brown package paper we could find. It was just right.
 
+The STRFKR Sasquatch! poster was made with Nicole Mills.
 
--- Take a photo of real Nacho Poster - Ask rosie?
-
+The split fountain piece was a demo for getting other students up to the printing attic — showing the progression of how two ink colors blend across a squeegee pull.
 
 <div class="two-column">
 
-{% image "./post-01.png", "Selected Poster Work project image" %} 
+{% image "./post-01.png", "Large-format scanned self-portrait with screen-printed clear thermographic lettering" %}
 
-{% image "./post-02.png", "Selected Poster Work project image" %} 
+{% image "./post-02.png", "Nacho Picasso for Sasquatch! — two-color print on brown package paper" %}
 
-{% image "./post-03.png", "Selected Poster Work project image" %} 
+{% image "./post-03.png", "STRFKR for Sasquatch! poster — with Nicole Mills" %}
 
-{% image "./post-10.jpeg", "Selected Poster Work project image" %} 
+{% image "./post-10.jpeg", "Campus promotional poster — tabloid format for WWU event" %}
 
-{% image "./post-06.png", "Selected Poster Work project image" %} 
+{% image "./post-06.png", "Split fountain progression demo — showing ink gradation technique for screen printing" %}
 
-{% image "./post-07.png", "Selected Poster Work project image" %} 
+{% image "./post-07.png", "Campus promotional poster — tabloid format" %}
 
-{% image "./post-05.png", "Selected Poster Work project image" %} 
+{% image "./post-05.png", "Campus promotional poster — tabloid format" %}
 
-{% image "./post-04.png", "Selected Poster Work project image" %} 
+{% image "./post-04.png", "Campus promotional poster — tabloid format" %}
 
-{% image "./post-08.jpeg", "Selected Poster Work project image" %} 
+{% image "./post-08.jpeg", "Print work — event poster with hand-drawn illustration" %}
 
-{% image "./post-09.jpeg", "Selected Poster Work project image" %} 
-
+{% image "./post-09.jpeg", "Print work — event poster, large format" %}
 
 </div>
