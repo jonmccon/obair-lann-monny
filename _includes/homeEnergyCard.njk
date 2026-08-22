@@ -1,0 +1,48 @@
+{# homeEnergyCard.njk — receives: post #}
+{% set energy = post.data.cardEnergy | default('image') %}
+
+{% if energy == 'loud' %}
+<a href="{{ post.url }}" class="energy-card energy-card--loud">
+  <span class="energy-card-label">{{ post.data.client | default('') }}</span>
+  <h2 class="energy-card-title">{{ post.data.pageHeadline }}</h2>
+  <span class="energy-card-tag">{{ post.data.tags[0] | default('') }}</span>
+</a>
+
+{% elif energy == 'quiet' %}
+<a href="{{ post.url }}" class="energy-card energy-card--quiet">
+  <h2 class="energy-card-title">{{ post.data.pageHeadline }}</h2>
+  <p class="energy-card-excerpt">{{ post.data.description | truncate(80) }}</p>
+</a>
+
+{% elif energy == 'image' %}
+<a href="{{ post.url }}" class="energy-card energy-card--image">
+  {% if post.data.thumbnail %}
+    <img class="energy-card-img" src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" loading="lazy" width="600" height="400">
+  {% endif %}
+  <h2 class="energy-card-title-overlay">{{ post.data.pageHeadline }}</h2>
+</a>
+
+{% elif energy == 'badge' %}
+<a href="{{ post.url }}" class="energy-card energy-card--badge">
+  <span class="energy-card-badge-ring" aria-hidden="true"></span>
+  <h2 class="energy-card-title">{{ post.data.pageHeadline }}</h2>
+  <span class="energy-card-year">{{ post.data.year | default('') }}</span>
+</a>
+
+{% elif energy == 'artifact' %}
+<a href="{{ post.url }}" class="energy-card energy-card--artifact">
+  <pre class="energy-card-meta">{{ post.data.title }} / {{ post.data.year | default('') }}</pre>
+  <h2 class="energy-card-title">{{ post.data.pageHeadline }}</h2>
+  <ul class="energy-card-specs">
+    {% if post.data.chart %}
+      <li>{{ post.data.chart.duration }}mo</li>
+      <li>{{ post.data.tags[0] | default('') }}</li>
+    {% endif %}
+  </ul>
+</a>
+
+{% else %}
+<a href="{{ post.url }}" class="energy-card energy-card--image">
+  <h2 class="energy-card-title">{{ post.data.pageHeadline }}</h2>
+</a>
+{% endif %}
