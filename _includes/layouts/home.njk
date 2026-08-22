@@ -25,25 +25,24 @@ layout: layouts/base.njk
       <span class="home-axis-label home-axis-label-z">solo ↔ team</span>
     </div>
 
-    <div class="home-center-lockup">
-      {% if introductionHeading %}<h1 class="homepage-headline-axis">{{ introductionHeading }}</h1>{% endif %}
-      <div class="homepage-main-avatar homepage-main-avatar-overlay">
-        {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
-      </div>
-    </div>
-
     {% for post in collections.featuredProjects | reverse %}
     {% if loop.index <= featuredProjectThumbnailLimit %}
-    <article class="home-axis-project" data-axis-project data-project-index="{{ loop.index0 }}" data-project-title="{{ post.data.title | slugify }}" data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}" data-chart-duration="{{ post.data.chart.duration | default(6) }}" data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}" data-chart-medium="{{ post.data.chart.medium | default(50) }}">
+    {% set blobSize = (post.data.chart.duration | default(6)) / 80 * 52 + 20 %}
+    <article class="home-axis-project" data-axis-project
+      data-project-index="{{ loop.index0 }}"
+      data-project-title="{{ post.data.title | slugify }}"
+      data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}"
+      data-chart-duration="{{ post.data.chart.duration | default(6) }}"
+      data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}"
+      data-chart-medium="{{ post.data.chart.medium | default(50) }}"
+      style="--blob-size: {{ blobSize | round }}px;">
       <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
         <div class="home-axis-dot">
           {% if post.data.images and post.data.images.length %}
             {% homepageImage post.data.images[0].src, post.data.pageHeadline, 80, "home-axis-dot-img" %}
           {% endif %}
         </div>
-        {# Temporarily commented out for performance - will revisit later
         <span class="home-axis-project-title">{{ post.data.pageHeadline }}</span>
-        #}
       </a>
     </article>
     {% endif %}
@@ -51,6 +50,15 @@ layout: layouts/base.njk
     </div>
   </div>
 </section>
+
+<div class="home-chart-attribution">
+  <div class="home-center-lockup">
+    {% if introductionHeading %}<h1 class="homepage-headline-axis">{{ introductionHeading }}</h1>{% endif %}
+    <div class="homepage-main-avatar homepage-main-avatar-overlay">
+      {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
+    </div>
+  </div>
+</div>
 
 <section class="home-supporting-content" aria-label="Homepage supporting content">
 
@@ -224,26 +232,26 @@ layout: layouts/base.njk
   function toRad(deg) { return deg * Math.PI / 180; }
 
   function placeProjects() {
-    projects.forEach((el) => {
-      const duration = Math.min(parseInt(el.dataset.chartDuration     || '6',  10), MAX_DURATION);
-      const collab   = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
-      const medium   = parseInt(el.dataset.chartMedium        || '50', 10) / 100;
+    const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5)); // ~137.5 degrees in radians
+    projects.forEach((el, i) => {
+        const collab = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
+        const medium = parseInt(el.dataset.chartMedium || '50', 10) / 100;
 
-      // Z axis = collaboration (depth / orbit distance from center)
-      const r     = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
-      const theta = collab * 2 * Math.PI;
-      const phi   = (medium - 0.5) * toRad(126);
+        // Radius from collaboration (0=solo=close to center, 1=team=far out)
+        const r = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
 
-      const x = r * Math.cos(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi);
-      const z = r * Math.cos(phi) * Math.sin(theta);
+        // Golden-angle azimuth — spreads all N projects evenly around the sphere
+        const theta = i * GOLDEN_ANGLE;
 
-      // X axis = duration → rendered as a horizontal line segment
-      // Minimum 6px so even 1-month projects are visible; scales to LINE_MAX_PX
-      const lineWidth = Math.max(6, (duration / MAX_DURATION) * LINE_MAX_PX);
+        // Elevation from medium (0=technical/bottom, 1=visual/top), ±63deg
+        const phi = (medium - 0.5) * (Math.PI * 0.7);
 
-      el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
-      el.style.width      = `${lineWidth}px`;
+        const x = r * Math.cos(phi) * Math.cos(theta);
+        const y = r * Math.sin(phi);
+        const z = r * Math.cos(phi) * Math.sin(theta);
+
+        el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
+        // NOTE: no el.style.width — blob size comes from CSS --blob-size custom property
     });
   }
 
