@@ -8,3 +8,13 @@
   transition: transform 0.05s linear;
   will-change: transform;
 }
+.home-axis-label {
+  font-size: 0.6rem;
+  opacity: 0.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.home-axis-stage:hover .home-axis-label {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
