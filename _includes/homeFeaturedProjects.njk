@@ -5,24 +5,7 @@
 {% if featuredPosts and featuredPosts.length %}
 <section class="home-featured-grid" aria-label="Featured work">
   {% for post in featuredPosts | reverse %}
-  <a href="{{ post.url }}" class="home-featured-row{% if not (post.data.images and post.data.images.length) and not post.data.thumbnail %} home-featured-row--no-media{% endif %}">
-    <span class="home-featured-row-media" aria-hidden="true">
-      {% if post.data.images and post.data.images.length %}
-        {% for image in post.data.images %}
-          {% if loop.index <= 3 %}
-          <span class="home-featured-row-media-frame">
-            {% homepageImage image.src, "", 720, "home-featured-row-media-img" %}
-          </span>
-          {% endif %}
-        {% endfor %}
-      {% elif post.data.thumbnail %}
-        <span class="home-featured-row-media-frame">
-          <img src="{{ post.data.thumbnail }}" alt="" loading="lazy" width="1200" height="320" class="home-featured-row-media-img">
-        </span>
-      {% endif %}
-    </span>
-    <h2 class="home-featured-row-title">{{ post.data.pageHeadline }}</h2>
-  </a>
-  {% endfor %}
+  {% include "homeEnergyCard.njk" %}
+{% endfor %}
 </section>
 {% endif %}
