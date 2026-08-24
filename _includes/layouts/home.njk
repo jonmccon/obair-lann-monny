@@ -33,6 +33,7 @@ layout: layouts/base.njk
       data-project-title="{{ post.data.pageHeadline }}"
       data-project-url="{{ post.url }}"
       data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}"
+      data-chart-date="{{ post.date | htmlDateString }}"
       data-chart-duration="{{ _duration }}"
       data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}"
       data-chart-medium="{{ post.data.chart.medium | default(50) }}"
@@ -224,14 +225,15 @@ layout: layouts/base.njk
 <script type="module">
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
-  CapsuleGeometry, SphereGeometry,
+  TubeGeometry, CatmullRomCurve3,
+  SphereGeometry,
   MeshStandardMaterial, MeshBasicMaterial,
   Mesh,
   LineSegments, BufferGeometry, Float32BufferAttribute,
   LineBasicMaterial,
   AmbientLight, DirectionalLight, PointLight,
   TextureLoader,
-  Color, Raycaster, Vector2,
+  Color, Raycaster, Vector2, Vector3,
   Group
 } from 'three';
 
@@ -257,119 +259,211 @@ function syncSize() {
 // ── Scene + Camera ───────────────────────────────────────────────────────────
 const scene  = new Scene();
 const camera = new PerspectiveCamera(52, 1, 0.1, 2000);
-camera.position.set(0, 0, 500);
+camera.position.set(0, 60, 560);
+camera.lookAt(0, 0, 0);
 
 // ── Lights ───────────────────────────────────────────────────────────────────
-scene.add(new AmbientLight(0xffffff, 0.6));
+scene.add(new AmbientLight(0xffffff, 0.55));
 
 const sun = new DirectionalLight(0xd0eeff, 1.3);
-sun.position.set(1, 1.6, 2);
+sun.position.set(1.2, 2, 1.5);
 scene.add(sun);
 
-const fill = new PointLight(0x04a5e5, 1.0, 1400);
-fill.position.set(-200, 120, 300);
+const fill = new PointLight(0x04a5e5, 1.1, 1600);
+fill.position.set(-220, 140, 340);
 scene.add(fill);
 
-// ── Axis lines through origin ────────────────────────────────────────────────
-const AXIS_LEN = 270;
-const axisVerts = new Float32Array([
-  -AXIS_LEN, 0, 0,   AXIS_LEN, 0, 0,  // X — duration
-   0, -AXIS_LEN, 0,  0,  AXIS_LEN, 0, // Y — medium
-   0, 0, -AXIS_LEN,  0, 0,  AXIS_LEN, // Z — collaboration
+// ── Radial chart constants ───────────────────────────────────────────────────
+//
+// Clock face lies in the XZ plane (Y = 0 baseline).
+// Camera looks from slightly above +Z toward origin.
+//
+// Timeline mapping:
+//   Career start = Jan 2010    → 6 o'clock (bottom, -Z direction)
+//   Clockwise sweep            → each month = (2π / CAREER_MONTHS) radians
+//   6 o'clock in XZ plane      → angle = -π/2 (pointing toward -Z)
+//   Clockwise from viewer (camera above/front) → decreasing angle (standard math CW)
+//
+// In Three.js XZ coords (Y=0 plane, camera at +Z):
+//   angle 0       = +X (3 o'clock)
+//   angle π/2     = +Z (behind camera — 6 o'clock from above)
+//   angle π       = -X (9 o'clock)
+//   angle -π/2    = -Z (12 o'clock from above; 6 o'clock from camera's view)
+//
+// Wait — camera is at +Z. So what the viewer sees as "bottom" is -Y, not -Z.
+// The clock face should be the XY plane (facing the camera at +Z).
+// 6 o'clock = bottom = -Y, clockwise from viewer = +X is 3 o'clock.
+// So: 6 o'clock = angle -π/2 (in XY plane, measured from +X axis).
+// Clockwise from viewer: angle DECREASES (standard math CW).
+// θ_6oclock = -π/2
+// A point at angle θ: x = R * cos(θ), y = R * sin(θ), z = elevation
+
+const CAREER_START_YEAR  = 2010;
+const CAREER_START_MONTH = 1;    // January
+const CAREER_END_YEAR    = 2026;
+const CAREER_END_MONTH   = 8;    // August
+const CAREER_MONTHS      = (CAREER_END_YEAR - CAREER_START_YEAR) * 12
+                           + (CAREER_END_MONTH - CAREER_START_MONTH); // 199
+
+const RADIANS_PER_MONTH  = (2 * Math.PI) / CAREER_MONTHS;
+const THETA_6OCLOCK      = -Math.PI / 2;   // bottom of clock, career start
+
+// Radial distance bands (collaboration axis, 0=solo=inner, 1=team=outer)
+const R_INNER  = 90;   // solo projects sit near this radius
+const R_OUTER  = 265;  // highly collaborative sit near this
+// Y elevation (medium axis, 0=technical=down, 1=visual=up)
+const Y_RANGE  = 70;   // ± this many units above/below clock plane
+// Tube cross-section
+const TUBE_R   = 5.5;
+// Curve resolution — more segments = smoother arc
+const ARC_SEGS = 64;
+
+const SKY = new Color(0x04a5e5);
+
+// ── Helper: months since career start ────────────────────────────────────────
+function monthsElapsed(dateStr) {
+  if (!dateStr) return 0;
+  const parts = dateStr.split('-');
+  const y = parseInt(parts[0], 10);
+  const m = parseInt(parts[1], 10);
+  return Math.max(0, (y - CAREER_START_YEAR) * 12 + (m - CAREER_START_MONTH));
+}
+
+// ── Helper: build arc curve in XY plane at a given R, Y elevation ─────────
+// θ_start, θ_end in radians (clockwise = decreasing)
+// Returns CatmullRomCurve3 of points for TubeGeometry
+function makeArcCurve(r, yElev, thetaStart, thetaEnd) {
+  const pts = [];
+  const n   = ARC_SEGS;
+  for (let i = 0; i <= n; i++) {
+    const t   = i / n;
+    const ang = thetaStart + t * (thetaEnd - thetaStart);
+    pts.push(new Vector3(
+      r * Math.cos(ang),
+      yElev,
+      r * Math.sin(ang)
+    ));
+  }
+  return new CatmullRomCurve3(pts, false, 'catmullrom', 0.0);
+}
+
+// ── Axis reference rings ──────────────────────────────────────────────────────
+// Two faint circles at R_INNER and R_OUTER to show the collaboration axis range
+function makeRingVerts(r, segments = 128) {
+  const verts = [];
+  for (let i = 0; i <= segments; i++) {
+    const a  = (i / segments) * 2 * Math.PI;
+    const a2 = ((i + 1) / segments) * 2 * Math.PI;
+    verts.push(r * Math.cos(a), 0, r * Math.sin(a));
+    verts.push(r * Math.cos(a2), 0, r * Math.sin(a2));
+  }
+  return new Float32Array(verts);
+}
+
+const ringMat = new LineBasicMaterial({ color: 0x7287fd, transparent: true, opacity: 0.12 });
+for (const r of [R_INNER, (R_INNER + R_OUTER) / 2, R_OUTER]) {
+  const rg = new BufferGeometry();
+  rg.setAttribute('position', new Float32BufferAttribute(makeRingVerts(r), 3));
+  scene.add(new LineSegments(rg, ringMat.clone()));
+}
+
+// 12/6 o'clock tick line (vertical — shows career start direction)
+const tickVerts = new Float32Array([
+  0, 0, -R_OUTER * 1.05,
+  0, 0,  R_OUTER * 1.05,
 ]);
-const axisGeo = new BufferGeometry();
-axisGeo.setAttribute('position', new Float32BufferAttribute(axisVerts, 3));
-scene.add(new LineSegments(axisGeo, new LineBasicMaterial({
-  color: 0x9ca0b0, transparent: true, opacity: 0.25
-})));
+const tickGeo = new BufferGeometry();
+tickGeo.setAttribute('position', new Float32BufferAttribute(tickVerts, 3));
+scene.add(new LineSegments(tickGeo, new LineBasicMaterial({ color: 0x9ca0b0, transparent: true, opacity: 0.15 })));
 
 // Origin dot
-const originMesh = new Mesh(
-  new SphereGeometry(5, 10, 10),
-  new MeshBasicMaterial({ color: 0x7287fd, transparent: true, opacity: 0.75 })
-);
-scene.add(originMesh);
+scene.add(new Mesh(
+  new SphereGeometry(4, 10, 10),
+  new MeshBasicMaterial({ color: 0x7287fd, transparent: true, opacity: 0.7 })
+));
 
-// ── Constants ────────────────────────────────────────────────────────────────
-const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5));
-const MIN_RADIUS   = 80;
-const MAX_RADIUS   = 255;
-const MAX_DURATION = 80;
-const TUBE_RADIUS  = 5.5;   // capsule tube radius
-const MIN_FLAT     = 0;     // flat section for shortest project → pure sphere
-const MAX_FLAT     = 200;   // flat section for longest project (80mo)
-const SKY          = new Color(0x04a5e5);
-
-// ── Build meshes ─────────────────────────────────────────────────────────────
+// ── Build project arc tubes ───────────────────────────────────────────────────
 const loader    = new TextureLoader();
 const meshGroup = new Group();
 scene.add(meshGroup);
 
-// Store per-mesh metadata for raycasting + title overlay
-const meshMeta = [];  // [{ mesh, titleEl, url }]
+const meshMeta = [];
 
-projectEls.forEach((el, i) => {
+projectEls.forEach((el) => {
+  const dateStr  = el.dataset.chartDate || '';
+  const duration = parseInt(el.dataset.chartDuration      || '6',  10);
   const collab   = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
   const medium   = parseInt(el.dataset.chartMedium        || '50', 10) / 100;
-  const duration = parseInt(el.dataset.chartDuration      || '6',  10);
-  const url      = el.dataset.projectUrl || '#';
+  const url      = el.dataset.projectUrl  || '#';
   const titleEl  = el.querySelector('[data-title-label]');
 
-  // ── 3D position (all radiate from origin) ──────────────────────────────────
-  const r     = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
-  const theta = i * GOLDEN_ANGLE;
-  const phi   = (medium - 0.5) * (Math.PI * 0.72);
+  // ── Radial position ──────────────────────────────────────────────────────
+  // R: collaboration — solo (0) = inner ring, team (1) = outer ring
+  const r = R_INNER + collab * (R_OUTER - R_INNER);
 
-  const px = r * Math.cos(phi) * Math.cos(theta);
-  const py = r * Math.sin(phi);
-  const pz = r * Math.cos(phi) * Math.sin(theta);
+  // Y elevation: medium — technical (0) = slightly below plane, visual (1) = above
+  const yElev = (medium - 0.5) * 2 * Y_RANGE;
 
-  // ── Capsule: lies along X axis, length driven by duration ──────────────────
-  const flatLen = MIN_FLAT + (duration / MAX_DURATION) * (MAX_FLAT - MIN_FLAT);
-  const geo = new CapsuleGeometry(TUBE_RADIUS, flatLen, 8, 24);
+  // ── Angular position (clock face) ────────────────────────────────────────
+  // θ_start: where this project starts on the clock
+  // Clockwise from 6 o'clock → decreasing angle
+  const elapsed    = monthsElapsed(dateStr);
+  const thetaStart = THETA_6OCLOCK - elapsed * RADIANS_PER_MONTH;
+  const thetaEnd   = thetaStart    - duration * RADIANS_PER_MONTH;
 
-  // Material: sky-blue default, replaced with blurred texture on load
+  // ── Geometry: arc tube ───────────────────────────────────────────────────
+  // Minimum arc: ensure even 2-month projects have enough segments to look smooth
+  const arcSegs  = Math.max(12, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
+  const curve    = makeArcCurve(r, yElev, thetaStart, thetaEnd);
+  const tubeGeo  = new TubeGeometry(curve, arcSegs, TUBE_R, 10, false);
+
+  // ── Material ──────────────────────────────────────────────────────────────
   const mat = new MeshStandardMaterial({
     color: SKY.clone(),
-    roughness: 0.40,
+    roughness: 0.42,
     metalness: 0.10,
     transparent: true,
-    opacity: 0.80,
+    opacity: 0.82,
   });
 
   const imgEl  = el.querySelector('.home-axis-dot-img');
   const imgSrc = imgEl ? imgEl.getAttribute('src') : null;
   if (imgSrc) {
     loader.load(imgSrc, (tex) => {
-      mat.map = tex;
+      mat.map      = tex;
       mat.color.set(0xffffff);
       mat.roughness = 0.55;
-      mat.opacity   = 0.90;
+      mat.opacity   = 0.88;
       mat.needsUpdate = true;
     });
   }
 
-  const mesh = new Mesh(geo, mat);
-
-  // CapsuleGeometry is vertical by default; rotate 90° → horizontal (X-axis aligned)
-  mesh.rotation.z = Math.PI / 2;
-
-  mesh.position.set(px, py, pz);
-  mesh.userData = { url, title: el.dataset.projectTitle || '', index: i };
+  const mesh = new Mesh(tubeGeo, mat);
+  mesh.userData = { url, title: el.dataset.projectTitle || '', elapsed, duration, r, yElev };
 
   meshGroup.add(mesh);
-  meshMeta.push({ mesh, titleEl, url });
+
+  // Title anchor: midpoint of the arc
+  const thetaMid = (thetaStart + thetaEnd) / 2;
+  const titleAnchor = new Vector3(
+    r * Math.cos(thetaMid),
+    yElev + TUBE_R + 2,
+    r * Math.sin(thetaMid)
+  );
+  meshMeta.push({ mesh, titleEl, url, titleAnchor });
 });
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false;
 let startX = 0, startY = 0;
-let rotX = -18, rotY = 12;
+let rotX = -12, rotY = 0;   // slight top-down tilt to show the radial layout
 
 function applyGroupRotation() {
+  // Clamp X rotation so you can't flip fully upside-down
+  rotX = Math.max(-75, Math.min(30, rotX));
   meshGroup.rotation.x = rotX * Math.PI / 180;
   meshGroup.rotation.y = rotY * Math.PI / 180;
-  // Also rotate axis lines with the group
+  // Match axis rings to group
   scene.children.forEach(c => {
     if (c instanceof LineSegments) {
       c.rotation.x = rotX * Math.PI / 180;
@@ -378,12 +472,12 @@ function applyGroupRotation() {
   });
 }
 
-stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; });
-window.addEventListener('mouseup',   () => { isDragging = false; });
+stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
+window.addEventListener('mouseup',   () => { isDragging = false; stage.style.cursor = 'grab'; });
 window.addEventListener('mousemove', e => {
   if (!isDragging) return;
-  rotY += (e.clientX - startX) * 0.4;
-  rotX -= (e.clientY - startY) * 0.4;
+  rotY += (e.clientX - startX) * 0.35;
+  rotX -= (e.clientY - startY) * 0.35;
   startX = e.clientX; startY = e.clientY;
   applyGroupRotation();
 });
@@ -392,16 +486,16 @@ stage.addEventListener('touchstart', e => { isDragging = true; startX = e.touche
 window.addEventListener('touchend',  () => { isDragging = false; });
 window.addEventListener('touchmove', e => {
   if (!isDragging) return;
-  rotY += (e.touches[0].clientX - startX) * 0.4;
-  rotX -= (e.touches[0].clientY - startY) * 0.4;
+  rotY += (e.touches[0].clientX - startX) * 0.35;
+  rotX -= (e.touches[0].clientY - startY) * 0.35;
   startX = e.touches[0].clientX; startY = e.touches[0].clientY;
   applyGroupRotation();
 }, { passive: true });
 
 // ── Hover via raycaster ───────────────────────────────────────────────────────
-const raycaster   = new Raycaster();
-const pointerVec  = new Vector2();
-let hoveredMesh   = null;
+const raycaster  = new Raycaster();
+const pointerVec = new Vector2();
+let hoveredMesh  = null;
 
 stage.addEventListener('mousemove', e => {
   const rect = stage.getBoundingClientRect();
@@ -415,26 +509,29 @@ stage.addEventListener('mousemove', e => {
       if (hoveredMesh) hoveredMesh.material.emissiveIntensity = 0;
       hoveredMesh = h;
       hoveredMesh.material.emissive = new Color(0x04a5e5);
-      hoveredMesh.material.emissiveIntensity = 0.3;
-      stage.style.cursor = 'pointer';
+      hoveredMesh.material.emissiveIntensity = 0.35;
+      if (!isDragging) stage.style.cursor = 'pointer';
     }
   } else {
     if (hoveredMesh) { hoveredMesh.material.emissiveIntensity = 0; hoveredMesh = null; }
-    stage.style.cursor = 'grab';
+    if (!isDragging) stage.style.cursor = 'grab';
   }
 });
 
-stage.addEventListener('click', e => {
+stage.addEventListener('click', () => {
   if (hoveredMesh) window.location.href = hoveredMesh.userData.url;
 });
 
-// ── Title overlay projection ──────────────────────────────────────────────────
-function projectToScreen(worldPos) {
-  const v = worldPos.clone().project(camera);
+// ── Screen-space projection for title labels ──────────────────────────────────
+function toScreen(worldPos) {
+  const v    = worldPos.clone();
+  v.applyEuler(meshGroup.rotation);
+  v.project(camera);
   const rect = stage.getBoundingClientRect();
   return {
     x: ( v.x * 0.5 + 0.5) * rect.width,
     y: (-v.y * 0.5 + 0.5) * rect.height,
+    z:   v.z,
   };
 }
 
@@ -442,12 +539,16 @@ function projectToScreen(worldPos) {
 function animate() {
   requestAnimationFrame(animate);
 
-  // Update title label positions each frame
-  meshMeta.forEach(({ mesh, titleEl }) => {
+  meshMeta.forEach(({ titleEl, titleAnchor }) => {
     if (!titleEl) return;
-    const screen = projectToScreen(mesh.position.clone().applyEuler(meshGroup.rotation));
-    titleEl.style.left = screen.x + 'px';
-    titleEl.style.top  = (screen.y - TUBE_RADIUS - 18) + 'px';
+    const s = toScreen(titleAnchor);
+    // Hide labels that are behind camera (z > 1) or too far to the side
+    if (s.z > 1) {
+      titleEl.style.opacity = '0';
+      return;
+    }
+    titleEl.style.left = s.x + 'px';
+    titleEl.style.top  = s.y + 'px';
   });
 
   renderer.render(scene, camera);
