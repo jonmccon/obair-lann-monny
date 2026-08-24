@@ -37,6 +37,7 @@ layout: layouts/base.njk
       data-chart-duration="{{ _duration }}"
       data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}"
       data-chart-medium="{{ post.data.chart.medium | default(50) }}"
+      data-chart-blend="/img/chart-blend/{{ post.fileSlug }}.webp"
       aria-label="{{ post.data.title }}">
       {# Hidden image — src read by Three.js texture loader #}
       {% if post.data.images and post.data.images.length %}
@@ -276,47 +277,33 @@ scene.add(fill);
 // ── Radial chart constants ───────────────────────────────────────────────────
 //
 // Clock face lies in the XZ plane (Y = 0 baseline).
-// Camera looks from slightly above +Z toward origin.
+// Camera at (0, 60, 560) looks slightly down onto the clock face.
 //
-// Timeline mapping:
-//   Career start = Jan 2010    → 6 o'clock (bottom, -Z direction)
-//   Clockwise sweep            → each month = (2π / CAREER_MONTHS) radians
-//   6 o'clock in XZ plane      → angle = -π/2 (pointing toward -Z)
-//   Clockwise from viewer (camera above/front) → decreasing angle (standard math CW)
-//
-// In Three.js XZ coords (Y=0 plane, camera at +Z):
-//   angle 0       = +X (3 o'clock)
-//   angle π/2     = +Z (behind camera — 6 o'clock from above)
-//   angle π       = -X (9 o'clock)
-//   angle -π/2    = -Z (12 o'clock from above; 6 o'clock from camera's view)
-//
-// Wait — camera is at +Z. So what the viewer sees as "bottom" is -Y, not -Z.
-// The clock face should be the XY plane (facing the camera at +Z).
-// 6 o'clock = bottom = -Y, clockwise from viewer = +X is 3 o'clock.
-// So: 6 o'clock = angle -π/2 (in XY plane, measured from +X axis).
-// Clockwise from viewer: angle DECREASES (standard math CW).
-// θ_6oclock = -π/2
-// A point at angle θ: x = R * cos(θ), y = R * sin(θ), z = elevation
+// Timeline: 6 o'clock (bottom, -Z) = Jan 2010, sweeps clockwise.
+// In Three.js XZ plane (Y=0), clock geometry uses:
+//   angle 0   = +X  (3 o'clock)
+//   angle π   = -X  (9 o'clock)
+//   angle -π/2 = -Z (12 o'clock from camera view, used as 6 o'clock "bottom")
+// Wait — camera is at +Z so bottom of viewport = -Y direction.
+// The clock face is XY plane. 6 o'clock = -Y. Clockwise: angle decreases.
+// x = R*cos(θ), y = R*sin(θ), z = elevation (medium axis)
 
 const CAREER_START_YEAR  = 2010;
-const CAREER_START_MONTH = 1;    // January
+const CAREER_START_MONTH = 1;
 const CAREER_END_YEAR    = 2026;
-const CAREER_END_MONTH   = 8;    // August
+const CAREER_END_MONTH   = 8;
 const CAREER_MONTHS      = (CAREER_END_YEAR - CAREER_START_YEAR) * 12
                            + (CAREER_END_MONTH - CAREER_START_MONTH); // 199
 
-const RADIANS_PER_MONTH  = (2 * Math.PI) / CAREER_MONTHS;
-const THETA_6OCLOCK      = -Math.PI / 2;   // bottom of clock, career start
+const RADIANS_PER_MONTH = (2 * Math.PI) / CAREER_MONTHS;
+const THETA_6OCLOCK     = -Math.PI / 2;   // bottom of clock (−Y axis), career start
 
-// Radial distance bands (collaboration axis, 0=solo=inner, 1=team=outer)
-const R_INNER  = 90;   // solo projects sit near this radius
-const R_OUTER  = 265;  // highly collaborative sit near this
-// Y elevation (medium axis, 0=technical=down, 1=visual=up)
-const Y_RANGE  = 70;   // ± this many units above/below clock plane
-// Tube cross-section
-const TUBE_R   = 5.5;
-// Curve resolution — more segments = smoother arc
-const ARC_SEGS = 64;
+// ── Chart geometry dimensions ─────────────────────────────────────────────────
+const R_INNER  = 70;    // solo projects (collaboration=0) radius
+const R_OUTER  = 200;   // team projects (collaboration=100) radius — compact
+const Y_RANGE  = 180;   // ± elevation above/below clock plane (medium axis depth)
+const TUBE_R   = 16;    // tube cross-section radius — beefy 3D pill
+const ARC_SEGS = 72;    // points along arc curve
 
 const SKY = new Color(0x04a5e5);
 
@@ -412,10 +399,10 @@ projectEls.forEach((el) => {
   const thetaEnd   = thetaStart    - duration * RADIANS_PER_MONTH;
 
   // ── Geometry: arc tube ───────────────────────────────────────────────────
-  // Minimum arc: ensure even 2-month projects have enough segments to look smooth
-  const arcSegs  = Math.max(12, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
+  // arcSegs: minimum 16 for short projects, scales with duration for long arcs
+  const arcSegs  = Math.max(16, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
   const curve    = makeArcCurve(r, yElev, thetaStart, thetaEnd);
-  const tubeGeo  = new TubeGeometry(curve, arcSegs, TUBE_R, 10, false);
+  const tubeGeo  = new TubeGeometry(curve, arcSegs, TUBE_R, 20, false);  // 20 radial segs = smooth pill
 
   // ── Material ──────────────────────────────────────────────────────────────
   const mat = new MeshStandardMaterial({
@@ -423,17 +410,20 @@ projectEls.forEach((el) => {
     roughness: 0.42,
     metalness: 0.10,
     transparent: true,
-    opacity: 0.82,
+    opacity: 0.85,
   });
 
-  const imgEl  = el.querySelector('.home-axis-dot-img');
-  const imgSrc = imgEl ? imgEl.getAttribute('src') : null;
+  // Prefer the pre-built blended texture; fall back to first project image
+  const blendSrc = el.dataset.chartBlend || null;
+  const imgEl    = el.querySelector('.home-axis-dot-img');
+  const imgSrc   = blendSrc || (imgEl ? imgEl.getAttribute('src') : null);
+
   if (imgSrc) {
     loader.load(imgSrc, (tex) => {
       mat.map      = tex;
       mat.color.set(0xffffff);
-      mat.roughness = 0.55;
-      mat.opacity   = 0.88;
+      mat.roughness = 0.52;
+      mat.opacity   = 0.90;
       mat.needsUpdate = true;
     });
   }
@@ -456,14 +446,12 @@ projectEls.forEach((el) => {
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false;
 let startX = 0, startY = 0;
-let rotX = -12, rotY = 0;   // slight top-down tilt to show the radial layout
+let rotX = -22, rotY = 0;   // angled view — show both the clock face and Y depth
 
 function applyGroupRotation() {
-  // Clamp X rotation so you can't flip fully upside-down
-  rotX = Math.max(-75, Math.min(30, rotX));
+  // No clamp — full freedom to explore all angles
   meshGroup.rotation.x = rotX * Math.PI / 180;
   meshGroup.rotation.y = rotY * Math.PI / 180;
-  // Match axis rings to group
   scene.children.forEach(c => {
     if (c instanceof LineSegments) {
       c.rotation.x = rotX * Math.PI / 180;
@@ -482,15 +470,25 @@ window.addEventListener('mousemove', e => {
   applyGroupRotation();
 });
 
-stage.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
+// Touch: capture touchmove on the stage to prevent page scroll while dragging the chart
+stage.addEventListener('touchstart', e => {
+  isDragging = true;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+}, { passive: true });
+
 window.addEventListener('touchend',  () => { isDragging = false; });
-window.addEventListener('touchmove', e => {
+
+// Non-passive so we can call preventDefault() to block scroll while dragging
+stage.addEventListener('touchmove', e => {
   if (!isDragging) return;
+  e.preventDefault();   // ← prevents page scroll while rotating the chart
   rotY += (e.touches[0].clientX - startX) * 0.35;
   rotX -= (e.touches[0].clientY - startY) * 0.35;
-  startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
   applyGroupRotation();
-}, { passive: true });
+}, { passive: false });  // ← must be non-passive to allow preventDefault
 
 // ── Hover via raycaster ───────────────────────────────────────────────────────
 const raycaster  = new Raycaster();
