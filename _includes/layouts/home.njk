@@ -302,6 +302,39 @@ const Y_RANGE  = 200;   // ± elevation (medium axis depth)
 const TUBE_R   = 20;    // tube cross-section radius
 const ARC_SEGS = 72;    // arc curve resolution
 
+// ── Per-project dominant colors — extracted from chart-blend images ───────────
+// Each key is the project slug (from data-chart-blend path: /img/chart-blend/<slug>.webp)
+const PROJECT_COLORS = {
+  'amazon-fire-os':             0x3b90b2,
+  'android-gemini':             0x4285f4,
+  'awake-chocolate':            0xca901a,
+  'bakedin':                    0x83b7cb,
+  'bathroom-brad':              0xe2a888,
+  'decibel-festival':           0xa4698b,
+  'early-work':                 0xd0614c,
+  'google-meet':                0x1a6a9e,
+  'job-intelligence-scraper':   0x3f7aa0,
+  'lumedic':                    0x5b9bd5,
+  'lyfe':                       0xe1d6b8,
+  'metastream':                 0x2a7ed4,
+  'microsoft-learning-platform':0x4fceb0,
+  'photogrammetry':             0xe0dedc,
+  'pixels-of-fury':             0x1eb076,
+  'posters':                    0xe1d8c4,
+  'priority-card-maker':        0xcf8b2b,
+  'priority-tax-relief':        0xdccdc6,
+  'providence':                 0x00438b,
+  'pwc':                        0xe0301e,
+  'resonance-ai':               0xdbbeb8,
+  'seattle-creative-directory': 0xd9d4bd,
+  'short-shorts-and-lawn-sports':0xd3b458,
+  'studio-tours':               0xc7bcc6,
+  'teaching':                   0xb18435,
+  'vine-wars':                  0xc15484,
+  'xbox-one-smartglass':        0x189fd5,
+  'yakitate':                   0xd39a8a,
+};
+
 // ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
 function makeDotsTexture(size = 256) {
   const c = document.createElement('canvas');
@@ -400,22 +433,26 @@ projectEls.forEach((el) => {
   const thetaEnd   = thetaStart    - duration    * RADIANS_PER_MONTH;
   const thetaMid   = (thetaStart + thetaEnd) / 2;
 
-  // ── Tube material — rough dots texture, no gloss ──────────────────────────
-  // Start with dots texture; blend image loads in on top if available
+  // ── Tube material — per-project dominant color, rough texture ───────────────
+  // Derive slug from blend path: /img/chart-blend/<slug>.webp
+  const slug = blendSrc ? blendSrc.replace(/^.*\//, '').replace(/\.webp$/, '') : '';
+  const projectColor = PROJECT_COLORS[slug] || 0xd8dce8;
+
+  // Start with dots texture + per-project color; blend image loads on top if available
   const mat = new MeshStandardMaterial({
     map: dotsTex,
-    color: 0xd8dce8,
+    color: projectColor,
     roughness: 0.95,
     metalness: 0.0,
     transparent: true,
     opacity: 0.92,
   });
 
-  // Load blend image — will replace the dots texture on tube + caps
+  // Load blend image — tints on top of per-project dominant color
   if (blendSrc) {
     loader.load(blendSrc, (tex) => {
       mat.map   = tex;
-      mat.color.set(0xffffff);
+      mat.color.set(projectColor);  // keep per-project tint when blend loads
       mat.roughness  = 0.88;
       mat.opacity    = 0.92;
       mat.needsUpdate = true;
@@ -423,7 +460,7 @@ projectEls.forEach((el) => {
       // (capMat is available in closure via the per-project scope)
       if (typeof capMat !== 'undefined') {
         capMat.map = tex;
-        capMat.color.set(0xffffff);
+        capMat.color.set(projectColor);
         capMat.roughness  = 0.88;
         capMat.opacity    = 0.92;
         capMat.needsUpdate = true;
