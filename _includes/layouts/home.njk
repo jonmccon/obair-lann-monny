@@ -272,8 +272,9 @@ function syncSize() {
 // ── Scene + Camera ───────────────────────────────────────────────────────────
 const scene  = new Scene();
 const camera = new PerspectiveCamera(58, 1, 0.1, 2000);
-// More overhead view: higher Y, less Z — matches screenshot reference
-camera.position.set(0, 80, 480);
+// Overhead-left view — camera high + left, looking down-right at chart center
+// Matches reference: steep overhead, clock face nearly horizontal, shifted left
+camera.position.set(-120, 320, 340);
 camera.lookAt(0, 0, 0);
 
 // ── Lights ───────────────────────────────────────────────────────────────────
@@ -507,7 +508,7 @@ projectEls.forEach((el) => {
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false, startX = 0, startY = 0;
-let rotX = -15, rotY = 0;  // near-horizontal: slight tilt matching reference screenshot
+let rotX = -52, rotY = 12;  // steep overhead-left: clock face nearly horizontal, slight left rotation
 
 function applyGroupRotation() {
   const rx = rotX * Math.PI / 180;
