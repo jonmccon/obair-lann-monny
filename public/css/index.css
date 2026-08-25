@@ -477,30 +477,35 @@ header {
 	inset: 0;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-start;
 	pointer-events: none;
 	z-index: 0;
-	padding: 5% 6%;
+	padding: 0 0 0 0;
+	overflow: hidden;
 }
 
 .home-axis-headline-text {
 	margin: 0;
 	font-family: var(--font-family-headline-flex);
-	font-size: clamp(2.4rem, 6.5vw, 7rem);
+	font-size: clamp(4rem, 12vw, 14rem);
 	font-weight: 900;
-	line-height: 0.94;
-	letter-spacing: -0.03em;
+	font-style: italic;
+	line-height: 0.88;
+	letter-spacing: -0.04em;
 	text-transform: uppercase;
-	color: color-mix(in srgb, var(--text-color) 88%, transparent);
+	color: color-mix(in srgb, var(--text-color) 82%, transparent);
 	text-align: left;
 	pointer-events: none;
-	transition: opacity 0.18s ease;
-	max-width: 100%;
-	word-break: break-word;
+	white-space: nowrap;
+	transition: color 0.18s ease, opacity 0.18s ease;
+	/* Intentionally overflow left/right — crops at viewport edge like the reference */
+	padding: 0 0 0 0.05em;
+	width: max-content;
+	max-width: none;
 }
 
 .home-axis-headline-text[data-hovered] {
-	opacity: 0.72;
+	opacity: 0.68;
 }
 
 /* Portrait overlay — pinned to center of stage, always screen-flat */

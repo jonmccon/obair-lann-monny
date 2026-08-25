@@ -271,9 +271,9 @@ function syncSize() {
 
 // ── Scene + Camera ───────────────────────────────────────────────────────────
 const scene  = new Scene();
-const camera = new PerspectiveCamera(52, 1, 0.1, 2000);
+const camera = new PerspectiveCamera(58, 1, 0.1, 2000);
 // More overhead view: higher Y, less Z — matches screenshot reference
-camera.position.set(0, 450, 160);
+camera.position.set(0, 80, 480);
 camera.lookAt(0, 0, 0);
 
 // ── Lights ───────────────────────────────────────────────────────────────────
@@ -296,10 +296,10 @@ const CAREER_MONTHS      = (CAREER_END_YEAR - CAREER_START_YEAR) * 12
 const RADIANS_PER_MONTH = (2 * Math.PI) / CAREER_MONTHS;
 const THETA_6OCLOCK     = -Math.PI / 2;   // bottom of clock (−Y axis)
 
-const R_INNER  = 70;    // solo projects radius
-const R_OUTER  = 200;   // team projects radius
-const Y_RANGE  = 180;   // ± elevation (medium axis depth)
-const TUBE_R   = 16;    // tube cross-section radius
+const R_INNER  = 100;   // solo projects radius
+const R_OUTER  = 280;   // team projects radius
+const Y_RANGE  = 200;   // ± elevation (medium axis depth)
+const TUBE_R   = 22;    // tube cross-section radius — larger, fills frame
 const ARC_SEGS = 72;    // arc curve resolution
 
 // ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
@@ -436,7 +436,7 @@ projectEls.forEach((el) => {
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false, startX = 0, startY = 0;
-let rotX = -68, rotY = 0;  // steeper overhead to match camera reference
+let rotX = -15, rotY = 0;  // near-horizontal: slight tilt matching reference screenshot
 
 function applyGroupRotation() {
   const rx = rotX * Math.PI / 180;
