@@ -368,9 +368,11 @@ eleventyNavigation:
   }
 
   /* Firefox fix: 100vh resolves to screen height in print, causing a blank
-     first page. Reset flex layout and all height constraints so the wrapper
-     collapses to content height. */
-  .site-wrapper {
+     first page. The wrapper uses both .site-wrapper (index.css) and .site-shell
+     (tailwind.css) — both have display:flex + min-height:100vh. Reset both so
+     the container collapses to content height in print. */
+  .site-wrapper,
+  .site-shell {
     display: block !important;
     min-height: 0 !important;
     height: auto !important;
