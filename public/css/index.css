@@ -446,6 +446,89 @@ header {
 	z-index: 1;
 }
 
+/* Background image strip — shown on tube hover, stacked images behind canvas */
+.home-axis-bg-strip {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	border-radius: 1rem;
+}
+
+.home-axis-bg-img {
+	flex: 1 1 0;
+	min-width: 0;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	filter: brightness(0.72) saturate(0.8);
+}
+
+/* Headline overlay — screen-flat, tubes (z-index:1) pass in front */
+.home-axis-headline-overlay {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	z-index: 0;
+	padding: 5% 6%;
+}
+
+.home-axis-headline-text {
+	margin: 0;
+	font-family: var(--font-family-headline-flex);
+	font-size: clamp(2.4rem, 6.5vw, 7rem);
+	font-weight: 900;
+	line-height: 0.94;
+	letter-spacing: -0.03em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--text-color) 88%, transparent);
+	text-align: left;
+	pointer-events: none;
+	transition: opacity 0.18s ease;
+	max-width: 100%;
+	word-break: break-word;
+}
+
+.home-axis-headline-text[data-hovered] {
+	opacity: 0.72;
+}
+
+/* Portrait overlay — pinned to center of stage, always screen-flat */
+.home-axis-portrait-overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	pointer-events: none;
+}
+
+.home-axis-portrait-circle {
+	width: clamp(56px, 6vw, 90px);
+	height: clamp(56px, 6vw, 90px);
+	border-radius: 50%;
+	overflow: hidden;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.22);
+	border: 2px solid color-mix(in srgb, var(--surface-color) 80%, transparent);
+}
+
+.home-axis-portrait-circle :is(picture, img) {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
 /* Axis labels — corner-anchored over canvas */
 .home-axis-labels {
 	position: absolute;

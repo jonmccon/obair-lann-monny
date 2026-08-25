@@ -17,7 +17,22 @@ layout: layouts/base.njk
     {# Canvas target for Three.js WebGL renderer #}
     <canvas class="home-axis-canvas" data-axis-canvas aria-hidden="true"></canvas>
 
-    {# Axis labels — positioned by CSS over the canvas #}
+    {# Background image strip — updated on hover to show project images #}
+    <div class="home-axis-bg-strip" data-chart-bg aria-hidden="true"></div>
+
+    {# Headline overlay — screen-pinned, tubes pass through via z-index layering #}
+    <div class="home-axis-headline-overlay" data-chart-headline aria-live="polite">
+      {% if introductionHeading %}<h1 class="home-axis-headline-text">{{ introductionHeading }}</h1>{% endif %}
+    </div>
+
+    {# Portrait overlay — pinned to center of stage, always screen-flat #}
+    <div class="home-axis-portrait-overlay" aria-hidden="true">
+      <div class="home-axis-portrait-circle">
+        {% image profile.portraitUrl, "Jonny McConnell portrait", [120], "120px" %}
+      </div>
+    </div>
+
+    {# Axis labels — corner-anchored over canvas #}
     <div class="home-axis-labels" aria-hidden="true">
       <span class="home-axis-label home-axis-label-x">duration ←→</span>
       <span class="home-axis-label home-axis-label-y">technical ↔ visual</span>
@@ -51,15 +66,6 @@ layout: layouts/base.njk
     {% endfor %}
   </div>
 </section>
-
-<div class="home-chart-attribution">
-  <div class="home-center-lockup">
-    {% if introductionHeading %}<h1 class="homepage-headline-axis">{{ introductionHeading }}</h1>{% endif %}
-    <div class="homepage-main-avatar homepage-main-avatar-overlay">
-      {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
-    </div>
-  </div>
-</div>
 
 <section class="home-supporting-content" aria-label="Homepage supporting content">
 
@@ -228,22 +234,27 @@ layout: layouts/base.njk
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
   TubeGeometry, CatmullRomCurve3,
-  SphereGeometry, PlaneGeometry,
-  MeshStandardMaterial, MeshBasicMaterial,
+  MeshStandardMaterial,
   Mesh,
   LineSegments, BufferGeometry, Float32BufferAttribute,
   LineBasicMaterial,
   AmbientLight, DirectionalLight, PointLight,
   TextureLoader, CanvasTexture,
   Color, Raycaster, Vector2, Vector3,
-  Group, DoubleSide
+  Group
 } from 'three';
 
 // ── Guard ────────────────────────────────────────────────────────────────────
 const stage      = document.querySelector('[data-axis-stage]');
 const canvas     = document.querySelector('[data-axis-canvas]');
 const projectEls = Array.from(document.querySelectorAll('[data-axis-project]'));
+const headlineEl = document.querySelector('[data-chart-headline]');
+const headlineH1 = headlineEl ? headlineEl.querySelector('h1') : null;
+const bgStrip    = document.querySelector('[data-chart-bg]');
 if (!stage || !canvas || !projectEls.length) throw new Error('[axis] missing DOM');
+
+// ── Default headline text ────────────────────────────────────────────────────
+const DEFAULT_HEADLINE = headlineH1 ? headlineH1.textContent : '';
 
 // ── Renderer ─────────────────────────────────────────────────────────────────
 const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -261,16 +272,16 @@ function syncSize() {
 // ── Scene + Camera ───────────────────────────────────────────────────────────
 const scene  = new Scene();
 const camera = new PerspectiveCamera(52, 1, 0.1, 2000);
-// ¾ above the tubes — looking steeply down at ~55° angle
-camera.position.set(0, 380, 260);
+// More overhead view: higher Y, less Z — matches screenshot reference
+camera.position.set(0, 450, 160);
 camera.lookAt(0, 0, 0);
 
 // ── Lights ───────────────────────────────────────────────────────────────────
-scene.add(new AmbientLight(0xffffff, 0.65));
-const sun = new DirectionalLight(0xd0eeff, 1.2);
+scene.add(new AmbientLight(0xffffff, 0.85));
+const sun = new DirectionalLight(0xd0eeff, 0.9);
 sun.position.set(1.2, 2, 1.5);
 scene.add(sun);
-const fill = new PointLight(0x04a5e5, 1.0, 1800);
+const fill = new PointLight(0x7287fd, 0.6, 1800);
 fill.position.set(-220, 140, 340);
 scene.add(fill);
 
@@ -291,7 +302,27 @@ const Y_RANGE  = 180;   // ± elevation (medium axis depth)
 const TUBE_R   = 16;    // tube cross-section radius
 const ARC_SEGS = 72;    // arc curve resolution
 
-const SKY = new Color(0x04a5e5);
+// ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
+function makeDotsTexture(size = 256) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#c8cdd8';
+  ctx.fillRect(0, 0, size, size);
+  const dotRadius = 1.1;
+  const spacing   = 7;
+  ctx.fillStyle = 'rgba(80,88,108,0.55)';
+  for (let y = spacing / 2; y < size; y += spacing) {
+    for (let x = spacing / 2; x < size; x += spacing) {
+      ctx.beginPath();
+      ctx.arc(x + (Math.random() - 0.5) * 1.5, y + (Math.random() - 0.5) * 1.5, dotRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  return new CanvasTexture(c);
+}
+
+const dotsTex = makeDotsTexture(256);
 
 // ── Helper: months since career start ────────────────────────────────────────
 function monthsElapsed(dateStr) {
@@ -341,65 +372,11 @@ const tickGeo   = new BufferGeometry();
 tickGeo.setAttribute('position', new Float32BufferAttribute(tickVerts, 3));
 scene.add(new LineSegments(tickGeo, new LineBasicMaterial({ color: 0x9ca0b0, transparent: true, opacity: 0.15 })));
 
-// ── Headline plane — flat in scene, tubes pass in front and behind ────────────
-// Rendered on a canvas texture so it's pure 3D geometry, not a DOM overlay.
-const headlineCanvas = document.createElement('canvas');
-headlineCanvas.width  = 1200;
-headlineCanvas.height = 220;
-const hctx = headlineCanvas.getContext('2d');
-hctx.clearRect(0, 0, 1200, 220);
-// Headline text
-hctx.font         = 'bold 68px system-ui, -apple-system, sans-serif';
-hctx.textAlign    = 'center';
-hctx.textBaseline = 'middle';
-hctx.fillStyle    = 'rgba(255,255,255,0.88)';
-hctx.letterSpacing = '0.05em';
-hctx.fillText('HUMAN CENTERED DESIGN WORK', 600, 78);
-hctx.fillText('FROM JONNY MCCONNELL', 600, 154);
-
-const headlineTex  = new CanvasTexture(headlineCanvas);
-const headlinePlane = new Mesh(
-  new PlaneGeometry(360, 66),
-  new MeshBasicMaterial({ map: headlineTex, transparent: true, opacity: 0.90, depthWrite: false, side: DoubleSide })
-);
-// Position the headline in the XZ plane — some tubes will be in front, some behind
-headlinePlane.rotation.x = -Math.PI / 2;   // flat, facing up (camera looks down)
-headlinePlane.position.set(0, 2, 0);        // just above y=0 plane so it doesn't z-fight rings
-scene.add(headlinePlane);
-
-// ── Portrait billboard at origin ──────────────────────────────────────────────
-// Stays flat and always faces the camera via onBeforeRender quaternion copy.
-const loader   = new TextureLoader();
-const portraitMesh = new Mesh(
-  new PlaneGeometry(55, 55),
-  new MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: DoubleSide, depthWrite: false })
-);
-portraitMesh.position.set(0, 0, 0);
-scene.add(portraitMesh);
-
-loader.load('https://github.com/user-attachments/assets/c956ad3d-f0ab-4737-a3c6-e3bd8ff7038b', (tex) => {
-  portraitMesh.material.map     = tex;
-  portraitMesh.material.opacity = 0.92;
-  portraitMesh.material.needsUpdate = true;
-});
-
 // ── Build project arc tubes ───────────────────────────────────────────────────
 const meshGroup = new Group();
 scene.add(meshGroup);
 
-// Tooltip DOM overlay
-const tooltip = document.createElement('div');
-tooltip.style.cssText = [
-  'position:absolute', 'pointer-events:none', 'z-index:10',
-  'padding:5px 10px', 'border-radius:6px',
-  'background:rgba(15,23,42,0.82)', 'backdrop-filter:blur(8px)',
-  'color:#fff', 'font:600 13px/1.3 system-ui,sans-serif',
-  'letter-spacing:0.02em', 'white-space:nowrap',
-  'opacity:0', 'transition:opacity 0.15s',
-  'transform:translate(-50%,-110%)',
-].join(';');
-stage.appendChild(tooltip);
-
+const loader   = new TextureLoader();
 const meshMeta = [];
 
 projectEls.forEach((el) => {
@@ -411,8 +388,7 @@ projectEls.forEach((el) => {
   const title    = el.dataset.projectTitle || '';
   const blendSrc = el.dataset.chartBlend   || null;
 
-  // Collect all per-project image URLs for hover scrub
-  // emitted as JSON in data-chart-images by Nunjucks
+  // Collect all per-project image URLs for background strip
   let scrubImages = [];
   try { scrubImages = JSON.parse(el.dataset.chartImages || '[]'); } catch(e) {}
 
@@ -424,62 +400,43 @@ projectEls.forEach((el) => {
   const thetaEnd   = thetaStart    - duration    * RADIANS_PER_MONTH;
   const thetaMid   = (thetaStart + thetaEnd) / 2;
 
-  // ── Shared material ──────────────────────────────────────────────────────
+  // ── Tube material — rough dots texture, no gloss ──────────────────────────
+  // Start with dots texture; blend image loads in on top if available
   const mat = new MeshStandardMaterial({
-    color: SKY.clone(), roughness: 0.42, metalness: 0.10,
-    transparent: true, opacity: 0.86,
+    map: dotsTex,
+    color: 0xd8dce8,
+    roughness: 0.95,
+    metalness: 0.0,
+    transparent: true,
+    opacity: 0.92,
   });
 
-  const imgSrc = blendSrc;
-  let texObj = null;
-  if (imgSrc) {
-    loader.load(imgSrc, (tex) => {
-      texObj = tex;
-      mat.map       = tex;
+  // Load blend image — will replace the dots texture
+  if (blendSrc) {
+    loader.load(blendSrc, (tex) => {
+      mat.map   = tex;
       mat.color.set(0xffffff);
-      mat.roughness  = 0.50;
-      mat.opacity    = 0.90;
+      mat.roughness  = 0.88;
+      mat.opacity    = 0.92;
       mat.needsUpdate = true;
     });
   }
 
-  // ── Arc tube ──────────────────────────────────────────────────────────────
+  // ── Arc tube — single surface, no endcap spheres ──────────────────────────
   const arcSegs = Math.max(16, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
   const curve   = makeArcCurve(r, yElev, thetaStart, thetaEnd);
   const tube    = new Mesh(new TubeGeometry(curve, arcSegs, TUBE_R, 20, false), mat);
-  tube.userData = { url, title, scrubImages, texObj: null };
+  tube.userData = { url, title };
   meshGroup.add(tube);
 
-  // ── Spherical endcaps — same material, shared ref ────────────────────────
-  const capMat = mat.clone();
-  const capGeo = new SphereGeometry(TUBE_R, 20, 16);
-
-  const capStart = new Mesh(capGeo, capMat);
-  capStart.position.copy(circlePoint(r, yElev, thetaStart));
-  meshGroup.add(capStart);
-
-  const capEnd = new Mesh(capGeo, capMat);
-  capEnd.position.copy(circlePoint(r, yElev, thetaEnd));
-  meshGroup.add(capEnd);
-
-  // Keep caps in sync when texture loads
-  if (imgSrc) {
-    loader.load(imgSrc, (tex) => {
-      [capMat].forEach(m => {
-        m.map = tex; m.color.set(0xffffff);
-        m.roughness = 0.50; m.opacity = 0.90; m.needsUpdate = true;
-      });
-    });
-  }
-
-  // Anchor for screen-space tooltip
+  // Anchor for screen-space tooltip (midpoint slightly above tube surface)
   const midPt = circlePoint(r, yElev + TUBE_R + 4, thetaMid);
-  meshMeta.push({ tube, capStart, capEnd, midPt, url, title, scrubImages, mat, capMat, loader });
+  meshMeta.push({ tube, midPt, url, title, scrubImages, mat, loader });
 });
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false, startX = 0, startY = 0;
-let rotX = -52, rotY = 0;  // ¾ above: match steep camera with group tilt
+let rotX = -68, rotY = 0;  // steeper overhead to match camera reference
 
 function applyGroupRotation() {
   const rx = rotX * Math.PI / 180;
@@ -489,7 +446,6 @@ function applyGroupRotation() {
   scene.children.forEach(c => {
     if (c instanceof LineSegments) c.rotation.set(rx, ry, 0);
   });
-  headlinePlane.rotation.set(-Math.PI / 2 + rx, ry, 0);
 }
 
 stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
@@ -516,19 +472,42 @@ stage.addEventListener('touchmove', e => {
   applyGroupRotation();
 }, { passive: false });
 
-// ── Hover: raycaster + tooltip + image scrub ──────────────────────────────────
+// ── Hover: raycaster + headline update + background strip ─────────────────────
 const raycaster  = new Raycaster();
 const pointerVec = new Vector2();
 let hoveredTube  = null;
-let scrubTimeout = null;
 
-// Map all tube+cap meshes → their parent metadata record
+// Map tube meshes → metadata
 const meshToMeta = new Map();
-meshMeta.forEach(m => {
-  meshToMeta.set(m.tube, m);
-  meshToMeta.set(m.capStart, m);
-  meshToMeta.set(m.capEnd, m);
-});
+meshMeta.forEach(m => meshToMeta.set(m.tube, m));
+
+// Update the HTML headline and background strip on hover
+function setHoverState(meta) {
+  if (headlineH1 && meta) {
+    headlineH1.textContent = meta.title;
+    headlineH1.setAttribute('data-hovered', 'true');
+  }
+  if (bgStrip && meta && meta.scrubImages && meta.scrubImages.length) {
+    // Build a horizontal strip of stacked images (screenshot 3 style)
+    const imgs = meta.scrubImages.slice(0, 8);
+    bgStrip.innerHTML = imgs.map(src =>
+      `<img src="${src}" alt="" aria-hidden="true" class="home-axis-bg-img">`
+    ).join('');
+    bgStrip.style.opacity = '1';
+    bgStrip.setAttribute('data-active', meta.title);
+  }
+}
+
+function clearHoverState() {
+  if (headlineH1) {
+    headlineH1.textContent = DEFAULT_HEADLINE;
+    headlineH1.removeAttribute('data-hovered');
+  }
+  if (bgStrip) {
+    bgStrip.style.opacity = '0';
+    bgStrip.removeAttribute('data-active');
+  }
+}
 
 stage.addEventListener('mousemove', e => {
   const rect = stage.getBoundingClientRect();
@@ -545,54 +524,37 @@ stage.addEventListener('mousemove', e => {
     const meta = meshToMeta.get(hits[0].object);
     if (!meta) return;
 
-    // Highlight
+    // Emissive highlight
     if (hoveredTube !== meta.tube) {
       if (hoveredTube) {
         const prev = meshToMeta.get(hoveredTube);
-        if (prev) { prev.mat.emissiveIntensity = 0; prev.capMat.emissiveIntensity = 0; }
+        if (prev) prev.mat.emissiveIntensity = 0;
       }
       hoveredTube = meta.tube;
-      meta.mat.emissive    = new Color(0x04a5e5);
-      meta.capMat.emissive = new Color(0x04a5e5);
-      meta.mat.emissiveIntensity    = 0.30;
-      meta.capMat.emissiveIntensity = 0.30;
+      meta.mat.emissive = new Color(0x04a5e5);
+      meta.mat.emissiveIntensity = 0.28;
+      setHoverState(meta);
     }
 
     if (!isDragging) stage.style.cursor = 'pointer';
-
-    // Tooltip
-    tooltip.textContent = meta.title;
-    tooltip.style.left    = mx + 'px';
-    tooltip.style.top     = my + 'px';
-    tooltip.style.opacity = '1';
-
-    // Image scrub: map horizontal position within stage to image index
-    if (meta.scrubImages && meta.scrubImages.length > 1) {
-      const t     = mx / rect.width;
-      const idx   = Math.min(meta.scrubImages.length - 1, Math.floor(t * meta.scrubImages.length));
-      const iSrc  = meta.scrubImages[idx];
-      if (iSrc && iSrc !== meta._lastScrubSrc) {
-        meta._lastScrubSrc = iSrc;
-        clearTimeout(scrubTimeout);
-        scrubTimeout = setTimeout(() => {
-          meta.loader.load(iSrc, (tex) => {
-            meta.mat.map     = tex;
-            meta.capMat.map  = tex;
-            meta.mat.needsUpdate    = true;
-            meta.capMat.needsUpdate = true;
-          });
-        }, 40);
-      }
-    }
   } else {
     if (hoveredTube) {
       const prev = meshToMeta.get(hoveredTube);
-      if (prev) { prev.mat.emissiveIntensity = 0; prev.capMat.emissiveIntensity = 0; }
+      if (prev) prev.mat.emissiveIntensity = 0;
       hoveredTube = null;
+      clearHoverState();
     }
-    tooltip.style.opacity = '0';
     if (!isDragging) stage.style.cursor = 'grab';
   }
+});
+
+stage.addEventListener('mouseleave', () => {
+  if (hoveredTube) {
+    const prev = meshToMeta.get(hoveredTube);
+    if (prev) prev.mat.emissiveIntensity = 0;
+    hoveredTube = null;
+  }
+  clearHoverState();
 });
 
 stage.addEventListener('click', () => {
@@ -600,11 +562,8 @@ stage.addEventListener('click', () => {
 });
 
 // ── Render loop ───────────────────────────────────────────────────────────────
-// Portrait always faces camera (billboard)
 function animate() {
   requestAnimationFrame(animate);
-  // Billboard: copy camera quaternion so portrait always faces viewer
-  portraitMesh.quaternion.copy(camera.quaternion);
   renderer.render(scene, camera);
 }
 
