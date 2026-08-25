@@ -106,3 +106,18 @@
     @apply space-y-6 md:space-y-8;
   }
 }
+
+/* ── Print: reset Tailwind components that use min-height:100vh ────────── */
+/* Firefox resolves 100vh as screen height in print context. .site-shell is
+   defined above as a Tailwind @layer component with min-height:100vh and
+   display:flex — it comes after the resume.njk @media print block in the
+   bundle, so it wins in Firefox's strict cascade. Placing the reset here
+   (after the @layer) guarantees it overrides .site-shell regardless of
+   bundle order. */
+@media print {
+  .site-shell {
+    display: block !important;
+    min-height: 0 !important;
+    height: auto !important;
+  }
+}
