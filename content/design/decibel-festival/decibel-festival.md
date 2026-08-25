@@ -1,11 +1,13 @@
 ---
 title: Decibel Festival Popup Artshow | Producer | Jonny McConnell
 pageHeadline: Decibel Festival Popup Artshow
-description: Two years producing the official poster exhibition for Seattle's premier electronic music festival — curating 40+ local designers, building a projection-mapped installation, and turning a one-night event into the highest-attended opening in the festival's history.
+description: Back to back years producing the official poster exhibition for Seattle's premier electronic music festival. Curating 40+ local designers, building a projection-mapped installation, and turning a one-night event into the highest-attended opening in the festival's history.
 category: Decibel
 date: 2013-08-01
 permalink: /design/decibel-festival/
-draft: true
+draft: false
+featured: true
+semiFeatured: false
 thumbnail: /img/thumbnails/decibel-festival-thumb.png
 tags:
   - print
