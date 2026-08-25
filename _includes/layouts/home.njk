@@ -233,10 +233,10 @@ layout: layouts/base.njk
 <script type="module">
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
-  CatmullRomCurve3,
+  TubeGeometry, CatmullRomCurve3,
   MeshStandardMaterial,
   Mesh,
-  LineSegments, BufferGeometry, Float32BufferAttribute, Uint16BufferAttribute,
+  LineSegments, BufferGeometry, Float32BufferAttribute,
   LineBasicMaterial,
   AmbientLight, DirectionalLight, PointLight,
   TextureLoader, CanvasTexture,
@@ -299,162 +299,12 @@ const THETA_6OCLOCK     = -Math.PI / 2;   // bottom of clock (−Y axis)
 const R_INNER  = 100;   // solo projects radius
 const R_OUTER  = 280;   // team projects radius
 const Y_RANGE  = 200;   // ± elevation (medium axis depth)
-const TUBE_W   = 22;    // ribbon half-width (tangential — arc direction)
-const TUBE_H   = 18;    // ribbon half-height (radial — perpendicular to arc plane)
-// Together these make a chunky near-square cross-section (44 × 36 units)
+// Bar cross-section: TubeGeometry with 4 radial segments = square profile
+// TUBE_W = half-width along radial axis, TUBE_H = half-height (Y axis depth)
+// We use radius = TUBE_W for the tube, then scale Y to get the rectangular look
+const TUBE_W   = 22;    // half-width (radial axis)
+const TUBE_H   = 14;    // half-height (Y axis)
 const ARC_SEGS = 72;    // arc curve resolution
-
-// ── Ribbon geometry — rounded-rectangle cross-section extruded along arc ──────
-// Cross-section is a stadium shape: rectangle(2W × 2H) with semicircular endcaps
-// on the H axis. Fully solid stadium endcaps at thetaStart and thetaEnd.
-//
-// spine[i] = position along curve
-// T[i] = tangent, N[i] = curve normal (points toward center), B[i] = T×N (up-ish)
-//
-// Cross-section profile in local (N, B) space — 8 corners × rounded quadrant:
-// cornerSegs = 4 gives 16 profile verts per ring (smooth enough, low poly)
-const CORNER_SEGS = 5;   // arc subdivisions per rounded corner
-
-function makeRibbonGeometry(curve, arcSegCount) {
-  const totalSpinePoints = arcSegCount + 1;
-
-  // Sample spine positions and Frenet frames
-  const positions  = curve.getPoints(arcSegCount);           // Vector3[]
-  const tangents   = curve.getTangents(arcSegCount);         // Vector3[]
-  // Build binormal by keeping a consistent up reference
-  const up = new Vector3(0, 1, 0);
-  const frames = tangents.map((T, i) => {
-    // Normal = T × up, then re-orthogonalise
-    const N = new Vector3().crossVectors(T, up).normalize();
-    if (N.lengthSq() < 0.001) {
-      // Degenerate (T parallel to up) — use world X
-      N.set(1, 0, 0).cross(T).normalize();
-    }
-    const B = new Vector3().crossVectors(T, N).normalize();
-    return { pos: positions[i], T, N, B };
-  });
-
-  // Build stadium cross-section profile (in local N-B plane, centred at 0,0)
-  // Stadium = rect(-W..W, -H..H) + semicircle caps at ±W on N axis
-  const W = TUBE_W, H = TUBE_H;
-  const profilePts = [];  // [n, b] pairs
-  // Right semicircle (N > 0 side): from B=+H going clockwise to B=-H
-  for (let i = 0; i <= CORNER_SEGS; i++) {
-    const a = (Math.PI / 2) - (Math.PI * i / CORNER_SEGS);
-    profilePts.push([W + H * Math.cos(a), H * Math.sin(a)]);
-  }
-  // Left semicircle (N < 0 side): from B=-H going clockwise to B=+H
-  for (let i = 0; i <= CORNER_SEGS; i++) {
-    const a = -(Math.PI / 2) - (Math.PI * i / CORNER_SEGS);
-    profilePts.push([-W + H * Math.cos(a), H * Math.sin(a)]);
-  }
-  const profileCount = profilePts.length;   // 2*(CORNER_SEGS+1)
-
-  // ── Build side wall geometry ──────────────────────────────────────────────
-  const verts  = [];
-  const normals = [];
-  const uvs    = [];
-  const indices = [];
-
-  // For each spine point, emit one ring of profile verts
-  for (let si = 0; si < totalSpinePoints; si++) {
-    const { pos, N, B } = frames[si];
-    const u = si / (totalSpinePoints - 1);
-    for (let pi = 0; pi < profileCount; pi++) {
-      const [pn, pb] = profilePts[pi];
-      // World position = spine + N*pn + B*pb
-      verts.push(
-        pos.x + N.x * pn + B.x * pb,
-        pos.y + N.y * pn + B.y * pb,
-        pos.z + N.z * pn + B.z * pb
-      );
-      // Approximate outward normal = N*pn + B*pb, normalised
-      const nx = N.x * pn + B.x * pb;
-      const ny = N.y * pn + B.y * pb;
-      const nz = N.z * pn + B.z * pb;
-      const nl = Math.sqrt(nx*nx + ny*ny + nz*nz) || 1;
-      normals.push(nx/nl, ny/nl, nz/nl);
-      const v = pi / (profileCount - 1);
-      uvs.push(u, v);
-    }
-  }
-
-  // Stitch quads between adjacent spine rings
-  for (let si = 0; si < totalSpinePoints - 1; si++) {
-    for (let pi = 0; pi < profileCount - 1; pi++) {
-      const a = si * profileCount + pi;
-      const b = a + 1;
-      const c = a + profileCount;
-      const d = c + 1;
-      indices.push(a, c, b,  b, c, d);
-    }
-    // Close the loop between last and first profile point
-    const a = si * profileCount + (profileCount - 1);
-    const b = si * profileCount;
-    const c = a + profileCount;
-    const d = b + profileCount;
-    indices.push(a, c, b,  b, c, d);
-  }
-
-  // ── Build endcap geometry (fan triangulation of stadium profile) ──────────
-  // Centre of cap = spine endpoint position, normal = ±tangent
-  function addCap(frameData, invert) {
-    const { pos, T } = frameData;
-    const { N, B } = frameData;
-    const capCentre = verts.length / 3;
-    // Centre vertex
-    verts.push(pos.x, pos.y, pos.z);
-    const tn = invert ? -1 : 1;
-    normals.push(T.x * tn, T.y * tn, T.z * tn);
-    uvs.push(0.5, 0.5);
-
-    // Profile ring verts for this cap (same profile, same frame)
-    const capStart = verts.length / 3;
-    for (let pi = 0; pi < profileCount; pi++) {
-      const [pn, pb] = profilePts[pi];
-      verts.push(
-        pos.x + N.x * pn + B.x * pb,
-        pos.y + N.y * pn + B.y * pb,
-        pos.z + N.z * pn + B.z * pb
-      );
-      normals.push(T.x * tn, T.y * tn, T.z * tn);
-      const u = 0.5 + pn / (W + H) * 0.5;
-      const v = 0.5 + pb / H * 0.5;
-      uvs.push(Math.min(1, Math.max(0, u)), Math.min(1, Math.max(0, v)));
-    }
-
-    // Fan triangles from centre to each edge of the profile
-    for (let pi = 0; pi < profileCount - 1; pi++) {
-      if (invert) {
-        indices.push(capCentre, capStart + pi + 1, capStart + pi);
-      } else {
-        indices.push(capCentre, capStart + pi, capStart + pi + 1);
-      }
-    }
-    // Close the loop
-    if (invert) {
-      indices.push(capCentre, capStart, capStart + profileCount - 1);
-    } else {
-      indices.push(capCentre, capStart + profileCount - 1, capStart);
-    }
-  }
-
-  addCap(frames[0], true);                            // start cap
-  addCap(frames[totalSpinePoints - 1], false);        // end cap
-
-  // ── Assemble BufferGeometry ───────────────────────────────────────────────
-  const geo = new BufferGeometry();
-  geo.setAttribute('position', new Float32BufferAttribute(verts, 3));
-  geo.setAttribute('normal',   new Float32BufferAttribute(normals, 3));
-  geo.setAttribute('uv',       new Float32BufferAttribute(uvs, 2));
-  // Use Uint32 if needed (> 65535 verts — for long arcs)
-  if (verts.length / 3 > 65535) {
-    geo.setIndex(new Float32BufferAttribute(new Uint32Array(indices), 1));
-  } else {
-    geo.setIndex(indices);
-  }
-  return geo;
-}
 
 // ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
 function makeDotsTexture(size = 256) {
@@ -576,15 +426,23 @@ projectEls.forEach((el) => {
     });
   }
 
-  // ── Arc ribbon — full 3D rectangular bar with stadium endcaps ────────────
+  // ── Arc bar — TubeGeometry with square cross-section (4 radial segs) ────────
+  // radialSegments=4 gives a square; scale.y squashes it to TUBE_H/TUBE_W ratio.
+  // π/4 rotation via material isn't possible, but TubeGeometry's Frenet frame
+  // naturally orients the square corners along the radial/Y axes — looks like
+  // a rectangular bar when scale.y != 1.
   const arcSegs = Math.max(16, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
   const curve   = makeArcCurve(r, yElev, thetaStart, thetaEnd);
-  const geo     = makeRibbonGeometry(curve, arcSegs);
-  const tube    = new Mesh(geo, mat);
+  const tube    = new Mesh(
+    new TubeGeometry(curve, arcSegs, TUBE_W, 4, false),
+    mat
+  );
+  // Scale Y to make it rectangular (TUBE_H/TUBE_W ratio)
+  tube.scale.set(1, TUBE_H / TUBE_W, 1);
   tube.userData = { url, title };
   meshGroup.add(tube);
 
-  // Anchor for screen-space tooltip (midpoint above the bar surface)
+  // Anchor for screen-space tooltip (midpoint above the bar)
   const midPt = circlePoint(r, yElev + TUBE_H + 4, thetaMid);
   meshMeta.push({ tube, midPt, url, title, scrubImages, mat, loader });
 });
