@@ -303,37 +303,37 @@ const Y_RANGE  = 200;   // ± elevation (medium axis depth)
 const TUBE_R   = 20;    // tube cross-section radius
 const ARC_SEGS = 72;    // arc curve resolution
 
-// ── Per-project dominant colors — extracted from chart-blend images ───────────
+// ── Per-project dominant colors — extracted from actual project images ────────
 // Each key is the project slug (from data-chart-blend path: /img/chart-blend/<slug>.webp)
 const PROJECT_COLORS = {
-  'amazon-fire-os':             0x3b90b2,
-  'android-gemini':             0x4285f4,
-  'awake-chocolate':            0xca901a,
-  'bakedin':                    0x83b7cb,
-  'bathroom-brad':              0xe2a888,
-  'decibel-festival':           0xa4698b,
-  'early-work':                 0xd0614c,
-  'google-meet':                0x1a6a9e,
-  'job-intelligence-scraper':   0x3f7aa0,
-  'lumedic':                    0x5b9bd5,
-  'lyfe':                       0xe1d6b8,
-  'metastream':                 0x2a7ed4,
-  'microsoft-learning-platform':0x4fceb0,
-  'photogrammetry':             0xe0dedc,
-  'pixels-of-fury':             0x1eb076,
-  'posters':                    0xe1d8c4,
-  'priority-card-maker':        0xcf8b2b,
-  'priority-tax-relief':        0xdccdc6,
-  'providence':                 0x00438b,
-  'pwc':                        0xe0301e,
-  'resonance-ai':               0xdbbeb8,
-  'seattle-creative-directory': 0xd9d4bd,
-  'short-shorts-and-lawn-sports':0xd3b458,
-  'studio-tours':               0xc7bcc6,
-  'teaching':                   0xb18435,
-  'vine-wars':                  0xc15484,
-  'xbox-one-smartglass':        0x189fd5,
-  'yakitate':                   0xd39a8a,
+  'amazon-fire-os':              0xd97e0c,
+  'android-gemini':              0x9a673d,
+  'awake-chocolate':             0x724026,
+  'bakedin':                     0x40ade1,
+  'bathroom-brad':               0xf96148,
+  'decibel-festival':            0x24a979,
+  'early-work':                  0x8ba1a9,
+  'google-meet':                 0x009899,
+  'job-intelligence-scraper':    0x2f364d,
+  'lumedic':                     0x02c4a4,
+  'lyfe':                        0xd4deea,
+  'metastream':                  0xe0795e,
+  'microsoft-learning-platform': 0x24c28e,
+  'photogrammetry':              0xb5946d,
+  'pixels-of-fury':              0x1eda95,
+  'posters':                     0xb86942,
+  'priority-card-maker':         0x007136,
+  'priority-tax-relief':         0xbd5623,
+  'providence':                  0x6088aa,
+  'pwc':                         0x263b74,
+  'resonance-ai':                0x44b879,
+  'seattle-creative-directory':  0xd8e85a,
+  'short-shorts-and-lawn-sports':0x839859,
+  'studio-tours':                0xf75959,
+  'teaching':                    0xd18235,
+  'vine-wars':                   0x08c375,
+  'xbox-one-smartglass':         0x007ec1,
+  'yakitate':                    0xb17207,
 };
 
 // ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
@@ -508,7 +508,7 @@ projectEls.forEach((el) => {
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false, startX = 0, startY = 0;
-let rotX = -52, rotY = 12;  // steep overhead-left: clock face nearly horizontal, slight left rotation
+let rotX = 52, rotY = 12;  // rotX flipped positive — tilts chart forward/down toward viewer
 
 function applyGroupRotation() {
   const rx = rotX * Math.PI / 180;

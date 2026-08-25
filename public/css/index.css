@@ -476,32 +476,30 @@ header {
 	position: absolute;
 	inset: 0;
 	display: flex;
-	align-items: center;
+	align-items: flex-start;
 	justify-content: flex-start;
 	pointer-events: none;
 	z-index: 0;
-	padding: 0 0 0 0;
+	padding: 0.6em 0.5em 0 0.5em;
 	overflow: hidden;
 }
 
 .home-axis-headline-text {
 	margin: 0;
 	font-family: var(--font-family-headline-flex);
-	font-size: clamp(4rem, 12vw, 14rem);
-	font-weight: 900;
+	font-size: clamp(2rem, 8vw, 5rem);
+	font-weight: 760;
 	font-style: italic;
-	line-height: 0.88;
-	letter-spacing: -0.04em;
+	line-height: 0.92;
+	letter-spacing: -0.02em;
 	text-transform: uppercase;
 	color: color-mix(in srgb, var(--text-color) 82%, transparent);
 	text-align: left;
 	pointer-events: none;
-	white-space: nowrap;
+	white-space: normal;
 	transition: color 0.18s ease, opacity 0.18s ease;
-	/* Intentionally overflow left/right — crops at viewport edge like the reference */
-	padding: 0 0 0 0.05em;
-	width: max-content;
-	max-width: none;
+	width: 100%;
+	max-width: 100%;
 }
 
 .home-axis-headline-text[data-hovered] {
