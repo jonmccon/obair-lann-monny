@@ -38,6 +38,7 @@ layout: layouts/base.njk
       data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}"
       data-chart-medium="{{ post.data.chart.medium | default(50) }}"
       data-chart-blend="/img/chart-blend/{{ post.fileSlug }}.webp"
+      data-chart-images='{{ post.data.images | chartImages }}'
       aria-label="{{ post.data.title }}">
       {# Hidden image — src read by Three.js texture loader #}
       {% if post.data.images and post.data.images.length %}
@@ -227,15 +228,15 @@ layout: layouts/base.njk
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
   TubeGeometry, CatmullRomCurve3,
-  SphereGeometry,
+  SphereGeometry, PlaneGeometry,
   MeshStandardMaterial, MeshBasicMaterial,
   Mesh,
   LineSegments, BufferGeometry, Float32BufferAttribute,
   LineBasicMaterial,
   AmbientLight, DirectionalLight, PointLight,
-  TextureLoader,
+  TextureLoader, CanvasTexture,
   Color, Raycaster, Vector2, Vector3,
-  Group
+  Group, DoubleSide
 } from 'three';
 
 // ── Guard ────────────────────────────────────────────────────────────────────
@@ -260,34 +261,20 @@ function syncSize() {
 // ── Scene + Camera ───────────────────────────────────────────────────────────
 const scene  = new Scene();
 const camera = new PerspectiveCamera(52, 1, 0.1, 2000);
-camera.position.set(0, 60, 560);
+// ¾ above the tubes — looking steeply down at ~55° angle
+camera.position.set(0, 380, 260);
 camera.lookAt(0, 0, 0);
 
 // ── Lights ───────────────────────────────────────────────────────────────────
-scene.add(new AmbientLight(0xffffff, 0.55));
-
-const sun = new DirectionalLight(0xd0eeff, 1.3);
+scene.add(new AmbientLight(0xffffff, 0.65));
+const sun = new DirectionalLight(0xd0eeff, 1.2);
 sun.position.set(1.2, 2, 1.5);
 scene.add(sun);
-
-const fill = new PointLight(0x04a5e5, 1.1, 1600);
+const fill = new PointLight(0x04a5e5, 1.0, 1800);
 fill.position.set(-220, 140, 340);
 scene.add(fill);
 
-// ── Radial chart constants ───────────────────────────────────────────────────
-//
-// Clock face lies in the XZ plane (Y = 0 baseline).
-// Camera at (0, 60, 560) looks slightly down onto the clock face.
-//
-// Timeline: 6 o'clock (bottom, -Z) = Jan 2010, sweeps clockwise.
-// In Three.js XZ plane (Y=0), clock geometry uses:
-//   angle 0   = +X  (3 o'clock)
-//   angle π   = -X  (9 o'clock)
-//   angle -π/2 = -Z (12 o'clock from camera view, used as 6 o'clock "bottom")
-// Wait — camera is at +Z so bottom of viewport = -Y direction.
-// The clock face is XY plane. 6 o'clock = -Y. Clockwise: angle decreases.
-// x = R*cos(θ), y = R*sin(θ), z = elevation (medium axis)
-
+// ── Radial chart constants ────────────────────────────────────────────────────
 const CAREER_START_YEAR  = 2010;
 const CAREER_START_MONTH = 1;
 const CAREER_END_YEAR    = 2026;
@@ -296,46 +283,40 @@ const CAREER_MONTHS      = (CAREER_END_YEAR - CAREER_START_YEAR) * 12
                            + (CAREER_END_MONTH - CAREER_START_MONTH); // 199
 
 const RADIANS_PER_MONTH = (2 * Math.PI) / CAREER_MONTHS;
-const THETA_6OCLOCK     = -Math.PI / 2;   // bottom of clock (−Y axis), career start
+const THETA_6OCLOCK     = -Math.PI / 2;   // bottom of clock (−Y axis)
 
-// ── Chart geometry dimensions ─────────────────────────────────────────────────
-const R_INNER  = 70;    // solo projects (collaboration=0) radius
-const R_OUTER  = 200;   // team projects (collaboration=100) radius — compact
-const Y_RANGE  = 180;   // ± elevation above/below clock plane (medium axis depth)
-const TUBE_R   = 16;    // tube cross-section radius — beefy 3D pill
-const ARC_SEGS = 72;    // points along arc curve
+const R_INNER  = 70;    // solo projects radius
+const R_OUTER  = 200;   // team projects radius
+const Y_RANGE  = 180;   // ± elevation (medium axis depth)
+const TUBE_R   = 16;    // tube cross-section radius
+const ARC_SEGS = 72;    // arc curve resolution
 
 const SKY = new Color(0x04a5e5);
 
 // ── Helper: months since career start ────────────────────────────────────────
 function monthsElapsed(dateStr) {
   if (!dateStr) return 0;
-  const parts = dateStr.split('-');
-  const y = parseInt(parts[0], 10);
-  const m = parseInt(parts[1], 10);
+  const [y, m] = dateStr.split('-').map(Number);
   return Math.max(0, (y - CAREER_START_YEAR) * 12 + (m - CAREER_START_MONTH));
 }
 
-// ── Helper: build arc curve in XY plane at a given R, Y elevation ─────────
-// θ_start, θ_end in radians (clockwise = decreasing)
-// Returns CatmullRomCurve3 of points for TubeGeometry
+// ── Helper: point on circle at radius r, elevation y, angle theta ─────────
+function circlePoint(r, yElev, theta) {
+  return new Vector3(r * Math.cos(theta), yElev, r * Math.sin(theta));
+}
+
+// ── Helper: build arc curve ───────────────────────────────────────────────
 function makeArcCurve(r, yElev, thetaStart, thetaEnd) {
   const pts = [];
-  const n   = ARC_SEGS;
-  for (let i = 0; i <= n; i++) {
-    const t   = i / n;
+  for (let i = 0; i <= ARC_SEGS; i++) {
+    const t   = i / ARC_SEGS;
     const ang = thetaStart + t * (thetaEnd - thetaStart);
-    pts.push(new Vector3(
-      r * Math.cos(ang),
-      yElev,
-      r * Math.sin(ang)
-    ));
+    pts.push(circlePoint(r, yElev, ang));
   }
   return new CatmullRomCurve3(pts, false, 'catmullrom', 0.0);
 }
 
 // ── Axis reference rings ──────────────────────────────────────────────────────
-// Two faint circles at R_INNER and R_OUTER to show the collaboration axis range
 function makeRingVerts(r, segments = 128) {
   const verts = [];
   for (let i = 0; i <= segments; i++) {
@@ -354,110 +335,161 @@ for (const r of [R_INNER, (R_INNER + R_OUTER) / 2, R_OUTER]) {
   scene.add(new LineSegments(rg, ringMat.clone()));
 }
 
-// 12/6 o'clock tick line (vertical — shows career start direction)
-const tickVerts = new Float32Array([
-  0, 0, -R_OUTER * 1.05,
-  0, 0,  R_OUTER * 1.05,
-]);
-const tickGeo = new BufferGeometry();
+// Career-start tick line
+const tickVerts = new Float32Array([0, 0, -R_OUTER * 1.05, 0, 0,  R_OUTER * 1.05]);
+const tickGeo   = new BufferGeometry();
 tickGeo.setAttribute('position', new Float32BufferAttribute(tickVerts, 3));
 scene.add(new LineSegments(tickGeo, new LineBasicMaterial({ color: 0x9ca0b0, transparent: true, opacity: 0.15 })));
 
-// Origin dot
-scene.add(new Mesh(
-  new SphereGeometry(4, 10, 10),
-  new MeshBasicMaterial({ color: 0x7287fd, transparent: true, opacity: 0.7 })
-));
+// ── Headline plane — flat in scene, tubes pass in front and behind ────────────
+// Rendered on a canvas texture so it's pure 3D geometry, not a DOM overlay.
+const headlineCanvas = document.createElement('canvas');
+headlineCanvas.width  = 1200;
+headlineCanvas.height = 220;
+const hctx = headlineCanvas.getContext('2d');
+hctx.clearRect(0, 0, 1200, 220);
+// Headline text
+hctx.font         = 'bold 68px system-ui, -apple-system, sans-serif';
+hctx.textAlign    = 'center';
+hctx.textBaseline = 'middle';
+hctx.fillStyle    = 'rgba(255,255,255,0.88)';
+hctx.letterSpacing = '0.05em';
+hctx.fillText('HUMAN CENTERED DESIGN WORK', 600, 78);
+hctx.fillText('FROM JONNY MCCONNELL', 600, 154);
+
+const headlineTex  = new CanvasTexture(headlineCanvas);
+const headlinePlane = new Mesh(
+  new PlaneGeometry(360, 66),
+  new MeshBasicMaterial({ map: headlineTex, transparent: true, opacity: 0.90, depthWrite: false, side: DoubleSide })
+);
+// Position the headline in the XZ plane — some tubes will be in front, some behind
+headlinePlane.rotation.x = -Math.PI / 2;   // flat, facing up (camera looks down)
+headlinePlane.position.set(0, 2, 0);        // just above y=0 plane so it doesn't z-fight rings
+scene.add(headlinePlane);
+
+// ── Portrait billboard at origin ──────────────────────────────────────────────
+// Stays flat and always faces the camera via onBeforeRender quaternion copy.
+const loader   = new TextureLoader();
+const portraitMesh = new Mesh(
+  new PlaneGeometry(55, 55),
+  new MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, side: DoubleSide, depthWrite: false })
+);
+portraitMesh.position.set(0, 0, 0);
+scene.add(portraitMesh);
+
+loader.load('https://github.com/user-attachments/assets/c956ad3d-f0ab-4737-a3c6-e3bd8ff7038b', (tex) => {
+  portraitMesh.material.map     = tex;
+  portraitMesh.material.opacity = 0.92;
+  portraitMesh.material.needsUpdate = true;
+});
 
 // ── Build project arc tubes ───────────────────────────────────────────────────
-const loader    = new TextureLoader();
 const meshGroup = new Group();
 scene.add(meshGroup);
+
+// Tooltip DOM overlay
+const tooltip = document.createElement('div');
+tooltip.style.cssText = [
+  'position:absolute', 'pointer-events:none', 'z-index:10',
+  'padding:5px 10px', 'border-radius:6px',
+  'background:rgba(15,23,42,0.82)', 'backdrop-filter:blur(8px)',
+  'color:#fff', 'font:600 13px/1.3 system-ui,sans-serif',
+  'letter-spacing:0.02em', 'white-space:nowrap',
+  'opacity:0', 'transition:opacity 0.15s',
+  'transform:translate(-50%,-110%)',
+].join(';');
+stage.appendChild(tooltip);
 
 const meshMeta = [];
 
 projectEls.forEach((el) => {
-  const dateStr  = el.dataset.chartDate || '';
+  const dateStr  = el.dataset.chartDate  || '';
   const duration = parseInt(el.dataset.chartDuration      || '6',  10);
   const collab   = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
   const medium   = parseInt(el.dataset.chartMedium        || '50', 10) / 100;
-  const url      = el.dataset.projectUrl  || '#';
-  const titleEl  = el.querySelector('[data-title-label]');
+  const url      = el.dataset.projectUrl   || '#';
+  const title    = el.dataset.projectTitle || '';
+  const blendSrc = el.dataset.chartBlend   || null;
+
+  // Collect all per-project image URLs for hover scrub
+  // emitted as JSON in data-chart-images by Nunjucks
+  let scrubImages = [];
+  try { scrubImages = JSON.parse(el.dataset.chartImages || '[]'); } catch(e) {}
 
   // ── Radial position ──────────────────────────────────────────────────────
-  // R: collaboration — solo (0) = inner ring, team (1) = outer ring
-  const r = R_INNER + collab * (R_OUTER - R_INNER);
-
-  // Y elevation: medium — technical (0) = slightly below plane, visual (1) = above
-  const yElev = (medium - 0.5) * 2 * Y_RANGE;
-
-  // ── Angular position (clock face) ────────────────────────────────────────
-  // θ_start: where this project starts on the clock
-  // Clockwise from 6 o'clock → decreasing angle
+  const r      = R_INNER + collab * (R_OUTER - R_INNER);
+  const yElev  = (medium - 0.5) * 2 * Y_RANGE;
   const elapsed    = monthsElapsed(dateStr);
-  const thetaStart = THETA_6OCLOCK - elapsed * RADIANS_PER_MONTH;
-  const thetaEnd   = thetaStart    - duration * RADIANS_PER_MONTH;
+  const thetaStart = THETA_6OCLOCK - elapsed     * RADIANS_PER_MONTH;
+  const thetaEnd   = thetaStart    - duration    * RADIANS_PER_MONTH;
+  const thetaMid   = (thetaStart + thetaEnd) / 2;
 
-  // ── Geometry: arc tube ───────────────────────────────────────────────────
-  // arcSegs: minimum 16 for short projects, scales with duration for long arcs
-  const arcSegs  = Math.max(16, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
-  const curve    = makeArcCurve(r, yElev, thetaStart, thetaEnd);
-  const tubeGeo  = new TubeGeometry(curve, arcSegs, TUBE_R, 20, false);  // 20 radial segs = smooth pill
-
-  // ── Material ──────────────────────────────────────────────────────────────
+  // ── Shared material ──────────────────────────────────────────────────────
   const mat = new MeshStandardMaterial({
-    color: SKY.clone(),
-    roughness: 0.42,
-    metalness: 0.10,
-    transparent: true,
-    opacity: 0.85,
+    color: SKY.clone(), roughness: 0.42, metalness: 0.10,
+    transparent: true, opacity: 0.86,
   });
 
-  // Prefer the pre-built blended texture; fall back to first project image
-  const blendSrc = el.dataset.chartBlend || null;
-  const imgEl    = el.querySelector('.home-axis-dot-img');
-  const imgSrc   = blendSrc || (imgEl ? imgEl.getAttribute('src') : null);
-
+  const imgSrc = blendSrc;
+  let texObj = null;
   if (imgSrc) {
     loader.load(imgSrc, (tex) => {
-      mat.map      = tex;
+      texObj = tex;
+      mat.map       = tex;
       mat.color.set(0xffffff);
-      mat.roughness = 0.52;
-      mat.opacity   = 0.90;
+      mat.roughness  = 0.50;
+      mat.opacity    = 0.90;
       mat.needsUpdate = true;
     });
   }
 
-  const mesh = new Mesh(tubeGeo, mat);
-  mesh.userData = { url, title: el.dataset.projectTitle || '', elapsed, duration, r, yElev };
+  // ── Arc tube ──────────────────────────────────────────────────────────────
+  const arcSegs = Math.max(16, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
+  const curve   = makeArcCurve(r, yElev, thetaStart, thetaEnd);
+  const tube    = new Mesh(new TubeGeometry(curve, arcSegs, TUBE_R, 20, false), mat);
+  tube.userData = { url, title, scrubImages, texObj: null };
+  meshGroup.add(tube);
 
-  meshGroup.add(mesh);
+  // ── Spherical endcaps — same material, shared ref ────────────────────────
+  const capMat = mat.clone();
+  const capGeo = new SphereGeometry(TUBE_R, 20, 16);
 
-  // Title anchor: midpoint of the arc
-  const thetaMid = (thetaStart + thetaEnd) / 2;
-  const titleAnchor = new Vector3(
-    r * Math.cos(thetaMid),
-    yElev + TUBE_R + 2,
-    r * Math.sin(thetaMid)
-  );
-  meshMeta.push({ mesh, titleEl, url, titleAnchor });
+  const capStart = new Mesh(capGeo, capMat);
+  capStart.position.copy(circlePoint(r, yElev, thetaStart));
+  meshGroup.add(capStart);
+
+  const capEnd = new Mesh(capGeo, capMat);
+  capEnd.position.copy(circlePoint(r, yElev, thetaEnd));
+  meshGroup.add(capEnd);
+
+  // Keep caps in sync when texture loads
+  if (imgSrc) {
+    loader.load(imgSrc, (tex) => {
+      [capMat].forEach(m => {
+        m.map = tex; m.color.set(0xffffff);
+        m.roughness = 0.50; m.opacity = 0.90; m.needsUpdate = true;
+      });
+    });
+  }
+
+  // Anchor for screen-space tooltip
+  const midPt = circlePoint(r, yElev + TUBE_R + 4, thetaMid);
+  meshMeta.push({ tube, capStart, capEnd, midPt, url, title, scrubImages, mat, capMat, loader });
 });
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
-let isDragging = false;
-let startX = 0, startY = 0;
-let rotX = -22, rotY = 0;   // angled view — show both the clock face and Y depth
+let isDragging = false, startX = 0, startY = 0;
+let rotX = -52, rotY = 0;  // ¾ above: match steep camera with group tilt
 
 function applyGroupRotation() {
-  // No clamp — full freedom to explore all angles
-  meshGroup.rotation.x = rotX * Math.PI / 180;
-  meshGroup.rotation.y = rotY * Math.PI / 180;
+  const rx = rotX * Math.PI / 180;
+  const ry = rotY * Math.PI / 180;
+  meshGroup.rotation.set(rx, ry, 0);
+  // Also rotate rings and tick lines
   scene.children.forEach(c => {
-    if (c instanceof LineSegments) {
-      c.rotation.x = rotX * Math.PI / 180;
-      c.rotation.y = rotY * Math.PI / 180;
-    }
+    if (c instanceof LineSegments) c.rotation.set(rx, ry, 0);
   });
+  headlinePlane.rotation.set(-Math.PI / 2 + rx, ry, 0);
 }
 
 stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
@@ -470,85 +502,109 @@ window.addEventListener('mousemove', e => {
   applyGroupRotation();
 });
 
-// Touch: capture touchmove on the stage to prevent page scroll while dragging the chart
 stage.addEventListener('touchstart', e => {
   isDragging = true;
-  startX = e.touches[0].clientX;
-  startY = e.touches[0].clientY;
+  startX = e.touches[0].clientX; startY = e.touches[0].clientY;
 }, { passive: true });
-
-window.addEventListener('touchend',  () => { isDragging = false; });
-
-// Non-passive so we can call preventDefault() to block scroll while dragging
+window.addEventListener('touchend', () => { isDragging = false; });
 stage.addEventListener('touchmove', e => {
   if (!isDragging) return;
-  e.preventDefault();   // ← prevents page scroll while rotating the chart
+  e.preventDefault();
   rotY += (e.touches[0].clientX - startX) * 0.35;
   rotX -= (e.touches[0].clientY - startY) * 0.35;
-  startX = e.touches[0].clientX;
-  startY = e.touches[0].clientY;
+  startX = e.touches[0].clientX; startY = e.touches[0].clientY;
   applyGroupRotation();
-}, { passive: false });  // ← must be non-passive to allow preventDefault
+}, { passive: false });
 
-// ── Hover via raycaster ───────────────────────────────────────────────────────
+// ── Hover: raycaster + tooltip + image scrub ──────────────────────────────────
 const raycaster  = new Raycaster();
 const pointerVec = new Vector2();
-let hoveredMesh  = null;
+let hoveredTube  = null;
+let scrubTimeout = null;
+
+// Map all tube+cap meshes → their parent metadata record
+const meshToMeta = new Map();
+meshMeta.forEach(m => {
+  meshToMeta.set(m.tube, m);
+  meshToMeta.set(m.capStart, m);
+  meshToMeta.set(m.capEnd, m);
+});
 
 stage.addEventListener('mousemove', e => {
   const rect = stage.getBoundingClientRect();
-  pointerVec.x =  ((e.clientX - rect.left) / rect.width)  * 2 - 1;
-  pointerVec.y = -((e.clientY - rect.top)  / rect.height) * 2 + 1;
+  const mx   = e.clientX - rect.left;
+  const my   = e.clientY - rect.top;
+  pointerVec.x =  (mx / rect.width)  * 2 - 1;
+  pointerVec.y = -((my / rect.height)) * 2 + 1;
   raycaster.setFromCamera(pointerVec, camera);
-  const hits = raycaster.intersectObjects(meshGroup.children);
+
+  const allMeshes = [...meshToMeta.keys()];
+  const hits = raycaster.intersectObjects(allMeshes);
+
   if (hits.length) {
-    const h = hits[0].object;
-    if (h !== hoveredMesh) {
-      if (hoveredMesh) hoveredMesh.material.emissiveIntensity = 0;
-      hoveredMesh = h;
-      hoveredMesh.material.emissive = new Color(0x04a5e5);
-      hoveredMesh.material.emissiveIntensity = 0.35;
-      if (!isDragging) stage.style.cursor = 'pointer';
+    const meta = meshToMeta.get(hits[0].object);
+    if (!meta) return;
+
+    // Highlight
+    if (hoveredTube !== meta.tube) {
+      if (hoveredTube) {
+        const prev = meshToMeta.get(hoveredTube);
+        if (prev) { prev.mat.emissiveIntensity = 0; prev.capMat.emissiveIntensity = 0; }
+      }
+      hoveredTube = meta.tube;
+      meta.mat.emissive    = new Color(0x04a5e5);
+      meta.capMat.emissive = new Color(0x04a5e5);
+      meta.mat.emissiveIntensity    = 0.30;
+      meta.capMat.emissiveIntensity = 0.30;
+    }
+
+    if (!isDragging) stage.style.cursor = 'pointer';
+
+    // Tooltip
+    tooltip.textContent = meta.title;
+    tooltip.style.left    = mx + 'px';
+    tooltip.style.top     = my + 'px';
+    tooltip.style.opacity = '1';
+
+    // Image scrub: map horizontal position within stage to image index
+    if (meta.scrubImages && meta.scrubImages.length > 1) {
+      const t     = mx / rect.width;
+      const idx   = Math.min(meta.scrubImages.length - 1, Math.floor(t * meta.scrubImages.length));
+      const iSrc  = meta.scrubImages[idx];
+      if (iSrc && iSrc !== meta._lastScrubSrc) {
+        meta._lastScrubSrc = iSrc;
+        clearTimeout(scrubTimeout);
+        scrubTimeout = setTimeout(() => {
+          meta.loader.load(iSrc, (tex) => {
+            meta.mat.map     = tex;
+            meta.capMat.map  = tex;
+            meta.mat.needsUpdate    = true;
+            meta.capMat.needsUpdate = true;
+          });
+        }, 40);
+      }
     }
   } else {
-    if (hoveredMesh) { hoveredMesh.material.emissiveIntensity = 0; hoveredMesh = null; }
+    if (hoveredTube) {
+      const prev = meshToMeta.get(hoveredTube);
+      if (prev) { prev.mat.emissiveIntensity = 0; prev.capMat.emissiveIntensity = 0; }
+      hoveredTube = null;
+    }
+    tooltip.style.opacity = '0';
     if (!isDragging) stage.style.cursor = 'grab';
   }
 });
 
 stage.addEventListener('click', () => {
-  if (hoveredMesh) window.location.href = hoveredMesh.userData.url;
+  if (hoveredTube) window.location.href = meshToMeta.get(hoveredTube)?.url || '#';
 });
 
-// ── Screen-space projection for title labels ──────────────────────────────────
-function toScreen(worldPos) {
-  const v    = worldPos.clone();
-  v.applyEuler(meshGroup.rotation);
-  v.project(camera);
-  const rect = stage.getBoundingClientRect();
-  return {
-    x: ( v.x * 0.5 + 0.5) * rect.width,
-    y: (-v.y * 0.5 + 0.5) * rect.height,
-    z:   v.z,
-  };
-}
-
 // ── Render loop ───────────────────────────────────────────────────────────────
+// Portrait always faces camera (billboard)
 function animate() {
   requestAnimationFrame(animate);
-
-  meshMeta.forEach(({ titleEl, titleAnchor }) => {
-    if (!titleEl) return;
-    const s = toScreen(titleAnchor);
-    // Hide labels that are behind camera (z > 1) or too far to the side
-    if (s.z > 1) {
-      titleEl.style.opacity = '0';
-      return;
-    }
-    titleEl.style.left = s.x + 'px';
-    titleEl.style.top  = s.y + 'px';
-  });
-
+  // Billboard: copy camera quaternion so portrait always faces viewer
+  portraitMesh.quaternion.copy(camera.quaternion);
   renderer.render(scene, camera);
 }
 

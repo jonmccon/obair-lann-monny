@@ -289,10 +289,35 @@ module.exports = function(eleventyConfig) {
 		}
 	});
 
+	// chartImages: resolve all project images to /img/ URLs for JS scrub-on-hover
+	// Usage: {{ post.data.images | chartImages }}  → JSON string of URL array
+	eleventyConfig.addAsyncFilter("chartImages", async function(images) {
+		if (!images || !images.length) return "[]";
+		const urls = [];
+		for (const imgObj of images.slice(0, 12)) {
+			const src = imgObj && imgObj.src;
+			if (!src) continue;
+			let input = src;
+			if (src.startsWith("./content/")) input = path.resolve(src.substring(2));
+			else if (src.startsWith("content/"))  input = path.resolve(src);
+			try {
+				const metadata = await Image(input, {
+					widths: [160],
+					formats: ["webp"],
+					outputDir: path.join(eleventyConfig.dir.output, "img"),
+					urlPath: "/img/",
+				});
+				const first = Object.values(metadata)[0];
+				if (first && first[0]) urls.push(first[0].url);
+			} catch (e) {
+				// skip broken images silently
+			}
+		}
+		return JSON.stringify(urls);
+	});
+
 	eleventyConfig.addAsyncShortcode("homepageImage", async function(src, alt, width = 160, className = "newspaper-image") {
 		if (!src) return "";
-
-		let input = src;
 		if (src.startsWith("./content/")) {
 			input = path.resolve(src.substring(2));
 		} else if (src.startsWith("content/")) {
