@@ -21,7 +21,6 @@ images:
 - src: "./content/design/google-meet/goog-04.png"
 - src: "./content/design/google-meet/goog-05.png"
 - src: "./content/design/google-meet/goog-06.png"
-cardEnergy: image
 chart:
   duration: 7
   collaboration: 85

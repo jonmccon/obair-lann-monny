@@ -25,12 +25,10 @@ layout: layouts/base.njk
       {% if introductionHeading %}<h1 class="home-axis-headline-text">{{ introductionHeading }}</h1>{% endif %}
     </div>
 
-    {# Portrait overlay — pinned to center of stage, always screen-flat #}
-    <div class="home-axis-portrait-overlay" aria-hidden="true">
-      <div class="home-axis-portrait-circle">
-        {% image profile.portraitUrl, "Jonny McConnell portrait", [120], "120px" %}
-      </div>
-    </div>
+    {# Portrait — rendered as a real Three.js billboard mesh inside the scene (data carrier only, hidden). #}
+    {# Moved from a CSS overlay so tube geometry can pass in front of AND behind it via the WebGL depth buffer. #}
+    {# heroImage re-hosts the remote portrait URL locally at build time — texture loaders can't hotlink github.com/user-attachments (no CORS). #}
+    <div class="home-axis-portrait-overlay" data-avatar-src="{% heroImage profile.portraitUrl %}" aria-hidden="true"></div>
 
     {# Axis labels — corner-anchored over canvas #}
     <div class="home-axis-labels" aria-hidden="true">
@@ -234,8 +232,8 @@ layout: layouts/base.njk
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
   TubeGeometry, CatmullRomCurve3, CircleGeometry,
-  MeshStandardMaterial,
-  Mesh,
+  MeshStandardMaterial, MeshBasicMaterial,
+  Mesh, PlaneGeometry, DoubleSide,
   LineSegments, BufferGeometry, Float32BufferAttribute,
   LineBasicMaterial,
   AmbientLight, DirectionalLight, PointLight,
@@ -251,6 +249,7 @@ const projectEls = Array.from(document.querySelectorAll('[data-axis-project]'));
 const headlineEl = document.querySelector('[data-chart-headline]');
 const headlineH1 = headlineEl ? headlineEl.querySelector('h1') : null;
 const bgStrip    = document.querySelector('[data-chart-bg]');
+const avatarEl   = document.querySelector('[data-avatar-src]');
 if (!stage || !canvas || !projectEls.length) throw new Error('[axis] missing DOM');
 
 // ── Default headline text ────────────────────────────────────────────────────
@@ -267,6 +266,7 @@ function syncSize() {
   renderer.setSize(w, h, false);
   camera.aspect = w / h;
   camera.updateProjectionMatrix();
+  logCameraPosition('resize');
 }
 
 // ── Scene + Camera ───────────────────────────────────────────────────────────
@@ -274,8 +274,22 @@ const scene  = new Scene();
 const camera = new PerspectiveCamera(58, 1, 0.1, 2000);
 // Overhead-left view — camera high + left, looking down-right at chart center
 // Matches reference: steep overhead, clock face nearly horizontal, shifted left
-camera.position.set(-120, 320, 340);
+// DEFAULT_CAMERA_POSITION — edit this to change the chart's starting viewpoint.
+// Logged to console on every camera update below so new defaults can be read off directly.
+const DEFAULT_CAMERA_POSITION = { x: -120, y: 320, z: 340 };
+camera.position.set(DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z);
 camera.lookAt(0, 0, 0);
+
+// Print camera position to console whenever it changes (drag rotation, resize, etc.)
+// so the current view can be captured and pasted back in as the new default.
+function logCameraPosition(reason) {
+  const { x, y, z } = camera.position;
+  console.log(
+    `[axis-chart] camera.position (${reason}):`,
+    { x: +x.toFixed(1), y: +y.toFixed(1), z: +z.toFixed(1) }
+  );
+}
+logCameraPosition('init');
 
 // ── Lights ───────────────────────────────────────────────────────────────────
 scene.add(new AmbientLight(0xffffff, 0.85));
@@ -285,6 +299,31 @@ scene.add(sun);
 const fill = new PointLight(0x7287fd, 0.6, 1800);
 fill.position.set(-220, 140, 340);
 scene.add(fill);
+
+// ── Avatar billboard — real mesh in the 3D scene ─────────────────────────────
+// Previously a CSS overlay pinned above everything (avatar > tubes > headline
+// always). Moving it into the scene at the origin lets the WebGL depth buffer
+// sort it against tube geometry naturally: tubes nearer the camera than the
+// avatar plane occlude it, tubes farther away are occluded by it — a real
+// middle plane, not a fixed z-index split.
+let avatarMesh = null;
+if (avatarEl && avatarEl.dataset.avatarSrc) {
+  const AVATAR_SIZE = 130; // world units, roughly matches old 120px CSS circle
+  avatarMesh = new Mesh(
+    new PlaneGeometry(AVATAR_SIZE, AVATAR_SIZE),
+    new MeshBasicMaterial({ transparent: true, opacity: 0, side: DoubleSide })
+    // depthWrite/depthTest left at their defaults (true) so tubes in front of
+    // the avatar occlude it and tubes behind it get occluded — real 3D sort.
+  );
+  avatarMesh.position.set(0, 0, 0);
+  scene.add(avatarMesh);
+
+  new TextureLoader().load(avatarEl.dataset.avatarSrc, (tex) => {
+    avatarMesh.material.map = tex;
+    avatarMesh.material.opacity = 0.96;
+    avatarMesh.material.needsUpdate = true;
+  });
+}
 
 // ── Radial chart constants ────────────────────────────────────────────────────
 const CAREER_START_YEAR  = 2010;
@@ -651,6 +690,9 @@ stage.addEventListener('click', () => {
 // ── Render loop ───────────────────────────────────────────────────────────────
 function animate() {
   requestAnimationFrame(animate);
+  // Billboard: avatar always faces the camera's view plane, regardless of
+  // meshGroup rotation from dragging — copy the camera's world quaternion.
+  if (avatarMesh) avatarMesh.quaternion.copy(camera.quaternion);
   renderer.render(scene, camera);
 }
 

@@ -36,7 +36,6 @@ images:
 - src: "./content/design/metastream/ms-120.png"
 - src: "./content/design/metastream/ms-125.png"
 - src: "./content/design/metastream/ms-130.png"
-cardEnergy: loud
 chart:
   duration: 67
   collaboration: 60

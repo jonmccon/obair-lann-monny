@@ -39,7 +39,6 @@ images:
   - src: "./content/design/providence/prov-31.jpg"
   - src: "./content/design/providence/prov-32.jpg"
   - src: "./content/design/providence/prov-16.png"
-cardEnergy: loud
 chart:
   duration: 21
   collaboration: 80

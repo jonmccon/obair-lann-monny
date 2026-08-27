@@ -125,10 +125,9 @@ describe('homepage integration', () => {
 		console.log('Warning: _site/index.html not found for integration tests');
 	}
 
-	test('headline, 3D chart, and energy cards all present', () => {
+	test('headline and 3D chart present', () => {
 		assert.ok(html.includes('The work has its own energy'), 'headline missing');
 		assert.ok(html.includes('data-axis-canvas'), '3D canvas (WebGL target) missing');
-		assert.ok(html.includes('energy-card'), 'energy cards missing');
 	});
 
 	test('at least one project has data-chart-duration set', () => {
