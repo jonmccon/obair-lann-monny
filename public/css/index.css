@@ -2012,9 +2012,9 @@ img {
 /* Projects Thumbnail Grid — 6-col fixed, fills rows */
 .thumb-grid {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	gap: 4px;
-	margin: 0;
+	margin: 3rem 0 0;
 	width: 100%;
 }
 
@@ -2061,6 +2061,7 @@ img {
 	.thumb-grid {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 2px;
+		margin-top: 2rem;
 	}
 }
 
