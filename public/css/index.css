@@ -862,7 +862,7 @@ header {
 
 .home-podcast-grid {
 	display: grid;
-	grid-template-columns: 160px 1fr;
+	grid-template-columns: 1fr;
 	gap: 1.5rem;
 	align-items: start;
 }
