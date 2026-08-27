@@ -626,7 +626,7 @@ projectEls.forEach((el) => {
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false, startX = 0, startY = 0;
-let rotX = 52, rotY = 12;  // rotX flipped positive — tilts chart forward/down toward viewer
+let rotX = -5.1, rotY = 38.6;  // dialed-in default view (2026-08-27), read from console during drag
 
 function applyGroupRotation() {
   const rx = rotX * Math.PI / 180;
