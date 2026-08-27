@@ -9,6 +9,7 @@ draft: false
 featured: true
 semiFeatured: true
 protected: true
+thumbnail: /img/thumbnails/android-gemini-thumb.png
 tags:
   - ux
   - product

@@ -7,7 +7,7 @@
     {% if post.data.thumbnail %}
       <a href="{{ post.url }}" class="thumb-grid-item">
         <img src="{{ post.data.thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async" width="300" height="300">
-        <span class="thumb-grid-title">{{ post.data.title }}</span>
+        <span class="thumb-grid-title">{{ post.data.pageHeadline or post.data.title }}</span>
       </a>
     {% else %}
       {# Fallback: use first processed image from collections.images #}
@@ -20,7 +20,7 @@
       {% if thumbnail %}
         <a href="{{ post.url }}" class="thumb-grid-item">
           <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async">
-          <span class="thumb-grid-title">{{ post.data.title }}</span>
+          <span class="thumb-grid-title">{{ post.data.pageHeadline or post.data.title }}</span>
         </a>
       {% endif %}
     {% endif %}
