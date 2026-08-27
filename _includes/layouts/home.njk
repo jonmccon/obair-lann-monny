@@ -282,11 +282,24 @@ camera.lookAt(0, 0, 0);
 
 // Print camera position to console whenever it changes (drag rotation, resize, etc.)
 // so the current view can be captured and pasted back in as the new default.
+// Drag rotation actually spins `meshGroup` (rotX/rotY below), not the camera itself —
+// so on every user-driven change we log both the (static) camera xyz AND the live
+// rotX/rotY, since those together are what you dial in to define the "default" view.
 function logCameraPosition(reason) {
   const { x, y, z } = camera.position;
+  // rotX/rotY are declared later (drag rotation state) — guard with a try/catch
+  // rather than `typeof`, since `typeof` on a not-yet-initialized `let` throws
+  // (temporal dead zone) instead of returning 'undefined'.
+  let rotation;
+  try {
+    rotation = { rotX: +rotX.toFixed(1), rotY: +rotY.toFixed(1) };
+  } catch (e) {
+    rotation = undefined;
+  }
   console.log(
     `[axis-chart] camera.position (${reason}):`,
-    { x: +x.toFixed(1), y: +y.toFixed(1), z: +z.toFixed(1) }
+    { x: +x.toFixed(1), y: +y.toFixed(1), z: +z.toFixed(1) },
+    rotation
   );
 }
 logCameraPosition('init');
@@ -299,6 +312,72 @@ scene.add(sun);
 const fill = new PointLight(0x7287fd, 0.6, 1800);
 fill.position.set(-220, 140, 340);
 scene.add(fill);
+
+// ── Headline billboard — real mesh in the 3D scene, SAME billboard plane as avatar ──
+// Previously a CSS overlay pinned at z-index:0 (always BEHIND the canvas, tubes could
+// only ever pass in front of it, never behind). Moving it into the scene next to the
+// avatar mesh — same technique, same depth defaults — lets the WebGL depth buffer sort
+// tube arcs in front of AND behind the headline text, exactly like the avatar.
+const HEADLINE_CANVAS_W = 1400;
+const HEADLINE_CANVAS_H = 460;
+const headlineCanvas = document.createElement('canvas');
+headlineCanvas.width  = HEADLINE_CANVAS_W;
+headlineCanvas.height = HEADLINE_CANVAS_H;
+const hctx = headlineCanvas.getContext('2d');
+
+// Colors/weights mirror the reference headline CSS on main (.homepage-headline-axis):
+// font-weight 800 variable, letter-spacing -0.02em, uppercase, color-mix(text-color 88%, anp-base)
+function drawHeadlineText(text, dimmed) {
+  hctx.clearRect(0, 0, HEADLINE_CANVAS_W, HEADLINE_CANVAS_H);
+  hctx.textAlign = 'left';
+  hctx.textBaseline = 'alphabetic';
+  hctx.fillStyle = dimmed ? 'rgba(40,37,31,0.60)' : 'rgba(40,37,31,0.90)';
+  const fontSize   = 92;
+  const lineHeight = fontSize * 0.95; // matches line-height: 0.95 on the reference
+  hctx.font = `800 ${fontSize}px 'Google Sans Flex', 'Outfit', system-ui, sans-serif`;
+
+  // Manual word-wrap (canvas has no text-wrap: balance)
+  const maxWidth = HEADLINE_CANVAS_W - 20;
+  const words = (text || '').toUpperCase().split(' ');
+  const lines = [];
+  let line = '';
+  words.forEach(word => {
+    const test = line ? `${line} ${word}` : word;
+    if (line && hctx.measureText(test).width > maxWidth) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = test;
+    }
+  });
+  if (line) lines.push(line);
+
+  let y = fontSize;
+  lines.forEach(l => { hctx.fillText(l, 0, y); y += lineHeight; });
+
+  if (headlineTex) headlineTex.needsUpdate = true;
+}
+
+let headlineTex   = null;
+let headlinePlane = null;
+if (headlineH1) {
+  headlineTex = new CanvasTexture(headlineCanvas);
+  drawHeadlineText(DEFAULT_HEADLINE, false);
+  const HEADLINE_PLANE_W = 360;
+  const HEADLINE_PLANE_H = HEADLINE_PLANE_W * (HEADLINE_CANVAS_H / HEADLINE_CANVAS_W);
+  headlinePlane = new Mesh(
+    new PlaneGeometry(HEADLINE_PLANE_W, HEADLINE_PLANE_H),
+    new MeshBasicMaterial({ map: headlineTex, transparent: true, side: DoubleSide })
+    // depthWrite/depthTest left at their defaults (true) — same as avatarMesh —
+    // so tube geometry sorts naturally in front of and behind this plane too.
+  );
+  // Offset from the avatar (both at the scene origin depth) so the two billboards
+  // sit side-by-side on the same plane rather than overlapping exactly.
+  headlinePlane.position.set(-230, 90, 0);
+  scene.add(headlinePlane);
+  // Hide the DOM/CSS version — it's now only a text data source for drawHeadlineText.
+  headlineEl.style.display = 'none';
+}
 
 // ── Avatar billboard — real mesh in the 3D scene ─────────────────────────────
 // Previously a CSS overlay pinned above everything (avatar > tubes > headline
@@ -560,7 +639,12 @@ function applyGroupRotation() {
 }
 
 stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
-window.addEventListener('mouseup',   () => { isDragging = false; stage.style.cursor = 'grab'; });
+window.addEventListener('mouseup',   () => {
+  const wasDragging = isDragging;
+  isDragging = false;
+  stage.style.cursor = 'grab';
+  if (wasDragging) logCameraPosition('drag-end');  // ← console update on user change, for dialing in defaults
+});
 window.addEventListener('mousemove', e => {
   if (!isDragging) return;
   rotY += (e.clientX - startX) * 0.35;
@@ -573,7 +657,11 @@ stage.addEventListener('touchstart', e => {
   isDragging = true;
   startX = e.touches[0].clientX; startY = e.touches[0].clientY;
 }, { passive: true });
-window.addEventListener('touchend', () => { isDragging = false; });
+window.addEventListener('touchend', () => {
+  const wasDragging = isDragging;
+  isDragging = false;
+  if (wasDragging) logCameraPosition('drag-end');  // ← console update on user change, for dialing in defaults
+});
 stage.addEventListener('touchmove', e => {
   if (!isDragging) return;
   e.preventDefault();
@@ -596,11 +684,10 @@ meshMeta.forEach(m => {
   meshToMeta.set(m.capE, m);
 });
 
-// Update the HTML headline and background strip on hover
+// Update the headline canvas texture and background strip on hover
 function setHoverState(meta) {
-  if (headlineH1 && meta) {
-    headlineH1.textContent = meta.title;
-    headlineH1.setAttribute('data-hovered', 'true');
+  if (headlinePlane && meta) {
+    drawHeadlineText(meta.title, true);
   }
   if (bgStrip && meta && meta.scrubImages && meta.scrubImages.length) {
     // Build a horizontal strip of stacked images (screenshot 3 style)
@@ -614,9 +701,8 @@ function setHoverState(meta) {
 }
 
 function clearHoverState() {
-  if (headlineH1) {
-    headlineH1.textContent = DEFAULT_HEADLINE;
-    headlineH1.removeAttribute('data-hovered');
+  if (headlinePlane) {
+    drawHeadlineText(DEFAULT_HEADLINE, false);
   }
   if (bgStrip) {
     bgStrip.style.opacity = '0';
@@ -690,9 +776,11 @@ stage.addEventListener('click', () => {
 // ── Render loop ───────────────────────────────────────────────────────────────
 function animate() {
   requestAnimationFrame(animate);
-  // Billboard: avatar always faces the camera's view plane, regardless of
-  // meshGroup rotation from dragging — copy the camera's world quaternion.
-  if (avatarMesh) avatarMesh.quaternion.copy(camera.quaternion);
+  // Billboard: avatar + headline always face the camera's view plane, regardless of
+  // meshGroup rotation from dragging — copy the camera's world quaternion. Same
+  // billboard plane for both, so tubes sort in front of/behind either one identically.
+  if (avatarMesh)   avatarMesh.quaternion.copy(camera.quaternion);
+  if (headlinePlane) headlinePlane.quaternion.copy(camera.quaternion);
   renderer.render(scene, camera);
 }
 

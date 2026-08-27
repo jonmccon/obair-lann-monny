@@ -486,20 +486,22 @@ header {
 
 .home-axis-headline-text {
 	margin: 0;
+	max-width: min(21ch, 88vw);
 	font-family: var(--font-family-headline-flex);
-	font-size: clamp(2rem, 8vw, 5rem);
+	font-size: clamp(2.3rem, 8vw, 5rem);
+	line-height: 0.95;
 	font-weight: 760;
-	font-style: italic;
-	line-height: 0.92;
+	font-variation-settings: 'wght' 800, 'wdth' 50, 'opsz' 64, 'slnt' -5;
 	letter-spacing: -0.02em;
+	text-wrap: balance;
+	color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base));
+	text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
 	text-transform: uppercase;
-	color: color-mix(in srgb, var(--text-color) 82%, transparent);
 	text-align: left;
 	pointer-events: none;
 	white-space: normal;
 	transition: color 0.18s ease, opacity 0.18s ease;
 	width: 100%;
-	max-width: 100%;
 }
 
 .home-axis-headline-text[data-hovered] {
