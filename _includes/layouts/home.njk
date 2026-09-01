@@ -25,10 +25,11 @@ layout: layouts/base.njk
       {% if introductionHeading %}<h1 class="home-axis-headline-text">{{ introductionHeading }}</h1>{% endif %}
     </div>
 
-    {# Portrait — rendered as a real Three.js billboard mesh inside the scene (data carrier only, hidden). #}
-    {# Moved from a CSS overlay so tube geometry can pass in front of AND behind it via the WebGL depth buffer. #}
-    {# heroImage re-hosts the remote portrait URL locally at build time — texture loaders can't hotlink github.com/user-attachments (no CORS). #}
-    <div class="home-axis-portrait-overlay" data-avatar-src="{% heroImage profile.portraitUrl %}" aria-hidden="true"></div>
+    {# Portrait — DOM avatar (from main) pinned over the top of the WebGL stage,
+       circle-cropped via CSS. No longer a mesh inside the Three.js scene. #}
+    <div class="home-axis-avatar">
+      {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
+    </div>
 
     {# Axis labels — corner-anchored over canvas #}
     <div class="home-axis-labels" aria-hidden="true">
@@ -231,15 +232,15 @@ layout: layouts/base.njk
 <script type="module">
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
-  TubeGeometry, CatmullRomCurve3, CircleGeometry,
-  MeshStandardMaterial, MeshBasicMaterial,
-  Mesh, PlaneGeometry, DoubleSide,
+  TubeGeometry, CatmullRomCurve3, CircleGeometry, SphereGeometry,
+  MeshStandardMaterial, MeshBasicMaterial, ShaderMaterial,
+  Mesh, PlaneGeometry, DoubleSide, FrontSide, NormalBlending,
   LineSegments, BufferGeometry, Float32BufferAttribute,
   LineBasicMaterial,
   AmbientLight, DirectionalLight, PointLight,
   TextureLoader, CanvasTexture,
   Color, Raycaster, Vector2, Vector3, Quaternion,
-  Group
+  Group, SRGBColorSpace
 } from 'three';
 
 // ── Guard ────────────────────────────────────────────────────────────────────
@@ -249,7 +250,6 @@ const projectEls = Array.from(document.querySelectorAll('[data-axis-project]'));
 const headlineEl = document.querySelector('[data-chart-headline]');
 const headlineH1 = headlineEl ? headlineEl.querySelector('h1') : null;
 const bgStrip    = document.querySelector('[data-chart-bg]');
-const avatarEl   = document.querySelector('[data-avatar-src]');
 if (!stage || !canvas || !projectEls.length) throw new Error('[axis] missing DOM');
 
 // ── Default headline text ────────────────────────────────────────────────────
@@ -318,8 +318,8 @@ scene.add(fill);
 // only ever pass in front of it, never behind). Moving it into the scene next to the
 // avatar mesh — same technique, same depth defaults — lets the WebGL depth buffer sort
 // tube arcs in front of AND behind the headline text, exactly like the avatar.
-const HEADLINE_CANVAS_W = 1400;
-const HEADLINE_CANVAS_H = 460;
+const HEADLINE_CANVAS_W = 1600;
+const HEADLINE_CANVAS_H = 620;
 const headlineCanvas = document.createElement('canvas');
 headlineCanvas.width  = HEADLINE_CANVAS_W;
 headlineCanvas.height = HEADLINE_CANVAS_H;
@@ -327,18 +327,7 @@ const hctx = headlineCanvas.getContext('2d');
 
 // Colors/weights mirror the reference headline CSS on main (.homepage-headline-axis):
 // font-weight 800 variable, letter-spacing -0.02em, uppercase, color-mix(text-color 88%, anp-base)
-function drawHeadlineText(text, dimmed) {
-  hctx.clearRect(0, 0, HEADLINE_CANVAS_W, HEADLINE_CANVAS_H);
-  hctx.textAlign = 'left';
-  hctx.textBaseline = 'alphabetic';
-  hctx.fillStyle = dimmed ? 'rgba(40,37,31,0.60)' : 'rgba(40,37,31,0.90)';
-  const fontSize   = 92;
-  const lineHeight = fontSize * 0.95; // matches line-height: 0.95 on the reference
-  hctx.font = `800 ${fontSize}px 'Google Sans Flex', 'Outfit', system-ui, sans-serif`;
-
-  // Manual word-wrap (canvas has no text-wrap: balance)
-  const maxWidth = HEADLINE_CANVAS_W - 20;
-  const words = (text || '').toUpperCase().split(' ');
+function wrapHeadline(words, maxWidth) {
   const lines = [];
   let line = '';
   words.forEach(word => {
@@ -351,9 +340,27 @@ function drawHeadlineText(text, dimmed) {
     }
   });
   if (line) lines.push(line);
+  return lines;
+}
 
-  let y = fontSize;
-  lines.forEach(l => { hctx.fillText(l, 0, y); y += lineHeight; });
+function drawHeadlineText(text, dimmed) {
+  hctx.clearRect(0, 0, HEADLINE_CANVAS_W, HEADLINE_CANVAS_H);
+  hctx.textAlign = 'center';
+  hctx.textBaseline = 'middle';
+  hctx.fillStyle = '#28251f';
+
+  const words    = (text || '').toUpperCase().split(' ');
+  const maxWidth = HEADLINE_CANVAS_W - 48;
+
+  // Fixed size for every headline + rollover title (consistent, not fill-to-fit).
+  const fontSize   = 96;
+  const lineHeight = fontSize * 0.98;
+  hctx.font = `800 ${fontSize}px 'Google Sans Flex', 'Outfit', system-ui, sans-serif`;
+  const lines = wrapHeadline(words, maxWidth);
+
+  const totalH = lines.length * lineHeight;
+  let y = (HEADLINE_CANVAS_H - totalH) / 2 + lineHeight / 2;
+  lines.forEach(l => { hctx.fillText(l, HEADLINE_CANVAS_W / 2, y); y += lineHeight; });
 
   if (headlineTex) headlineTex.needsUpdate = true;
 }
@@ -362,18 +369,19 @@ let headlineTex   = null;
 let headlinePlane = null;
 if (headlineH1) {
   headlineTex = new CanvasTexture(headlineCanvas);
+  headlineTex.colorSpace = SRGBColorSpace;
   drawHeadlineText(DEFAULT_HEADLINE, false);
-  const HEADLINE_PLANE_W = 360;
+  // Sized to sit centered in the stage; scaled down on narrow viewports so the
+  // type never spills past the canvas edges.
+  const HEADLINE_PLANE_W = window.innerWidth < 720 ? 380 : 580;
   const HEADLINE_PLANE_H = HEADLINE_PLANE_W * (HEADLINE_CANVAS_H / HEADLINE_CANVAS_W);
   headlinePlane = new Mesh(
     new PlaneGeometry(HEADLINE_PLANE_W, HEADLINE_PLANE_H),
     new MeshBasicMaterial({ map: headlineTex, transparent: true, side: DoubleSide })
-    // depthWrite/depthTest left at their defaults (true) — same as avatarMesh —
-    // so tube geometry sorts naturally in front of and behind this plane too.
+    // depthWrite/depthTest left at their defaults (true) so tube geometry sorts
+    // naturally in front of and behind this plane.
   );
-  // Offset from the avatar (both at the scene origin depth) so the two billboards
-  // sit side-by-side on the same plane rather than overlapping exactly.
-  headlinePlane.position.set(-230, 90, 0);
+  headlinePlane.position.set(0, 0, 0);
   scene.add(headlinePlane);
   // Hide the DOM/CSS version — it's now only a text data source for drawHeadlineText.
   headlineEl.style.display = 'none';
@@ -385,24 +393,8 @@ if (headlineH1) {
 // sort it against tube geometry naturally: tubes nearer the camera than the
 // avatar plane occlude it, tubes farther away are occluded by it — a real
 // middle plane, not a fixed z-index split.
-let avatarMesh = null;
-if (avatarEl && avatarEl.dataset.avatarSrc) {
-  const AVATAR_SIZE = 130; // world units, roughly matches old 120px CSS circle
-  avatarMesh = new Mesh(
-    new PlaneGeometry(AVATAR_SIZE, AVATAR_SIZE),
-    new MeshBasicMaterial({ transparent: true, opacity: 0, side: DoubleSide })
-    // depthWrite/depthTest left at their defaults (true) so tubes in front of
-    // the avatar occlude it and tubes behind it get occluded — real 3D sort.
-  );
-  avatarMesh.position.set(0, 0, 0);
-  scene.add(avatarMesh);
-
-  new TextureLoader().load(avatarEl.dataset.avatarSrc, (tex) => {
-    avatarMesh.material.map = tex;
-    avatarMesh.material.opacity = 0.96;
-    avatarMesh.material.needsUpdate = true;
-  });
-}
+// Avatar is now a DOM element pinned over the top of the stage (see markup +
+// .home-axis-avatar CSS), not a mesh in the scene.
 
 // ── Radial chart constants ────────────────────────────────────────────────────
 const CAREER_START_YEAR  = 2010;
@@ -524,6 +516,149 @@ const tickGeo   = new BufferGeometry();
 tickGeo.setAttribute('position', new Float32BufferAttribute(tickVerts, 3));
 scene.add(new LineSegments(tickGeo, new LineBasicMaterial({ color: 0x9ca0b0, transparent: true, opacity: 0.15 })));
 
+// ── Saturation boost — push each project's dominant color more vivid ──────────
+// Requirement: "each tube should be more saturated in color". Convert to HSL,
+// multiply saturation, and lift very-dark colors slightly so the ephemeral
+// shader has real chroma to work with.
+function saturatedColor(hex) {
+  const c = new Color(hex);
+  const hsl = { h: 0, s: 0, l: 0 };
+  c.getHSL(hsl);
+  hsl.s = Math.min(1, hsl.s * 1.75 + 0.14);
+  hsl.l = Math.min(0.5, Math.max(hsl.l, 0.28));
+  c.setHSL(hsl.h, hsl.s, hsl.l);
+  return c;
+}
+
+// ── Ephemeral tube shader ─────────────────────────────────────────────────────
+// A soft, translucent, fresnel-lit look instead of a solid MeshStandard surface.
+// Near the world z=0 plane (where the headline + avatar billboards sit) the
+// geometry scatters outward and its surface breaks into sparse glowing speckles —
+// so each arc appears to disperse into a cloud of particles, pass through the
+// headline, and reassemble on the far side of the plane.
+const DISPERSE_BAND = 46;   // half-thickness (world units) of the dispersion zone
+const DISPERSE_SCATTER = 18; // max outward scatter distance at the plane
+// The dispersion plane matches the headline billboard: it passes through the
+// origin with a normal pointing at the (static) camera, so tubes break up flat
+// against the text plane rather than through an off-axis world plane.
+const PLANE_NORMAL = camera.position.clone().normalize();
+
+const TUBE_VERT = /* glsl */`
+  uniform float uTime;
+  uniform float uBandHalf;
+  uniform float uScatter;
+  uniform vec3  uPlaneN;
+  varying vec3 vWorldPos;
+  varying vec3 vNormalW;
+  varying vec2 vUv;
+  varying float vDisperse;
+
+  float hash13(vec3 p){
+    p = fract(p * 0.3183099 + 0.1);
+    p *= 17.0;
+    return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+  }
+
+  void main(){
+    vUv = uv;
+    vec4 wp = modelMatrix * vec4(position, 1.0);
+    // Signed distance to the headline's (camera-facing) plane through the origin →
+    // 1 on the plane, 0 at the band edge, so the effect sits flat against the text.
+    float d = 1.0 - clamp(abs(dot(wp.xyz, uPlaneN)) / uBandHalf, 0.0, 1.0);
+    float disp = smoothstep(0.0, 1.0, d);
+    vDisperse = disp;
+
+    // Per-vertex scatter direction (stable hash) + gentle time shimmer.
+    vec3 dir = normalize(vec3(
+      hash13(position * 1.7),
+      hash13(position * 3.1 + 5.0),
+      hash13(position * 2.3 + 9.0)
+    ) * 2.0 - 1.0);
+    float shimmer = sin(uTime * 2.2 + hash13(position) * 6.2831) * 0.5 + 0.5;
+    vec3 scattered = position + dir * disp * uScatter * (0.55 + 0.45 * shimmer);
+
+    vec4 wp2 = modelMatrix * vec4(scattered, 1.0);
+    vWorldPos = wp2.xyz;
+    vNormalW = normalize(mat3(modelMatrix) * normal);
+    gl_Position = projectionMatrix * viewMatrix * wp2;
+  }
+`;
+
+const TUBE_FRAG = /* glsl */`
+  uniform vec3  uColor;
+  uniform float uOpacity;
+  uniform float uHover;
+  uniform float uTime;
+  uniform sampler2D uMap;
+  uniform float uHasMap;
+  varying vec3 vWorldPos;
+  varying vec3 vNormalW;
+  varying vec2 vUv;
+  varying float vDisperse;
+
+  float hash21(vec2 p){
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+  }
+
+  void main(){
+    vec3 viewDir = normalize(cameraPosition - vWorldPos);
+    float fres = pow(1.0 - max(dot(normalize(vNormalW), viewDir), 0.0), 2.0);
+
+    vec3 base = uColor;
+    if (uHasMap > 0.5){
+      vec3 tex = texture2D(uMap, vUv).rgb;
+      base = mix(base, base * tex * 1.7, 0.45);
+    }
+
+    // White core, colored fresnel rim: white where facing the camera, the
+    // saturated project color builds up gently toward the grazing edges.
+    vec3 white = vec3(0.96);
+    vec3 col = mix(white, base, clamp(pow(fres, 1.3) * 0.7, 0.0, 0.6));
+    col += uHover * vec3(0.02, 0.36, 0.5);
+    float alpha = uOpacity * (0.8 + fres * 0.2);
+
+    // Dispersion break-up near the plane: punch the surface into sparse motes.
+    if (vDisperse > 0.01){
+      float n = hash21(vWorldPos.xy * 1.4 + vUv * 24.0 + floor(uTime * 6.0) * 0.17);
+      float keep = step(vDisperse * 0.9, n);
+      alpha *= mix(1.0, keep, vDisperse);
+      col += vDisperse * 0.5 * base;          // motes glow as they scatter
+    }
+
+    if (alpha < 0.02) discard;
+    gl_FragColor = vec4(col, alpha);
+  }
+`;
+
+// Every tube/cap shader material is registered so the render loop can advance uTime.
+const shaderMats = [];
+
+function makeTubeMaterial(color) {
+  const m = new ShaderMaterial({
+    uniforms: {
+      uTime:     { value: 0 },
+      uColor:    { value: color },
+      uOpacity:  { value: 1.0 },
+      uHover:    { value: 0 },
+      uMap:      { value: null },
+      uHasMap:   { value: 0 },
+      uBandHalf: { value: DISPERSE_BAND },
+      uScatter:  { value: DISPERSE_SCATTER },
+      uPlaneN:   { value: PLANE_NORMAL },
+    },
+    vertexShader:   TUBE_VERT,
+    fragmentShader: TUBE_FRAG,
+    transparent: true,
+    depthWrite: true,          // keep occlusion vs. headline + avatar billboards
+    side: FrontSide,
+    blending: NormalBlending,
+  });
+  shaderMats.push(m);
+  return m;
+}
+
 // ── Build project arc tubes ───────────────────────────────────────────────────
 const meshGroup = new Group();
 scene.add(meshGroup);
@@ -552,81 +687,56 @@ projectEls.forEach((el) => {
   const thetaEnd   = thetaStart    - duration    * RADIANS_PER_MONTH;
   const thetaMid   = (thetaStart + thetaEnd) / 2;
 
-  // ── Tube material — per-project dominant color, rough texture ───────────────
+  // ── Tube material — ephemeral shader, per-project saturated color ───────────
   // Derive slug from blend path: /img/chart-blend/<slug>.webp
   const slug = blendSrc ? blendSrc.replace(/^.*\//, '').replace(/\.webp$/, '') : '';
-  const projectColor = PROJECT_COLORS[slug] || 0xd8dce8;
+  const projectColor = saturatedColor(PROJECT_COLORS[slug] ?? 0xd8dce8);
 
-  // Start with dots texture + per-project color; blend image loads on top if available
-  const mat = new MeshStandardMaterial({
-    map: dotsTex,
-    color: projectColor,
-    roughness: 0.95,
-    metalness: 0.0,
-    transparent: true,
-    opacity: 0.92,
-  });
+  const mat = makeTubeMaterial(projectColor);
 
-  // Load blend image — tints on top of per-project dominant color
+  // Load blend image — sampled softly on top of the saturated project color
   if (blendSrc) {
     loader.load(blendSrc, (tex) => {
-      mat.map   = tex;
-      mat.color.set(projectColor);  // keep per-project tint when blend loads
-      mat.roughness  = 0.88;
-      mat.opacity    = 0.92;
+      mat.uniforms.uMap.value    = tex;
+      mat.uniforms.uHasMap.value = 1;
       mat.needsUpdate = true;
-      // capMat is cloned after mat, so sync it here too once caps are created
-      // (capMat is available in closure via the per-project scope)
-      if (typeof capMat !== 'undefined') {
-        capMat.map = tex;
-        capMat.color.set(projectColor);
-        capMat.roughness  = 0.88;
-        capMat.opacity    = 0.92;
-        capMat.needsUpdate = true;
-      }
     });
   }
 
-  // ── Arc tube — smooth round TubeGeometry ─────────────────────────────────
-  const arcSegs = Math.max(16, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
+  // ── Arc tube — smooth round TubeGeometry, densely segmented ─────────────────
+  // Higher tubular + radial resolution so the vertex-scatter dispersion near the
+  // plane reads as a fine cloud rather than a few chunky facets.
+  const arcSegs = Math.max(120, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)) * 6);
   const curve   = makeArcCurve(r, yElev, thetaStart, thetaEnd);
   const tube    = new Mesh(
-    new TubeGeometry(curve, arcSegs, TUBE_R, 20, false),
+    new TubeGeometry(curve, arcSegs, TUBE_R, 30, false),
     mat
   );
   tube.userData = { url, title };
   meshGroup.add(tube);
 
-  // ── Flat disc endcaps — CircleGeometry sealed to each open end ───────────
-  // TubeGeometry(closed=false) leaves open circular holes. Seal them with
-  // flat CircleGeometry discs aligned to the tube's tangent at each endpoint.
-  // Uses quaternion.setFromUnitVectors to rotate the disc normal onto the tangent.
-  const capMat = mat.clone();
-  capMat.side = 2; // DoubleSide value — visible from both directions
-  const capGeo = new CircleGeometry(TUBE_R, 20);
-
-  // Start cap — tangent points back along the curve (invert)
-  const tanStart = curve.getTangentAt(0).negate();
-  const capS = new Mesh(capGeo, capMat);
+  // ── Spherical endcaps — sealed rounded ends on each tube ────────────────────
+  // Replaces the old flat CircleGeometry discs. A sphere at each endpoint gives
+  // every arc a rounded terminal that shares the tube's ephemeral shader (so it
+  // disperses through the plane too) and its per-project color.
+  const capGeo = new SphereGeometry(TUBE_R, 32, 24);
+  const capS = new Mesh(capGeo, mat);
   capS.position.copy(circlePoint(r, yElev, thetaStart));
-  capS.quaternion.setFromUnitVectors(new Vector3(0, 0, 1), tanStart.normalize());
   meshGroup.add(capS);
 
-  // End cap — tangent points forward
-  const tanEnd = curve.getTangentAt(1);
-  const capE = new Mesh(capGeo, capMat);
+  const capE = new Mesh(capGeo, mat);
   capE.position.copy(circlePoint(r, yElev, thetaEnd));
-  capE.quaternion.setFromUnitVectors(new Vector3(0, 0, 1), tanEnd.normalize());
   meshGroup.add(capE);
 
   // Anchor for screen-space tooltip (midpoint above tube)
   const midPt = circlePoint(r, yElev + TUBE_R + 4, thetaMid);
-  meshMeta.push({ tube, capS, capE, midPt, url, title, scrubImages, mat, capMat, loader });
+  meshMeta.push({ tube, capS, capE, midPt, url, title, scrubImages, mat, loader });
 });
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false, startX = 0, startY = 0;
 let rotX = -5.1, rotY = 38.6;  // dialed-in default view (2026-08-27), read from console during drag
+let autoRotate = true;         // idle spin until the first user interaction
 
 function applyGroupRotation() {
   const rx = rotX * Math.PI / 180;
@@ -638,7 +748,7 @@ function applyGroupRotation() {
   });
 }
 
-stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
+stage.addEventListener('mousedown',  e => { autoRotate = false; isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
 window.addEventListener('mouseup',   () => {
   const wasDragging = isDragging;
   isDragging = false;
@@ -647,13 +757,13 @@ window.addEventListener('mouseup',   () => {
 });
 window.addEventListener('mousemove', e => {
   if (!isDragging) return;
-  rotY += (e.clientX - startX) * 0.35;
-  rotX -= (e.clientY - startY) * 0.35;
+  rotY += (e.clientX - startX) * 0.35;  // left–right spin only; vertical tilt locked
   startX = e.clientX; startY = e.clientY;
   applyGroupRotation();
 });
 
 stage.addEventListener('touchstart', e => {
+  autoRotate = false;
   isDragging = true;
   startX = e.touches[0].clientX; startY = e.touches[0].clientY;
 }, { passive: true });
@@ -665,8 +775,7 @@ window.addEventListener('touchend', () => {
 stage.addEventListener('touchmove', e => {
   if (!isDragging) return;
   e.preventDefault();
-  rotY += (e.touches[0].clientX - startX) * 0.35;
-  rotX -= (e.touches[0].clientY - startY) * 0.35;
+  rotY += (e.touches[0].clientX - startX) * 0.35;  // left–right spin only
   startX = e.touches[0].clientX; startY = e.touches[0].clientY;
   applyGroupRotation();
 }, { passive: false });
@@ -725,20 +834,14 @@ stage.addEventListener('mousemove', e => {
     const meta = meshToMeta.get(hits[0].object);
     if (!meta) return;
 
-    // Emissive highlight — tube + caps
+    // Highlight — tube + caps share one shader material, so lift its uHover
     if (hoveredTube !== meta.tube) {
       if (hoveredTube) {
         const prev = meshToMeta.get(hoveredTube);
-        if (prev) {
-          prev.mat.emissiveIntensity = 0;
-          prev.capMat.emissiveIntensity = 0;
-        }
+        if (prev) prev.mat.uniforms.uHover.value = 0;
       }
       hoveredTube = meta.tube;
-      meta.mat.emissive    = new Color(0x04a5e5);
-      meta.capMat.emissive = new Color(0x04a5e5);
-      meta.mat.emissiveIntensity    = 0.28;
-      meta.capMat.emissiveIntensity = 0.28;
+      meta.mat.uniforms.uHover.value = 1;
       setHoverState(meta);
     }
 
@@ -746,10 +849,7 @@ stage.addEventListener('mousemove', e => {
   } else {
     if (hoveredTube) {
       const prev = meshToMeta.get(hoveredTube);
-      if (prev) {
-        prev.mat.emissiveIntensity = 0;
-        prev.capMat.emissiveIntensity = 0;
-      }
+      if (prev) prev.mat.uniforms.uHover.value = 0;
       hoveredTube = null;
       clearHoverState();
     }
@@ -760,10 +860,7 @@ stage.addEventListener('mousemove', e => {
 stage.addEventListener('mouseleave', () => {
   if (hoveredTube) {
     const prev = meshToMeta.get(hoveredTube);
-    if (prev) {
-      prev.mat.emissiveIntensity = 0;
-      prev.capMat.emissiveIntensity = 0;
-    }
+    if (prev) prev.mat.uniforms.uHover.value = 0;
     hoveredTube = null;
   }
   clearHoverState();
@@ -776,10 +873,16 @@ stage.addEventListener('click', () => {
 // ── Render loop ───────────────────────────────────────────────────────────────
 function animate() {
   requestAnimationFrame(animate);
-  // Billboard: avatar + headline always face the camera's view plane, regardless of
-  // meshGroup rotation from dragging — copy the camera's world quaternion. Same
-  // billboard plane for both, so tubes sort in front of/behind either one identically.
-  if (avatarMesh)   avatarMesh.quaternion.copy(camera.quaternion);
+  // Advance shader time so the dispersion motes + fresnel shimmer animate.
+  const t = performance.now() * 0.001;
+  for (let i = 0; i < shaderMats.length; i++) shaderMats[i].uniforms.uTime.value = t;
+  // Idle auto-rotation — slow left–right spin until the user first interacts.
+  if (autoRotate) {
+    rotY += 0.12;
+    applyGroupRotation();
+  }
+  // Billboard: headline always faces the camera's view plane, regardless of
+  // meshGroup rotation from dragging — copy the camera's world quaternion.
   if (headlinePlane) headlinePlane.quaternion.copy(camera.quaternion);
   renderer.render(scene, camera);
 }

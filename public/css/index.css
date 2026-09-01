@@ -421,20 +421,6 @@ header {
 	cursor: grabbing;
 }
 
-/* Background gradient behind the canvas (CSS, not Three.js background) */
-.home-axis-stage::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	border-radius: 1rem;
-	pointer-events: none;
-	z-index: 0;
-	background:
-		radial-gradient(circle at 50% 52%, color-mix(in srgb, var(--anp-sky) 16%, transparent) 0%, transparent 46%),
-		linear-gradient(140deg, color-mix(in srgb, var(--surface-color-alt) 44%, transparent) 0%, transparent 44%),
-		linear-gradient(20deg, color-mix(in srgb, var(--surface-color) 84%, var(--background-color)) 0%, var(--background-color) 100%);
-}
-
 /* WebGL canvas fills the stage */
 .home-axis-canvas {
 	position: absolute;
@@ -508,11 +494,29 @@ header {
 	opacity: 0.68;
 }
 
-/* Portrait — now rendered as a Three.js billboard mesh in the WebGL scene
-   (see home.njk script). This element only carries data-avatar-src for the
-   texture loader and stays hidden/out of layout. */
-.home-axis-portrait-overlay {
-	display: none;
+/* Portrait — DOM avatar pinned over the top of the WebGL stage, circle-cropped.
+   Pulled from the main branch's avatar treatment (border-radius:50% + ring). */
+.home-axis-avatar {
+	position: absolute;
+	top: clamp(1.25rem, 4vw, 2.75rem);
+	left: 50%;
+	transform: translateX(-50%);
+	width: clamp(96px, 9vw, 156px);
+	height: clamp(96px, 9vw, 156px);
+	z-index: 5;
+	pointer-events: none;
+	overflow: hidden;
+	border-radius: 50%;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+	border: 2px solid color-mix(in srgb, var(--anp-base) 78%, var(--surface-color-alt));
+	background: var(--surface-color);
+}
+
+.home-axis-avatar :is(picture, img) {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 /* Axis labels — corner-anchored over canvas */
