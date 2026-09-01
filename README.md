@@ -73,6 +73,7 @@ Draft handling is frontmatter-driven (`draft: true`), not folder-driven:
 ## Contact form webhook setup
 
 The `/contact/` page posts to `/api/contact`, which forwards inquiries to Discord without storing data in a database.
+If Discord delivery fails, the endpoint retries once and then returns an error to the form (which shows the direct-email fallback). Failed delivery attempts are written to Vercel function logs (`console.error`) with inquiry metadata.
 
 Set this environment variable in Vercel:
 

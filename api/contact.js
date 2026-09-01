@@ -1,5 +1,6 @@
 const EMAIL_PATTERN = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const EMBED_COLOR = 0x5865f2;
+const DISCORD_MAX_ATTEMPTS = 2;
 const MAX_LEN = {
 	name: 120,
 	email: 254,
@@ -34,6 +35,40 @@ function parseBody(req) {
 		return req.body;
 	}
 	return null;
+}
+
+function delay(ms) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
+}
+
+async function postToDiscord(webhookUrl, payload, maxAttempts) {
+	let lastError = null;
+
+	for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+		try {
+			const response = await fetch(webhookUrl, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload)
+			});
+
+			if (response.ok) {
+				return { ok: true };
+			}
+
+			lastError = new Error(`discord_status_${response.status}`);
+		} catch (error) {
+			lastError = error;
+		}
+
+		if (attempt < maxAttempts) {
+			await delay(250 * attempt);
+		}
+	}
+
+	return { ok: false, error: lastError };
 }
 
 module.exports = async function handler(req, res) {
@@ -104,17 +139,14 @@ module.exports = async function handler(req, res) {
 		]
 	};
 
-	try {
-		const discordResponse = await fetch(webhookUrl, {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(discordPayload)
+	const delivery = await postToDiscord(webhookUrl, discordPayload, DISCORD_MAX_ATTEMPTS);
+	if (!delivery.ok) {
+		console.error("Contact form Discord delivery failed", {
+			source: sourceHost,
+			error: delivery.error ? String(delivery.error.message || delivery.error) : "unknown",
+			projectType: inquiry.projectType || "Not specified",
+			timestamp: new Date().toISOString()
 		});
-
-		if (!discordResponse.ok) {
-			return res.status(502).json({ error: "Unable to deliver message right now." });
-		}
-	} catch {
 		return res.status(502).json({ error: "Unable to deliver message right now." });
 	}
 
