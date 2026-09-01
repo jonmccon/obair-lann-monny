@@ -221,6 +221,26 @@ layout: layouts/base.njk
   </div>
 </section>
 
+<script>
+// Headline fallback controller. The DOM <h1> is hidden up-front via the `.js`
+// class (see base.njk + index.css). If the Three.js module fails to load or
+// throws before it can paint the WebGL headline, reveal the DOM <h1> so the
+// heading is never lost. The module sets `window.__axisReady` + clears the timer
+// once it has successfully painted.
+(function () {
+  function revealHeadline() {
+    if (window.__axisReady) return;
+    var overlay = document.querySelector('[data-chart-headline]');
+    if (overlay) overlay.classList.add('is-fallback');
+  }
+  window.__axisRevealHeadline = revealHeadline;
+  // Load/execute failure safety net — shrinks with the modulepreload in <head>.
+  window.__axisFallbackTimer = window.setTimeout(revealHeadline, 3500);
+  // Immediate reveal on an evaluation error (e.g. WebGL unsupported).
+  window.addEventListener('error', revealHeadline);
+})();
+</script>
+
 <script type="importmap">
 {
   "imports": {
@@ -264,7 +284,21 @@ function syncSize() {
   const w = stage.clientWidth;
   const h = stage.clientHeight;
   renderer.setSize(w, h, false);
-  camera.aspect = w / h;
+  const aspect = w / h;
+  camera.aspect = aspect;
+
+  // Dolly the camera along its fixed view direction so the chart's content
+  // radius always stays inside BOTH the horizontal and vertical field of view.
+  // A fixed camera distance clipped the outer tubes + headline at narrow /
+  // in-between viewport aspects; we never move closer than the tuned default
+  // distance, so wide desktops keep their original framing.
+  const tanHalfV = Math.tan((camera.fov * Math.PI / 180) / 2);
+  const distForWidth  = FIT_RADIUS_X / (tanHalfV * aspect);
+  const distForHeight = FIT_RADIUS_Y / tanHalfV;
+  const dist = Math.max(DEFAULT_CAMERA_DISTANCE, distForWidth, distForHeight);
+  camera.position.copy(CAMERA_DIR).multiplyScalar(dist);
+  camera.lookAt(0, 0, 0);
+
   camera.updateProjectionMatrix();
   logCameraPosition('resize');
 }
@@ -279,6 +313,20 @@ const camera = new PerspectiveCamera(58, 1, 0.1, 2000);
 const DEFAULT_CAMERA_POSITION = { x: -120, y: 320, z: 340 };
 camera.position.set(DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z);
 camera.lookAt(0, 0, 0);
+
+// ── Responsive framing ────────────────────────────────────────────────────────
+// The camera only ever dollies in/out along this fixed direction; syncSize()
+// recomputes the distance per-resize so tubes + headline never clip.
+const CAMERA_DIR = new Vector3(
+  DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z
+).normalize();
+const DEFAULT_CAMERA_DISTANCE = Math.hypot(
+  DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z
+);
+// World-space half-extents that must stay in frame: outer team ring (280) +
+// tube radius (20) + margin horizontally; elevation range (200) + margin vertically.
+const FIT_RADIUS_X = 340;
+const FIT_RADIUS_Y = 240;
 
 // Print camera position to console whenever it changes (drag rotation, resize, etc.)
 // so the current view can be captured and pasted back in as the new default.
@@ -383,8 +431,8 @@ if (headlineH1) {
   );
   headlinePlane.position.set(0, 0, 0);
   scene.add(headlinePlane);
-  // Hide the DOM/CSS version — it's now only a text data source for drawHeadlineText.
-  headlineEl.style.display = 'none';
+  // The DOM/CSS <h1> stays hidden via the `.js` class (base.njk) — it's now only
+  // a text data source for drawHeadlineText and a no-JS fallback.
 }
 
 // ── Avatar billboard — real mesh in the 3D scene ─────────────────────────────
@@ -413,38 +461,21 @@ const Y_RANGE  = 200;   // ± elevation (medium axis depth)
 const TUBE_R   = 20;    // tube cross-section radius
 const ARC_SEGS = 72;    // arc curve resolution
 
-// ── Per-project dominant colors — extracted from actual project images ────────
-// Each key is the project slug (from data-chart-blend path: /img/chart-blend/<slug>.webp)
-const PROJECT_COLORS = {
-  'amazon-fire-os':              0xd97e0c,
-  'android-gemini':              0x9a673d,
-  'awake-chocolate':             0x724026,
-  'bakedin':                     0x40ade1,
-  'bathroom-brad':               0xf96148,
-  'decibel-festival':            0x24a979,
-  'early-work':                  0x8ba1a9,
-  'google-meet':                 0x009899,
-  'job-intelligence-scraper':    0x2f364d,
-  'lumedic':                     0x02c4a4,
-  'lyfe':                        0xd4deea,
-  'metastream':                  0xe0795e,
-  'microsoft-learning-platform': 0x24c28e,
-  'photogrammetry':              0xb5946d,
-  'pixels-of-fury':              0x1eda95,
-  'posters':                     0xb86942,
-  'priority-card-maker':         0x007136,
-  'priority-tax-relief':         0xbd5623,
-  'providence':                  0x6088aa,
-  'pwc':                         0x263b74,
-  'resonance-ai':                0x44b879,
-  'seattle-creative-directory':  0xd8e85a,
-  'short-shorts-and-lawn-sports':0x839859,
-  'studio-tours':                0xf75959,
-  'teaching':                    0xd18235,
-  'vine-wars':                   0x08c375,
-  'xbox-one-smartglass':         0x007ec1,
-  'yakitate':                    0xb17207,
-};
+// ── Tube color ramp — solid greens pulled from the jungle palette ─────────────
+// Each project gets a distinct, stable green spread across the light↔dark jungle
+// range (new-colors.css: medium-jungle-300 #91d4a3 → medium-jungle-800 #1d4929),
+// so tubes read as solid jungle tones rather than per-image dominant colors.
+const JUNGLE_LIGHT = new Color(0x91d4a3);
+const JUNGLE_DARK  = new Color(0x1d4929);
+function slugHash(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+function jungleTubeColor(slug) {
+  const t = slug ? (slugHash(slug) % 1000) / 999 : 0.5;
+  return JUNGLE_LIGHT.clone().lerp(JUNGLE_DARK, t);
+}
 
 // ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
 function makeDotsTexture(size = 256) {
@@ -516,19 +547,6 @@ const tickGeo   = new BufferGeometry();
 tickGeo.setAttribute('position', new Float32BufferAttribute(tickVerts, 3));
 scene.add(new LineSegments(tickGeo, new LineBasicMaterial({ color: 0x9ca0b0, transparent: true, opacity: 0.15 })));
 
-// ── Saturation boost — push each project's dominant color more vivid ──────────
-// Requirement: "each tube should be more saturated in color". Convert to HSL,
-// multiply saturation, and lift very-dark colors slightly so the ephemeral
-// shader has real chroma to work with.
-function saturatedColor(hex) {
-  const c = new Color(hex);
-  const hsl = { h: 0, s: 0, l: 0 };
-  c.getHSL(hsl);
-  hsl.s = Math.min(1, hsl.s * 1.75 + 0.14);
-  hsl.l = Math.min(0.5, Math.max(hsl.l, 0.28));
-  c.setHSL(hsl.h, hsl.s, hsl.l);
-  return c;
-}
 
 // ── Ephemeral tube shader ─────────────────────────────────────────────────────
 // A soft, translucent, fresnel-lit look instead of a solid MeshStandard surface.
@@ -609,15 +627,14 @@ const TUBE_FRAG = /* glsl */`
     vec3 base = uColor;
     if (uHasMap > 0.5){
       vec3 tex = texture2D(uMap, vUv).rgb;
-      base = mix(base, base * tex * 1.7, 0.45);
+      base = mix(base, base * tex * 1.7, 0.28);
     }
 
-    // White core, colored fresnel rim: white where facing the camera, the
-    // saturated project color builds up gently toward the grazing edges.
-    vec3 white = vec3(0.96);
-    vec3 col = mix(white, base, clamp(pow(fres, 1.3) * 0.7, 0.0, 0.6));
+    // Solid jungle fill: the project's green covers the surface, with only a
+    // gentle fresnel sheen lifting the grazing edges for form (no white core).
+    vec3 col = base + fres * 0.16;
     col += uHover * vec3(0.02, 0.36, 0.5);
-    float alpha = uOpacity * (0.8 + fres * 0.2);
+    float alpha = uOpacity * (0.92 + fres * 0.08);
 
     // Dispersion break-up near the plane: punch the surface into sparse motes.
     if (vDisperse > 0.01){
@@ -687,10 +704,10 @@ projectEls.forEach((el) => {
   const thetaEnd   = thetaStart    - duration    * RADIANS_PER_MONTH;
   const thetaMid   = (thetaStart + thetaEnd) / 2;
 
-  // ── Tube material — ephemeral shader, per-project saturated color ───────────
+  // ── Tube material — solid jungle-green fill, distinct per project ───────────
   // Derive slug from blend path: /img/chart-blend/<slug>.webp
   const slug = blendSrc ? blendSrc.replace(/^.*\//, '').replace(/\.webp$/, '') : '';
-  const projectColor = saturatedColor(PROJECT_COLORS[slug] ?? 0xd8dce8);
+  const projectColor = jungleTubeColor(slug);
 
   const mat = makeTubeMaterial(projectColor);
 
@@ -891,6 +908,12 @@ function animate() {
 syncSize();
 applyGroupRotation();
 animate();
+
+// WebGL headline is live — cancel the DOM-headline fallback (see inline script above).
+window.__axisReady = true;
+if (window.__axisFallbackTimer) window.clearTimeout(window.__axisFallbackTimer);
+if (window.__axisRevealHeadline) window.removeEventListener('error', window.__axisRevealHeadline);
+if (headlineEl) headlineEl.classList.remove('is-fallback');
 
 window.addEventListener('resize', syncSize, { passive: true });
 </script>

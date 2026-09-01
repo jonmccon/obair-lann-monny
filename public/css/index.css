@@ -55,22 +55,86 @@
 	--color-gray-50: var(--anp-overlay0);
 	--color-gray-90: var(--anp-text);
 
-	--background-color: #e6e6e6;
+	/* Warm, de-grayed defaults pulled from new-colors.css palette */
+	--background-color: var(--color-peach-glow-50);
 	--surface-color: #f0ede8;
 	--surface-color-alt: #e6e2db;
 	--shadow-color: rgba(30, 25, 20, 0.10);
 	--shadow-color-strong: rgba(30, 25, 20, 0.18);
 
-	--text-color: #28251f;
-	--text-color-muted: var(--anp-subtext0);
-	--text-color-subtle: var(--anp-overlay0);
-	--text-color-link: var(--anp-blue);
-	--text-color-link-active: var(--anp-mauve);
-	--text-color-link-visited: var(--anp-maroon);
-	--text-color-on-accent: var(--anp-base);
+	--text-color: var(--color-black-900);
+	--text-color-muted: var(--color-black-600);
+	--text-color-subtle: var(--color-black-500);
+	--text-color-link: var(--color-sky-reflection-500);
+	--text-color-link-active: var(--color-sky-reflection-700);
+	--text-color-link-visited: var(--color-sky-reflection-800);
+	--text-color-on-accent: var(--color-peach-glow-50);
 	--lightbox-control-color: var(--anp-base);
 
+	/* Raised button surface — derived from the ambient page --background-color so a
+	   button always reads as extruded from whatever surface it sits on. The tokens
+	   reference --background-color lazily, so each per-page theme re-tints them. */
+	--btn-face-top: color-mix(in srgb, var(--background-color) 70%, #ffffff);
+	--btn-face-bottom: color-mix(in srgb, var(--background-color) 88%, #000000);
+	--btn-edge: color-mix(in srgb, var(--background-color) 44%, #000000);
+	--btn-top-highlight: color-mix(in srgb, var(--background-color) 38%, #ffffff);
+	--btn-surface: linear-gradient(180deg, var(--btn-face-top) 0%, var(--btn-face-bottom) 100%);
+	--btn-raise-shadow:
+		inset 0 1px 0 var(--btn-top-highlight),
+		0 4px 0 var(--btn-edge),
+		0 7px 12px -3px rgba(0, 0, 0, 0.32);
+	--btn-press-shadow:
+		inset 0 1px 0 var(--btn-top-highlight),
+		0 2px 0 var(--btn-edge),
+		0 3px 7px -3px rgba(0, 0, 0, 0.30);
+
 	--syntax-tab-size: 2;
+}
+
+/* =====================================================
+   Per-page-type palettes — background + text + links
+   swap by <html> class set in base.njk. Custom props
+   cascade to <body>, .site-wrapper, .post-content, etc.
+   ===================================================== */
+
+/* Home — medium jungle field, primary dark text, peach accents */
+html.theme-home {
+	--background-color: var(--color-medium-jungle-500);
+	--text-color: var(--color-black-900);
+	--text-color-muted: var(--color-peach-glow-700);
+	--text-color-subtle: var(--color-peach-glow-800);
+	--detail-color: var(--color-peach-glow-100);
+}
+
+/* Content (project detail) — light peach glow, rich dark text, sky links */
+html.theme-content {
+	--background-color: var(--color-peach-glow-100);
+	--text-color: var(--color-black-900);
+	--text-color-muted: var(--color-black-600);
+	--text-color-link: var(--color-sky-reflection-600);
+	--text-color-link-active: var(--color-sky-reflection-800);
+	--text-color-link-visited: var(--color-sky-reflection-700);
+}
+
+/* Resume — sky reflection field, dark text + dark links for contrast */
+html.theme-resume {
+	--background-color: var(--color-sky-reflection-500);
+	--text-color: var(--color-steel-blue-950);
+	--text-color-muted: var(--color-steel-blue-800);
+	--text-color-subtle: var(--color-steel-blue-800);
+	--text-color-link: var(--color-steel-blue-900);
+	--text-color-link-active: var(--color-black-900);
+	--text-color-link-visited: var(--color-steel-blue-900);
+	/* Nav matches the content-page background color (peach glow) */
+	--detail-color: var(--color-peach-glow-100);
+}
+
+/* Home + resume — small nav details take the contrasting peach accent */
+html.theme-home .site-header nav a,
+html.theme-home .nav-item a,
+html.theme-resume .site-header nav a,
+html.theme-resume .nav-item a {
+	color: var(--detail-color);
 }
 
 
@@ -85,8 +149,8 @@ body {
 	margin: 0;
 	font-family: var(--font-family);
 	font-weight: var(--font-weight-body);
-	font-size: 1rem;
-	line-height: 1.6;
+	font-size: 1.125rem;
+	line-height: 1.65;
 	color: var(--text-color);
 	background-color: var(--background-color);
 }
@@ -100,12 +164,13 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: var(--font-family-headline);
 	line-height: 1.15;
 	margin-top: 0;
+	margin-bottom: 0.6em;
 }
 
-h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-black); }
-h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: var(--font-weight-bold); }
-h3 { font-size: 1.125rem; font-weight: var(--font-weight-semibold); }
-h4 { font-size: 1rem; font-weight: var(--font-weight-semibold); }
+h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: var(--font-weight-black); }
+h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); font-weight: var(--font-weight-bold); }
+h3 { font-size: 1.3rem; font-weight: var(--font-weight-semibold); }
+h4 { font-size: 1.125rem; font-weight: var(--font-weight-semibold); }
 
 .nav-item a,
 .site-header nav a {
@@ -151,11 +216,13 @@ p:last-child {
 }
 
 p {
-	line-height: 1.5;
+	line-height: 1.65;
+	margin-block: 0 1.25rem;
 }
 
 li {
-	line-height: 1.5;
+	line-height: 1.65;
+	margin-bottom: 0.4rem;
 }
 
 a[href] {
@@ -468,6 +535,18 @@ header {
 	z-index: 0;
 	padding: 0.6em 0.5em 0 0.5em;
 	overflow: hidden;
+}
+
+/* The headline is drawn as a WebGL billboard when the Three.js module runs; the
+   DOM <h1> is kept only as text data + a no-JS fallback. Hide it up-front when JS
+   is available so it never flashes before the module paints. `.is-fallback` is
+   re-added by the module's failure/timeout path to restore the DOM headline. */
+.js .home-axis-headline-overlay {
+	visibility: hidden;
+}
+
+.js .home-axis-headline-overlay.is-fallback {
+	visibility: visible;
 }
 
 .home-axis-headline-text {
@@ -818,17 +897,18 @@ header {
 	font-weight: var(--font-weight-semibold);
 	color: var(--text-color);
 	text-decoration: none;
-	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
-	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	border: 1px solid var(--btn-edge);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 	letter-spacing: 0.02em;
 	text-transform: uppercase;
 }
 
 .home-cta-row a:hover {
-	background: var(--text-color-link);
-	color: var(--text-color-on-accent);
-	border-color: var(--text-color-link);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+	color: var(--text-color);
 	text-decoration: none;
 }
 
@@ -899,17 +979,178 @@ header {
 	letter-spacing: 0.02em;
 	color: var(--text-color);
 	text-decoration: none;
-	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
-	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	border: 1px solid var(--btn-edge);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 	box-sizing: border-box;
 }
 
-.ho
+.home-podcast-all-link:hover {
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+	color: var(--text-color);
+}
 
-... [OUTPUT TRUNCATED - 3,622 chars omitted out of 53,550 total] ...
+@media (max-width: 640px) {
+	.home-podcast-grid { grid-template-columns: 100px 1fr; gap: 1rem; }
+	.home-podcast-cover { max-width: 100px; }
+}
 
-, white), color-mix(in srgb, var(--surface-color) 88%, transparent));
+/* --- Obsidian aside row -------------------------------------------------- */
+
+.home-aside-row {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	align-items: center;
+	padding: 0.8rem 1rem;
+	border: 1px solid #fff;
+	border-radius: 1rem;
+	background-color: transparent;
+	transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+	font-size: 0.85rem;
+	color: var(--text-color-muted);
+	text-align: center;
+}
+
+.home-aside-header {
+	display: flex;
+	align-items: center;
+	gap: 0.45rem;
+	justify-content: center;
+}
+
+.home-aside-label {
+	font-weight: var(--font-weight-semibold);
+	text-transform: uppercase;
+	letter-spacing: 0.08em;
+	font-size: 0.75rem;
+	flex-shrink: 0;
+}
+
+.home-aside-icon {
+	width: 1rem;
+	height: 1rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+}
+
+.home-aside-icon svg {
+	width: 100%;
+	height: 100%;
+}
+
+.home-aside-row a {
+	color: inherit;
+	text-decoration: none;
+	text-align: center;
+	align-self: center;
+}
+
+.home-aside-row:hover,
+.home-aside-row:focus-within {
+	background-color: var(--obsidian-purple, #a277ff);
+	border-color: var(--obsidian-purple, #a277ff);
+	color: #fff;
+}
+
+.home-aside-row a:hover,
+.home-aside-row a:focus-visible {
+	color: inherit;
+}
+
+@media (max-width: 640px) {
+	.home-aside-row {
+		border-radius: 1rem;
+		padding: 0.75rem 0.9rem;
+	}
+}
+
+.home-supporting-content {
+	display: grid;
+	gap: 0.75rem;
+	margin: 1.5rem 0 1.5rem;
+	justify-items: center;
+	text-align: center;
+}
+
+.home-supporting-links {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.6rem;
+	margin-top: 2rem;
+}
+
+.home-supporting-media {
+	display: grid;
+	gap: 1rem;
+	width: min(100%, 72rem);
+	justify-items: stretch;
+}
+
+.home-supporting-media-grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1rem;
+	align-items: start;
+}
+
+.home-supporting-media-card {
+	display: grid;
+	gap: 0.6rem;
+	padding: 1rem;
+	text-align: left;
+	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 24%, transparent);
+	background: color-mix(in srgb, var(--surface-color) 80%, transparent);
+}
+
+.home-supporting-media-title {
+	margin: 0;
+	font-size: 0.8rem;
+	font-weight: var(--font-weight-semibold);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: color-mix(in srgb, var(--text-color) 82%, transparent);
+}
+
+.home-supporting-media-text {
+	margin: 0;
+	max-width: 58ch;
+	font-size: 0.96rem;
+	line-height: 1.45;
+	color: color-mix(in srgb, var(--text-color) 86%, transparent);
+}
+
+.home-supporting-player {
+	display: block;
+	width: 100%;
+	border: 0;
+	background: transparent;
+}
+
+.home-supporting-feature {
+	display: grid;
+	grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+	gap: 1rem;
+	align-items: center;
+	padding: 1rem;
+	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 24%, transparent);
+	background: color-mix(in srgb, var(--surface-color) 84%, transparent);
+	text-align: left;
+}
+
+.home-supporting-feature-image {
+	display: grid;
+	place-items: center;
+	aspect-ratio: 4 / 3;
+	min-height: 9rem;
+	background:
+		linear-gradient(135deg, color-mix(in srgb, var(--text-color-link) 30%, transparent), transparent 55%),
+		linear-gradient(180deg, color-mix(in srgb, var(--surface-color) 60%, white), color-mix(in srgb, var(--surface-color) 88%, transparent));
 	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 28%, transparent);
 }
 
@@ -953,16 +1194,17 @@ header {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	/* padding: 0.45rem 0.85rem; */
+	padding: 0.6rem 1rem;
 	text-decoration: none;
 	font-size: 0.75rem;
 	font-weight: var(--font-weight-semibold);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--text-color);
-	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
-	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	border: 1px solid var(--btn-edge);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .home-supporting-link-icon {
@@ -981,9 +1223,9 @@ header {
 }
 
 .home-supporting-link:hover {
-	background: var(--text-color-link);
-	color: var(--text-color-on-accent);
-	border-color: var(--text-color-link);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+	color: var(--text-color);
 }
 
 .home-supporting-links-footer a.home-supporting-link-footer {
@@ -995,6 +1237,7 @@ header {
 	color: var(--text-color);
 	border: 0;
 	background: transparent;
+	box-shadow: none;
 }
 
 .home-supporting-links-footer a.home-supporting-link-footer:visited {
@@ -1012,6 +1255,22 @@ header {
 .home-semi-featured-grid {
 	margin: 2rem 0;
 	padding: 0;
+}
+
+/* Introduction text — borrows the semi-featured headline treatment
+   (condensed Google Sans Flex display, uppercase, tight leading). */
+.homepage-about {
+	margin: 2.5rem auto 0 auto;
+	max-width: min(40ch, 80vw);
+	font-family: var(--font-family-headline-flex);
+	font-size: clamp(1.75rem, 4vw, 2.5rem);
+	line-height: 1.1;
+	font-variation-settings: 'wght' 800, 'wdth' 50, 'opsz' 64, 'slnt' -5;
+	/* letter-spacing: -0.02em; */
+	color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base));
+	text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+	/* text-transform: uppercase; */
+	text-wrap: balance;
 }
 
 .home-see-all-link {
@@ -1199,8 +1458,6 @@ header {
 
 	.homepage-about {
 		max-width: 100%;
-		font-size: 1.05rem;
-		text-align: left;
 	}
 
 	.home-supporting-content {
@@ -2101,18 +2358,28 @@ img {
 
 #password-form button,
 .nda-password-form button {
-	padding: 0.5rem 1rem;
+	padding: 0.55rem 1.1rem;
 	font-size: 0.9375rem;
 	font-family: var(--font-family);
+	font-weight: var(--font-weight-semibold);
 	cursor: pointer;
-	border: 1px solid var(--color-gray-50);
-	background: var(--background-color);
+	border: 1px solid var(--btn-edge);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
 	color: var(--text-color);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 #password-form button:hover,
 .nda-password-form button:hover {
-	background: var(--color-gray-20);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+}
+
+#password-form button:active,
+.nda-password-form button:active {
+	transform: translateY(4px);
+	box-shadow: var(--btn-press-shadow);
 }
 
 .password-error {
@@ -2125,9 +2392,9 @@ img {
 .archive-intro {
 	max-width: 68ch;
 	margin-inline: auto;
-	font-size: 1.3rem;
-	line-height: 1.7;
-	margin-bottom: 2.5rem;
+	font-size: 1.45rem;
+	line-height: 1.75;
+	margin-bottom: 3rem;
 }
 
 /* =====================================================
@@ -2201,27 +2468,30 @@ img {
 
 /* Any direct paragraph in post body gets breathing room + optimal reading width, centered */
 .post-body > p {
-	margin-bottom: 1rem;
+	margin-bottom: 1.6rem;
 	max-width: 68ch;
 	margin-inline: auto;
-	font-size: 1.3rem;
-	line-height: 1.7;
+	font-size: 1.45rem;
+	line-height: 1.75;
 }
 
 /* Intro paragraph — same width, extra space before images */
 .post-body > p:first-child {
 	max-width: 68ch;
 	margin-inline: auto;
-	margin-bottom: 2.5rem;
+	margin-bottom: 3rem;
 }
 
-/* Align block-level content (code, quotes, lists) to the same reading column as body paragraphs (68ch of Outfit @ 1.3rem ≈ 58rem) */
+/* Align block-level content (code, quotes, lists) to the same reading column as body paragraphs (68ch of Outfit @ 1.45rem ≈ 64.5rem) */
 .post-body > pre,
 .post-body > blockquote,
 .post-body > ul,
 .post-body > ol {
-	max-width: 58rem;
+	max-width: 64.5rem;
 	margin-inline: auto;
+	margin-block: 2rem;
+	font-size: 1.15rem;
+	line-height: 1.7;
 }
 
 /* ─── Homepage Callout Strip ─────────────────────────────── */
@@ -2319,30 +2589,44 @@ img {
 .home-testimonial-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  /* Force both cards to the tallest card's height while side by side. */
-  align-items: stretch;
+	gap: 1.5rem;
+	/* Force both cards to the tallest card's height while side by side. */
+	align-items: stretch;
 }
 
 .home-testimonial {
-  margin: 0;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--anp-crust);
-  background: transparent;
-  text-align: left;
+	margin: 0;
+	padding: 1.75rem 2rem;
+	border: 1px solid #ffffff;
+	background: transparent;
+	text-align: left;
 }
 
 .home-testimonial-quote {
-  margin: 0 0 0.6rem;
-  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
-  line-height: 1.5;
-  font-style: italic;
+	margin: 0 0 1.5rem;
+	font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+	line-height: 1.2;
+	font-style: normal;
+}
+
+.home-testimonial:nth-child(1) .home-testimonial-quote {
+	font-family: 'Caveat', cursive;
+	font-weight: 600;
+	line-height: 1.05;
+}
+
+.home-testimonial:nth-child(2) .home-testimonial-quote {
+	font-family: 'Quintessential', serif;
+	font-weight: 400;
 }
 
 .home-testimonial-footer {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	border-top: 0;
+	margin-top: 0;
+	padding: 0;
 }
 
 .home-testimonial-avatar {
@@ -2376,20 +2660,20 @@ img {
 }
 
 .home-testimonial-attribution a {
-  color: var(--text-color-link);
-  font-size: 0.9rem;
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
+	color: #ffffff;
+	font-size: 0.9rem;
+	font-weight: var(--font-weight-semibold);
+	text-decoration: none;
 }
 
 .home-testimonial-attribution a:hover,
 .home-testimonial-attribution a:active {
-  text-decoration: underline;
+	color: #ffffff;
+	text-decoration: underline;
 }
 
 .home-testimonial-role {
-  color: var(--text-color-muted);
-  font-size: 0.75rem;
+	color: #ffffff;
   font-weight: var(--font-weight-semibold);
   letter-spacing: 0.04em;
   text-transform: uppercase;
