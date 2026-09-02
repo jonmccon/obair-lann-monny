@@ -4,7 +4,7 @@ const DISCORD_MAX_ATTEMPTS = 2;
 const MAX_LEN = {
 	name: 120,
 	email: 254,
-	projectType: 120,
+	// projectType: 120,
 	timeline: 140,
 	budget: 140,
 	details: 4000
@@ -43,12 +43,12 @@ function delay(ms) {
 	});
 }
 
-async function postToDiscord(webhookUrl, payload, maxAttempts) {
+async function postToDiscord(DISCORD_WEBHOOK, payload, maxAttempts) {
 	let lastError = null;
 
 	for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
 		try {
-			const response = await fetch(webhookUrl, {
+			const response = await fetch(DISCORD_WEBHOOK, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(payload)
@@ -90,7 +90,7 @@ module.exports = async function handler(req, res) {
 	const inquiry = {
 		name: clean(body.name, MAX_LEN.name),
 		email: clean(body.email, MAX_LEN.email),
-		projectType: clean(body.projectType, MAX_LEN.projectType),
+		// projectType: clean(body.projectType, MAX_LEN.projectType),
 		timeline: clean(body.timeline, MAX_LEN.timeline),
 		budget: clean(body.budget, MAX_LEN.budget),
 		details: clean(body.details, MAX_LEN.details)
@@ -109,7 +109,7 @@ module.exports = async function handler(req, res) {
 	const safeInquiry = {
 		name: escapeDiscord(inquiry.name),
 		email: `\`${inquiry.email}\``,
-		projectType: escapeDiscord(inquiry.projectType || "Not specified"),
+		// projectType: escapeDiscord(inquiry.projectType || "Not specified"),
 		timeline: escapeDiscord(inquiry.timeline || "Not specified"),
 		budget: escapeDiscord(inquiry.budget || "Not specified"),
 		details: escapeDiscord(inquiry.details)
@@ -128,7 +128,7 @@ module.exports = async function handler(req, res) {
 				fields: [
 					{ name: "Name", value: safeInquiry.name, inline: true },
 					{ name: "Email", value: safeInquiry.email, inline: true },
-					{ name: "Project type", value: safeInquiry.projectType, inline: true },
+					// { name: "Project type", value: safeInquiry.projectType, inline: true },
 					{ name: "Timeline", value: safeInquiry.timeline, inline: true },
 					{ name: "Budget", value: safeInquiry.budget, inline: true }
 				],
@@ -144,7 +144,7 @@ module.exports = async function handler(req, res) {
 		console.error("Contact form Discord delivery failed", {
 			source: sourceHost,
 			error: delivery.error ? String(delivery.error.message || delivery.error) : "unknown",
-			projectType: inquiry.projectType || "Not specified",
+			// projectType: inquiry.projectType || "Not specified",
 			timestamp: new Date().toISOString()
 		});
 		return res.status(502).json({ error: "Unable to deliver message right now." });
