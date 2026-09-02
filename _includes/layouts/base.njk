@@ -61,10 +61,14 @@
 		<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
-		{# Google Fonts: Outfit + Google Sans Flex variable for homepage headline exploration, Space Mono for code, Caveat + Quintessential for testimonial quotes #}
+		{# Google Fonts: Outfit + Google Sans Flex variable for homepage headline exploration, Space Mono for code, Gochi Hand + Bubblegum Sans for testimonial quotes #}
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Google+Sans+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&family=Quintessential&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+		{# Previous testimonial quote fonts (kept for reference, no longer loaded): Caveat + Quintessential
+		<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Google+Sans+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&family=Quintessential&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"> #}
+		{# Previous testimonial quote fonts (kept for reference, no longer loaded): Almendra Display + Jacquard 24
+		<link href="https://fonts.googleapis.com/css2?family=Almendra+Display&family=Google+Sans+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Jacquard+24&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"> #}
+		<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Gochi+Hand&family=Google+Sans+Flex:opsz,slnt,wdth,wght@8..144,-10..0,25..151,100..1000&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
 		{#- Warm the connection to esm.sh and start fetching Three.js as early as
 		    possible on the homepage, so the WebGL headline module executes sooner
@@ -244,7 +248,31 @@
 		</main>
 		</div>
 
-		<footer></footer>
+		<footer class="site-footer">
+			<nav class="site-footer-links" aria-label="Contact links">
+				{% for link in profile.contactLinks %}
+				<a class="site-footer-link" href="{{ link.url }}"{% if link.external %} target="_blank" rel="noreferrer"{% endif %}>
+					<span class="site-footer-link-icon" aria-hidden="true">
+						{% if link.icon == "mail" %}
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5H3.75z" />
+							<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 7.5 7.5 6 7.5-6" />
+						</svg>
+						{% elif link.icon == "github" %}
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M12 .5C5.65.5.5 5.8.5 12.35c0 5.24 3.3 9.68 7.88 11.25.57.11.78-.25.78-.56 0-.28-.01-1.2-.02-2.18-3.2.71-3.88-1.4-3.88-1.4-.52-1.37-1.28-1.74-1.28-1.74-1.05-.74.08-.73.08-.73 1.16.08 1.77 1.23 1.77 1.23 1.03 1.82 2.7 1.29 3.36.99.1-.77.4-1.29.72-1.59-2.56-.3-5.26-1.32-5.26-5.9 0-1.31.46-2.37 1.22-3.2-.12-.31-.53-1.56.12-3.25 0 0 1-.33 3.3 1.22a11.2 11.2 0 0 1 6 0c2.29-1.55 3.29-1.22 3.29-1.22.66 1.69.25 2.94.12 3.25.76.83 1.22 1.89 1.22 3.2 0 4.59-2.7 5.6-5.28 5.9.42.37.79 1.08.79 2.19 0 1.58-.01 2.85-.01 3.24 0 .31.2.68.79.56A11.88 11.88 0 0 0 23.5 12.35C23.5 5.8 18.35.5 12 .5Z" />
+						</svg>
+						{% elif link.icon == "linkedin" %}
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M4.98 3.5a1.73 1.73 0 1 1 0 3.46 1.73 1.73 0 0 1 0-3.46ZM3.5 8.25h2.96V20.5H3.5V8.25Zm5.31 0h2.84v1.67h.04c.4-.75 1.36-1.94 3.15-1.94 3.37 0 3.99 2.28 3.99 5.24v7.28h-2.96v-6.45c0-1.54-.03-3.52-2.08-3.52-2.08 0-2.4 1.67-2.4 3.4v6.57H8.81V8.25Z" />
+						</svg>
+						{% endif %}
+					</span>
+					<span>{{ link.title }}</span>
+				</a>
+				{% endfor %}
+			</nav>
+		</footer>
 
 		<!-- Image lightbox HTML structure -->
 		<div class="lightbox-overlay" id="lightbox">

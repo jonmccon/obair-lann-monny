@@ -71,22 +71,16 @@
 	--text-color-on-accent: var(--color-peach-glow-50);
 	--lightbox-control-color: var(--anp-base);
 
-	/* Raised button surface — derived from the ambient page --background-color so a
-	   button always reads as extruded from whatever surface it sits on. The tokens
-	   reference --background-color lazily, so each per-page theme re-tints them. */
-	--btn-face-top: color-mix(in srgb, var(--background-color) 70%, #ffffff);
-	--btn-face-bottom: color-mix(in srgb, var(--background-color) 88%, #000000);
-	--btn-edge: color-mix(in srgb, var(--background-color) 44%, #000000);
-	--btn-top-highlight: color-mix(in srgb, var(--background-color) 38%, #ffffff);
-	--btn-surface: linear-gradient(180deg, var(--btn-face-top) 0%, var(--btn-face-bottom) 100%);
-	--btn-raise-shadow:
-		inset 0 1px 0 var(--btn-top-highlight),
-		0 4px 0 var(--btn-edge),
-		0 7px 12px -3px rgba(0, 0, 0, 0.32);
-	--btn-press-shadow:
-		inset 0 1px 0 var(--btn-top-highlight),
-		0 2px 0 var(--btn-edge),
-		0 3px 7px -3px rgba(0, 0, 0, 0.30);
+	/* Flat rounded-rectangle buttons — solid fill tinted from the ambient page
+	   --background-color, uniform corner radius, no gradient, no raised bevel. */
+	--btn-radius: 0.6rem;
+	--btn-face-top: color-mix(in srgb, var(--background-color) 84%, #ffffff);
+	--btn-face-bottom: var(--btn-face-top);
+	--btn-edge: color-mix(in srgb, var(--background-color) 60%, #000000);
+	--btn-top-highlight: transparent;
+	--btn-surface: var(--btn-face-top);
+	--btn-raise-shadow: none;
+	--btn-press-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.14);
 
 	--syntax-tab-size: 2;
 }
@@ -111,7 +105,7 @@ html.theme-content {
 	--background-color: var(--color-peach-glow-100);
 	--text-color: var(--color-black-900);
 	--text-color-muted: var(--color-black-600);
-	--text-color-link: var(--color-sky-reflection-600);
+	--text-color-link: var(--color-sky-reflection-500);
 	--text-color-link-active: var(--color-sky-reflection-800);
 	--text-color-link-visited: var(--color-sky-reflection-700);
 }
@@ -119,7 +113,7 @@ html.theme-content {
 /* Resume — sky reflection field, dark text + dark links for contrast */
 html.theme-resume {
 	--background-color: var(--color-sky-reflection-500);
-	--text-color: var(--color-steel-blue-950);
+	--text-color: var(--color-black-950);
 	--text-color-muted: var(--color-steel-blue-800);
 	--text-color-subtle: var(--color-steel-blue-800);
 	--text-color-link: var(--color-steel-blue-900);
@@ -247,7 +241,7 @@ main :first-child {
 }
 
 header {
-	border-bottom: 1px dashed var(--color-gray-20);
+	border-bottom: 1px solid var(--color-black-900);
 }
 
 header:after {
@@ -257,9 +251,59 @@ header:after {
 }
 
 footer {
-	border-top: 1px dashed var(--color-gray-20);
+	border-top: 1px solid var(--color-black-900);
 	padding: 0.75em;
 	margin-top: 2rem;
+}
+
+/* Shared site footer — contact links at the very bottom of every page. */
+.site-footer {
+	margin-top: 3rem;
+	padding: 1.5rem 1rem;
+}
+
+.site-footer-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem 2rem;
+}
+
+.site-footer-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.8rem;
+	font-weight: var(--font-weight-medium);
+	letter-spacing: 0.02em;
+	color: var(--text-color);
+	text-decoration: none;
+}
+
+.site-footer-link:visited {
+	color: var(--text-color);
+}
+
+.site-footer-link:hover,
+.site-footer-link:focus-visible {
+	color: var(--text-color);
+	text-decoration: underline;
+}
+
+.site-footer-link-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1rem;
+	height: 1rem;
+	flex: 0 0 auto;
+}
+
+.site-footer-link-icon svg {
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 .links-nextprev {
@@ -898,6 +942,7 @@ header {
 	color: var(--text-color);
 	text-decoration: none;
 	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
 	background: var(--btn-surface);
 	box-shadow: var(--btn-raise-shadow);
 	transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -980,6 +1025,7 @@ header {
 	color: var(--text-color);
 	text-decoration: none;
 	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
 	background: var(--btn-surface);
 	box-shadow: var(--btn-raise-shadow);
 	transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -1005,12 +1051,12 @@ header {
 	gap: 0.4rem;
 	align-items: center;
 	padding: 0.8rem 1rem;
-	border: 1px solid #fff;
+	border: 1px solid rgb(124 58 237);
 	border-radius: 1rem;
-	background-color: transparent;
+	background-color: rgb(124 58 237);
 	transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 	font-size: 0.85rem;
-	color: var(--text-color-muted);
+	color: #fff;
 	text-align: center;
 }
 
@@ -1048,6 +1094,21 @@ header {
 	text-decoration: none;
 	text-align: center;
 	align-self: center;
+}
+
+.home-aside-link {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.6rem;
+}
+
+.home-aside-thumb {
+	width: 180px;
+	max-width: 100%;
+	height: auto;
+	border-radius: 0.5rem;
+	display: block;
 }
 
 .home-aside-row:hover,
@@ -1202,6 +1263,7 @@ header {
 	text-transform: uppercase;
 	color: var(--text-color);
 	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
 	background: var(--btn-surface);
 	box-shadow: var(--btn-raise-shadow);
 	transition: transform 0.12s ease, box-shadow 0.12s ease;
@@ -2364,6 +2426,7 @@ img {
 	font-weight: var(--font-weight-semibold);
 	cursor: pointer;
 	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
 	background: var(--btn-surface);
 	box-shadow: var(--btn-raise-shadow);
 	color: var(--text-color);
@@ -2494,19 +2557,45 @@ img {
 	line-height: 1.7;
 }
 
-/* ─── Homepage Callout Strip ─────────────────────────────── */
+/* ─── Homepage Callout Ticker (loops across the bottom of the page) ─────── */
 .home-callout-strip {
   width: 100%;
   min-width: 0; /* prevent max-content child from inflating parent grid column */
   overflow: hidden;
   overflow: clip; /* prevents iOS Safari bounce-scroll from exposing max-content child */
-  border-top: 1px solid var(--anp-crust);
-  border-bottom: 1px solid var(--anp-crust);
-  margin: 2rem 0 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  margin: 2.5rem 0 0 0;
+}
+
+/* Two identical scroll groups sit side by side; the whole track slides left by
+   exactly one group width (-50%) and loops seamlessly. */
+.home-callout-track {
+  display: flex;
+  width: max-content;
+  animation: home-callout-ticker 45s linear infinite;
+}
+
+.home-callout-strip:hover .home-callout-track,
+.home-callout-strip:focus-within .home-callout-track {
+  animation-play-state: paused;
+}
+
+@keyframes home-callout-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-callout-track {
+    animation: none;
+    overflow-x: auto;
+  }
 }
 
 .home-callout-scroll {
   display: flex;
+  flex: 0 0 auto;
   gap: 0;
   width: max-content;
 }
@@ -2514,72 +2603,57 @@ img {
 .home-callout {
   flex: 0 0 auto;
   margin: 0;
-  padding: 0.5rem 2rem 0.5rem 0;
+  padding: 0.4rem 1.5rem;
   border-left: none;
-  border-right: 1px solid var(--anp-crust);
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  min-width: 120px;
-  max-width: 320px;
   text-align: left;
-}
-
-.home-callout:last-child {
-  border-right: none;
-  padding-right: 0;
-}
-
-.home-callout + .home-callout {
-  padding-left: 2rem;
 }
 
 .home-callout-link {
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  align-items: baseline;
+  gap: 0.5rem;
   text-decoration: none;
-  color: inherit;
-  transition: transform 0.25s ease;
+  color: #ffffff;
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
 }
 
 .home-callout-link:hover,
 .home-callout-link:focus-visible {
-  transform: translateY(-2px);
+  opacity: 0.7;
 }
 
 .home-callout-link:focus-visible {
-  outline: 2px solid var(--text-color-link);
+  outline: 2px solid #ffffff;
   outline-offset: 4px;
 }
 
 .home-callout-quote {
-  font-size: clamp(0.95rem, 1.5vw, 0.8rem);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-color-muted);
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-medium);
+  color: #ffffff;
   line-height: 1.25;
   margin: 0;
-  transition: color 0.25s ease;
+  white-space: nowrap;
 }
 
 .home-callout-source {
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-color-muted);
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-body);
+  color: #ffffff;
   font-style: normal;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: color 0.25s ease;
+  white-space: nowrap;
+  opacity: 0.85;
 }
 
-.home-callout-link:hover .home-callout-quote,
-.home-callout-link:focus-visible .home-callout-quote {
-  color: var(--text-color);
-}
-
-.home-callout-link:hover .home-callout-source,
-.home-callout-link:focus-visible .home-callout-source {
-  color: var(--text-color-link);
+.home-callout-source::before {
+  content: "·";
+  margin-right: 0.5rem;
+  opacity: 0.7;
 }
 
 .home-testimonial-strip {
@@ -2595,11 +2669,29 @@ img {
 }
 
 .home-testimonial {
+	position: relative;
+	display: flex;
+	flex-direction: column;
 	margin: 0;
 	padding: 1.75rem 2rem;
-	border: 1px solid #ffffff;
-	background: transparent;
+	border: 1px solid var(--color-peach-glow-400);
+	background: var(--color-peach-glow-100);
 	text-align: left;
+	/* Bottom-left corner rounds to the same radius as the flush avatar (see below). */
+	border-radius: 0.5rem 0.5rem 0.5rem 2.25rem;
+	/* Sticky-note lift. */
+	box-shadow: 0 10px 22px -8px rgba(30, 25, 20, 0.35), 0 3px 8px -3px rgba(30, 25, 20, 0.20);
+}
+
+/* Slightly different peach + rotation per card so they read like pinned sticky notes. */
+.home-testimonial:nth-child(1) {
+	background: var(--color-peach-glow-100);
+	transform: rotate(-2.2deg);
+}
+
+.home-testimonial:nth-child(2) {
+	background: color-mix(in srgb, var(--color-peach-glow-200) 55%, var(--color-peach-glow-50));
+	transform: rotate(1.6deg);
 }
 
 .home-testimonial-quote {
@@ -2610,35 +2702,42 @@ img {
 }
 
 .home-testimonial:nth-child(1) .home-testimonial-quote {
-	font-family: 'Caveat', cursive;
-	font-weight: 600;
+	/* Previous: 'Caveat' → 'Almendra Display' */
+	font-family: 'Gochi Hand', cursive;
+	font-weight: 400;
 	line-height: 1.05;
 }
 
 .home-testimonial:nth-child(2) .home-testimonial-quote {
-	font-family: 'Quintessential', serif;
+	/* Previous: 'Quintessential' → 'Jacquard 24' */
+	font-family: 'Bubblegum Sans', system-ui, sans-serif;
 	font-weight: 400;
+	line-height: 1.3;
 }
 
 .home-testimonial-footer {
 	display: flex;
 	align-items: center;
 	gap: 0.75rem;
+	margin-top: auto;
+	/* Reserve left space for the corner-anchored avatar. */
+	padding: 1.25rem 0 0 3.4rem;
 	border-top: 0;
-	margin-top: 0;
-	padding: 0;
 }
 
 .home-testimonial-avatar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 4.5rem;
+  height: 4.5rem;
   border-radius: 50%;
-  border: 1px solid var(--anp-crust);
+  border: none;
   background: var(--surface-color-alt);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2660,40 +2759,30 @@ img {
 }
 
 .home-testimonial-attribution a {
-	color: #ffffff;
-	font-size: 0.9rem;
-	font-weight: var(--font-weight-semibold);
+	color: var(--text-color);
+	font-size: 0.78rem;
+	font-weight: 300;
 	text-decoration: none;
 }
 
 .home-testimonial-attribution a:hover,
 .home-testimonial-attribution a:active {
-	color: #ffffff;
+	color: var(--text-color);
 	text-decoration: underline;
 }
 
 .home-testimonial-role {
-	color: #ffffff;
-  font-weight: var(--font-weight-semibold);
+	color: var(--text-color);
+  font-size: 0.68rem;
+  font-weight: 300;
   letter-spacing: 0.04em;
   text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
-  .home-callout-strip {
-    /* allow horizontal scroll on mobile */
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 1.25rem 0;
-  }
-
-  .home-callout {
-    min-width: 180px;
-    max-width: 240px;
-  }
-
-  .home-callout-quote {
-    font-size: 0.9rem;
+  .home-callout-track {
+    /* Faster loop on smaller screens. */
+    animation-duration: 30s;
   }
 
   .home-testimonial-grid {

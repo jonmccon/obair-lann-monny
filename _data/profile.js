@@ -3,5 +3,10 @@ module.exports = {
 	headline: "Operating at the intersection of product strategy, technology, and human behavior",
 	aboutBio: "Jonny is a creative with one foot in design, one in photography, one in building the internet & one in the classroom. He's a tinkerer, a sailor, a chef and generally just wants to learn how things are made. A graduate of Western Washington University, a former board member of AIGA Seattle, a former mascot of the Seattle Sounders, Jonny balances time between freelance, maintaining the Seattle Creative Directory and developing machine aided printmaking from his studio on Whidbey Island.",
 	wideCardWordThreshold: 180,
-	tallCardWordThreshold: 220
+	tallCardWordThreshold: 220,
+	contactLinks: [
+		{ title: "jonmccon@gmail.com", url: "https://mail.google.com/mail/?view=cm&fs=1&to=jonmccon@gmail.com", icon: "mail", external: true },
+		{ title: "GitHub", url: "https://github.com/jonmccon", icon: "github", external: true },
+		{ title: "LinkedIn", url: "https://www.linkedin.com/in/jonmccon", icon: "linkedin", external: true }
+	]
 };
