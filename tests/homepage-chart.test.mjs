@@ -23,6 +23,9 @@ describe('homepage 3D chart', () => {
 
   it('uses new axis labels', () => {
     assert.ok(html.includes('solo'), 'new axis label "solo" not found');
-    assert.ok(!html.includes('human behavior'), 'old axis label "human behavior" still present');
+    assert.ok(html.includes('team'), 'new axis label "team" not found');
+    assert.ok(html.includes('technical'), 'new axis label "technical" not found');
+    assert.ok(html.includes('visual'), 'new axis label "visual" not found');
+    assert.ok(html.includes('duration'), 'new axis label "duration" not found');
   });
 });

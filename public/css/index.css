@@ -812,7 +812,7 @@ header {
 	align-items: center;
 	height: clamp(4.75rem, 8vw, 6rem);
 	padding: 0 max(var(--site-gutter), 1.25rem);
-	border-top: 1px solid var(--anp-crust);
+	border-top: 1px solid var(--text-color);
 	background: transparent;
 	text-decoration: none;
 	color: inherit;
@@ -822,7 +822,7 @@ header {
 }
 
 .home-featured-row:last-child {
-	border-bottom: 1px solid var(--anp-crust);
+	border-bottom: 1px solid var(--text-color);
 }
 
 .home-featured-row::after {
@@ -977,7 +977,7 @@ header {
 .home-podcast-feature {
 	margin: 2rem 0 0;
 	padding: 2rem 0;
-	border-top: 1px solid var(--surface-color);
+	border-top: 1px solid var(--text-color);
 }
 
 .home-podcast-grid {
@@ -1018,7 +1018,7 @@ header {
 
 .home-podcast-desc {
 	font-size: 0.9375rem;
-	color: var(--text-color-muted);
+	color: var(--text-color);
 	line-height: 1.5;
 	max-width: 52ch;
 	margin: 0 0 1rem;
@@ -1487,11 +1487,20 @@ header {
 
 @media (max-width: 768px) {
 	.homepage-axis-hero {
-		padding-top: 0.75rem;
+		/* Full-bleed on mobile: canvas spans the whole viewport width and
+		   butts up against the header's bottom border (cancel main's top margin). */
+		width: 100vw;
+		width: 100dvw;
+		margin-left: calc(50% - 50vw);
+		margin-left: calc(50% - 50dvw);
+		margin-top: -2vw;
+		padding-top: 0;
 	}
 
 	.home-axis-stage {
 		min-height: clamp(260px, 40vh, 500px);
+		/* Square edges so the canvas reaches the viewport edges. */
+		border-radius: 0;
 	}
 
 	.home-axis-label {
@@ -2614,8 +2623,8 @@ img {
   min-width: 0; /* prevent max-content child from inflating parent grid column */
   overflow: hidden;
   overflow: clip; /* prevents iOS Safari bounce-scroll from exposing max-content child */
-  border-top: 1px solid rgba(255, 255, 255, 0.35);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+  border-top: 1px solid var(--text-color);
+  border-bottom: 1px solid var(--text-color);
   margin: 2.5rem 0 0 0;
 }
 
@@ -2656,7 +2665,7 @@ img {
   margin: 0;
   padding: 0.4rem 1.5rem;
   border-left: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid var(--text-color);
   display: flex;
   text-align: left;
 }
@@ -2837,6 +2846,13 @@ img {
 
   .home-testimonial-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Pull the first sticky note up so it overlaps the bottom of the canvas. */
+  .home-testimonial-strip {
+    position: relative;
+    z-index: 4;
+    margin-top: -3.5rem;
   }
 
   /* Size the sticky notes down on mobile while keeping the stacked layout. */

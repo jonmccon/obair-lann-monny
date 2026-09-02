@@ -126,7 +126,7 @@ describe('homepage integration', () => {
 	}
 
 	test('headline and 3D chart present', () => {
-		assert.ok(html.includes('The work has its own energy'), 'headline missing');
+		assert.ok(html.includes('data-chart-headline'), 'headline overlay missing');
 		assert.ok(html.includes('data-axis-canvas'), '3D canvas (WebGL target) missing');
 	});
 

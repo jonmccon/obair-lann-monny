@@ -11,30 +11,38 @@ eleventyNavigation:
 {%- css %}
 /* ─── Resume page layout ─────────────────────────────── */
 
+/* Screen layout matches the content pages (80rem, centered) — print
+   media below resets this back to the full letter page. */
 .resume-shell {
-  max-width: 100%;
-  margin: 0;
+  max-width: 80rem;
+  margin: 0 auto;
   padding: 2rem 0;
 }
 
 /* ── Header: portrait + identity block ──────────────── */
+/* Avatar mirrors the homepage treatment: circular, top-centered lockup
+   with a soft ring + drop shadow. Print media restores the horizontal
+   letter-page lockup. */
 .resume-header {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.75rem;
-  align-items: center;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+  gap: 1rem;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 2px solid var(--anp-crust);
 }
 
 .resume-portrait-wrap {
-  width: clamp(72px, 10vw, 120px);
-  height: clamp(72px, 10vw, 120px);
+  width: clamp(96px, 9vw, 156px);
+  height: clamp(96px, 9vw, 156px);
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px var(--shadow-color);
+  border: 2px solid color-mix(in srgb, var(--anp-base) 78%, var(--surface-color-alt));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+  background: var(--surface-color);
 }
 
 .resume-portrait-wrap img {
@@ -47,6 +55,7 @@ eleventyNavigation:
 .resume-identity {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.3rem;
 }
 
@@ -70,6 +79,7 @@ eleventyNavigation:
 .resume-contact {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.5rem 1.25rem;
   margin-top: 0.4rem;
   font-size: 1rem;
@@ -79,7 +89,6 @@ eleventyNavigation:
 .resume-actions {
   display: flex;
   gap: 0.5rem;
-  margin-left: auto;
 }
 
 .resume-contact a {
@@ -295,19 +304,13 @@ eleventyNavigation:
 
 /* ─── Mobile: single column ─────────────────────────── */
 @media (max-width: 640px) {
-  .resume-header {
-    grid-template-columns: 1fr;
-    gap: 0.85rem;
-    justify-items: start;
-  }
-
   .resume-body {
     grid-template-columns: 1fr;
   }
 
   .resume-portrait-wrap {
-    width: 64px;
-    height: 64px;
+    width: clamp(88px, 24vw, 120px);
+    height: clamp(88px, 24vw, 120px);
   }
 
   .resume-identity {
@@ -320,7 +323,7 @@ eleventyNavigation:
 
   .resume-actions {
     width: 100%;
-    margin-left: 0;
+    justify-content: center;
   }
 
   .resume-actions .btn-clipboard {
@@ -398,6 +401,10 @@ eleventyNavigation:
   }
 
   .resume-header {
+    grid-template-columns: auto 1fr;
+    justify-items: start;
+    align-items: center;
+    text-align: left;
     gap: 0.7rem;
     margin-bottom: 0.55rem;
     padding-bottom: 0.45rem;
@@ -405,9 +412,18 @@ eleventyNavigation:
     break-inside: avoid;
   }
 
+  .resume-identity {
+    align-items: flex-start;
+  }
+
+  .resume-contact {
+    justify-content: flex-start;
+  }
+
   .resume-portrait-wrap {
     width: 0.72in;
     height: 0.72in;
+    border: none;
     box-shadow: none;
   }
 
