@@ -100,22 +100,13 @@ layout: layouts/base.njk
     <p class="homepage-about">{{ introductionText }}</p>
   {% endif %}
 
-  {% include "homeFeaturedProjects.njk" %}
-
-  <a href="/design/">
-    <div class="home-supporting-link home-podcast-all-link" aria-label="See all work">
-      See all work <span aria-hidden="true">→</span>
-    </div>
-  </a>
+  {% include "projectsThumbGrid.njk" %}
 
   <section class="home-podcast-feature" aria-label="Podcast">
     <div class="home-podcast-grid">
-      <div class="home-podcast-cover">
-        <img src="/img/podcast/scd-podcast-cover.png" alt="Seattle Creative Directory Podcast" width="300" height="300">
-      </div>
       <div class="home-podcast-copy">
-        <h2 class="home-podcast-title">Seattle Creative Directory Podcast</h2>
-        <p class="home-podcast-desc">Conversations with Seattle's working creative community — designers, founders, makers, and the people building culture in the Pacific Northwest.</p>
+        <h2 class="home-podcast-title">Seattle Creative Show</h2>
+        <p class="home-podcast-desc">Conversations with Seattle's working creative community of designers, founders, makers, and the people who make the Pacific Northwest.</p>
       </div>
       <div class="home-podcast-players">
         <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/9fc38fe1-df84-4a61-8348-b4a888606182?dark=false" title="SCD Podcast episode 1"></iframe>
