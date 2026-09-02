@@ -1075,7 +1075,7 @@ header {
 	/* background-color: rgb(124 58 237); */
 	transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 	font-size: 0.85rem;
-	color: rgb(124 58 237);
+	color: var(--color-medium-jungle-800);
 	text-align: left;
 }
 
@@ -2786,17 +2786,16 @@ img {
 
 .home-testimonial:nth-child(1) .home-testimonial-quote {
 	/* Previous: 'Caveat' → 'Almendra Display' */
-	font-family: 'Gochi Hand', cursive;
-	font-weight: 400;
+	/* font-family: 'Gochi Hand', cursive; */
+	font-family: 'Almendra Display', cursive;
+	font-weight: bold;
 	line-height: 1.05;
 }
 
 .home-testimonial:nth-child(2) .home-testimonial-quote {
-	/* Previous: 'Quintessential' → 'Jacquard 24' (reverted to). */
-	font-family: 'Jacquard 24', system-ui, sans-serif;
-	/* font-family: 'Bubblegum Sans', system-ui, sans-serif; */
-	font-weight: 400;
-	line-height: 1.3;
+font-family: 'Almendra Display', cursive;
+	font-weight: bold;
+	line-height: 1.05;
 }
 
 .home-testimonial-footer {
