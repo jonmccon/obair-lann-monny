@@ -6,59 +6,60 @@ layout: layouts/base.njk
 {% set introductionHeading = homeOptions.introductionHeading | default(profile.headline) %}
 {% set introductionText = homeOptions.introductionText | default(profile.aboutBio) %}
 {% set featuredProjectThumbnailLimit = homeOptions.featuredProjectThumbnailLimit | default(10) %}
-{% set homeContactLinks = homeOptions.contactLinks | default([
-  { title: "jonmccon@gmail.com", url: "https://mail.google.com/mail/?view=cm&fs=1&to=jonmccon@gmail.com", icon: "mail", external: true },
-  { title: "GitHub", url: "https://github.com/jonmccon", icon: "github" },
-  { title: "LinkedIn", url: "https://www.linkedin.com/in/jonmccon", icon: "linkedin" }
-]) %}
 
 <section class="homepage-axis-hero" aria-label="Homepage hero">
   <div class="home-axis-stage" data-axis-stage>
-    <div class="home-axis-scene" data-axis-scene>
-    <div class="home-axis-grid" aria-hidden="true">
-      <span class="home-axis-line home-axis-line-x"></span>
-      <span class="home-axis-line home-axis-line-y"></span>
-      <span class="home-axis-line home-axis-line-z"></span>
-      <span class="home-axis-origin-point"></span>
+    {# Canvas target for Three.js WebGL renderer #}
+    <canvas class="home-axis-canvas" data-axis-canvas aria-hidden="true"></canvas>
+
+    {# Background image strip — updated on hover to show project images #}
+    <div class="home-axis-bg-strip" data-chart-bg aria-hidden="true"></div>
+
+    {# Headline overlay — screen-pinned, tubes pass through via z-index layering #}
+    <div class="home-axis-headline-overlay" data-chart-headline aria-live="polite">
+      {% if introductionHeading %}<h1 class="home-axis-headline-text">{{ introductionHeading }}</h1>{% endif %}
+    </div>
+
+    {# Portrait — DOM avatar (from main) pinned over the top of the WebGL stage,
+       circle-cropped via CSS. No longer a mesh inside the Three.js scene. #}
+    <div class="home-axis-avatar">
+      {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
+    </div>
+
+    {# Axis labels — corner-anchored over canvas #}
+    <div class="home-axis-labels" aria-hidden="true">
       <span class="home-axis-label home-axis-label-x">duration ←→</span>
       <span class="home-axis-label home-axis-label-y">technical ↔ visual</span>
       <span class="home-axis-label home-axis-label-z">solo ↔ team</span>
     </div>
 
+    {# Project data + title overlays — invisible data carriers, titles shown via JS screen-projection #}
     {% for post in collections.featuredProjects | reverse %}
     {% if loop.index <= featuredProjectThumbnailLimit %}
-    {% set blobSize = (post.data.chart.duration | default(6)) / 80 * 52 + 20 %}
+    {%- set _duration = post.data.chart.duration | default(6) -%}
     <article class="home-axis-project" data-axis-project
       data-project-index="{{ loop.index0 }}"
-      data-project-title="{{ post.data.title | slugify }}"
+      data-project-title="{{ post.data.pageHeadline }}"
+      data-project-url="{{ post.url }}"
       data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}"
-      data-chart-duration="{{ post.data.chart.duration | default(6) }}"
+      data-chart-date="{{ post.date | htmlDateString }}"
+      data-chart-duration="{{ _duration }}"
       data-chart-collaboration="{{ post.data.chart.collaboration | default(50) }}"
       data-chart-medium="{{ post.data.chart.medium | default(50) }}"
-      style="--blob-size: {{ blobSize | round }}px;">
-      <a class="home-axis-project-link" href="{{ post.url }}" aria-label="{{ post.data.title }}">
-        <div class="home-axis-dot">
-          {% if post.data.images and post.data.images.length %}
-            {% homepageImage post.data.images[0].src, post.data.pageHeadline, 80, "home-axis-dot-img" %}
-          {% endif %}
-        </div>
-        <span class="home-axis-project-title">{{ post.data.pageHeadline }}</span>
-      </a>
+      data-chart-blend="/img/chart-blend/{{ post.fileSlug }}.webp"
+      data-chart-images='{{ post.data.images | chartImages }}'
+      aria-label="{{ post.data.title }}">
+      {# Hidden image — src read by Three.js texture loader #}
+      {% if post.data.images and post.data.images.length %}
+        {% homepageImage post.data.images[0].src, post.data.pageHeadline, 80, "home-axis-dot-img" %}
+      {% endif %}
+      {# Title label — positioned absolutely via JS screen-projection each frame #}
+      <a class="home-axis-project-title-label" href="{{ post.url }}" data-title-label>{{ post.data.pageHeadline }}</a>
     </article>
     {% endif %}
     {% endfor %}
-    </div>
   </div>
 </section>
-
-<div class="home-chart-attribution">
-  <div class="home-center-lockup">
-    {% if introductionHeading %}<h1 class="homepage-headline-axis">{{ introductionHeading }}</h1>{% endif %}
-    <div class="homepage-main-avatar homepage-main-avatar-overlay">
-      {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
-    </div>
-  </div>
-</div>
 
 <section class="home-supporting-content" aria-label="Homepage supporting content">
 
@@ -128,165 +129,742 @@ layout: layouts/base.njk
       </a>
   </section>
 
-  <div class="home-callout-strip" aria-label="Selected outcomes">
-    <div class="home-callout-scroll">
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/amazon-fire-os-upgrades/">
-          <p class="home-callout-quote">Shipped to 40M+ active devices</p>
-          <cite class="home-callout-source">Amazon Fire OS</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/resonance-ai-ml-platform/">
-          <p class="home-callout-quote">Reduced report task time by 95%</p>
-          <cite class="home-callout-source">Resonance AI</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/priority-tax-relief/">
-          <p class="home-callout-quote">Conversion surfaces up by 14×</p>
-          <cite class="home-callout-source">Priority Tax Relief</cite>
-        </a>
-      </blockquote>
-      {# <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/google-meet-alternate-connections/">
-          <p class="home-callout-quote">Meet PWA is now a top-3 global communication tool</p>
-          <cite class="home-callout-source">Google Meet — dial-out &amp; standalone prototype</cite>
-        </a>
-      </blockquote> #}
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/lumedic-platform-healthcare-records/">
-          <p class="home-callout-quote">Thousands of workers verified daily</p>
-          <cite class="home-callout-source">Lumedic Connect</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/seattle-creative-directory/">
-          <p class="home-callout-quote">268 listings · 15 episodes · 50k+ plays</p>
-          <cite class="home-callout-source">Seattle Creative Directory</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/android-gemini-interaction/">
-          <p class="home-callout-quote">Interaction patterns surfaced in Gemini for Android</p>
-          <cite class="home-callout-source">BUCK × Google — early Gemini concepts</cite>
-        </a>
-      </blockquote>
-    </div>
-  </div>
-
   <aside class="home-aside-row">
-    <div class="home-aside-header">
-      <span class="home-aside-label">Check it out</span>
-      <span class="home-aside-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <circle cx="12" cy="12" r="8.25" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
-        </svg>
-      </span>
-    </div>
-    <a href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
-      Obsidian Time Blocks — a lightweight time-blocking plugin for focused work in Obsidian.
+    <a class="home-aside-link" href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
+      <img class="home-aside-thumb" src="/img/thumbnails/resize-block.gif" alt="Obsidian Time Blocks — resizing a time block" width="180" loading="lazy">
+      <div class="home-aside-copy">
+        <div class="home-aside-header">
+          <span class="home-aside-label">Check it out</span>
+          <span class="home-aside-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <circle cx="12" cy="12" r="8.25" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
+            </svg>
+          </span>
+        </div>
+        <span class="home-aside-text">Obsidian Time Blocks - a lightweight time-blocking plugin for focused work.</span>
+      </div>
     </a>
   </aside>
 
-  <div class="home-supporting-links home-supporting-links-footer" aria-label="Supporting links">
-    {% for link in homeContactLinks %}
-    <a class="home-supporting-link home-supporting-link-footer" href="{{ link.url }}"{% if link.external %} target="_blank" rel="noreferrer"{% endif %}>
-      <span class="home-supporting-link-icon" aria-hidden="true">
-        {% if link.icon == "mail" %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5H3.75z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 7.5 7.5 6 7.5-6" />
-        </svg>
-        {% elif link.icon == "github" %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 .5C5.65.5.5 5.8.5 12.35c0 5.24 3.3 9.68 7.88 11.25.57.11.78-.25.78-.56 0-.28-.01-1.2-.02-2.18-3.2.71-3.88-1.4-3.88-1.4-.52-1.37-1.28-1.74-1.28-1.74-1.05-.74.08-.73.08-.73 1.16.08 1.77 1.23 1.77 1.23 1.03 1.82 2.7 1.29 3.36.99.1-.77.4-1.29.72-1.59-2.56-.3-5.26-1.32-5.26-5.9 0-1.31.46-2.37 1.22-3.2-.12-.31-.53-1.56.12-3.25 0 0 1-.33 3.3 1.22a11.2 11.2 0 0 1 6 0c2.29-1.55 3.29-1.22 3.29-1.22.66 1.69.25 2.94.12 3.25.76.83 1.22 1.89 1.22 3.2 0 4.59-2.7 5.6-5.28 5.9.42.37.79 1.08.79 2.19 0 1.58-.01 2.85-.01 3.24 0 .31.2.68.79.56A11.88 11.88 0 0 0 23.5 12.35C23.5 5.8 18.35.5 12 .5Z" />
-        </svg>
-        {% elif link.icon == "linkedin" %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M4.98 3.5a1.73 1.73 0 1 1 0 3.46 1.73 1.73 0 0 1 0-3.46ZM3.5 8.25h2.96V20.5H3.5V8.25Zm5.31 0h2.84v1.67h.04c.4-.75 1.36-1.94 3.15-1.94 3.37 0 3.99 2.28 3.99 5.24v7.28h-2.96v-6.45c0-1.54-.03-3.52-2.08-3.52-2.08 0-2.4 1.67-2.4 3.4v6.57H8.81V8.25Z" />
-        </svg>
-        {% endif %}
-      </span>
-      <span>{{ link.title }}</span>
-    </a>
-    {% endfor %}
-  </div>
 </section>
 
 <script>
+// Headline fallback controller. The DOM <h1> is hidden up-front via the `.js`
+// class (see base.njk + index.css). If the Three.js module fails to load or
+// throws before it can paint the WebGL headline, reveal the DOM <h1> so the
+// heading is never lost. The module sets `window.__axisReady` + clears the timer
+// once it has successfully painted.
 (function () {
-  'use strict';
+  function revealHeadline() {
+    if (window.__axisReady) return;
+    var overlay = document.querySelector('[data-chart-headline]');
+    if (overlay) overlay.classList.add('is-fallback');
+  }
+  window.__axisRevealHeadline = revealHeadline;
+  // Load/execute failure safety net — shrinks with the modulepreload in <head>.
+  window.__axisFallbackTimer = window.setTimeout(revealHeadline, 3500);
+  // Immediate reveal on an evaluation error (e.g. WebGL unsupported).
+  window.addEventListener('error', revealHeadline);
+})();
+</script>
 
-  const stage = document.querySelector('[data-axis-stage]');
-  const scene = document.querySelector('[data-axis-scene]');
-  const projects = Array.from(document.querySelectorAll('[data-axis-project]'));
-  if (!stage || !scene || !projects.length) return;
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://esm.sh/three@0.169.0"
+  }
+}
+</script>
 
-  const MIN_RADIUS = 80;
-  const MAX_RADIUS = 280;
-  const MAX_DURATION = 70;   // ~67mo for Metastream is the ceiling
-  const LINE_MAX_PX  = 200;  // maximum line width for longest projects
+<script type="module">
+import {
+  Scene, PerspectiveCamera, WebGLRenderer,
+  TubeGeometry, CatmullRomCurve3, CircleGeometry, SphereGeometry,
+  MeshStandardMaterial, MeshBasicMaterial, ShaderMaterial,
+  Mesh, PlaneGeometry, DoubleSide, FrontSide, NormalBlending,
+  LineSegments, BufferGeometry, Float32BufferAttribute,
+  LineBasicMaterial,
+  AmbientLight, DirectionalLight, PointLight,
+  TextureLoader, CanvasTexture,
+  Color, Raycaster, Vector2, Vector3, Quaternion,
+  Group, SRGBColorSpace
+} from 'three';
 
-  function toRad(deg) { return deg * Math.PI / 180; }
+// ── Guard ────────────────────────────────────────────────────────────────────
+const stage      = document.querySelector('[data-axis-stage]');
+const canvas     = document.querySelector('[data-axis-canvas]');
+const projectEls = Array.from(document.querySelectorAll('[data-axis-project]'));
+const headlineEl = document.querySelector('[data-chart-headline]');
+const headlineH1 = headlineEl ? headlineEl.querySelector('h1') : null;
+const bgStrip    = document.querySelector('[data-chart-bg]');
+if (!stage || !canvas || !projectEls.length) throw new Error('[axis] missing DOM');
 
-  function placeProjects() {
-    const GOLDEN_ANGLE = Math.PI * (3 - Math.sqrt(5)); // ~137.5 degrees in radians
-    projects.forEach((el, i) => {
-        const collab = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
-        const medium = parseInt(el.dataset.chartMedium || '50', 10) / 100;
+// ── Default headline text ────────────────────────────────────────────────────
+const DEFAULT_HEADLINE = headlineH1 ? headlineH1.textContent : '';
 
-        // Radius from collaboration (0=solo=close to center, 1=team=far out)
-        const r = MIN_RADIUS + collab * (MAX_RADIUS - MIN_RADIUS);
+// ── Renderer ─────────────────────────────────────────────────────────────────
+const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setClearColor(0x000000, 0);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const maxAniso = renderer.capabilities.getMaxAnisotropy();
 
-        // Golden-angle azimuth — spreads all N projects evenly around the sphere
-        const theta = i * GOLDEN_ANGLE;
+function syncSize() {
+  const w = stage.clientWidth;
+  const h = stage.clientHeight;
+  renderer.setSize(w, h, false);
+  const aspect = w / h;
+  camera.aspect = aspect;
 
-        // Elevation from medium (0=technical/bottom, 1=visual/top), ±63deg
-        const phi = (medium - 0.5) * (Math.PI * 0.7);
+  // Dolly the camera along its fixed view direction so the chart's content
+  // radius always stays inside BOTH the horizontal and vertical field of view.
+  // A fixed camera distance clipped the outer tubes + headline at narrow /
+  // in-between viewport aspects; we never move closer than the tuned default
+  // distance, so wide desktops keep their original framing.
+  const tanHalfV = Math.tan((camera.fov * Math.PI / 180) / 2);
+  const distForWidth  = FIT_RADIUS_X / (tanHalfV * aspect);
+  const distForHeight = FIT_RADIUS_Y / tanHalfV;
+  let dist;
+  if (w <= 768) {
+    // Mobile: intentionally let the tubes overflow the viewport for bolder,
+    // mobile-oriented proportions. Rather than framing the whole chart radius,
+    // we only guarantee the (enlarged) headline billboard stays fully visible;
+    // the outer tubes spill off the edges.
+    const marginedHalfW = (HEADLINE_PLANE_W / 2) * 1.08;
+    const marginedHalfH = (HEADLINE_PLANE_H / 2) * 1.08;
+    const distHeadlineW = marginedHalfW / (tanHalfV * aspect);
+    const distHeadlineH = marginedHalfH / tanHalfV;
+    dist = Math.max(distHeadlineW, distHeadlineH);
+  } else {
+    dist = Math.max(DEFAULT_CAMERA_DISTANCE, distForWidth, distForHeight);
+  }
+  camera.position.copy(CAMERA_DIR).multiplyScalar(dist);
+  camera.lookAt(0, 0, 0);
 
-        const x = r * Math.cos(phi) * Math.cos(theta);
-        const y = r * Math.sin(phi);
-        const z = r * Math.cos(phi) * Math.sin(theta);
+  camera.updateProjectionMatrix();
+  logCameraPosition('resize');
+}
 
-        el.style.transform = `translate3d(${x}px, ${y}px, ${z}px)`;
-        // NOTE: no el.style.width — blob size comes from CSS --blob-size custom property
+// ── Scene + Camera ───────────────────────────────────────────────────────────
+const scene  = new Scene();
+const camera = new PerspectiveCamera(58, 1, 0.1, 2000);
+// Overhead-left view — camera high + left, looking down-right at chart center
+// Matches reference: steep overhead, clock face nearly horizontal, shifted left
+// DEFAULT_CAMERA_POSITION — edit this to change the chart's starting viewpoint.
+// Logged to console on every camera update below so new defaults can be read off directly.
+const DEFAULT_CAMERA_POSITION = { x: -120, y: 320, z: 340 };
+camera.position.set(DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z);
+camera.lookAt(0, 0, 0);
+
+// ── Responsive framing ────────────────────────────────────────────────────────
+// The camera only ever dollies in/out along this fixed direction; syncSize()
+// recomputes the distance per-resize so tubes + headline never clip.
+const CAMERA_DIR = new Vector3(
+  DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z
+).normalize();
+const DEFAULT_CAMERA_DISTANCE = Math.hypot(
+  DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z
+);
+// World-space half-extents that must stay in frame: outer team ring (280) +
+// tube radius (20) + margin horizontally; elevation range (200) + margin vertically.
+const FIT_RADIUS_X = 340;
+const FIT_RADIUS_Y = 240;
+
+// Print camera position to console whenever it changes (drag rotation, resize, etc.)
+// so the current view can be captured and pasted back in as the new default.
+// Drag rotation actually spins `meshGroup` (rotX/rotY below), not the camera itself —
+// so on every user-driven change we log both the (static) camera xyz AND the live
+// rotX/rotY, since those together are what you dial in to define the "default" view.
+function logCameraPosition(reason) {
+  const { x, y, z } = camera.position;
+  // rotX/rotY are declared later (drag rotation state) — guard with a try/catch
+  // rather than `typeof`, since `typeof` on a not-yet-initialized `let` throws
+  // (temporal dead zone) instead of returning 'undefined'.
+  let rotation;
+  try {
+    rotation = { rotX: +rotX.toFixed(1), rotY: +rotY.toFixed(1) };
+  } catch (e) {
+    rotation = undefined;
+  }
+  console.log(
+    `[axis-chart] camera.position (${reason}):`,
+    { x: +x.toFixed(1), y: +y.toFixed(1), z: +z.toFixed(1) },
+    rotation
+  );
+}
+logCameraPosition('init');
+
+// ── Lights ───────────────────────────────────────────────────────────────────
+scene.add(new AmbientLight(0xffffff, 0.85));
+const sun = new DirectionalLight(0xd0eeff, 0.9);
+sun.position.set(1.2, 2, 1.5);
+scene.add(sun);
+const fill = new PointLight(0x7287fd, 0.6, 1800);
+fill.position.set(-220, 140, 340);
+scene.add(fill);
+
+// ── Headline billboard — real mesh in the 3D scene, SAME billboard plane as avatar ──
+// Previously a CSS overlay pinned at z-index:0 (always BEHIND the canvas, tubes could
+// only ever pass in front of it, never behind). Moving it into the scene next to the
+// avatar mesh — same technique, same depth defaults — lets the WebGL depth buffer sort
+// tube arcs in front of AND behind the headline text, exactly like the avatar.
+const HEADLINE_CANVAS_W = 1600;
+const HEADLINE_CANVAS_H = 620;
+const headlineCanvas = document.createElement('canvas');
+headlineCanvas.width  = HEADLINE_CANVAS_W;
+headlineCanvas.height = HEADLINE_CANVAS_H;
+const hctx = headlineCanvas.getContext('2d');
+
+// Colors/weights mirror the reference headline CSS on main (.homepage-headline-axis):
+// font-weight 800 variable, letter-spacing -0.02em, uppercase, color-mix(text-color 88%, anp-base)
+function wrapHeadline(words, maxWidth) {
+  const lines = [];
+  let line = '';
+  words.forEach(word => {
+    const test = line ? `${line} ${word}` : word;
+    if (line && hctx.measureText(test).width > maxWidth) {
+      lines.push(line);
+      line = word;
+    } else {
+      line = test;
+    }
+  });
+  if (line) lines.push(line);
+  return lines;
+}
+
+function drawHeadlineText(text, dimmed) {
+  hctx.clearRect(0, 0, HEADLINE_CANVAS_W, HEADLINE_CANVAS_H);
+  hctx.textAlign = 'center';
+  hctx.textBaseline = 'middle';
+  hctx.fillStyle = '#ffffff';
+
+  const words    = (text || '').toUpperCase().split(' ');
+  const maxWidth = HEADLINE_CANVAS_W - 48;
+
+  // Fixed size for every headline + rollover title (consistent, not fill-to-fit).
+  const fontSize   = 96;
+  const lineHeight = fontSize * 0.98;
+  hctx.font = `800 ${fontSize}px 'Google Sans Flex', 'Outfit', system-ui, sans-serif`;
+  const lines = wrapHeadline(words, maxWidth);
+
+  const totalH = lines.length * lineHeight;
+  let y = (HEADLINE_CANVAS_H - totalH) / 2 + lineHeight / 2;
+  lines.forEach(l => { hctx.fillText(l, HEADLINE_CANVAS_W / 2, y); y += lineHeight; });
+
+  if (headlineTex) headlineTex.needsUpdate = true;
+}
+
+let headlineTex   = null;
+let headlinePlane = null;
+// Headline plane world size. On mobile the headline is rendered noticeably
+// LARGER for mobile-oriented proportions — the tubes are allowed to overflow the
+// viewport there (see syncSize), so the headline needs more presence. On desktop
+// it stays sized to sit centered within the fully-framed chart.
+const HEADLINE_IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
+const HEADLINE_PLANE_W = HEADLINE_IS_MOBILE ? 470 : 580;
+const HEADLINE_PLANE_H = HEADLINE_PLANE_W * (HEADLINE_CANVAS_H / HEADLINE_CANVAS_W);
+if (headlineH1) {
+  headlineTex = new CanvasTexture(headlineCanvas);
+  headlineTex.colorSpace = SRGBColorSpace;
+  drawHeadlineText(DEFAULT_HEADLINE, false);
+  headlinePlane = new Mesh(
+    new PlaneGeometry(HEADLINE_PLANE_W, HEADLINE_PLANE_H),
+    new MeshBasicMaterial({ map: headlineTex, transparent: true, side: DoubleSide })
+    // depthWrite/depthTest left at their defaults (true) so tube geometry sorts
+    // naturally in front of and behind this plane.
+  );
+  headlinePlane.position.set(0, 0, 0);
+  scene.add(headlinePlane);
+  // The DOM/CSS <h1> stays hidden via the `.js` class (base.njk) — it's now only
+  // a text data source for drawHeadlineText and a no-JS fallback.
+}
+
+// ── Avatar billboard — real mesh in the 3D scene ─────────────────────────────
+// Previously a CSS overlay pinned above everything (avatar > tubes > headline
+// always). Moving it into the scene at the origin lets the WebGL depth buffer
+// sort it against tube geometry naturally: tubes nearer the camera than the
+// avatar plane occlude it, tubes farther away are occluded by it — a real
+// middle plane, not a fixed z-index split.
+// Avatar is now a DOM element pinned over the top of the stage (see markup +
+// .home-axis-avatar CSS), not a mesh in the scene.
+
+// ── Radial chart constants ────────────────────────────────────────────────────
+const CAREER_START_YEAR  = 2010;
+const CAREER_START_MONTH = 1;
+const CAREER_END_YEAR    = 2026;
+const CAREER_END_MONTH   = 8;
+const CAREER_MONTHS      = (CAREER_END_YEAR - CAREER_START_YEAR) * 12
+                           + (CAREER_END_MONTH - CAREER_START_MONTH); // 199
+
+const RADIANS_PER_MONTH = (2 * Math.PI) / CAREER_MONTHS;
+const THETA_6OCLOCK     = -Math.PI / 2;   // bottom of clock (−Y axis)
+
+const R_INNER  = 100;   // solo projects radius
+const R_OUTER  = 280;   // team projects radius
+const Y_RANGE  = 200;   // ± elevation (medium axis depth)
+const TUBE_R   = 20;    // tube cross-section radius
+const ARC_SEGS = 72;    // arc curve resolution
+
+// ── Tube color ramp — solid greens pulled from the jungle palette ─────────────
+// Each project gets a distinct, stable green spread across the light↔dark jungle
+// range (new-colors.css: medium-jungle-300 #91d4a3 → medium-jungle-800 #1d4929),
+// so tubes read as solid jungle tones rather than per-image dominant colors.
+const JUNGLE_LIGHT = new Color(0x91d4a3);
+const JUNGLE_DARK  = new Color(0x1d4929);
+function slugHash(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+function jungleTubeColor(slug) {
+  const t = slug ? (slugHash(slug) % 1000) / 999 : 0.5;
+  return JUNGLE_LIGHT.clone().lerp(JUNGLE_DARK, t);
+}
+
+// ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
+function makeDotsTexture(size = 256) {
+  const c = document.createElement('canvas');
+  c.width = c.height = size;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#c8cdd8';
+  ctx.fillRect(0, 0, size, size);
+  const dotRadius = 1.1;
+  const spacing   = 7;
+  ctx.fillStyle = 'rgba(80,88,108,0.55)';
+  for (let y = spacing / 2; y < size; y += spacing) {
+    for (let x = spacing / 2; x < size; x += spacing) {
+      ctx.beginPath();
+      ctx.arc(x + (Math.random() - 0.5) * 1.5, y + (Math.random() - 0.5) * 1.5, dotRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  return new CanvasTexture(c);
+}
+
+const dotsTex = makeDotsTexture(256);
+
+// ── Helper: months since career start ────────────────────────────────────────
+function monthsElapsed(dateStr) {
+  if (!dateStr) return 0;
+  const [y, m] = dateStr.split('-').map(Number);
+  return Math.max(0, (y - CAREER_START_YEAR) * 12 + (m - CAREER_START_MONTH));
+}
+
+// ── Helper: point on circle at radius r, elevation y, angle theta ─────────
+function circlePoint(r, yElev, theta) {
+  return new Vector3(r * Math.cos(theta), yElev, r * Math.sin(theta));
+}
+
+// ── Helper: build arc curve ───────────────────────────────────────────────
+function makeArcCurve(r, yElev, thetaStart, thetaEnd) {
+  const pts = [];
+  for (let i = 0; i <= ARC_SEGS; i++) {
+    const t   = i / ARC_SEGS;
+    const ang = thetaStart + t * (thetaEnd - thetaStart);
+    pts.push(circlePoint(r, yElev, ang));
+  }
+  return new CatmullRomCurve3(pts, false, 'catmullrom', 0.0);
+}
+
+// ── Axis reference rings ──────────────────────────────────────────────────────
+function makeRingVerts(r, segments = 128) {
+  const verts = [];
+  for (let i = 0; i <= segments; i++) {
+    const a  = (i / segments) * 2 * Math.PI;
+    const a2 = ((i + 1) / segments) * 2 * Math.PI;
+    verts.push(r * Math.cos(a), 0, r * Math.sin(a));
+    verts.push(r * Math.cos(a2), 0, r * Math.sin(a2));
+  }
+  return new Float32Array(verts);
+}
+
+const ringMat = new LineBasicMaterial({ color: 0x0a1a0e, transparent: true, opacity: 0.15 });
+for (const r of [R_INNER, (R_INNER + R_OUTER) / 2, R_OUTER]) {
+  const rg = new BufferGeometry();
+  rg.setAttribute('position', new Float32BufferAttribute(makeRingVerts(r), 3));
+  scene.add(new LineSegments(rg, ringMat.clone()));
+}
+
+// Career-start tick line
+const tickVerts = new Float32Array([0, 0, -R_OUTER * 1.05, 0, 0,  R_OUTER * 1.05]);
+const tickGeo   = new BufferGeometry();
+tickGeo.setAttribute('position', new Float32BufferAttribute(tickVerts, 3));
+scene.add(new LineSegments(tickGeo, new LineBasicMaterial({ color: 0x9ca0b0, transparent: true, opacity: 0.15 })));
+
+
+// ── Ephemeral tube shader ─────────────────────────────────────────────────────
+// A soft, translucent, fresnel-lit look instead of a solid MeshStandard surface.
+// Near the world z=0 plane (where the headline + avatar billboards sit) the
+// geometry scatters outward and its surface breaks into sparse glowing speckles —
+// so each arc appears to disperse into a cloud of particles, pass through the
+// headline, and reassemble on the far side of the plane.
+const DISPERSE_BAND = 46;   // half-thickness (world units) of the dispersion zone
+const DISPERSE_SCATTER = 18; // max outward scatter distance at the plane
+// The dispersion plane matches the headline billboard: it passes through the
+// origin with a normal pointing at the (static) camera, so tubes break up flat
+// against the text plane rather than through an off-axis world plane.
+const PLANE_NORMAL = camera.position.clone().normalize();
+
+const TUBE_VERT = /* glsl */`
+  uniform float uTime;
+  uniform float uBandHalf;
+  uniform float uScatter;
+  uniform vec3  uPlaneN;
+  varying vec3 vWorldPos;
+  varying vec3 vNormalW;
+  varying vec2 vUv;
+  varying float vDisperse;
+
+  float hash13(vec3 p){
+    p = fract(p * 0.3183099 + 0.1);
+    p *= 17.0;
+    return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+  }
+
+  void main(){
+    vUv = uv;
+    vec4 wp = modelMatrix * vec4(position, 1.0);
+    // Signed distance to the headline's (camera-facing) plane through the origin →
+    // 1 on the plane, 0 at the band edge, so the effect sits flat against the text.
+    float d = 1.0 - clamp(abs(dot(wp.xyz, uPlaneN)) / uBandHalf, 0.0, 1.0);
+    float disp = smoothstep(0.0, 1.0, d);
+    vDisperse = disp;
+
+    // Per-vertex scatter direction (stable hash) + gentle time shimmer.
+    vec3 dir = normalize(vec3(
+      hash13(position * 1.7),
+      hash13(position * 3.1 + 5.0),
+      hash13(position * 2.3 + 9.0)
+    ) * 2.0 - 1.0);
+    float shimmer = sin(uTime * 2.2 + hash13(position) * 6.2831) * 0.5 + 0.5;
+    vec3 scattered = position + dir * disp * uScatter * (0.55 + 0.45 * shimmer);
+
+    vec4 wp2 = modelMatrix * vec4(scattered, 1.0);
+    vWorldPos = wp2.xyz;
+    vNormalW = normalize(mat3(modelMatrix) * normal);
+    gl_Position = projectionMatrix * viewMatrix * wp2;
+  }
+`;
+
+const TUBE_FRAG = /* glsl */`
+  uniform vec3  uColor;
+  uniform float uOpacity;
+  uniform float uHover;
+  uniform float uTime;
+  uniform sampler2D uMap;
+  uniform float uHasMap;
+  varying vec3 vWorldPos;
+  varying vec3 vNormalW;
+  varying vec2 vUv;
+  varying float vDisperse;
+
+  float hash21(vec2 p){
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+  }
+
+  void main(){
+    vec3 viewDir = normalize(cameraPosition - vWorldPos);
+    float fres = pow(1.0 - max(dot(normalize(vNormalW), viewDir), 0.0), 2.0);
+
+    vec3 base = uColor;
+    if (uHasMap > 0.5){
+      vec3 tex = texture2D(uMap, vUv).rgb;
+      base = mix(base, base * tex * 1.7, 0.28);
+    }
+
+    // Solid jungle fill: the project's green covers the surface, with only a
+    // gentle fresnel sheen lifting the grazing edges for form (no white core).
+    vec3 col = base + fres * 0.16;
+    col += uHover * vec3(0.02, 0.36, 0.5);
+    float alpha = uOpacity * (0.92 + fres * 0.08);
+
+    // Dispersion break-up near the plane: punch the surface into sparse motes.
+    if (vDisperse > 0.01){
+      float n = hash21(vWorldPos.xy * 1.4 + vUv * 24.0 + floor(uTime * 6.0) * 0.17);
+      float keep = step(vDisperse * 0.9, n);
+      alpha *= mix(1.0, keep, vDisperse);
+      col += vDisperse * 0.5 * base;          // motes glow as they scatter
+    }
+
+    if (alpha < 0.02) discard;
+    gl_FragColor = vec4(col, alpha);
+  }
+`;
+
+// Every tube/cap shader material is registered so the render loop can advance uTime.
+const shaderMats = [];
+
+function makeTubeMaterial(color) {
+  const m = new ShaderMaterial({
+    uniforms: {
+      uTime:     { value: 0 },
+      uColor:    { value: color },
+      uOpacity:  { value: 1.0 },
+      uHover:    { value: 0 },
+      uMap:      { value: null },
+      uHasMap:   { value: 0 },
+      uBandHalf: { value: DISPERSE_BAND },
+      uScatter:  { value: DISPERSE_SCATTER },
+      uPlaneN:   { value: PLANE_NORMAL },
+    },
+    vertexShader:   TUBE_VERT,
+    fragmentShader: TUBE_FRAG,
+    transparent: true,
+    depthWrite: true,          // keep occlusion vs. headline + avatar billboards
+    side: FrontSide,
+    blending: NormalBlending,
+  });
+  shaderMats.push(m);
+  return m;
+}
+
+// ── Build project arc tubes ───────────────────────────────────────────────────
+const meshGroup = new Group();
+scene.add(meshGroup);
+
+const loader   = new TextureLoader();
+const meshMeta = [];
+
+projectEls.forEach((el) => {
+  const dateStr  = el.dataset.chartDate  || '';
+  const duration = parseInt(el.dataset.chartDuration      || '6',  10);
+  const collab   = parseInt(el.dataset.chartCollaboration || '50', 10) / 100;
+  const medium   = parseInt(el.dataset.chartMedium        || '50', 10) / 100;
+  const url      = el.dataset.projectUrl   || '#';
+  const title    = el.dataset.projectTitle || '';
+  const blendSrc = el.dataset.chartBlend   || null;
+
+  // Collect all per-project image URLs for background strip
+  let scrubImages = [];
+  try { scrubImages = JSON.parse(el.dataset.chartImages || '[]'); } catch(e) {}
+
+  // ── Radial position ──────────────────────────────────────────────────────
+  const r      = R_INNER + collab * (R_OUTER - R_INNER);
+  const yElev  = (medium - 0.5) * 2 * Y_RANGE;
+  const elapsed    = monthsElapsed(dateStr);
+  const thetaStart = THETA_6OCLOCK - elapsed     * RADIANS_PER_MONTH;
+  const thetaEnd   = thetaStart    - duration    * RADIANS_PER_MONTH;
+  const thetaMid   = (thetaStart + thetaEnd) / 2;
+
+  // ── Tube material — solid jungle-green fill, distinct per project ───────────
+  // Derive slug from blend path: /img/chart-blend/<slug>.webp
+  const slug = blendSrc ? blendSrc.replace(/^.*\//, '').replace(/\.webp$/, '') : '';
+  const projectColor = jungleTubeColor(slug);
+
+  const mat = makeTubeMaterial(projectColor);
+
+  // Load blend image — sampled softly on top of the saturated project color.
+  // Textures must be decoded as sRGB (otherwise they render dark), and max
+  // anisotropy keeps them sharp where the tube surface grazes the camera.
+  if (blendSrc) {
+    loader.load(blendSrc, (tex) => {
+      tex.colorSpace = SRGBColorSpace;
+      tex.anisotropy = maxAniso;
+      mat.uniforms.uMap.value    = tex;
+      mat.uniforms.uHasMap.value = 1;
+      mat.needsUpdate = true;
     });
   }
 
-  let isDragging = false;
-  let startX = 0, startY = 0;
-  let rotX = -20, rotY = 15;
+  // ── Arc tube — smooth round TubeGeometry, densely segmented ─────────────────
+  // Higher tubular + radial resolution so the vertex-scatter dispersion near the
+  // plane reads as a fine cloud rather than a few chunky facets.
+  const arcSegs = Math.max(120, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)) * 6);
+  const curve   = makeArcCurve(r, yElev, thetaStart, thetaEnd);
+  const tube    = new Mesh(
+    new TubeGeometry(curve, arcSegs, TUBE_R, 30, false),
+    mat
+  );
+  tube.userData = { url, title };
+  meshGroup.add(tube);
 
-  function applyRotation() {
-    scene.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-  }
+  // ── Spherical endcaps — sealed rounded ends on each tube ────────────────────
+  // Replaces the old flat CircleGeometry discs. A sphere at each endpoint gives
+  // every arc a rounded terminal that shares the tube's ephemeral shader (so it
+  // disperses through the plane too) and its per-project color.
+  const capGeo = new SphereGeometry(TUBE_R, 32, 24);
+  const capS = new Mesh(capGeo, mat);
+  capS.position.copy(circlePoint(r, yElev, thetaStart));
+  meshGroup.add(capS);
 
-  stage.addEventListener('mousedown',  (e) => { isDragging = true; startX = e.clientX; startY = e.clientY; });
-  window.addEventListener('mouseup',   ()  => { isDragging = false; });
-  window.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    rotY += (e.clientX - startX) * 0.4;
-    rotX -= (e.clientY - startY) * 0.4;
-    startX = e.clientX; startY = e.clientY;
-    applyRotation();
+  const capE = new Mesh(capGeo, mat);
+  capE.position.copy(circlePoint(r, yElev, thetaEnd));
+  meshGroup.add(capE);
+
+  // Anchor for screen-space tooltip (midpoint above tube)
+  const midPt = circlePoint(r, yElev + TUBE_R + 4, thetaMid);
+  meshMeta.push({ tube, capS, capE, midPt, url, title, scrubImages, mat, loader });
+});
+
+// ── Drag rotation ────────────────────────────────────────────────────────────
+let isDragging = false, startX = 0, startY = 0;
+let rotX = -5.1, rotY = 38.6;  // dialed-in default view (2026-08-27), read from console during drag
+let autoRotate = true;         // idle spin until the first user interaction
+
+function applyGroupRotation() {
+  const rx = rotX * Math.PI / 180;
+  const ry = rotY * Math.PI / 180;
+  meshGroup.rotation.set(rx, ry, 0);
+  // Also rotate rings and tick lines
+  scene.children.forEach(c => {
+    if (c instanceof LineSegments) c.rotation.set(rx, ry, 0);
   });
+}
 
-  stage.addEventListener('touchstart', (e) => { isDragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; }, { passive: true });
-  window.addEventListener('touchend',  ()  => { isDragging = false; });
-  window.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    rotY += (e.touches[0].clientX - startX) * 0.4;
-    rotX -= (e.touches[0].clientY - startY) * 0.4;
-    startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-    applyRotation();
-  }, { passive: true });
+stage.addEventListener('mousedown',  e => { autoRotate = false; isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
+window.addEventListener('mouseup',   () => {
+  const wasDragging = isDragging;
+  isDragging = false;
+  stage.style.cursor = 'grab';
+  if (wasDragging) logCameraPosition('drag-end');  // ← console update on user change, for dialing in defaults
+});
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  rotY += (e.clientX - startX) * 0.35;  // left–right spin only; vertical tilt locked
+  startX = e.clientX; startY = e.clientY;
+  applyGroupRotation();
+});
 
-  placeProjects();
-  applyRotation();
-  window.addEventListener('resize', placeProjects, { passive: true });
-})();
+stage.addEventListener('touchstart', e => {
+  autoRotate = false;
+  isDragging = true;
+  startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+}, { passive: true });
+window.addEventListener('touchend', () => {
+  const wasDragging = isDragging;
+  isDragging = false;
+  if (wasDragging) logCameraPosition('drag-end');  // ← console update on user change, for dialing in defaults
+});
+stage.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  e.preventDefault();
+  rotY += (e.touches[0].clientX - startX) * 0.35;  // left–right spin only
+  startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+  applyGroupRotation();
+}, { passive: false });
+
+// ── Hover: raycaster + headline update + background strip ─────────────────────
+const raycaster  = new Raycaster();
+const pointerVec = new Vector2();
+let hoveredTube  = null;
+
+// Map tube + cap meshes → metadata (so raycaster hits on caps resolve correctly)
+const meshToMeta = new Map();
+meshMeta.forEach(m => {
+  meshToMeta.set(m.tube, m);
+  meshToMeta.set(m.capS, m);
+  meshToMeta.set(m.capE, m);
+});
+
+// Update the headline canvas texture and background strip on hover
+function setHoverState(meta) {
+  if (headlinePlane && meta) {
+    drawHeadlineText(meta.title, true);
+  }
+  if (bgStrip && meta && meta.scrubImages && meta.scrubImages.length) {
+    // Build a horizontal strip of stacked images (screenshot 3 style)
+    const imgs = meta.scrubImages.slice(0, 8);
+    bgStrip.innerHTML = imgs.map(src =>
+      `<img src="${src}" alt="" aria-hidden="true" class="home-axis-bg-img">`
+    ).join('');
+    bgStrip.style.opacity = '1';
+    bgStrip.setAttribute('data-active', meta.title);
+  }
+}
+
+function clearHoverState() {
+  if (headlinePlane) {
+    drawHeadlineText(DEFAULT_HEADLINE, false);
+  }
+  if (bgStrip) {
+    bgStrip.style.opacity = '0';
+    bgStrip.removeAttribute('data-active');
+  }
+}
+
+stage.addEventListener('mousemove', e => {
+  const rect = stage.getBoundingClientRect();
+  const mx   = e.clientX - rect.left;
+  const my   = e.clientY - rect.top;
+  pointerVec.x =  (mx / rect.width)  * 2 - 1;
+  pointerVec.y = -((my / rect.height)) * 2 + 1;
+  raycaster.setFromCamera(pointerVec, camera);
+
+  const allMeshes = [...meshToMeta.keys()];
+  const hits = raycaster.intersectObjects(allMeshes);
+
+  if (hits.length) {
+    const meta = meshToMeta.get(hits[0].object);
+    if (!meta) return;
+
+    // Highlight — tube + caps share one shader material, so lift its uHover
+    if (hoveredTube !== meta.tube) {
+      if (hoveredTube) {
+        const prev = meshToMeta.get(hoveredTube);
+        if (prev) prev.mat.uniforms.uHover.value = 0;
+      }
+      hoveredTube = meta.tube;
+      meta.mat.uniforms.uHover.value = 1;
+      setHoverState(meta);
+    }
+
+    if (!isDragging) stage.style.cursor = 'pointer';
+  } else {
+    if (hoveredTube) {
+      const prev = meshToMeta.get(hoveredTube);
+      if (prev) prev.mat.uniforms.uHover.value = 0;
+      hoveredTube = null;
+      clearHoverState();
+    }
+    if (!isDragging) stage.style.cursor = 'grab';
+  }
+});
+
+stage.addEventListener('mouseleave', () => {
+  if (hoveredTube) {
+    const prev = meshToMeta.get(hoveredTube);
+    if (prev) prev.mat.uniforms.uHover.value = 0;
+    hoveredTube = null;
+  }
+  clearHoverState();
+});
+
+stage.addEventListener('click', () => {
+  if (hoveredTube) window.location.href = meshToMeta.get(hoveredTube)?.url || '#';
+});
+
+// ── Render loop ───────────────────────────────────────────────────────────────
+function animate() {
+  requestAnimationFrame(animate);
+  // Advance shader time so the dispersion motes + fresnel shimmer animate.
+  const t = performance.now() * 0.001;
+  for (let i = 0; i < shaderMats.length; i++) shaderMats[i].uniforms.uTime.value = t;
+  // Idle auto-rotation — slow left–right spin until the user first interacts.
+  if (autoRotate) {
+    rotY += 0.12;
+    applyGroupRotation();
+  }
+  // Billboard: headline always faces the camera's view plane, regardless of
+  // meshGroup rotation from dragging — copy the camera's world quaternion.
+  if (headlinePlane) headlinePlane.quaternion.copy(camera.quaternion);
+  renderer.render(scene, camera);
+}
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+syncSize();
+applyGroupRotation();
+animate();
+
+// WebGL headline is live — cancel the DOM-headline fallback (see inline script above).
+window.__axisReady = true;
+if (window.__axisFallbackTimer) window.clearTimeout(window.__axisFallbackTimer);
+if (window.__axisRevealHeadline) window.removeEventListener('error', window.__axisRevealHeadline);
+if (headlineEl) headlineEl.classList.remove('is-fallback');
+
+window.addEventListener('resize', syncSize, { passive: true });
 </script>
 
 {% endif %}

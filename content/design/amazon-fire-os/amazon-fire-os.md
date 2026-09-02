@@ -25,7 +25,6 @@ images:
   - src: "./content/design/amazon-fire-os/ama-07.png"
   - src: "./content/design/amazon-fire-os/ama-08.png"
   - src: "./content/design/amazon-fire-os/ama-09.png"
-cardEnergy: loud
 chart:
   duration: 6
   collaboration: 90

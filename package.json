@@ -3,7 +3,8 @@
 	"version": "1.1.0",
 	"description": "a design & art studio",
 	"scripts": {
-		"build": "npm run build:styles && npx @11ty/eleventy",
+		"build": "npm run blend-images || echo '[build] blend-images skipped (PIL unavailable — using cached blends)' && npm run build:styles && npx @11ty/eleventy",
+		"blend-images": "python3 scripts/blend-project-images.py",
 		"build-ghpages": "npx @11ty/eleventy --pathprefix=/eleventy-base-blog/",
 		"start": "npx @11ty/eleventy --serve --quiet",
 		"start:fast": "SKIP_GALLERIES=true BUILD_DRAFTS=false npx @11ty/eleventy --serve --quiet",

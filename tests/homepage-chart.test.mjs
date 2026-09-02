@@ -5,8 +5,8 @@ import assert from 'node:assert/strict';
 describe('homepage 3D chart', () => {
   const html = readFileSync('_site/index.html', 'utf8');
 
-  it('renders the axis scene wrapper', () => {
-    assert.ok(html.includes('data-axis-scene'), 'data-axis-scene wrapper missing');
+  it('renders the axis canvas (WebGL target)', () => {
+    assert.ok(html.includes('data-axis-canvas'), 'data-axis-canvas WebGL target missing');
   });
 
   it('renders data-chart-duration on at least one project', () => {
@@ -23,6 +23,9 @@ describe('homepage 3D chart', () => {
 
   it('uses new axis labels', () => {
     assert.ok(html.includes('solo'), 'new axis label "solo" not found');
-    assert.ok(!html.includes('human behavior'), 'old axis label "human behavior" still present');
+    assert.ok(html.includes('team'), 'new axis label "team" not found');
+    assert.ok(html.includes('technical'), 'new axis label "technical" not found');
+    assert.ok(html.includes('visual'), 'new axis label "visual" not found');
+    assert.ok(html.includes('duration'), 'new axis label "duration" not found');
   });
 });

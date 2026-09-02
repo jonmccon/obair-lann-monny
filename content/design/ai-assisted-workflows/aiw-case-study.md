@@ -34,7 +34,6 @@ images:
     alt: "Client portal dashboard prototype with status cards and account details"
   - src: "./content/design/ai-assisted-workflows/PTR-43-ptr-handoff.png"
     alt: "Engineering handoff documentation for the reusable component system"
-cardEnergy: quiet
 ---
 
 Designing assisted systems that compress the distance between research, product definition, prototyping, and engineering implementation.
