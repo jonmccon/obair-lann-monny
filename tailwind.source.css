@@ -50,7 +50,7 @@
   }
 
   .site-header {
-    @apply border-b border-dashed border-anp-surface0 px-4 py-3 md:px-6 md:py-4;
+    @apply px-4 py-3 md:px-6 md:py-4;
   }
 
   .site-nav {

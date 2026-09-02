@@ -100,7 +100,7 @@ html.theme-home {
 	--text-color-muted: var(--color-peach-glow-700);
 	--text-color-subtle: var(--color-peach-glow-800);
 	--detail-color: var(--color-peach-glow-100);
-	--nav-link-color: var(--color-peach-glow-100);
+	--nav-link-color: var(--text-color);
 }
 
 /* Content (project detail) — light peach glow, rich dark text, darker sky links */
@@ -256,7 +256,7 @@ main :first-child {
 }
 
 header {
-	border-bottom: 1px solid var(--color-black-900);
+	/* border-bottom: 1px solid var(--color-black-900); */
 }
 
 header:after {
@@ -266,7 +266,7 @@ header:after {
 }
 
 footer {
-	border-top: 1px solid var(--color-black-900);
+	border-top: 1px solid var(--nav-link-color);
 	padding: 0.75em;
 	margin-top: 2rem;
 }
@@ -274,7 +274,14 @@ footer {
 /* Shared site footer — contact links at the very bottom of every page. */
 .site-footer {
 	margin-top: 3rem;
-	padding: 1.5rem 1rem;
+	padding: 0 1rem 1.5rem;
+	border-top: none;
+}
+
+/* Footer hosts the callout strip at its top edge, so the strip's bottom
+   border becomes the same visual separator line for the footer links. */
+.site-footer .home-callout-strip {
+	margin: 0 -1rem 1.25rem;
 }
 
 .site-footer-links {
@@ -292,17 +299,17 @@ footer {
 	font-size: 0.8rem;
 	font-weight: var(--font-weight-medium);
 	letter-spacing: 0.02em;
-	color: var(--text-color);
+	color: var(--nav-link-color);
 	text-decoration: none;
 }
 
 .site-footer-link:visited {
-	color: var(--text-color);
+	color: var(--nav-link-color);
 }
 
 .site-footer-link:hover,
 .site-footer-link:focus-visible {
-	color: var(--text-color);
+	color: var(--nav-link-color);
 	text-decoration: underline;
 }
 
@@ -1061,25 +1068,22 @@ header {
 /* --- Obsidian aside row -------------------------------------------------- */
 
 .home-aside-row {
-	display: flex;
-	flex-direction: column;
-	gap: 0.4rem;
-	align-items: center;
+	width: min(100%, 72rem);
 	padding: 0.8rem 1rem;
 	border: 1px solid rgb(124 58 237);
 	border-radius: 1rem;
-	background-color: rgb(124 58 237);
+	/* background-color: rgb(124 58 237); */
 	transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 	font-size: 0.85rem;
-	color: #fff;
-	text-align: center;
+	color: rgb(124 58 237);
+	text-align: left;
 }
 
 .home-aside-header {
 	display: flex;
 	align-items: center;
 	gap: 0.45rem;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 .home-aside-label {
@@ -1107,19 +1111,33 @@ header {
 .home-aside-row a {
 	color: inherit;
 	text-decoration: none;
-	text-align: center;
-	align-self: center;
+	text-align: left;
+	align-self: stretch;
 }
 
 .home-aside-link {
+	display: grid;
+	grid-template-columns: 160px 1fr;
+	gap: 1.5rem;
+	align-items: start;
+	width: 100%;
+}
+
+.home-aside-copy {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 	gap: 0.6rem;
+	padding-left: 0.5rem;
+}
+
+.home-aside-text {
+	font-size: 0.9375rem;
+	line-height: 1.5;
+	max-width: 52ch;
 }
 
 .home-aside-thumb {
-	width: 180px;
+	width: 100%;
 	max-width: 100%;
 	height: auto;
 	border-radius: 0.5rem;
@@ -1142,6 +1160,11 @@ header {
 	.home-aside-row {
 		border-radius: 1rem;
 		padding: 0.75rem 0.9rem;
+	}
+
+	.home-aside-link {
+		grid-template-columns: 100px 1fr;
+		gap: 1rem;
 	}
 }
 
@@ -2623,9 +2646,9 @@ img {
   min-width: 0; /* prevent max-content child from inflating parent grid column */
   overflow: hidden;
   overflow: clip; /* prevents iOS Safari bounce-scroll from exposing max-content child */
-  border-top: 1px solid var(--text-color);
-  border-bottom: 1px solid var(--text-color);
-  margin: 2.5rem 0 0 0;
+	border-top: 1px solid var(--nav-link-color);
+	border-bottom: 1px solid var(--nav-link-color);
+	margin: 0;
 }
 
 /* Two identical scroll groups sit side by side; the whole track slides left by
@@ -2665,7 +2688,7 @@ img {
   margin: 0;
   padding: 0.4rem 1.5rem;
   border-left: none;
-  border-right: 1px solid var(--text-color);
+	border-right: 1px solid var(--nav-link-color);
   display: flex;
   text-align: left;
 }
@@ -2675,7 +2698,7 @@ img {
   align-items: baseline;
   gap: 0.5rem;
   text-decoration: none;
-  color: #ffffff;
+	color: var(--nav-link-color);
   white-space: nowrap;
   transition: opacity 0.25s ease;
 }
@@ -2686,14 +2709,14 @@ img {
 }
 
 .home-callout-link:focus-visible {
-  outline: 2px solid #ffffff;
+	outline: 2px solid var(--nav-link-color);
   outline-offset: 4px;
 }
 
 .home-callout-quote {
   font-size: 0.72rem;
   font-weight: var(--font-weight-medium);
-  color: #ffffff;
+	color: var(--nav-link-color);
   line-height: 1.25;
   margin: 0;
   white-space: nowrap;
@@ -2702,7 +2725,7 @@ img {
 .home-callout-source {
   font-size: 0.72rem;
   font-weight: var(--font-weight-body);
-  color: #ffffff;
+	color: var(--nav-link-color);
   font-style: normal;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2756,7 +2779,7 @@ img {
 
 .home-testimonial-quote {
 	margin: 0 0 1.5rem;
-	font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+	font-size: clamp(1.1rem, 3.2vw, 2.5rem);
 	line-height: 1.2;
 	font-style: normal;
 }

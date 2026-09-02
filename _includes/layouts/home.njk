@@ -130,55 +130,23 @@ layout: layouts/base.njk
   </section>
 
   <aside class="home-aside-row">
-    <div class="home-aside-header">
-      <span class="home-aside-label">Check it out</span>
-      <span class="home-aside-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <circle cx="12" cy="12" r="8.25" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
-        </svg>
-      </span>
-    </div>
     <a class="home-aside-link" href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
       <img class="home-aside-thumb" src="/img/thumbnails/resize-block.gif" alt="Obsidian Time Blocks — resizing a time block" width="180" loading="lazy">
-      <span>Obsidian Time Blocks — a lightweight time-blocking plugin for focused work in Obsidian.</span>
+      <div class="home-aside-copy">
+        <div class="home-aside-header">
+          <span class="home-aside-label">Check it out</span>
+          <span class="home-aside-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <circle cx="12" cy="12" r="8.25" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
+            </svg>
+          </span>
+        </div>
+        <span class="home-aside-text">Obsidian Time Blocks - a lightweight time-blocking plugin for focused work.</span>
+      </div>
     </a>
   </aside>
 
-  {# Selected-outcomes ticker — loops across the bottom of the page. Two identical
-     groups are rendered so the marquee animation (-50%) wraps seamlessly. #}
-  {% set homeCallouts = [
-    { url: "/design/amazon-fire-os-upgrades/", quote: "Shipped to 40M+ active devices", source: "Amazon Fire OS" },
-    { url: "/design/resonance-ai-ml-platform/", quote: "Reduced report task time by 95%", source: "Resonance AI" },
-    { url: "/design/priority-tax-relief/", quote: "Conversion surfaces up by 14×", source: "Priority Tax Relief" },
-    { url: "/design/lumedic-platform-healthcare-records/", quote: "Thousands of workers verified daily", source: "Lumedic Connect" },
-    { url: "/design/seattle-creative-directory/", quote: "268 listings · 15 episodes · 50k+ plays", source: "Seattle Creative Directory" },
-    { url: "/design/android-gemini-interaction/", quote: "Interaction patterns surfaced in Gemini for Android", source: "BUCK × Google — early Gemini concepts" }
-  ] %}
-  <div class="home-callout-strip" aria-label="Selected outcomes">
-    <div class="home-callout-track">
-      <div class="home-callout-scroll">
-        {% for c in homeCallouts %}
-        <blockquote class="home-callout">
-          <a class="home-callout-link" href="{{ c.url }}">
-            <p class="home-callout-quote">{{ c.quote }}</p>
-            <cite class="home-callout-source">{{ c.source }}</cite>
-          </a>
-        </blockquote>
-        {% endfor %}
-      </div>
-      <div class="home-callout-scroll" aria-hidden="true">
-        {% for c in homeCallouts %}
-        <blockquote class="home-callout">
-          <a class="home-callout-link" href="{{ c.url }}" tabindex="-1">
-            <p class="home-callout-quote">{{ c.quote }}</p>
-            <cite class="home-callout-source">{{ c.source }}</cite>
-          </a>
-        </blockquote>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
 </section>
 
 <script>

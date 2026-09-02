@@ -249,6 +249,39 @@
 		</div>
 
 		<footer class="site-footer">
+			{# Selected-outcomes ticker lives inside the shared site footer. #}
+			{% set homeCallouts = [
+				{ url: "/design/amazon-fire-os-upgrades/", quote: "Shipped to 40M+ active devices", source: "Amazon Fire OS" },
+				{ url: "/design/resonance-ai-ml-platform/", quote: "Reduced report task time by 95%", source: "Resonance AI" },
+				{ url: "/design/priority-tax-relief/", quote: "Conversion surfaces up by 14×", source: "Priority Tax Relief" },
+				{ url: "/design/lumedic-platform-healthcare-records/", quote: "Thousands of workers verified daily", source: "Lumedic Connect" },
+				{ url: "/design/seattle-creative-directory/", quote: "268 listings · 15 episodes · 50k+ plays", source: "Seattle Creative Directory" },
+				{ url: "/design/android-gemini-interaction/", quote: "Interaction patterns surfaced in Gemini for Android", source: "BUCK × Google — early Gemini concepts" }
+			] %}
+			<div class="home-callout-strip" aria-label="Selected outcomes">
+				<div class="home-callout-track">
+					<div class="home-callout-scroll">
+						{% for c in homeCallouts %}
+						<blockquote class="home-callout">
+							<a class="home-callout-link" href="{{ c.url }}">
+								<p class="home-callout-quote">{{ c.quote }}</p>
+								<cite class="home-callout-source">{{ c.source }}</cite>
+							</a>
+						</blockquote>
+						{% endfor %}
+					</div>
+					<div class="home-callout-scroll" aria-hidden="true">
+						{% for c in homeCallouts %}
+						<blockquote class="home-callout">
+							<a class="home-callout-link" href="{{ c.url }}" tabindex="-1">
+								<p class="home-callout-quote">{{ c.quote }}</p>
+								<cite class="home-callout-source">{{ c.source }}</cite>
+							</a>
+						</blockquote>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
 			<nav class="site-footer-links" aria-label="Contact links">
 				{% for link in profile.contactLinks %}
 				<a class="site-footer-link" href="{{ link.url }}"{% if link.external %} target="_blank" rel="noreferrer"{% endif %}>
