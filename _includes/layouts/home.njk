@@ -337,7 +337,7 @@ function drawHeadlineText(text, dimmed) {
   hctx.clearRect(0, 0, HEADLINE_CANVAS_W, HEADLINE_CANVAS_H);
   hctx.textAlign = 'center';
   hctx.textBaseline = 'middle';
-  hctx.fillStyle = '#28251f';
+  hctx.fillStyle = '#ffffff';
 
   const words    = (text || '').toUpperCase().split(' ');
   const maxWidth = HEADLINE_CANVAS_W - 48;
@@ -479,7 +479,7 @@ function makeRingVerts(r, segments = 128) {
   return new Float32Array(verts);
 }
 
-const ringMat = new LineBasicMaterial({ color: 0x7287fd, transparent: true, opacity: 0.12 });
+const ringMat = new LineBasicMaterial({ color: 0x0a1a0e, transparent: true, opacity: 0.15 });
 for (const r of [R_INNER, (R_INNER + R_OUTER) / 2, R_OUTER]) {
   const rg = new BufferGeometry();
   rg.setAttribute('position', new Float32BufferAttribute(makeRingVerts(r), 3));
