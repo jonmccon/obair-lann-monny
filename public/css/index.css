@@ -69,6 +69,8 @@
 	--text-color-link-active: var(--color-sky-reflection-700);
 	--text-color-link-visited: var(--color-sky-reflection-800);
 	--text-color-on-accent: var(--color-peach-glow-50);
+	/* Header + footer nav links follow the page theme, not the content-page link blue. */
+	--nav-link-color: var(--text-color);
 	--lightbox-control-color: var(--anp-base);
 
 	/* Flat rounded-rectangle buttons — solid fill tinted from the ambient page
@@ -98,16 +100,18 @@ html.theme-home {
 	--text-color-muted: var(--color-peach-glow-700);
 	--text-color-subtle: var(--color-peach-glow-800);
 	--detail-color: var(--color-peach-glow-100);
+	--nav-link-color: var(--color-peach-glow-100);
 }
 
-/* Content (project detail) — light peach glow, rich dark text, sky links */
+/* Content (project detail) — light peach glow, rich dark text, darker sky links */
 html.theme-content {
 	--background-color: var(--color-peach-glow-100);
 	--text-color: var(--color-black-900);
 	--text-color-muted: var(--color-black-600);
-	--text-color-link: var(--color-sky-reflection-500);
+	--text-color-link: var(--color-sky-reflection-700);
 	--text-color-link-active: var(--color-sky-reflection-800);
 	--text-color-link-visited: var(--color-sky-reflection-700);
+	--nav-link-color: var(--text-color);
 }
 
 /* Resume — sky reflection field, dark text + dark links for contrast */
@@ -121,14 +125,25 @@ html.theme-resume {
 	--text-color-link-visited: var(--color-steel-blue-900);
 	/* Nav matches the content-page background color (peach glow) */
 	--detail-color: var(--color-peach-glow-100);
+	--nav-link-color: var(--color-peach-glow-100);
 }
 
-/* Home + resume — small nav details take the contrasting peach accent */
-html.theme-home .site-header nav a,
-html.theme-home .nav-item a,
-html.theme-resume .site-header nav a,
-html.theme-resume .nav-item a {
-	color: var(--detail-color);
+/* Header + footer nav links take each page theme's nav color (--nav-link-color)
+   rather than falling through to the default content-link blue. The [href]
+   selectors raise specificity above the global `a[href]` color rule. */
+.site-header nav a[href],
+.site-header nav a[href]:visited,
+.site-header nav a[href]:hover,
+.site-header nav a[href]:focus-visible,
+.nav-item a[href],
+.nav-item a[href]:visited,
+.nav-item a[href]:hover,
+.nav-item a[href]:focus-visible,
+.site-footer-link[href],
+.site-footer-link[href]:visited,
+.site-footer-link[href]:hover,
+.site-footer-link[href]:focus-visible {
+	color: var(--nav-link-color);
 }
 
 
@@ -2557,6 +2572,42 @@ img {
 	line-height: 1.7;
 }
 
+/* ─── Mobile reading typography ──────────────────────────────────────────────
+   Keep the content-page type scale coherent on small screens: body paragraphs
+   step down from their large desktop reading size, captions stay smaller than
+   body, and code blocks clamp to a size that fits the viewport (smaller type +
+   wrapping) instead of forcing a wide horizontal scroll. */
+@media (max-width: 768px) {
+	.post-body > p,
+	.post-body > p:first-child,
+	.archive-intro {
+		font-size: 1.15rem;
+		line-height: 1.6;
+	}
+
+	.post-body > blockquote,
+	.post-body > ul,
+	.post-body > ol {
+		font-size: 1.05rem;
+	}
+
+	.post-body > pre {
+		font-size: 0.85rem;
+	}
+
+	pre:not([class*="language-"]),
+	pre[class*="language-"] {
+		white-space: pre-wrap;
+		word-break: break-word;
+		overflow-wrap: anywhere;
+	}
+
+	.post-body figcaption,
+	.post-body .image-caption {
+		font-size: 0.75rem;
+	}
+}
+
 /* ─── Homepage Callout Ticker (loops across the bottom of the page) ─────── */
 .home-callout-strip {
   width: 100%;
@@ -2573,7 +2624,7 @@ img {
 .home-callout-track {
   display: flex;
   width: max-content;
-  animation: home-callout-ticker 45s linear infinite;
+  animation: home-callout-ticker 75s linear infinite;
 }
 
 .home-callout-strip:hover .home-callout-track,
@@ -2677,8 +2728,8 @@ img {
 	border: 1px solid var(--color-peach-glow-400);
 	background: var(--color-peach-glow-100);
 	text-align: left;
-	/* Bottom-left corner rounds to the same radius as the flush avatar (see below). */
-	border-radius: 0.5rem 0.5rem 0.5rem 2.25rem;
+	/* Straight corners — square sticky-note edges. */
+	border-radius: 0;
 	/* Sticky-note lift. */
 	box-shadow: 0 10px 22px -8px rgba(30, 25, 20, 0.35), 0 3px 8px -3px rgba(30, 25, 20, 0.20);
 }
@@ -2709,8 +2760,9 @@ img {
 }
 
 .home-testimonial:nth-child(2) .home-testimonial-quote {
-	/* Previous: 'Quintessential' → 'Jacquard 24' */
-	font-family: 'Bubblegum Sans', system-ui, sans-serif;
+	/* Previous: 'Quintessential' → 'Jacquard 24' (reverted to). */
+	font-family: 'Jacquard 24', system-ui, sans-serif;
+	/* font-family: 'Bubblegum Sans', system-ui, sans-serif; */
 	font-weight: 400;
 	line-height: 1.3;
 }
@@ -2718,22 +2770,20 @@ img {
 .home-testimonial-footer {
 	display: flex;
 	align-items: center;
-	gap: 0.75rem;
+	gap: 0.6rem;
 	margin-top: auto;
-	/* Reserve left space for the corner-anchored avatar. */
-	padding: 1.25rem 0 0 3.4rem;
+	/* Tight lockup: avatar sits inline with the name/title, no reserved corner. */
+	padding: 1.25rem 0 0 0;
 	border-top: 0;
 }
 
 .home-testimonial-avatar {
-  position: absolute;
-  left: 0;
-  bottom: 0;
+  position: static;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   border: none;
   background: var(--surface-color-alt);
@@ -2760,8 +2810,8 @@ img {
 
 .home-testimonial-attribution a {
 	color: var(--text-color);
-	font-size: 0.78rem;
-	font-weight: 300;
+	font-size: 0.82rem;
+	font-weight: 600;
 	text-decoration: none;
 }
 
@@ -2773,19 +2823,38 @@ img {
 
 .home-testimonial-role {
 	color: var(--text-color);
-  font-size: 0.68rem;
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
 }
 
 @media (max-width: 768px) {
   .home-callout-track {
-    /* Faster loop on smaller screens. */
-    animation-duration: 30s;
+    /* Slower loop on smaller screens (was 30s). */
+    animation-duration: 55s;
   }
 
   .home-testimonial-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Size the sticky notes down on mobile while keeping the stacked layout. */
+  .home-testimonial {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .home-testimonial-quote {
+    font-size: clamp(1.35rem, 6vw, 1.7rem);
+    margin-bottom: 1rem;
+  }
+
+  .home-testimonial-footer {
+    padding-top: 0.9rem;
+  }
+
+  .home-testimonial-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

@@ -256,7 +256,20 @@ function syncSize() {
   const tanHalfV = Math.tan((camera.fov * Math.PI / 180) / 2);
   const distForWidth  = FIT_RADIUS_X / (tanHalfV * aspect);
   const distForHeight = FIT_RADIUS_Y / tanHalfV;
-  const dist = Math.max(DEFAULT_CAMERA_DISTANCE, distForWidth, distForHeight);
+  let dist;
+  if (w <= 768) {
+    // Mobile: intentionally let the tubes overflow the viewport for bolder,
+    // mobile-oriented proportions. Rather than framing the whole chart radius,
+    // we only guarantee the (enlarged) headline billboard stays fully visible;
+    // the outer tubes spill off the edges.
+    const marginedHalfW = (HEADLINE_PLANE_W / 2) * 1.08;
+    const marginedHalfH = (HEADLINE_PLANE_H / 2) * 1.08;
+    const distHeadlineW = marginedHalfW / (tanHalfV * aspect);
+    const distHeadlineH = marginedHalfH / tanHalfV;
+    dist = Math.max(distHeadlineW, distHeadlineH);
+  } else {
+    dist = Math.max(DEFAULT_CAMERA_DISTANCE, distForWidth, distForHeight);
+  }
   camera.position.copy(CAMERA_DIR).multiplyScalar(dist);
   camera.lookAt(0, 0, 0);
 
@@ -376,14 +389,17 @@ function drawHeadlineText(text, dimmed) {
 
 let headlineTex   = null;
 let headlinePlane = null;
+// Headline plane world size. On mobile the headline is rendered noticeably
+// LARGER for mobile-oriented proportions — the tubes are allowed to overflow the
+// viewport there (see syncSize), so the headline needs more presence. On desktop
+// it stays sized to sit centered within the fully-framed chart.
+const HEADLINE_IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
+const HEADLINE_PLANE_W = HEADLINE_IS_MOBILE ? 470 : 580;
+const HEADLINE_PLANE_H = HEADLINE_PLANE_W * (HEADLINE_CANVAS_H / HEADLINE_CANVAS_W);
 if (headlineH1) {
   headlineTex = new CanvasTexture(headlineCanvas);
   headlineTex.colorSpace = SRGBColorSpace;
   drawHeadlineText(DEFAULT_HEADLINE, false);
-  // Sized to sit centered in the stage; scaled down on narrow viewports so the
-  // type never spills past the canvas edges.
-  const HEADLINE_PLANE_W = window.innerWidth < 720 ? 380 : 580;
-  const HEADLINE_PLANE_H = HEADLINE_PLANE_W * (HEADLINE_CANVAS_H / HEADLINE_CANVAS_W);
   headlinePlane = new Mesh(
     new PlaneGeometry(HEADLINE_PLANE_W, HEADLINE_PLANE_H),
     new MeshBasicMaterial({ map: headlineTex, transparent: true, side: DoubleSide })
