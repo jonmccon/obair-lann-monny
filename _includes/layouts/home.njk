@@ -166,16 +166,15 @@ layout: layouts/base.njk
   window.addEventListener('error', revealHeadline);
 })();
 </script>
-
-<script type="importmap">
-{
-  "imports": {
-    "three": "https://esm.sh/three@0.169.0"
-  }
-}
-</script>
-
 <script type="module">
+// NOTE: importing three.js directly from its full esm.sh URL instead of via
+// an <script type="importmap"> "three" bare specifier. Import maps must be
+// registered before *any* module load/preload has started, and Firefox and
+// Safari enforce that strictly — on this page the importmap block was losing
+// that race (likely due to the async GTM <script> executing first), which
+// left "three" unresolved ("bare specifier ... was not remapped to
+// anything"). Importing the full URL removes the race entirely and works
+// identically across Chrome/Firefox/Safari.
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
   TubeGeometry, CatmullRomCurve3, CircleGeometry, SphereGeometry,
@@ -187,7 +186,7 @@ import {
   TextureLoader, CanvasTexture,
   Color, Raycaster, Vector2, Vector3, Quaternion,
   Group, SRGBColorSpace
-} from 'three';
+} from 'https://esm.sh/three@0.169.0';
 
 // ── Guard ────────────────────────────────────────────────────────────────────
 const stage      = document.querySelector('[data-axis-stage]');
