@@ -1170,7 +1170,7 @@ header {
 .home-supporting-content {
 	display: grid;
 	gap: 0.75rem;
-	margin: 1.5rem 0 1.5rem;
+	margin: -1.5rem 0 1.5rem;
 	justify-items: center;
 	text-align: center;
 }
@@ -1362,12 +1362,15 @@ header {
 	position: relative;
 	z-index: 1;
 	/* Tuck the statement in under the testimonial notes above it. */
-	margin: -1.5rem auto 0 auto;
-	max-width: min(40ch, 80vw);
+	margin: 0 auto;
+	max-width: min(70ch, 80vw);
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.75rem 1.5rem;
+	align-items: start;
 	font-family: var(--font-family-headline-flex);
-	font-size: clamp(1.75rem, 4vw, 2.5rem);
-	line-height: 1.1;
-	font-variation-settings: 'wght' 800, 'wdth' 50, 'opsz' 64, 'slnt' -5;
+	font-size: clamp(1.2rem, 1vw, 2.5rem);
+	font-variation-settings: 'wght' 700, 'wdth' 100, 'opsz' 64;
 	/* letter-spacing: -0.02em; */
 	color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base));
 	text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
@@ -1376,7 +1379,9 @@ header {
 }
 
 .homepage-about p {
-	margin: 0;
+	margin: 1em 0 0 0;
+	line-height: 1.2;
+	text-align: left;
 }
 
 .home-see-all-link {
@@ -1574,6 +1579,8 @@ header {
 	.homepage-about {
 		max-width: 100%;
 		margin-top: -1rem;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
 	}
 
 	.home-supporting-content {
