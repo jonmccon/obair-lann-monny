@@ -5,7 +5,7 @@ description: Designing the TV Guide app for Xbox One SmartGlass — a universal 
 category: XBOX
 date: 2014-04-01
 permalink: /design/xbox-one-smartglass/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/xbox-one-thumb.png
 tags:
   - ux

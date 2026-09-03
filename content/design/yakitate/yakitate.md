@@ -5,7 +5,7 @@ description: Identity system for an exhibition of emerging Japanese product desi
 category: Designboom
 date: 2011-08-01
 permalink: /design/yakitate/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/yakitate-thumb.png
 tags:
   - identity

@@ -5,7 +5,7 @@ description: A self-organized badminton tournament for two, with full league ide
 category: WWU
 date: 2010-05-01
 permalink: /design/short-shorts-and-lawn-sports/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/ssls-thumb.png
 tags:
   - print

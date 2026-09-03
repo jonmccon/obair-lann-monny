@@ -5,7 +5,7 @@ description: A working prototype for collecting, voting, ranking, and sharing th
 category: Tether
 date: 2013-11-30
 permalink: /design/vine-wars/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/vine-wars-thumb.png
 tags:
   - web

@@ -5,7 +5,7 @@ description: Producing the Capitol Hill and Pioneer Square AIGA Seattle studio t
 category: AIGA
 date: 2014-05-01
 permalink: /design/studio-tours/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/seattle-studio-tours-thumb.png
 tags:
   - web

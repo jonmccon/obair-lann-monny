@@ -5,7 +5,7 @@ description: Concepting a digital learning platform for Microsoft and Tether —
 category: Tether
 date: 2013-06-01
 permalink: /design/microsoft-learning-platform/
-draft: true
+draft: false
 featured: false
 thumbnail: /img/thumbnails/microsoft-learning-thumb.png
 tags:

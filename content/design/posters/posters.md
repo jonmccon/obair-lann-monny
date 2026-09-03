@@ -5,7 +5,7 @@ description: Print and screen work from WWU — campus promotional posters, Sasq
 category: Publicity Center
 date: 2010-01-01
 permalink: /design/posters/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/posters-thumb.png
 tags:
   - print

@@ -5,7 +5,7 @@ description: Full digital stack for a fast-growing farm-to-fork restaurant chain
 category: LYFE
 date: 2014-06-01
 permalink: /design/lyfe/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/lyfe-thumb.png
 tags:
   - ux

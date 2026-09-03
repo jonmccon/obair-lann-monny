@@ -5,7 +5,7 @@ description: Producing Seattle's first Pixels of Fury live design battle for AIG
 category: AIGA
 date: 2012-11-15
 permalink: /design/pixels-of-fury/
-draft: true
+draft: false
 thumbnail: /img/thumbnails/pixels-of-fury-thumb.png
 tags:
   - event
