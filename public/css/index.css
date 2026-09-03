@@ -1361,8 +1361,8 @@ header {
 .homepage-about {
 	position: relative;
 	z-index: 1;
-	/* Barely tuck the statement in under the testimonial notes above it. */
-	margin: -0.75rem auto 0 auto;
+	/* Tuck the statement in under the testimonial notes above it. */
+	margin: -1.5rem auto 0 auto;
 	max-width: min(40ch, 80vw);
 	font-family: var(--font-family-headline-flex);
 	font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -1376,11 +1376,7 @@ header {
 }
 
 .homepage-about p {
-	margin: 0 0 1rem;
-}
-
-.homepage-about p:last-child {
-	margin-bottom: 0;
+	margin: 0;
 }
 
 .home-see-all-link {
@@ -1577,6 +1573,7 @@ header {
 
 	.homepage-about {
 		max-width: 100%;
+		margin-top: -1rem;
 	}
 
 	.home-supporting-content {
@@ -2779,14 +2776,15 @@ img {
 .home-testimonial-strip {
   position: relative;
   z-index: 4;
-  /* Lift the strip up so the top card slightly overlaps the bottom of the canvas. */
-  margin: -2.5rem 0 1.5rem;
+  /* Lift the strip up so the top card overlaps the bottom of the canvas,
+     and drop the bottom margin so the about statement below can tuck in. */
+  margin: -3rem 0 0;
 }
 
 .home-testimonial-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 1.5rem;
+	gap: 1rem;
 	/* Force both cards to the tallest card's height while side by side. */
 	align-items: stretch;
 }
@@ -2819,6 +2817,9 @@ img {
 	background: color-mix(in srgb, var(--color-peach-glow-200) 55%, var(--color-peach-glow-50));
 	transform: rotate(1.6deg);
 	margin-top: 1.5rem;
+	/* Pull the second card toward the first so their edges overlap slightly —
+	   the overlap stays within the card's own padding, so no quote text is covered. */
+	margin-left: -1.25rem;
 	z-index: 1;
 }
 
@@ -2915,16 +2916,17 @@ font-family: 'Almendra Display', cursive;
     grid-template-columns: 1fr;
   }
 
-  /* The vertical offset used for the desktop side-by-side overlap isn't
-     needed once the cards stack in a single column — the grid gap already
-     spaces them. */
+  /* Pull the second card up so it overlaps the bottom of the first — the
+     overlap stays within the card's own bottom padding so the footer text
+     underneath is never covered. */
   .home-testimonial:nth-child(2) {
-    margin-top: 0;
+    margin-top: -1rem;
+    margin-left: 0;
   }
 
   /* Pull the first sticky note up so it overlaps the bottom of the canvas. */
   .home-testimonial-strip {
-    margin-top: -3.5rem;
+    margin-top: -4rem;
   }
 
   /* Size the sticky notes down on mobile while keeping the stacked layout. */
