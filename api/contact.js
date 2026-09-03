@@ -77,9 +77,9 @@ module.exports = async function handler(req, res) {
 		return res.status(405).json({ error: "Method not allowed." });
 	}
 
-	const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+	const webhookUrl = process.env.DISCORD_WEBHOOK_URL || process.env.DISCORD_WEBHOOK;
 	if (!webhookUrl) {
-		return res.status(500).json({ error: "Contact form is not configured." });
+		return res.status(503).json({ error: "Contact form is unavailable on this deployment. Please email directly." });
 	}
 
 	const body = parseBody(req);
