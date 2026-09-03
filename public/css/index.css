@@ -112,6 +112,16 @@ html.theme-content {
 	--text-color-link-active: var(--color-sky-reflection-800);
 	--text-color-link-visited: var(--color-sky-reflection-700);
 	--nav-link-color: var(--text-color);
+	--content-reading-max-width: 50rem;
+	--content-reading-font-size: 1rem;
+	--content-reading-line-height: 1.68;
+	--content-reading-font-size-mobile: 1.02rem;
+	--content-reading-line-height-mobile: 1.55;
+	--content-block-font-size: 1.05rem;
+	--content-block-font-size-mobile: 0.96rem;
+	--content-pre-font-size-mobile: 0.8rem;
+	--content-list-indent: 1rem;
+	--content-pre-inline-padding: 1rem;
 }
 
 /* Resume — sky reflection field, dark text + dark links for contrast */
@@ -126,6 +136,21 @@ html.theme-resume {
 	/* Nav matches the content-page background color (peach glow) */
 	--detail-color: var(--color-peach-glow-100);
 	--nav-link-color: var(--color-peach-glow-100);
+}
+
+/* Contact — deep black field with warm high-contrast text and cool link accents */
+html.theme-contact {
+	--background-color: var(--color-black-800);
+	--text-color: var(--color-peach-glow-50);
+	--text-color-muted: var(--color-peach-glow-200);
+	--text-color-subtle: var(--color-peach-glow-300);
+	--text-color-link: var(--color-sky-reflection-200);
+	--text-color-link-active: var(--color-peach-glow-300);
+	--text-color-link-visited: var(--color-sky-reflection-100);
+	--surface-color: var(--color-black-700);
+	--surface-color-alt: var(--color-black-600);
+	--anp-surface2: var(--color-black-500);
+	--nav-link-color: var(--text-color);
 }
 
 /* Header + footer nav links take each page theme's nav color (--nav-link-color)
@@ -2542,10 +2567,10 @@ img {
 
 /* Archive intro paragraph (e.g. /design/ page) — matches post-body reading column */
 .archive-intro {
-	max-width: 68ch;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-inline: auto;
-	font-size: 1.45rem;
-	line-height: 1.75;
+	font-size: var(--content-reading-font-size, 1.45rem);
+	line-height: var(--content-reading-line-height, 1.75);
 	margin-bottom: 3rem;
 }
 
@@ -2609,9 +2634,20 @@ img {
 	margin-bottom: 2rem;
 }
 
+/* Keep media rows on one full-width track so single images match two/three-column blocks. */
+.post-body .two-column,
+.post-body .three-column,
+.post-body > p:has(> img),
+.post-body > p:has(> picture),
+.post-body > figure {
+	width: 100%;
+	max-width: 100%;
+	margin-inline: auto;
+}
+
 /* Section headings in post body — constrained to reading column, centered */
 .post-body > :is(h2, h3, h4, h5, h6) {
-	max-width: 50ch;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-top: 2rem;
 	margin-bottom: 1rem;
 	margin-inline: auto;
@@ -2621,29 +2657,40 @@ img {
 /* Any direct paragraph in post body gets breathing room + optimal reading width, centered */
 .post-body > p {
 	margin-bottom: 1.6rem;
-	max-width: 68ch;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-inline: auto;
-	font-size: 1.45rem;
-	line-height: 1.75;
+	font-size: var(--content-reading-font-size, 1.45rem);
+	line-height: var(--content-reading-line-height, 1.75);
 }
 
 /* Intro paragraph — same width, extra space before images */
 .post-body > p:first-child {
-	max-width: 68ch;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-inline: auto;
 	margin-bottom: 3rem;
 }
 
-/* Align block-level content (code, quotes, lists) to the same reading column as body paragraphs (68ch of Outfit @ 1.45rem ≈ 64.5rem) */
+/* Align block-level content (code, quotes, lists) to the same reading column as body paragraphs. */
 .post-body > pre,
 .post-body > blockquote,
 .post-body > ul,
 .post-body > ol {
-	max-width: 64.5rem;
+	max-width: var(--content-reading-max-width, 50rem);
 	margin-inline: auto;
 	margin-block: 2rem;
-	font-size: 1.15rem;
+	font-size: var(--content-block-font-size, 1.15rem);
 	line-height: 1.7;
+}
+
+.post-body > ul,
+.post-body > ol {
+	padding-inline-start: var(--content-list-indent, 1rem);
+}
+
+.post-body > pre,
+.post-body > pre:not([class*="language-"]),
+.post-body > pre[class*="language-"] {
+	padding-inline: var(--content-pre-inline-padding, 1rem);
 }
 
 /* ─── Mobile reading typography ──────────────────────────────────────────────
@@ -2655,18 +2702,18 @@ img {
 	.post-body > p,
 	.post-body > p:first-child,
 	.archive-intro {
-		font-size: 1.15rem;
-		line-height: 1.6;
+		font-size: var(--content-reading-font-size-mobile, 1.15rem);
+		line-height: var(--content-reading-line-height-mobile, 1.6);
 	}
 
 	.post-body > blockquote,
 	.post-body > ul,
 	.post-body > ol {
-		font-size: 1.05rem;
+		font-size: var(--content-block-font-size-mobile, 1.05rem);
 	}
 
 	.post-body > pre {
-		font-size: 0.85rem;
+		font-size: var(--content-pre-font-size-mobile, 0.85rem);
 	}
 
 	pre:not([class*="language-"]),

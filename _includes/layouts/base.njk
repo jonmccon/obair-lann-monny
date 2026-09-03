@@ -5,7 +5,7 @@
 	{%- set canonicalUrl -%}{{ page.url | htmlBaseUrl(metadata.url) }}{%- endset %}
 {%- endif -%}
 <!doctype html>
-<html lang="{{ metadata.language }}" class="no-js{% if page.url == '/' %} theme-home{% elif layout == 'layouts/post.njk' %} theme-content{% elif page.url == '/resume/' %} theme-resume{% endif %}">
+<html lang="{{ metadata.language }}" class="no-js{% if page.url == '/' %} theme-home{% elif layout == 'layouts/post.njk' %} theme-content{% elif page.url == '/resume/' %} theme-resume{% elif page.url == '/contact/' %} theme-contact{% endif %}">
 	<head>
 		<meta charset="utf-8">
 		{#- Swap no-js→js before first paint so JS-only UI (e.g. the WebGL homepage
