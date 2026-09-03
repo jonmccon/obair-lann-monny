@@ -1,0 +1,190 @@
+---
+layout: layouts/archive.njk
+title: Contact
+description: Design services, creative technology, photography, and workshops. Reach out to discuss your project.
+permalink: /contact/
+eleventyNavigation:
+  key: Contact
+  order: 7
+---
+
+{%- css %}
+.contact-shell {
+	max-width: 68ch;
+	margin: 0 auto;
+}
+
+.contact-intro {
+	font-size: 1.1rem;
+	line-height: 1.65;
+	margin-bottom: 1.5rem;
+}
+
+.contact-form {
+	display: grid;
+	gap: 1rem;
+	margin-top: 1.5rem;
+}
+
+.contact-row {
+	display: grid;
+	gap: 0.4rem;
+}
+
+.contact-row label {
+	font-weight: var(--font-weight-medium);
+}
+
+.contact-row input,
+.contact-row select,
+.contact-row textarea {
+	width: 100%;
+	font: inherit;
+	color: var(--text-color);
+	background: var(--surface-color);
+	border: 1px solid var(--anp-surface2);
+	border-radius: 6px;
+	padding: 0.7rem 0.8rem;
+}
+
+.contact-row textarea {
+	min-height: 12rem;
+	resize: vertical;
+}
+
+.contact-submit {
+	justify-self: start;
+	border: 1px solid var(--anp-surface2);
+	background: var(--text-color);
+	color: var(--background-color);
+	padding: 0.75rem 1.1rem;
+	border-radius: 6px;
+	font: inherit;
+	cursor: pointer;
+}
+
+.contact-submit[disabled] {
+	opacity: 0.7;
+	cursor: not-allowed;
+}
+
+.contact-status {
+	min-height: 1.5rem;
+	margin: 0;
+}
+
+.contact-status[data-tone="success"] {
+	color: var(--text-color-link);
+}
+
+.contact-status[data-tone="error"] {
+	color: var(--text-color-link-active);
+}
+
+.contact-fallback {
+	margin-top: 1rem;
+	color: var(--text-color-muted);
+	font-size: 0.95rem;
+}
+{% endcss %}
+
+<section class="contact-shell rich-text">
+	<h1>Tell me about your project</h1>
+	<p class="contact-intro">
+		You can always email me directly at <a href="mailto:jonmccon@gmail.com">jonmccon@gmail.com</a> Share a few details and I'll follow up with you. </p>
+
+	<form id="contact-form" class="contact-form" novalidate>
+		<div class="contact-row">
+			<label for="name">Name</label>
+			<input id="name" name="name" type="text" autocomplete="name" required>
+		</div>
+
+		<div class="contact-row">
+			<label for="email">Email</label>
+			<input id="email" name="email" type="email" autocomplete="email" required>
+		</div>
+
+		{# <div class="contact-row">
+			<label for="projectType">Project type (optional)</label>
+			<select id="projectType" name="projectType">
+				<option value="">Select one</option>
+				<option value="Product design">Product design</option>
+				<option value="Creative technology">Creative technology</option>
+				<option value="Photography">Photography</option>
+				<option value="Workshop or advising">Workshop or advising</option>
+				<option value="Other">Other</option>
+			</select>
+		</div> #}
+
+		<div class="contact-row">
+			<label for="timeline">Timeline (optional)</label>
+			<input id="timeline" name="timeline" type="text" placeholder="e.g. October launch">
+		</div>
+
+		<div class="contact-row">
+			<label for="budget">Budget range (optional)</label>
+			<input id="budget" name="budget" type="text" placeholder="e.g. $5k-$15k">
+		</div>
+
+		<div class="contact-row">
+			<label for="details">Project details</label>
+			<textarea id="details" name="details" required placeholder="What are you working on, who is it for, and what support do you need?"></textarea>
+		</div>
+
+		<button class="contact-submit" type="submit">Send inquiry</button>
+		<p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
+	</form>
+
+</section>
+
+<script>
+(function () {
+	const form = document.getElementById("contact-form");
+	const status = document.getElementById("contact-status");
+	if (!form || !status) return;
+
+	const submitButton = form.querySelector('button[type="submit"]');
+
+	function setStatus(message, tone) {
+		status.textContent = message || "";
+		if (tone) {
+			status.dataset.tone = tone;
+			return;
+		}
+		delete status.dataset.tone;
+	}
+
+	form.addEventListener("submit", async function (event) {
+		event.preventDefault();
+		setStatus("");
+		submitButton.disabled = true;
+
+		const payload = Object.fromEntries(new FormData(form).entries());
+
+		try {
+			const response = await fetch("/api/contact", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(payload)
+			});
+
+			const result = await response.json().catch(function () {
+				return {};
+			});
+
+			if (!response.ok) {
+				throw new Error(result.error || "Could not send your message right now.");
+			}
+
+			form.reset();
+			setStatus("Thanks—your message was sent. I'll reply soon.", "success");
+		} catch (error) {
+			setStatus(error.message || "Something went wrong. Please email me directly.", "error");
+		} finally {
+			submitButton.disabled = false;
+		}
+	});
+})();
+</script>
