@@ -97,7 +97,15 @@ layout: layouts/base.njk
 
 
   {% if introductionText %}
-    <p class="homepage-about">{{ introductionText }}</p>
+    <div class="homepage-about">
+      {% if introductionText is string %}
+        <p>{{ introductionText }}</p>
+      {% else %}
+        {% for paragraph in introductionText %}
+        <p>{{ paragraph | safe }}</p>
+        {% endfor %}
+      {% endif %}
+    </div>
   {% endif %}
 
   {% include "projectsThumbGrid.njk" %}

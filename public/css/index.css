@@ -1061,8 +1061,7 @@ header {
 }
 
 @media (max-width: 640px) {
-	.home-podcast-grid { grid-template-columns: 100px 1fr; gap: 1rem; }
-	.home-podcast-cover { max-width: 100px; }
+	.home-podcast-grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 
 /* --- Obsidian aside row -------------------------------------------------- */
@@ -1360,7 +1359,10 @@ header {
 /* Introduction text — borrows the semi-featured headline treatment
    (condensed Google Sans Flex display, uppercase, tight leading). */
 .homepage-about {
-	margin: 2.5rem auto 0 auto;
+	position: relative;
+	z-index: 1;
+	/* Barely tuck the statement in under the testimonial notes above it. */
+	margin: -0.75rem auto 0 auto;
 	max-width: min(40ch, 80vw);
 	font-family: var(--font-family-headline-flex);
 	font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -1371,6 +1373,14 @@ header {
 	text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
 	/* text-transform: uppercase; */
 	text-wrap: balance;
+}
+
+.homepage-about p {
+	margin: 0 0 1rem;
+}
+
+.homepage-about p:last-child {
+	margin-bottom: 0;
 }
 
 .home-see-all-link {
@@ -2767,7 +2777,10 @@ img {
 }
 
 .home-testimonial-strip {
-  margin: 0 0 1.5rem;
+  position: relative;
+  z-index: 4;
+  /* Lift the strip up so the top card slightly overlaps the bottom of the canvas. */
+  margin: -2.5rem 0 1.5rem;
 }
 
 .home-testimonial-grid {
@@ -2793,15 +2806,20 @@ img {
 	box-shadow: 0 10px 22px -8px rgba(30, 25, 20, 0.35), 0 3px 8px -3px rgba(30, 25, 20, 0.20);
 }
 
-/* Slightly different peach + rotation per card so they read like pinned sticky notes. */
+/* Slightly different peach + rotation per card so they read like pinned sticky notes.
+   The second card is nudged down slightly so the pair reads as a loose,
+   overlapping stack rather than two flat, aligned cards. */
 .home-testimonial:nth-child(1) {
 	background: var(--color-peach-glow-100);
 	transform: rotate(-2.2deg);
+	z-index: 2;
 }
 
 .home-testimonial:nth-child(2) {
 	background: color-mix(in srgb, var(--color-peach-glow-200) 55%, var(--color-peach-glow-50));
 	transform: rotate(1.6deg);
+	margin-top: 1.5rem;
+	z-index: 1;
 }
 
 .home-testimonial-quote {
@@ -2897,10 +2915,15 @@ font-family: 'Almendra Display', cursive;
     grid-template-columns: 1fr;
   }
 
+  /* The vertical offset used for the desktop side-by-side overlap isn't
+     needed once the cards stack in a single column — the grid gap already
+     spaces them. */
+  .home-testimonial:nth-child(2) {
+    margin-top: 0;
+  }
+
   /* Pull the first sticky note up so it overlaps the bottom of the canvas. */
   .home-testimonial-strip {
-    position: relative;
-    z-index: 4;
     margin-top: -3.5rem;
   }
 
