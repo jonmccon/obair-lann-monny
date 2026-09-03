@@ -1,6 +1,6 @@
 ---
 title: Decibel Festival Popup Artshow
-description: Apparently the best shows aren't photographed
+description: Two years running the official poster show for Seattle's biggest electronic music festival
 category: Decibel
 date: 2013-08-01
 draft: true
@@ -22,51 +22,48 @@ images:
 - src: "content/design/decibel-festival/db-10.png"
 - src: "content/design/decibel-festival/db-11.png"
 - src: "content/design/decibel-festival/db-12.jpeg"
+chart:
+  duration: 3
+  collaboration: 30
+  medium: 95
 ---
 
-[] rewrite that subtitle
+**Role:** Producer, Decibel Festival Popup Artshow (2013–2014)
+**Collaborators:** Benjamin Van Citters, Nick Bartoletti, Chris Blohm, Patrick Wright (projection/AV, 2013)
+**Venue:** Neumos / Capitol Hill (2013); EMP Museum Skychurch (2014)
 
-[] change to mopop
+I produced the first and second annual Decibel Festival Popup Artshows — a curated poster exhibition running alongside Seattle's premier electronic music festival, featuring 40+ local designers each year.
 
-I produced the first & second annual official Decibel Festival Popup Artshows featuring over 40 local poster designers. Maybe it's just a part of a proper show opening to the public, but unfortunately you really had to be there for these. 
--
-The 2013 centennial show called upon the talents of Benajmin Van Citters, Nick Bartoletti, Chris Blohm and Patrick Wright to projection map and augment the whole show (from window displays, to rotating poster frames, to dancing skeleton tracking via Kinnect). A monday night quadruple kegger later, it was the highest attended opening event in the festival's history.
--
-2014 marked the introduction of EMP Museum's partnership with Decibel and made the poster festival a part of the Opening Gala in the Skychurch. 
--
-Email is often overlooked, but when approached at a person-to-person scale, it can be a powerful and honest driving force to inspire being a part of a poster show full of your friends. All it takes is a Google Form, a spreadsheet, Mailchimp's merge tags, a heavy dose of heartfelt honesty and you're just a pushpin supply away from an artshow. 
-- 
+The constraint was the same both years: no budget worth mentioning, a one-night window, and a room full of people who were about to walk into a music festival and might not stop to look at art. The work had to compete with everything happening around it.
 
-http://dbfestival.com/
-http://benvancitters.com/
-http://vimeo.com/bartoletti
-https://www.mopop.org/
+The 2013 show, timed to the festival's centennial, brought in Benjamin Van Citters, Nick Bartoletti, Chris Blohm, and Patrick Wright to layer projection mapping across the entire space — window displays, rotating poster frames, and a dancing skeleton tracked live via Kinect. A Monday night later, it was the highest-attended opening in the festival's history.
 
+2014 scaled up. MoPOP partnered with Decibel and moved the show into the Skychurch at EMP Museum as the official Opening Gala. Invitations and artist coordination were handled entirely through a Mailchimp campaign built on Google Forms and merge tags — personalised by artist assignment, print specs, and deadline. The email was the production system.
 
 <div class="two-column">
 
-{% image "./db-04.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-04.png", "2013 Decibel Popup Artshow promo graphic — 'Pop Up Art Show / September 24 / One Night Only'" %}
 
-{% image "./db-05.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-05.png", "Event photo — DJ performing with a skeleton tracked via Kinect projected behind him on the show wall" %}
 
-{% image "./db-01.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-01.png", "2014 invite email — 'Popup Poster Artparty / Opening Gala at EMP' header with fluorescent green organic shape" %}
 
-{% image "./db-02.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-02.png", "2014 artist confirmation email — 'Because You're Super' with individual artist assignment and print specs" %}
 
-{% image "./db-03.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-03.png", "Install shot — 18x24 poster prints laid out on the floor being arranged before hanging" %}
 
-{% image "./db-06.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-06.png", "Event photo (B&W) — silhouettes of attendees standing inside a projection-mapped show space" %}
 
-{% image "./db-07.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-07.png", "AV setup — stack of CRT monitors, projectors, and cables powering the 2013 projection installations" %}
 
-{% image "./db-08.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-08.png", "Install shot — poster frames on an orange wall with projection overlay mapping the grid" %}
 
-{% image "./db-09.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-09.png", "Gallery detail — poster frames projection-mapped onto a yellow field, showing digital prints by multiple artists" %}
 
-{% image "./db-10.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-10.png", "Crowd shot — large audience outside in front of the illuminated poster wall at night" %}
 
-{% image "./db-11.png", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-11.png", "Crowd shot — packed outdoor venue entrance with Decibel logo projected on the building facade" %}
 
-{% image "./db-12.jpeg", "Decibel Festival Popup Artshow project image" %}
+{% image "./db-12.jpeg", "Panoramic install shot — gallery space with large-format paintings and works in progress before opening" %}
 
 </div>

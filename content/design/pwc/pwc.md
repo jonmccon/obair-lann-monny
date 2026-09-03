@@ -40,6 +40,10 @@ images:
 - src: "content/design/pwc/PWC-08-mobile-140-document.png"
 - src: "content/design/pwc/PWC-01-mobile-10-login.png"
 - src: "content/design/pwc/PWC-10-mobile-30-login-success.png"
+chart:
+  duration: 18
+  collaboration: 75
+  medium: 45
 ---
 
 Designed the responsive web experience for Concourse, PwC's internal platform for managing consulting engagements. As the designer on this workstream, I extended a desktop-first enterprise tool into a fully responsive web application, covering mobile through large desktop. The work touched login flows, the home workspace overview, a multi-view deliverables system, dashboard analytics, files, digital assets, tools, and reports, and produced a suite of touch-adapted design system components that were adopted across all mobile work at PwC.

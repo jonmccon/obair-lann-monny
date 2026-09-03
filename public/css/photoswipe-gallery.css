@@ -23,21 +23,27 @@
 
 .gallery-jump-links a {
 	display: inline-block;
-	padding: 0.4rem 0.9rem;
-	background: var(--surface-color);
-	border: 1px solid var(--anp-crust);
+	padding: 0.45rem 1rem;
+	background: var(--btn-surface);
+	border: 1px solid var(--btn-edge);
+	box-shadow: var(--btn-raise-shadow);
 	border-radius: 4px;
 	font-size: 0.8125rem;
-	font-weight: 500;
-	color: var(--text-color-muted);
+	font-weight: 600;
+	color: var(--text-color);
 	text-decoration: none;
-	transition: border-color 0.15s ease, color 0.15s ease;
+	text-transform: capitalize;
+	font-family: var(--font-family);
+	transition:
+		transform 0.12s ease,
+		box-shadow 0.12s ease,
+		color 0.12s ease;
 }
 
 .gallery-jump-links a:hover {
-	border-color: var(--text-color-link);
-	color: var(--text-color-link);
-	background: var(--surface-color);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+	color: var(--text-color);
 }
 
 .gallery-section {

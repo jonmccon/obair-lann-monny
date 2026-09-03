@@ -20,6 +20,10 @@ images:
     alt: "Upload wizard — three-step flow for adding infographic metadata and author attribution"
   - src: "content/design/bakedin/bi-03.png"
     alt: "Design spec — type scale, color palette, and embed widget states"
+chart:
+  duration: 3
+  collaboration: 30
+  medium: 80
 ---
 
 Baked.in was a product idea around a problem that kept coming up in infographic publishing: you'd spend weeks on a piece, post it, and then watch it get rehosted somewhere with the credits stripped out. The tool gave creators an embeddable wrapper, a lightweight iframe that traveled with the image with the author name, source links, and a promotional partner baked directly into it. Any site that embedded your graphic via the widget kept your attribution intact.

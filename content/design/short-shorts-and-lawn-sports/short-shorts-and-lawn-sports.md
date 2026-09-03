@@ -16,6 +16,10 @@ images:
 - src: "content/design/short-shorts-and-lawn-sports/ssls-04.png"
 - src: "content/design/short-shorts-and-lawn-sports/ssls-05.png"
 - src: "content/design/short-shorts-and-lawn-sports/ssls-06.png"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 The culture of design school is often described as immersion training. No one going in knows what's going to happen and the results are quite relieving & stunning if you join the club.

@@ -13,6 +13,10 @@ images:
 - src: "content/design/studio-tours/tours-01.png"
 - src: "content/design/studio-tours/tours-02.png"
 - src: "content/design/studio-tours/tours-03.png"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 [] better presentation of 

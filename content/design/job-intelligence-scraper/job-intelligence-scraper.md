@@ -22,6 +22,10 @@ images:
     alt: Noise filters expanded in sidebar - non-product design roles hidden by default
   - src: ./content/design/job-intelligence-scraper/JIS-04-dashboard-analyzed.png
     alt: Dashboard with LLM fit scores rendered on candidate cards
+chart:
+  duration: 4
+  collaboration: 5
+  medium: 30
 ---
 
 Built a lean, local-first job intelligence pipeline that turns the firehose of 15+ job sources into a curated daily feed of qualified roles and lets me click to get an honest LLM fit verdict, generate a tailored cover letter, and scrape ATS application questions, all without spending a token until I ask for it.

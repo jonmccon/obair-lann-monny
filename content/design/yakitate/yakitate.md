@@ -13,6 +13,10 @@ images:
 - src: "content/design/yakitate/yaki-01.jpeg"
 - src: "content/design/yakitate/yaki-02.jpeg"
 - src: "content/design/yakitate/yaki-03.png"
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 
