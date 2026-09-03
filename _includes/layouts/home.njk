@@ -95,7 +95,8 @@ layout: layouts/base.njk
   </section>
 
 
-
+  {% include "projectsThumbGrid.njk" %}
+  
   {% if introductionText %}
     <div class="homepage-about">
       {% if introductionText is string %}
@@ -107,8 +108,6 @@ layout: layouts/base.njk
       {% endif %}
     </div>
   {% endif %}
-
-  {% include "projectsThumbGrid.njk" %}
 
   <section class="home-podcast-feature" aria-label="Podcast">
     <div class="home-podcast-grid">
@@ -126,7 +125,7 @@ layout: layouts/base.njk
           Hear all episodes ↗
         </div>
       </a>
-  </section>
+  </section>  
 
   <aside class="home-aside-row">
     <a class="home-aside-link" href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">

@@ -1363,7 +1363,7 @@ header {
 	z-index: 1;
 	/* Tuck the statement in under the testimonial notes above it. */
 	margin: 0 auto;
-	max-width: min(70ch, 80vw);
+	max-width: min(90ch, 100vw);
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
 	gap: 0.75rem 1.5rem;
@@ -1371,9 +1371,10 @@ header {
 	font-family: var(--font-family-headline-flex);
 	font-size: clamp(1.2rem, 1vw, 2.5rem);
 	font-variation-settings: 'wght' 700, 'wdth' 100, 'opsz' 64;
+	color: var(--text-color)
 	/* letter-spacing: -0.02em; */
-	color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base));
-	text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+	/* color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base)); */
+	/* text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07); */
 	/* text-transform: uppercase; */
 	text-wrap: balance;
 }
@@ -2148,7 +2149,7 @@ img {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
 	gap: 4px;
-	margin: 3rem 0 0;
+	margin: -1rem 0 0;
 	width: 100%;
 }
 
