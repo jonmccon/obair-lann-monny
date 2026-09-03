@@ -1,0 +1,76 @@
+/* Color palette */
+
+:root {
+--color-black-50: #f4f1f1;
+--color-black-100: #e8e3e3;
+--color-black-200: #d2c6c6;
+--color-black-300: #bbaaaa;
+--color-black-400: #a48e8e;
+--color-black-500: #8e7171;
+--color-black-600: #715b5b;
+--color-black-700: #554444;
+--color-black-800: #392d2d;
+--color-black-900: #1c1717;
+--color-black-950: #141010;
+
+--color-peach-glow-50: #fdf2e8;
+--color-peach-glow-100: #fae5d1;
+--color-peach-glow-200: #f5cba3;
+--color-peach-glow-300: #f0b075;
+--color-peach-glow-400: #ec9646;
+--color-peach-glow-500: #e77c18;
+--color-peach-glow-600: #b96313;
+--color-peach-glow-700: #8a4a0f;
+--color-peach-glow-800: #5c320a;
+--color-peach-glow-900: #2e1905;
+--color-peach-glow-950: #201103;
+
+--color-medium-jungle-50: #edf8f0;
+--color-medium-jungle-100: #daf1e0;
+--color-medium-jungle-200: #b6e2c2;
+--color-medium-jungle-300: #91d4a3;
+--color-medium-jungle-400: #6cc684;
+--color-medium-jungle-500: #47b865;
+--color-medium-jungle-600: #399351;
+--color-medium-jungle-700: #2b6e3d;
+--color-medium-jungle-800: #1d4929;
+--color-medium-jungle-900: #0e2514;
+--color-medium-jungle-950: #0a1a0e;
+
+--color-steel-blue-50: #edf3f7;
+--color-steel-blue-100: #dce7ef;
+--color-steel-blue-200: #b8d0e0;
+--color-steel-blue-300: #95b8d0;
+--color-steel-blue-400: #71a1c1;
+--color-steel-blue-500: #4e89b1;
+--color-steel-blue-600: #3e6e8e;
+--color-steel-blue-700: #2f526a;
+--color-steel-blue-800: #1f3747;
+--color-steel-blue-900: #101b23;
+--color-steel-blue-950: #0b1319;
+
+--color-sky-reflection-50: #ebf3f9;
+--color-sky-reflection-100: #d8e7f3;
+--color-sky-reflection-200: #b1d0e7;
+--color-sky-reflection-300: #8ab8db;
+--color-sky-reflection-400: #63a0cf;
+--color-sky-reflection-500: #3c89c3;
+--color-sky-reflection-600: #306d9c;
+--color-sky-reflection-700: #245275;
+--color-sky-reflection-800: #18374e;
+--color-sky-reflection-900: #0c1b27;
+--color-sky-reflection-950: #08131b;
+
+--color-dark-spruce-50: #ebf9ef;
+--color-dark-spruce-100: #d7f4de;
+--color-dark-spruce-200: #b0e8be;
+--color-dark-spruce-300: #88dd9d;
+--color-dark-spruce-400: #61d17d;
+--color-dark-spruce-500: #39c65c;
+--color-dark-spruce-600: #2e9e4a;
+--color-dark-spruce-700: #227737;
+--color-dark-spruce-800: #174f25;
+--color-dark-spruce-900: #0b2812;
+--color-dark-spruce-950: #081c0d;
+}
+

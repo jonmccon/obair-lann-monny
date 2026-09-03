@@ -9,7 +9,7 @@ permalink: /design/google-meet-alternate-connections/
 draft: false
 featured: true
 semiFeatured: true
-thumbnail: /img/thumbnails/google-meet-thumb.jpg
+thumbnail: /img/thumbnails/google-meet-thumb.png
 tags:
   - ux
   - product

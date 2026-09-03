@@ -19,32 +19,35 @@
 }
 
 .tag-filter-button {
-  padding: 0.4rem 0.9rem;
-  background: var(--surface-color);
-  border: 1px solid var(--anp-crust);
+  padding: 0.45rem 1rem;
+  background: var(--btn-surface);
+  border: 1px solid var(--btn-edge);
+  box-shadow: var(--btn-raise-shadow);
   border-radius: 4px;
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   transition:
-    border-color 0.15s ease,
-    background-color 0.15s ease,
-    color 0.15s ease;
-  color: var(--text-color-muted);
+    transform 0.12s ease,
+    box-shadow 0.12s ease,
+    color 0.12s ease;
+  color: var(--text-color);
   text-transform: capitalize;
   font-family: var(--font-family);
 }
 
 .tag-filter-button:hover {
-  border-color: var(--text-color-link);
-  color: var(--text-color-link);
-  background: var(--surface-color);
+  transform: translateY(2px);
+  box-shadow: var(--btn-press-shadow);
+  color: var(--text-color);
 }
 
 .tag-filter-button.active {
-  background: var(--text-color-link);
-  color: var(--text-color-on-accent);
-  border-color: var(--text-color-link);
+  background: var(--btn-surface);
+  color: var(--text-color-link);
+  border-color: var(--btn-edge);
+  transform: translateY(2px);
+  box-shadow: var(--btn-press-shadow);
 }
 
 /* Projects piles grid */

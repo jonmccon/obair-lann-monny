@@ -6,11 +6,6 @@ layout: layouts/base.njk
 {% set introductionHeading = homeOptions.introductionHeading | default(profile.headline) %}
 {% set introductionText = homeOptions.introductionText | default(profile.aboutBio) %}
 {% set featuredProjectThumbnailLimit = homeOptions.featuredProjectThumbnailLimit | default(10) %}
-{% set homeContactLinks = homeOptions.contactLinks | default([
-  { title: "jonmccon@gmail.com", url: "https://mail.google.com/mail/?view=cm&fs=1&to=jonmccon@gmail.com", icon: "mail", external: true },
-  { title: "GitHub", url: "https://github.com/jonmccon", icon: "github" },
-  { title: "LinkedIn", url: "https://www.linkedin.com/in/jonmccon", icon: "linkedin" }
-]) %}
 
 <section class="homepage-axis-hero" aria-label="Homepage hero">
   <div class="home-axis-stage" data-axis-stage>
@@ -25,10 +20,11 @@ layout: layouts/base.njk
       {% if introductionHeading %}<h1 class="home-axis-headline-text">{{ introductionHeading }}</h1>{% endif %}
     </div>
 
-    {# Portrait — rendered as a real Three.js billboard mesh inside the scene (data carrier only, hidden). #}
-    {# Moved from a CSS overlay so tube geometry can pass in front of AND behind it via the WebGL depth buffer. #}
-    {# heroImage re-hosts the remote portrait URL locally at build time — texture loaders can't hotlink github.com/user-attachments (no CORS). #}
-    <div class="home-axis-portrait-overlay" data-avatar-src="{% heroImage profile.portraitUrl %}" aria-hidden="true"></div>
+    {# Portrait — DOM avatar (from main) pinned over the top of the WebGL stage,
+       circle-cropped via CSS. No longer a mesh inside the Three.js scene. #}
+    <div class="home-axis-avatar">
+      {% image profile.portraitUrl, "Jonny McConnell portrait", [240], "240px" %}
+    </div>
 
     {# Axis labels — corner-anchored over canvas #}
     <div class="home-axis-labels" aria-hidden="true">
@@ -99,27 +95,25 @@ layout: layouts/base.njk
   </section>
 
 
-
+  {% include "projectsThumbGrid.njk" %}
+  
   {% if introductionText %}
-    <p class="homepage-about">{{ introductionText }}</p>
-  {% endif %}
-
-  {% include "homeFeaturedProjects.njk" %}
-
-  <a href="/design/">
-    <div class="home-supporting-link home-podcast-all-link" aria-label="See all work">
-      See all work <span aria-hidden="true">→</span>
+    <div class="homepage-about">
+      {% if introductionText is string %}
+        <p>{{ introductionText }}</p>
+      {% else %}
+        {% for paragraph in introductionText %}
+        <p>{{ paragraph | safe }}</p>
+        {% endfor %}
+      {% endif %}
     </div>
-  </a>
+  {% endif %}
 
   <section class="home-podcast-feature" aria-label="Podcast">
     <div class="home-podcast-grid">
-      <div class="home-podcast-cover">
-        <img src="/img/podcast/scd-podcast-cover.png" alt="Seattle Creative Directory Podcast" width="300" height="300">
-      </div>
       <div class="home-podcast-copy">
-        <h2 class="home-podcast-title">Seattle Creative Directory Podcast</h2>
-        <p class="home-podcast-desc">Conversations with Seattle's working creative community — designers, founders, makers, and the people building culture in the Pacific Northwest.</p>
+        <h2 class="home-podcast-title">Seattle Creative Show</h2>
+        <p class="home-podcast-desc">Conversations with Seattle's working creative community of designers, founders, makers, and the people who make the Pacific Northwest.</p>
       </div>
       <div class="home-podcast-players">
         <iframe class="home-supporting-player" height="200" width="100%" frameborder="no" scrolling="no" seamless src="https://player.simplecast.com/9fc38fe1-df84-4a61-8348-b4a888606182?dark=false" title="SCD Podcast episode 1"></iframe>
@@ -131,95 +125,47 @@ layout: layouts/base.njk
           Hear all episodes ↗
         </div>
       </a>
-  </section>
-
-  <div class="home-callout-strip" aria-label="Selected outcomes">
-    <div class="home-callout-scroll">
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/amazon-fire-os-upgrades/">
-          <p class="home-callout-quote">Shipped to 40M+ active devices</p>
-          <cite class="home-callout-source">Amazon Fire OS</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/resonance-ai-ml-platform/">
-          <p class="home-callout-quote">Reduced report task time by 95%</p>
-          <cite class="home-callout-source">Resonance AI</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/priority-tax-relief/">
-          <p class="home-callout-quote">Conversion surfaces up by 14×</p>
-          <cite class="home-callout-source">Priority Tax Relief</cite>
-        </a>
-      </blockquote>
-      {# <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/google-meet-alternate-connections/">
-          <p class="home-callout-quote">Meet PWA is now a top-3 global communication tool</p>
-          <cite class="home-callout-source">Google Meet — dial-out &amp; standalone prototype</cite>
-        </a>
-      </blockquote> #}
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/lumedic-platform-healthcare-records/">
-          <p class="home-callout-quote">Thousands of workers verified daily</p>
-          <cite class="home-callout-source">Lumedic Connect</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/seattle-creative-directory/">
-          <p class="home-callout-quote">268 listings · 15 episodes · 50k+ plays</p>
-          <cite class="home-callout-source">Seattle Creative Directory</cite>
-        </a>
-      </blockquote>
-      <blockquote class="home-callout">
-        <a class="home-callout-link" href="/design/android-gemini-interaction/">
-          <p class="home-callout-quote">Interaction patterns surfaced in Gemini for Android</p>
-          <cite class="home-callout-source">BUCK × Google — early Gemini concepts</cite>
-        </a>
-      </blockquote>
-    </div>
-  </div>
+  </section>  
 
   <aside class="home-aside-row">
-    <div class="home-aside-header">
-      <span class="home-aside-label">Check it out</span>
-      <span class="home-aside-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <circle cx="12" cy="12" r="8.25" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
-        </svg>
-      </span>
-    </div>
-    <a href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
-      Obsidian Time Blocks — a lightweight time-blocking plugin for focused work in Obsidian.
+    <a class="home-aside-link" href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
+      <img class="home-aside-thumb" src="/img/thumbnails/resize-block.gif" alt="Obsidian Time Blocks — resizing a time block" width="180" loading="lazy">
+      <div class="home-aside-copy">
+        <div class="home-aside-header">
+          <span class="home-aside-label">Check it out</span>
+          <span class="home-aside-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <circle cx="12" cy="12" r="8.25" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.9v4.85l3.15 1.95" />
+            </svg>
+          </span>
+        </div>
+        <span class="home-aside-text">Obsidian Time Blocks - a lightweight time-blocking plugin for focused work.</span>
+      </div>
     </a>
   </aside>
 
-  <div class="home-supporting-links home-supporting-links-footer" aria-label="Supporting links">
-    {% for link in homeContactLinks %}
-    <a class="home-supporting-link home-supporting-link-footer" href="{{ link.url }}"{% if link.external %} target="_blank" rel="noreferrer"{% endif %}>
-      <span class="home-supporting-link-icon" aria-hidden="true">
-        {% if link.icon == "mail" %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5v10.5H3.75z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 7.5 7.5 6 7.5-6" />
-        </svg>
-        {% elif link.icon == "github" %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 .5C5.65.5.5 5.8.5 12.35c0 5.24 3.3 9.68 7.88 11.25.57.11.78-.25.78-.56 0-.28-.01-1.2-.02-2.18-3.2.71-3.88-1.4-3.88-1.4-.52-1.37-1.28-1.74-1.28-1.74-1.05-.74.08-.73.08-.73 1.16.08 1.77 1.23 1.77 1.23 1.03 1.82 2.7 1.29 3.36.99.1-.77.4-1.29.72-1.59-2.56-.3-5.26-1.32-5.26-5.9 0-1.31.46-2.37 1.22-3.2-.12-.31-.53-1.56.12-3.25 0 0 1-.33 3.3 1.22a11.2 11.2 0 0 1 6 0c2.29-1.55 3.29-1.22 3.29-1.22.66 1.69.25 2.94.12 3.25.76.83 1.22 1.89 1.22 3.2 0 4.59-2.7 5.6-5.28 5.9.42.37.79 1.08.79 2.19 0 1.58-.01 2.85-.01 3.24 0 .31.2.68.79.56A11.88 11.88 0 0 0 23.5 12.35C23.5 5.8 18.35.5 12 .5Z" />
-        </svg>
-        {% elif link.icon == "linkedin" %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M4.98 3.5a1.73 1.73 0 1 1 0 3.46 1.73 1.73 0 0 1 0-3.46ZM3.5 8.25h2.96V20.5H3.5V8.25Zm5.31 0h2.84v1.67h.04c.4-.75 1.36-1.94 3.15-1.94 3.37 0 3.99 2.28 3.99 5.24v7.28h-2.96v-6.45c0-1.54-.03-3.52-2.08-3.52-2.08 0-2.4 1.67-2.4 3.4v6.57H8.81V8.25Z" />
-        </svg>
-        {% endif %}
-      </span>
-      <span>{{ link.title }}</span>
-    </a>
-    {% endfor %}
-  </div>
 </section>
 
+<script>
+// Headline fallback controller. The DOM <h1> is hidden up-front via the `.js`
+// class (see base.njk + index.css). If the Three.js module fails to load or
+// throws before it can paint the WebGL headline, reveal the DOM <h1> so the
+// heading is never lost. The module sets `window.__axisReady` + clears the timer
+// once it has successfully painted.
+(function () {
+  function revealHeadline() {
+    if (window.__axisReady) return;
+    var overlay = document.querySelector('[data-chart-headline]');
+    if (overlay) overlay.classList.add('is-fallback');
+  }
+  window.__axisRevealHeadline = revealHeadline;
+  // Load/execute failure safety net — shrinks with the modulepreload in <head>.
+  window.__axisFallbackTimer = window.setTimeout(revealHeadline, 3500);
+  // Immediate reveal on an evaluation error (e.g. WebGL unsupported).
+  window.addEventListener('error', revealHeadline);
+})();
+</script>
 <script type="module">
 // NOTE: importing three.js directly from its full esm.sh URL instead of via
 // an <script type="importmap"> "three" bare specifier. Import maps must be
@@ -231,15 +177,15 @@ layout: layouts/base.njk
 // identically across Chrome/Firefox/Safari.
 import {
   Scene, PerspectiveCamera, WebGLRenderer,
-  TubeGeometry, CatmullRomCurve3, CircleGeometry,
-  MeshStandardMaterial, MeshBasicMaterial,
-  Mesh, PlaneGeometry, DoubleSide,
+  TubeGeometry, CatmullRomCurve3, CircleGeometry, SphereGeometry,
+  MeshStandardMaterial, MeshBasicMaterial, ShaderMaterial,
+  Mesh, PlaneGeometry, DoubleSide, FrontSide, NormalBlending,
   LineSegments, BufferGeometry, Float32BufferAttribute,
   LineBasicMaterial,
   AmbientLight, DirectionalLight, PointLight,
   TextureLoader, CanvasTexture,
   Color, Raycaster, Vector2, Vector3, Quaternion,
-  Group
+  Group, SRGBColorSpace
 } from 'https://esm.sh/three@0.169.0';
 
 // ── Guard ────────────────────────────────────────────────────────────────────
@@ -249,7 +195,6 @@ const projectEls = Array.from(document.querySelectorAll('[data-axis-project]'));
 const headlineEl = document.querySelector('[data-chart-headline]');
 const headlineH1 = headlineEl ? headlineEl.querySelector('h1') : null;
 const bgStrip    = document.querySelector('[data-chart-bg]');
-const avatarEl   = document.querySelector('[data-avatar-src]');
 if (!stage || !canvas || !projectEls.length) throw new Error('[axis] missing DOM');
 
 // ── Default headline text ────────────────────────────────────────────────────
@@ -259,12 +204,40 @@ const DEFAULT_HEADLINE = headlineH1 ? headlineH1.textContent : '';
 const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setClearColor(0x000000, 0);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const maxAniso = renderer.capabilities.getMaxAnisotropy();
 
 function syncSize() {
   const w = stage.clientWidth;
   const h = stage.clientHeight;
   renderer.setSize(w, h, false);
-  camera.aspect = w / h;
+  const aspect = w / h;
+  camera.aspect = aspect;
+
+  // Dolly the camera along its fixed view direction so the chart's content
+  // radius always stays inside BOTH the horizontal and vertical field of view.
+  // A fixed camera distance clipped the outer tubes + headline at narrow /
+  // in-between viewport aspects; we never move closer than the tuned default
+  // distance, so wide desktops keep their original framing.
+  const tanHalfV = Math.tan((camera.fov * Math.PI / 180) / 2);
+  const distForWidth  = FIT_RADIUS_X / (tanHalfV * aspect);
+  const distForHeight = FIT_RADIUS_Y / tanHalfV;
+  let dist;
+  if (w <= 768) {
+    // Mobile: intentionally let the tubes overflow the viewport for bolder,
+    // mobile-oriented proportions. Rather than framing the whole chart radius,
+    // we only guarantee the (enlarged) headline billboard stays fully visible;
+    // the outer tubes spill off the edges.
+    const marginedHalfW = (HEADLINE_PLANE_W / 2) * 1.08;
+    const marginedHalfH = (HEADLINE_PLANE_H / 2) * 1.08;
+    const distHeadlineW = marginedHalfW / (tanHalfV * aspect);
+    const distHeadlineH = marginedHalfH / tanHalfV;
+    dist = Math.max(distHeadlineW, distHeadlineH);
+  } else {
+    dist = Math.max(DEFAULT_CAMERA_DISTANCE, distForWidth, distForHeight);
+  }
+  camera.position.copy(CAMERA_DIR).multiplyScalar(dist);
+  camera.lookAt(0, 0, 0);
+
   camera.updateProjectionMatrix();
   logCameraPosition('resize');
 }
@@ -279,6 +252,20 @@ const camera = new PerspectiveCamera(58, 1, 0.1, 2000);
 const DEFAULT_CAMERA_POSITION = { x: -120, y: 320, z: 340 };
 camera.position.set(DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z);
 camera.lookAt(0, 0, 0);
+
+// ── Responsive framing ────────────────────────────────────────────────────────
+// The camera only ever dollies in/out along this fixed direction; syncSize()
+// recomputes the distance per-resize so tubes + headline never clip.
+const CAMERA_DIR = new Vector3(
+  DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z
+).normalize();
+const DEFAULT_CAMERA_DISTANCE = Math.hypot(
+  DEFAULT_CAMERA_POSITION.x, DEFAULT_CAMERA_POSITION.y, DEFAULT_CAMERA_POSITION.z
+);
+// World-space half-extents that must stay in frame: outer team ring (280) +
+// tube radius (20) + margin horizontally; elevation range (200) + margin vertically.
+const FIT_RADIUS_X = 340;
+const FIT_RADIUS_Y = 240;
 
 // Print camera position to console whenever it changes (drag rotation, resize, etc.)
 // so the current view can be captured and pasted back in as the new default.
@@ -318,8 +305,8 @@ scene.add(fill);
 // only ever pass in front of it, never behind). Moving it into the scene next to the
 // avatar mesh — same technique, same depth defaults — lets the WebGL depth buffer sort
 // tube arcs in front of AND behind the headline text, exactly like the avatar.
-const HEADLINE_CANVAS_W = 1400;
-const HEADLINE_CANVAS_H = 460;
+const HEADLINE_CANVAS_W = 1600;
+const HEADLINE_CANVAS_H = 620;
 const headlineCanvas = document.createElement('canvas');
 headlineCanvas.width  = HEADLINE_CANVAS_W;
 headlineCanvas.height = HEADLINE_CANVAS_H;
@@ -327,18 +314,7 @@ const hctx = headlineCanvas.getContext('2d');
 
 // Colors/weights mirror the reference headline CSS on main (.homepage-headline-axis):
 // font-weight 800 variable, letter-spacing -0.02em, uppercase, color-mix(text-color 88%, anp-base)
-function drawHeadlineText(text, dimmed) {
-  hctx.clearRect(0, 0, HEADLINE_CANVAS_W, HEADLINE_CANVAS_H);
-  hctx.textAlign = 'left';
-  hctx.textBaseline = 'alphabetic';
-  hctx.fillStyle = dimmed ? 'rgba(40,37,31,0.60)' : 'rgba(40,37,31,0.90)';
-  const fontSize   = 92;
-  const lineHeight = fontSize * 0.95; // matches line-height: 0.95 on the reference
-  hctx.font = `800 ${fontSize}px 'Google Sans Flex', 'Outfit', system-ui, sans-serif`;
-
-  // Manual word-wrap (canvas has no text-wrap: balance)
-  const maxWidth = HEADLINE_CANVAS_W - 20;
-  const words = (text || '').toUpperCase().split(' ');
+function wrapHeadline(words, maxWidth) {
   const lines = [];
   let line = '';
   words.forEach(word => {
@@ -351,32 +327,54 @@ function drawHeadlineText(text, dimmed) {
     }
   });
   if (line) lines.push(line);
+  return lines;
+}
 
-  let y = fontSize;
-  lines.forEach(l => { hctx.fillText(l, 0, y); y += lineHeight; });
+function drawHeadlineText(text, dimmed) {
+  hctx.clearRect(0, 0, HEADLINE_CANVAS_W, HEADLINE_CANVAS_H);
+  hctx.textAlign = 'center';
+  hctx.textBaseline = 'middle';
+  hctx.fillStyle = '#ffffff';
+
+  const words    = (text || '').toUpperCase().split(' ');
+  const maxWidth = HEADLINE_CANVAS_W - 48;
+
+  // Fixed size for every headline + rollover title (consistent, not fill-to-fit).
+  const fontSize   = 96;
+  const lineHeight = fontSize * 0.98;
+  hctx.font = `800 ${fontSize}px 'Google Sans Flex', 'Outfit', system-ui, sans-serif`;
+  const lines = wrapHeadline(words, maxWidth);
+
+  const totalH = lines.length * lineHeight;
+  let y = (HEADLINE_CANVAS_H - totalH) / 2 + lineHeight / 2;
+  lines.forEach(l => { hctx.fillText(l, HEADLINE_CANVAS_W / 2, y); y += lineHeight; });
 
   if (headlineTex) headlineTex.needsUpdate = true;
 }
 
 let headlineTex   = null;
 let headlinePlane = null;
+// Headline plane world size. On mobile the headline is rendered noticeably
+// LARGER for mobile-oriented proportions — the tubes are allowed to overflow the
+// viewport there (see syncSize), so the headline needs more presence. On desktop
+// it stays sized to sit centered within the fully-framed chart.
+const HEADLINE_IS_MOBILE = window.matchMedia('(max-width: 768px)').matches;
+const HEADLINE_PLANE_W = HEADLINE_IS_MOBILE ? 470 : 580;
+const HEADLINE_PLANE_H = HEADLINE_PLANE_W * (HEADLINE_CANVAS_H / HEADLINE_CANVAS_W);
 if (headlineH1) {
   headlineTex = new CanvasTexture(headlineCanvas);
+  headlineTex.colorSpace = SRGBColorSpace;
   drawHeadlineText(DEFAULT_HEADLINE, false);
-  const HEADLINE_PLANE_W = 360;
-  const HEADLINE_PLANE_H = HEADLINE_PLANE_W * (HEADLINE_CANVAS_H / HEADLINE_CANVAS_W);
   headlinePlane = new Mesh(
     new PlaneGeometry(HEADLINE_PLANE_W, HEADLINE_PLANE_H),
     new MeshBasicMaterial({ map: headlineTex, transparent: true, side: DoubleSide })
-    // depthWrite/depthTest left at their defaults (true) — same as avatarMesh —
-    // so tube geometry sorts naturally in front of and behind this plane too.
+    // depthWrite/depthTest left at their defaults (true) so tube geometry sorts
+    // naturally in front of and behind this plane.
   );
-  // Offset from the avatar (both at the scene origin depth) so the two billboards
-  // sit side-by-side on the same plane rather than overlapping exactly.
-  headlinePlane.position.set(-230, 90, 0);
+  headlinePlane.position.set(0, 0, 0);
   scene.add(headlinePlane);
-  // Hide the DOM/CSS version — it's now only a text data source for drawHeadlineText.
-  headlineEl.style.display = 'none';
+  // The DOM/CSS <h1> stays hidden via the `.js` class (base.njk) — it's now only
+  // a text data source for drawHeadlineText and a no-JS fallback.
 }
 
 // ── Avatar billboard — real mesh in the 3D scene ─────────────────────────────
@@ -385,24 +383,8 @@ if (headlineH1) {
 // sort it against tube geometry naturally: tubes nearer the camera than the
 // avatar plane occlude it, tubes farther away are occluded by it — a real
 // middle plane, not a fixed z-index split.
-let avatarMesh = null;
-if (avatarEl && avatarEl.dataset.avatarSrc) {
-  const AVATAR_SIZE = 130; // world units, roughly matches old 120px CSS circle
-  avatarMesh = new Mesh(
-    new PlaneGeometry(AVATAR_SIZE, AVATAR_SIZE),
-    new MeshBasicMaterial({ transparent: true, opacity: 0, side: DoubleSide })
-    // depthWrite/depthTest left at their defaults (true) so tubes in front of
-    // the avatar occlude it and tubes behind it get occluded — real 3D sort.
-  );
-  avatarMesh.position.set(0, 0, 0);
-  scene.add(avatarMesh);
-
-  new TextureLoader().load(avatarEl.dataset.avatarSrc, (tex) => {
-    avatarMesh.material.map = tex;
-    avatarMesh.material.opacity = 0.96;
-    avatarMesh.material.needsUpdate = true;
-  });
-}
+// Avatar is now a DOM element pinned over the top of the stage (see markup +
+// .home-axis-avatar CSS), not a mesh in the scene.
 
 // ── Radial chart constants ────────────────────────────────────────────────────
 const CAREER_START_YEAR  = 2010;
@@ -421,38 +403,21 @@ const Y_RANGE  = 200;   // ± elevation (medium axis depth)
 const TUBE_R   = 20;    // tube cross-section radius
 const ARC_SEGS = 72;    // arc curve resolution
 
-// ── Per-project dominant colors — extracted from actual project images ────────
-// Each key is the project slug (from data-chart-blend path: /img/chart-blend/<slug>.webp)
-const PROJECT_COLORS = {
-  'amazon-fire-os':              0xd97e0c,
-  'android-gemini':              0x9a673d,
-  'awake-chocolate':             0x724026,
-  'bakedin':                     0x40ade1,
-  'bathroom-brad':               0xf96148,
-  'decibel-festival':            0x24a979,
-  'early-work':                  0x8ba1a9,
-  'google-meet':                 0x009899,
-  'job-intelligence-scraper':    0x2f364d,
-  'lumedic':                     0x02c4a4,
-  'lyfe':                        0xd4deea,
-  'metastream':                  0xe0795e,
-  'microsoft-learning-platform': 0x24c28e,
-  'photogrammetry':              0xb5946d,
-  'pixels-of-fury':              0x1eda95,
-  'posters':                     0xb86942,
-  'priority-card-maker':         0x007136,
-  'priority-tax-relief':         0xbd5623,
-  'providence':                  0x6088aa,
-  'pwc':                         0x263b74,
-  'resonance-ai':                0x44b879,
-  'seattle-creative-directory':  0xd8e85a,
-  'short-shorts-and-lawn-sports':0x839859,
-  'studio-tours':                0xf75959,
-  'teaching':                    0xd18235,
-  'vine-wars':                   0x08c375,
-  'xbox-one-smartglass':         0x007ec1,
-  'yakitate':                    0xb17207,
-};
+// ── Tube color ramp — solid greens pulled from the jungle palette ─────────────
+// Each project gets a distinct, stable green spread across the light↔dark jungle
+// range (new-colors.css: medium-jungle-300 #91d4a3 → medium-jungle-800 #1d4929),
+// so tubes read as solid jungle tones rather than per-image dominant colors.
+const JUNGLE_LIGHT = new Color(0x91d4a3);
+const JUNGLE_DARK  = new Color(0x1d4929);
+function slugHash(s) {
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
+  return h;
+}
+function jungleTubeColor(slug) {
+  const t = slug ? (slugHash(slug) % 1000) / 999 : 0.5;
+  return JUNGLE_LIGHT.clone().lerp(JUNGLE_DARK, t);
+}
 
 // ── Dots texture — rough field of tiny dots, no gloss ────────────────────────
 function makeDotsTexture(size = 256) {
@@ -511,7 +476,7 @@ function makeRingVerts(r, segments = 128) {
   return new Float32Array(verts);
 }
 
-const ringMat = new LineBasicMaterial({ color: 0x7287fd, transparent: true, opacity: 0.12 });
+const ringMat = new LineBasicMaterial({ color: 0x0a1a0e, transparent: true, opacity: 0.15 });
 for (const r of [R_INNER, (R_INNER + R_OUTER) / 2, R_OUTER]) {
   const rg = new BufferGeometry();
   rg.setAttribute('position', new Float32BufferAttribute(makeRingVerts(r), 3));
@@ -523,6 +488,135 @@ const tickVerts = new Float32Array([0, 0, -R_OUTER * 1.05, 0, 0,  R_OUTER * 1.05
 const tickGeo   = new BufferGeometry();
 tickGeo.setAttribute('position', new Float32BufferAttribute(tickVerts, 3));
 scene.add(new LineSegments(tickGeo, new LineBasicMaterial({ color: 0x9ca0b0, transparent: true, opacity: 0.15 })));
+
+
+// ── Ephemeral tube shader ─────────────────────────────────────────────────────
+// A soft, translucent, fresnel-lit look instead of a solid MeshStandard surface.
+// Near the world z=0 plane (where the headline + avatar billboards sit) the
+// geometry scatters outward and its surface breaks into sparse glowing speckles —
+// so each arc appears to disperse into a cloud of particles, pass through the
+// headline, and reassemble on the far side of the plane.
+const DISPERSE_BAND = 46;   // half-thickness (world units) of the dispersion zone
+const DISPERSE_SCATTER = 18; // max outward scatter distance at the plane
+// The dispersion plane matches the headline billboard: it passes through the
+// origin with a normal pointing at the (static) camera, so tubes break up flat
+// against the text plane rather than through an off-axis world plane.
+const PLANE_NORMAL = camera.position.clone().normalize();
+
+const TUBE_VERT = /* glsl */`
+  uniform float uTime;
+  uniform float uBandHalf;
+  uniform float uScatter;
+  uniform vec3  uPlaneN;
+  varying vec3 vWorldPos;
+  varying vec3 vNormalW;
+  varying vec2 vUv;
+  varying float vDisperse;
+
+  float hash13(vec3 p){
+    p = fract(p * 0.3183099 + 0.1);
+    p *= 17.0;
+    return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+  }
+
+  void main(){
+    vUv = uv;
+    vec4 wp = modelMatrix * vec4(position, 1.0);
+    // Signed distance to the headline's (camera-facing) plane through the origin →
+    // 1 on the plane, 0 at the band edge, so the effect sits flat against the text.
+    float d = 1.0 - clamp(abs(dot(wp.xyz, uPlaneN)) / uBandHalf, 0.0, 1.0);
+    float disp = smoothstep(0.0, 1.0, d);
+    vDisperse = disp;
+
+    // Per-vertex scatter direction (stable hash) + gentle time shimmer.
+    vec3 dir = normalize(vec3(
+      hash13(position * 1.7),
+      hash13(position * 3.1 + 5.0),
+      hash13(position * 2.3 + 9.0)
+    ) * 2.0 - 1.0);
+    float shimmer = sin(uTime * 2.2 + hash13(position) * 6.2831) * 0.5 + 0.5;
+    vec3 scattered = position + dir * disp * uScatter * (0.55 + 0.45 * shimmer);
+
+    vec4 wp2 = modelMatrix * vec4(scattered, 1.0);
+    vWorldPos = wp2.xyz;
+    vNormalW = normalize(mat3(modelMatrix) * normal);
+    gl_Position = projectionMatrix * viewMatrix * wp2;
+  }
+`;
+
+const TUBE_FRAG = /* glsl */`
+  uniform vec3  uColor;
+  uniform float uOpacity;
+  uniform float uHover;
+  uniform float uTime;
+  uniform sampler2D uMap;
+  uniform float uHasMap;
+  varying vec3 vWorldPos;
+  varying vec3 vNormalW;
+  varying vec2 vUv;
+  varying float vDisperse;
+
+  float hash21(vec2 p){
+    p = fract(p * vec2(123.34, 456.21));
+    p += dot(p, p + 45.32);
+    return fract(p.x * p.y);
+  }
+
+  void main(){
+    vec3 viewDir = normalize(cameraPosition - vWorldPos);
+    float fres = pow(1.0 - max(dot(normalize(vNormalW), viewDir), 0.0), 2.0);
+
+    vec3 base = uColor;
+    if (uHasMap > 0.5){
+      vec3 tex = texture2D(uMap, vUv).rgb;
+      base = mix(base, base * tex * 1.7, 0.28);
+    }
+
+    // Solid jungle fill: the project's green covers the surface, with only a
+    // gentle fresnel sheen lifting the grazing edges for form (no white core).
+    vec3 col = base + fres * 0.16;
+    col += uHover * vec3(0.02, 0.36, 0.5);
+    float alpha = uOpacity * (0.92 + fres * 0.08);
+
+    // Dispersion break-up near the plane: punch the surface into sparse motes.
+    if (vDisperse > 0.01){
+      float n = hash21(vWorldPos.xy * 1.4 + vUv * 24.0 + floor(uTime * 6.0) * 0.17);
+      float keep = step(vDisperse * 0.9, n);
+      alpha *= mix(1.0, keep, vDisperse);
+      col += vDisperse * 0.5 * base;          // motes glow as they scatter
+    }
+
+    if (alpha < 0.02) discard;
+    gl_FragColor = vec4(col, alpha);
+  }
+`;
+
+// Every tube/cap shader material is registered so the render loop can advance uTime.
+const shaderMats = [];
+
+function makeTubeMaterial(color) {
+  const m = new ShaderMaterial({
+    uniforms: {
+      uTime:     { value: 0 },
+      uColor:    { value: color },
+      uOpacity:  { value: 1.0 },
+      uHover:    { value: 0 },
+      uMap:      { value: null },
+      uHasMap:   { value: 0 },
+      uBandHalf: { value: DISPERSE_BAND },
+      uScatter:  { value: DISPERSE_SCATTER },
+      uPlaneN:   { value: PLANE_NORMAL },
+    },
+    vertexShader:   TUBE_VERT,
+    fragmentShader: TUBE_FRAG,
+    transparent: true,
+    depthWrite: true,          // keep occlusion vs. headline + avatar billboards
+    side: FrontSide,
+    blending: NormalBlending,
+  });
+  shaderMats.push(m);
+  return m;
+}
 
 // ── Build project arc tubes ───────────────────────────────────────────────────
 const meshGroup = new Group();
@@ -552,81 +646,60 @@ projectEls.forEach((el) => {
   const thetaEnd   = thetaStart    - duration    * RADIANS_PER_MONTH;
   const thetaMid   = (thetaStart + thetaEnd) / 2;
 
-  // ── Tube material — per-project dominant color, rough texture ───────────────
+  // ── Tube material — solid jungle-green fill, distinct per project ───────────
   // Derive slug from blend path: /img/chart-blend/<slug>.webp
   const slug = blendSrc ? blendSrc.replace(/^.*\//, '').replace(/\.webp$/, '') : '';
-  const projectColor = PROJECT_COLORS[slug] || 0xd8dce8;
+  const projectColor = jungleTubeColor(slug);
 
-  // Start with dots texture + per-project color; blend image loads on top if available
-  const mat = new MeshStandardMaterial({
-    map: dotsTex,
-    color: projectColor,
-    roughness: 0.95,
-    metalness: 0.0,
-    transparent: true,
-    opacity: 0.92,
-  });
+  const mat = makeTubeMaterial(projectColor);
 
-  // Load blend image — tints on top of per-project dominant color
+  // Load blend image — sampled softly on top of the saturated project color.
+  // Textures must be decoded as sRGB (otherwise they render dark), and max
+  // anisotropy keeps them sharp where the tube surface grazes the camera.
   if (blendSrc) {
     loader.load(blendSrc, (tex) => {
-      mat.map   = tex;
-      mat.color.set(projectColor);  // keep per-project tint when blend loads
-      mat.roughness  = 0.88;
-      mat.opacity    = 0.92;
+      tex.colorSpace = SRGBColorSpace;
+      tex.anisotropy = maxAniso;
+      mat.uniforms.uMap.value    = tex;
+      mat.uniforms.uHasMap.value = 1;
       mat.needsUpdate = true;
-      // capMat is cloned after mat, so sync it here too once caps are created
-      // (capMat is available in closure via the per-project scope)
-      if (typeof capMat !== 'undefined') {
-        capMat.map = tex;
-        capMat.color.set(projectColor);
-        capMat.roughness  = 0.88;
-        capMat.opacity    = 0.92;
-        capMat.needsUpdate = true;
-      }
     });
   }
 
-  // ── Arc tube — smooth round TubeGeometry ─────────────────────────────────
-  const arcSegs = Math.max(16, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)));
+  // ── Arc tube — smooth round TubeGeometry, densely segmented ─────────────────
+  // Higher tubular + radial resolution so the vertex-scatter dispersion near the
+  // plane reads as a fine cloud rather than a few chunky facets.
+  const arcSegs = Math.max(120, Math.round(ARC_SEGS * (duration / CAREER_MONTHS)) * 6);
   const curve   = makeArcCurve(r, yElev, thetaStart, thetaEnd);
   const tube    = new Mesh(
-    new TubeGeometry(curve, arcSegs, TUBE_R, 20, false),
+    new TubeGeometry(curve, arcSegs, TUBE_R, 30, false),
     mat
   );
   tube.userData = { url, title };
   meshGroup.add(tube);
 
-  // ── Flat disc endcaps — CircleGeometry sealed to each open end ───────────
-  // TubeGeometry(closed=false) leaves open circular holes. Seal them with
-  // flat CircleGeometry discs aligned to the tube's tangent at each endpoint.
-  // Uses quaternion.setFromUnitVectors to rotate the disc normal onto the tangent.
-  const capMat = mat.clone();
-  capMat.side = 2; // DoubleSide value — visible from both directions
-  const capGeo = new CircleGeometry(TUBE_R, 20);
-
-  // Start cap — tangent points back along the curve (invert)
-  const tanStart = curve.getTangentAt(0).negate();
-  const capS = new Mesh(capGeo, capMat);
+  // ── Spherical endcaps — sealed rounded ends on each tube ────────────────────
+  // Replaces the old flat CircleGeometry discs. A sphere at each endpoint gives
+  // every arc a rounded terminal that shares the tube's ephemeral shader (so it
+  // disperses through the plane too) and its per-project color.
+  const capGeo = new SphereGeometry(TUBE_R, 32, 24);
+  const capS = new Mesh(capGeo, mat);
   capS.position.copy(circlePoint(r, yElev, thetaStart));
-  capS.quaternion.setFromUnitVectors(new Vector3(0, 0, 1), tanStart.normalize());
   meshGroup.add(capS);
 
-  // End cap — tangent points forward
-  const tanEnd = curve.getTangentAt(1);
-  const capE = new Mesh(capGeo, capMat);
+  const capE = new Mesh(capGeo, mat);
   capE.position.copy(circlePoint(r, yElev, thetaEnd));
-  capE.quaternion.setFromUnitVectors(new Vector3(0, 0, 1), tanEnd.normalize());
   meshGroup.add(capE);
 
   // Anchor for screen-space tooltip (midpoint above tube)
   const midPt = circlePoint(r, yElev + TUBE_R + 4, thetaMid);
-  meshMeta.push({ tube, capS, capE, midPt, url, title, scrubImages, mat, capMat, loader });
+  meshMeta.push({ tube, capS, capE, midPt, url, title, scrubImages, mat, loader });
 });
 
 // ── Drag rotation ────────────────────────────────────────────────────────────
 let isDragging = false, startX = 0, startY = 0;
 let rotX = -5.1, rotY = 38.6;  // dialed-in default view (2026-08-27), read from console during drag
+let autoRotate = true;         // idle spin until the first user interaction
 
 function applyGroupRotation() {
   const rx = rotX * Math.PI / 180;
@@ -638,7 +711,7 @@ function applyGroupRotation() {
   });
 }
 
-stage.addEventListener('mousedown',  e => { isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
+stage.addEventListener('mousedown',  e => { autoRotate = false; isDragging = true; startX = e.clientX; startY = e.clientY; stage.style.cursor = 'grabbing'; });
 window.addEventListener('mouseup',   () => {
   const wasDragging = isDragging;
   isDragging = false;
@@ -647,13 +720,13 @@ window.addEventListener('mouseup',   () => {
 });
 window.addEventListener('mousemove', e => {
   if (!isDragging) return;
-  rotY += (e.clientX - startX) * 0.35;
-  rotX -= (e.clientY - startY) * 0.35;
+  rotY += (e.clientX - startX) * 0.35;  // left–right spin only; vertical tilt locked
   startX = e.clientX; startY = e.clientY;
   applyGroupRotation();
 });
 
 stage.addEventListener('touchstart', e => {
+  autoRotate = false;
   isDragging = true;
   startX = e.touches[0].clientX; startY = e.touches[0].clientY;
 }, { passive: true });
@@ -665,8 +738,7 @@ window.addEventListener('touchend', () => {
 stage.addEventListener('touchmove', e => {
   if (!isDragging) return;
   e.preventDefault();
-  rotY += (e.touches[0].clientX - startX) * 0.35;
-  rotX -= (e.touches[0].clientY - startY) * 0.35;
+  rotY += (e.touches[0].clientX - startX) * 0.35;  // left–right spin only
   startX = e.touches[0].clientX; startY = e.touches[0].clientY;
   applyGroupRotation();
 }, { passive: false });
@@ -725,20 +797,14 @@ stage.addEventListener('mousemove', e => {
     const meta = meshToMeta.get(hits[0].object);
     if (!meta) return;
 
-    // Emissive highlight — tube + caps
+    // Highlight — tube + caps share one shader material, so lift its uHover
     if (hoveredTube !== meta.tube) {
       if (hoveredTube) {
         const prev = meshToMeta.get(hoveredTube);
-        if (prev) {
-          prev.mat.emissiveIntensity = 0;
-          prev.capMat.emissiveIntensity = 0;
-        }
+        if (prev) prev.mat.uniforms.uHover.value = 0;
       }
       hoveredTube = meta.tube;
-      meta.mat.emissive    = new Color(0x04a5e5);
-      meta.capMat.emissive = new Color(0x04a5e5);
-      meta.mat.emissiveIntensity    = 0.28;
-      meta.capMat.emissiveIntensity = 0.28;
+      meta.mat.uniforms.uHover.value = 1;
       setHoverState(meta);
     }
 
@@ -746,10 +812,7 @@ stage.addEventListener('mousemove', e => {
   } else {
     if (hoveredTube) {
       const prev = meshToMeta.get(hoveredTube);
-      if (prev) {
-        prev.mat.emissiveIntensity = 0;
-        prev.capMat.emissiveIntensity = 0;
-      }
+      if (prev) prev.mat.uniforms.uHover.value = 0;
       hoveredTube = null;
       clearHoverState();
     }
@@ -760,10 +823,7 @@ stage.addEventListener('mousemove', e => {
 stage.addEventListener('mouseleave', () => {
   if (hoveredTube) {
     const prev = meshToMeta.get(hoveredTube);
-    if (prev) {
-      prev.mat.emissiveIntensity = 0;
-      prev.capMat.emissiveIntensity = 0;
-    }
+    if (prev) prev.mat.uniforms.uHover.value = 0;
     hoveredTube = null;
   }
   clearHoverState();
@@ -776,10 +836,16 @@ stage.addEventListener('click', () => {
 // ── Render loop ───────────────────────────────────────────────────────────────
 function animate() {
   requestAnimationFrame(animate);
-  // Billboard: avatar + headline always face the camera's view plane, regardless of
-  // meshGroup rotation from dragging — copy the camera's world quaternion. Same
-  // billboard plane for both, so tubes sort in front of/behind either one identically.
-  if (avatarMesh)   avatarMesh.quaternion.copy(camera.quaternion);
+  // Advance shader time so the dispersion motes + fresnel shimmer animate.
+  const t = performance.now() * 0.001;
+  for (let i = 0; i < shaderMats.length; i++) shaderMats[i].uniforms.uTime.value = t;
+  // Idle auto-rotation — slow left–right spin until the user first interacts.
+  if (autoRotate) {
+    rotY += 0.12;
+    applyGroupRotation();
+  }
+  // Billboard: headline always faces the camera's view plane, regardless of
+  // meshGroup rotation from dragging — copy the camera's world quaternion.
   if (headlinePlane) headlinePlane.quaternion.copy(camera.quaternion);
   renderer.render(scene, camera);
 }
@@ -788,6 +854,12 @@ function animate() {
 syncSize();
 applyGroupRotation();
 animate();
+
+// WebGL headline is live — cancel the DOM-headline fallback (see inline script above).
+window.__axisReady = true;
+if (window.__axisFallbackTimer) window.clearTimeout(window.__axisFallbackTimer);
+if (window.__axisRevealHeadline) window.removeEventListener('error', window.__axisRevealHeadline);
+if (headlineEl) headlineEl.classList.remove('is-fallback');
 
 window.addEventListener('resize', syncSize, { passive: true });
 </script>
