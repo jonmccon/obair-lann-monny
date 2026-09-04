@@ -65,11 +65,11 @@ The 2013 show ran alongside the festival's anniversary. I brought in Benjamin Va
 
 The artist coordination system for 2014 was a Mailchimp campaign built on Google Forms and merge tags. Every invitation was personalised by artist assignment, print specs, and deadline. The email was the production system - no additional project management layer, no separate spreadsheet handed around. It worked because each artist only ever saw their piece of it. Simple and effective, brought together by the incredible list of participants. 
 
+<div class="two-column">
+
 {% image "./db-04.png", "2013 Decibel Popup Artshow promo graphic — 'Pop Up Art Show / September 24 / One Night Only'" %}
 
 {% image "./db-05.png", "Event photo — DJ performing with a skeleton tracked via Kinect projected behind him on the show wall" %}
-
-<div class="two-column">
 
 {% image "./db-01.png", "2014 invite email — 'Popup Poster Artparty / Opening Gala at EMP' header with fluorescent green organic shape" %}
 

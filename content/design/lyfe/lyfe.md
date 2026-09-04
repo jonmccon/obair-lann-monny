@@ -71,28 +71,30 @@ Early Tether years. This is where hand-coding a website stopped being theoretica
 
 <div class="two-column">
 
-{% image "./lyfe-01.png", "Lyfe Wall content feed — masonry grid of lifestyle content cards with color-coded category tags" %}
-
-{% image "./lyfe-01.jpeg", "UX spec whiteboard for the Lyfe Wall — card transition animations A/B/C and navigation architecture" %}
-
-{% image "./lyfe-02.png", "LYFE content strategy map — six publishing tiers from community channels through to brand editorial platform" %}
+<!-- {% image "./lyfe-01.png", "Lyfe Wall content feed — masonry grid of lifestyle content cards with color-coded category tags" %} -->
 
 {% image "./lyfe-03.jpeg", "myLYFE dashboard UI comp — workout tracker, progress rings, daily greeting, and branded content cards" %}
 
+{% image "./lyfe-01.jpeg", "UX spec whiteboard for the Lyfe Wall — card transition animations A/B/C and navigation architecture" %}
+
+</div>
+
+{% image "./lyfe-02.png", "LYFE content strategy map — six publishing tiers from community channels through to brand editorial platform" %}
+
+<div class="two-column">
+
 {% image "./lyfe-04.png", "LYFE Kitchen mobile app — Breakfasts menu grid with circular food photography" %}
-
-{% image "./lyfe-05.png", "MailChimp email template — 'Your weekly LYFE Line on what's good in the hood'" %}
-
-{% image "./lyfe-06.png", "lyfekitchen.com marketing site — Safeway grocery expansion campaign page" %}
-
 {% image "./lyfe-07.png", "LYFE Kitchen mobile app — celebrity ambassador page" %}
 
+
+{% image "./lyfe-05.png", "MailChimp email template — 'Your weekly LYFE Line on what's good in the hood'" %}
 {% image "./lyfe-08.png", "MailChimp email — PBS Nightly Business Report feature with food photography hero" %}
 
+{% image "./lyfe-06.png", "lyfekitchen.com marketing site — Safeway grocery expansion campaign page" %}
 {% image "./lyfe-09.png", "Online ordering system — LYFE Kitchen menu with calorie counts, categories, and cart UI" %}
 
 </div>
 
-{% image "./lyfe-40.png", "Composite — mobile app screens alongside email template layout" %}
+<!-- {% image "./lyfe-40.png", "Composite — mobile app screens alongside email template layout" %} -->
 
-{% image "./lyfe-50.png", "Composite — lyfekitchen.com desktop and online ordering interface side by side" %}
+<!-- {% image "./lyfe-50.png", "Composite — lyfekitchen.com desktop and online ordering interface side by side" %} -->

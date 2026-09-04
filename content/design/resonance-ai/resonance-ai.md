@@ -27,7 +27,7 @@ images:
   - src: "./content/design/resonance-ai/RAI-09-topic-coverage-dashboard.png"
 chart:
   duration: 6
-  collaboration: 50
+  collaboration: 75
   medium: 50
 ---
 

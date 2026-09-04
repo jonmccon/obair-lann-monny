@@ -59,8 +59,6 @@ A proper crystal trophy handled the actual prize. Sometimes the cardboard moment
 
 Built with Neil Palmer.
 
-{% image "./pof-01.png", "Pixels of Fury event poster — Seattle AIGA chapter design battle announcement" %}
-
 <div class="two-column">
 
 {% image "./pof-02.jpeg", "Event photo — designers at work during a 20-minute live battle round" %}
@@ -80,3 +78,5 @@ Built with Neil Palmer.
 {% image "./pof-09.jpeg", "Event photo — winner receiving the crystal trophy after the final round" %}
 
 </div>
+
+{% image "./pof-01.png", "Pixels of Fury event poster — Seattle AIGA chapter design battle announcement" %}
