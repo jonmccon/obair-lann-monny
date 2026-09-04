@@ -6,6 +6,8 @@ category: LYFE
 date: 2014-06-01
 permalink: /design/lyfe/
 draft: false
+featured: true
+semiFeatured: false
 thumbnail: /img/thumbnails/lyfe-thumb.png
 tags:
   - ux
@@ -43,7 +45,7 @@ chart:
   medium: 70
 ---
 
-Building the entire digital presence for a farm-to-fork restaurant chain expanding fast — restaurants, grocery retail, a mobile app, celebrity ambassadors, and a newsletter operation all running at the same time.
+Building the entire digital presence for a farm-to-fork restaurant chain expanding fast - restaurants, grocery retail, a mobile app, celebrity ambassadors, and a newsletter operation all running at the same time.
 
 - **Role:** UX Designer / Production Designer
 - **Company:** LYFE Kitchen / Tether (agency of record)
@@ -57,13 +59,13 @@ LYFE Kitchen launched in Palo Alto in 2011 and expanded fast. By 2014 they had r
 
 ## What Got Built
 
-The marketing site at lyfekitchen.com was the most visible piece: promotional homepage campaigns including the Safeway grocery line launch, a restaurant section with online ordering via a third-party platform, and an ambassador program with individual pages for figures like Jennifer Garner. All of it built by hand.
+The marketing site at lyfekitchen.com was the most visible piece: promotional homepage campaigns including the Safeway grocery line launch, a restaurant section with online ordering via a third-party platform I reskinned line by line, and an ambassador program with individual pages for figures like Jennifer Garner. All of it built by hand.
 
-The mobile app was a separate stream — iOS UI for browsing the menu by category, with circular food photography and a section-per-channel navigation structure (EAT / FEEL / DO). The MailChimp newsletter templates ("Your weekly LYFE Line on what's good in the hood") were another. There was also an internal content strategy map that tried to rationalize the whole operation across six publishing tiers — from community channels through to a brand editorial platform.
+The mobile app was a separate stream - iOS UI for browsing the menu by category, with circular food photography and a section-per-channel navigation structure (EAT / FEEL / DO). The MailChimp newsletter templates ("Your weekly LYFE Line on what's good in the hood") were another. There was also an internal content strategy map that tried to rationalize the whole operation across six publishing tiers - from community channels through to a brand editorial platform.
 
 ## What Didn't Ship
 
-The work that never shipped was as interesting as what did. There was a full UX spec for a social content wall called the Lyfe Wall — three distinct card transition animations documented in detail, a whiteboard full of navigation architecture. I don't know if it launched. But the comps got built.
+The work that never shipped was as interesting as what did. There was a full UX spec for a social content wall called the Lyfe Wall - three distinct card transition animations documented in detail, a whiteboard full of navigation architecture. 
 
 Early Tether years. This is where hand-coding a website stopped being theoretical.
 

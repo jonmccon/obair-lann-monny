@@ -1,11 +1,13 @@
 ---
 title: Pixels of Fury | Event Producer | Jonny McConnell
 pageHeadline: Pixels of Fury
-description: Producing Seattle's first Pixels of Fury live design battle for AIGA Seattle and Shutterstock — six local designers, three rounds, twenty minutes each, and a 3D cardboard Adobe CC logo built just to be destroyed.
+description: Producing Seattle's first Pixels of Fury live design battle for AIGA Seattle and Shutterstock - six local designers, three rounds, twenty minutes each, and a 3D cardboard Adobe CC logo built just to be destroyed.
 category: AIGA
 date: 2012-11-15
 permalink: /design/pixels-of-fury/
 draft: false
+featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/pixels-of-fury-thumb.png
 tags:
   - event
@@ -36,7 +38,7 @@ chart:
   medium: 90
 ---
 
-Running Seattle's first Pixels of Fury live design battle — six designers, twenty-minute rounds, and a 3D cardboard Adobe CC logo built specifically to be destroyed at the end.
+Running Seattle's first Pixels of Fury live design battle - six designers, twenty-minute rounds, and a 3D cardboard Adobe CC logo built specifically to be destroyed at the end.
 
 - **Role:** Event Producer / Ringmaster
 - **Company:** AIGA Seattle / Shutterstock
@@ -51,7 +53,7 @@ Shutterstock wanted the Seattle AIGA chapter to host one of its first regional P
 
 Six local designers competed in three rounds of 20-minute poster battles, fueled by pizza, cupcakes, and Hilliards. Creative directors from Tether and Digital Kitchen served as judges. Terry Marks announced the prompts. Erik Simkins shot double-exposure Polaroids throughout.
 
-The prop I built for the winner announcement was a 3D cardboard and hot glue adaptation of the newly-released Adobe CC logo — sized large enough to make an impression, engineered to be pulled apart in seconds once the winner was named. It lasted about as long as intended.
+The prop I built for the winner announcement was a 3D cardboard and hot glue adaptation of the newly-released Adobe CC logo - sized large enough to make an impression, engineered to be pulled apart in seconds once the winner was named. It lasted about as long as intended.
 
 A proper crystal trophy handled the actual prize. Sometimes the cardboard moment is for the crowd.
 

@@ -1,14 +1,17 @@
 ---
 title: Short Shorts & Lawn Sports | Designer | Jonny McConnell
 pageHeadline: Short Shorts & Lawn Sports
-description: A self-organized badminton tournament for two, with full league identity, bracket design, and uniform requirements — because design school was running out of studio constraints and spring had finally arrived.
+description: A self-organized badminton tournament, with full league identity, bracket design, and uniform requirements - because design school is a lot to deal with.
 category: WWU
 date: 2010-05-01
 permalink: /design/short-shorts-and-lawn-sports/
 draft: false
+featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/ssls-thumb.png
 tags:
   - print
+  - ux
   - illustration
   - community
 images:
@@ -30,17 +33,17 @@ chart:
   medium: 50
 ---
 
-A two-person badminton league with a full identity system, bracket, and mandatory uniform requirements — because the constraint is the point.
+A two-person badminton league with a full identity system, bracket, and mandatory uniform requirements - because the constraint is the point.
 
 - **Role:** Designer, Co-Commissioner
 - **Collaborators:** Glenn Newcomer
 - **Timeline:** 2010
 - **Platform:** Print, identity
-- **Status:** Executed in full — complete with appropriate media coverage on LATFH
+- **Status:** Executed in full - complete with appropriate [media coverage on LATFH](https://lookatthisfuckinghipster.tumblr.com/post/613915076/dude-nice-shuttlecock)
 
 Design school culture is immersion training. No one going in knows what's going to happen and the results are quite relieving and stunning if you join the club.
 
-Once the inch of ice on the inside of my Bellingham bedroom had subsided, spring brought the prospect of taking the classroom outside. Glenn Newcomer and I created a whole league — bracket, rules, and uniform requirements — for the two of us to put our design skills to the test.
+Once the inch of ice on the inside of my Bellingham bedroom had subsided, spring brought the prospect of taking the classroom outside. Glenn Newcomer and I created a whole league - bracket, rules, and uniform requirements - for the two of us to put our design skills to the test.
 
 The constraints were self-imposed and entirely serious: no competing without proper short shorts, a full official bracket despite there being exactly two entrants, and league identity treated with the same rigor as a client project. We gained the appropriate media coverage on LATFH.
 

@@ -6,7 +6,8 @@ category: Tether
 date: 2013-06-01
 permalink: /design/microsoft-learning-platform/
 draft: false
-featured: false
+featured: true
+semiFeatured: false
 thumbnail: /img/thumbnails/microsoft-learning-thumb.png
 tags:
   - ux
@@ -28,7 +29,7 @@ chart:
   medium: 65
 ---
 
-A concept sprint with Microsoft and Tether exploring what a learning platform built for Surface tablets could look like — at the intersection of video, social networks, collaborative writing, and university-level accreditation.
+A concept sprint with Microsoft and Tether exploring what a learning platform built for Surface tablets could look like - at the intersection of video, social networks, collaborative writing, and university-level accreditation.
 
 - **Role:** UX Designer
 - **Company:** Microsoft / Tether
@@ -40,7 +41,7 @@ A concept sprint with Microsoft and Tether exploring what a learning platform bu
 
 ## The Concept
 
-The brief was open-ended: what does a learning platform look like when it's designed for a device rather than retrofitted to one? Surface had capabilities — stylus input, a large touch surface, the Metro design language — that most online learning tools at the time completely ignored.
+The brief was open-ended: what does a learning platform look like when it's designed for a device rather than retrofitted to one? Surface had capabilities - stylus input, a large touch surface, the Metro design language - that most online learning tools at the time completely ignored.
 
 The space where video sharing, social networks, collaborative writing, online education, and university-level accreditation overlap is rich with potential. The team mapped where those systems could reinforce each other rather than compete. A YouTube-style video layer with a Wikipedia-style knowledge base underneath, social accountability woven through the whole thing, and a credentialing system that could connect to real academic institutions.
 
@@ -48,7 +49,7 @@ The space where video sharing, social networks, collaborative writing, online ed
 
 The concepts explored a few core tensions: how do you make self-paced learning feel as socially engaging as a classroom? How do you layer accreditation onto informal content without making it feel bureaucratic? How do you design for stylus-first interaction without ignoring touch-first users?
 
-The Surface form factor drove decisions throughout — multi-pane layouts that took advantage of the larger screen, annotations that felt natural with the stylus, and a navigation model that worked in both portrait and landscape without feeling like a desktop site scaled down.
+The Surface form factor drove decisions throughout - multi-pane layouts that took advantage of the larger screen, annotations that felt natural with the stylus, and a navigation model that worked in both portrait and landscape without feeling like a desktop site scaled down.
 
 {% image "./MLX-01.png", "Microsoft Learning Platform — home screen concept with course grid and featured content hero" %}
 

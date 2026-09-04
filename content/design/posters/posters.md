@@ -6,6 +6,8 @@ category: Publicity Center
 date: 2010-01-01
 permalink: /design/posters/
 draft: false
+featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/posters-thumb.png
 tags:
   - print
@@ -37,7 +39,7 @@ chart:
   medium: 50
 ---
 
-Print work from WWU — campus promotional posters, Sasquatch! gig prints, and experiments with screen printing and thermographic type.
+Print work from WWU - campus promotional posters, Sasquatch! gig prints, and experiments with screen printing and thermographic type.
 
 - **Role:** Graphic Designer / Print Production
 - **Company:** WWU Publicity Center
@@ -47,13 +49,13 @@ Print work from WWU — campus promotional posters, Sasquatch! gig prints, and e
 
 Campus promotional work is tabloid. Everything else is 18×24".
 
-The self-portrait piece was a scan printed large-format on Epson, then screen-printed with clear thermographic lettering — the kind of print that catches light differently depending on where you're standing.
+The self-portrait piece was a scan printed large-format on Epson, then screen-printed with clear thermographic lettering - the kind of print that catches light differently depending on where you're standing.
 
 The Nacho Picasso print for Sasquatch! was two-color on the crummiest brown package paper we could find. It was just right.
 
 The STRFKR Sasquatch! poster was made with Nicole Mills.
 
-The split fountain piece was a demo for getting other students up to the printing attic — showing the progression of how two ink colors blend across a squeegee pull.
+The split fountain piece was a demo for getting other students up to the printing attic - showing the progression of how two ink colors blend across a squeegee pull.
 
 <div class="two-column">
 

@@ -40,11 +40,11 @@ images:
     alt: "Panoramic install shot — gallery space with large-format paintings and works in progress before opening"
 chart:
   duration: 3
-  collaboration: 30
+  collaboration: 90
   medium: 95
 ---
 
-Producing a curated poster exhibition for Seattle's biggest electronic music festival — two years running, zero budget, one night to make it land.
+Producing a curated poster exhibition for Seattle's biggest electronic music festival - two years running, zero budget, one night to make it land.
 
 - **Role:** Producer, Decibel Festival Popup Artshow
 - **Company:** Decibel Festival / AIGA Seattle
@@ -53,17 +53,19 @@ Producing a curated poster exhibition for Seattle's biggest electronic music fes
 - **Platform:** Live event, print, projection installation
 - **Status:** Produced and exhibited — highest-attended opening in the festival's history (2013)
 
-The constraint was the same both years: no meaningful budget, a one-night window, and a room full of people about to walk into a music festival. The work had to compete with everything happening around it.
+The constraint was the same both years:  a one-night window and a room full of people about to walk into a music festival. The work had to compete with everything happening around it.
 
 ## The Show
 
-The 2013 show ran alongside the festival's centennial. I brought in Benjamin Van Citters, Nick Bartoletti, Chris Blohm, and Patrick Wright to build a projection-mapped installation across the entire space — window displays, rotating poster frames, and a dancing skeleton tracked live via Kinect. A Monday night in Capitol Hill. It became the highest-attended opening in the festival's history.
+The 2013 show ran alongside the festival's anniversary. I brought in Benjamin Van Citters, Nick Bartoletti, Chris Blohm, and Patrick Wright to build a projection-mapped installation across the entire space - window displays, rotating poster frames, and a dancing skeleton tracked live via Kinect. A Monday night triple kegger. It became the highest-attended opening in the festival's history.
 
-2014 scaled up. MoPOP partnered with Decibel and moved the show into the Skychurch at EMP Museum as the official Opening Gala — 40+ designers, an expanded footprint, and a production problem to match.
+2014 scaled up. MoPOP partnered with Decibel and moved the show into the Skychurch at EMP Museum as the official Opening Gala - 40+ designers, an expanded footprint, and a production problem to match.
 
 ## The Production System
 
-The artist coordination system for 2014 was a Mailchimp campaign built on Google Forms and merge tags. Every invitation was personalised by artist assignment, print specs, and deadline. The email was the production system — no additional project management layer, no separate spreadsheet handed around. It worked because each artist only ever saw their piece of it.
+The artist coordination system for 2014 was a Mailchimp campaign built on Google Forms and merge tags. Every invitation was personalised by artist assignment, print specs, and deadline. The email was the production system - no additional project management layer, no separate spreadsheet handed around. It worked because each artist only ever saw their piece of it. Simple and effective, brought together by the incredible list of participants. 
+
+<!-- Add list of participants -->
 
 {% image "./db-04.png", "2013 Decibel Popup Artshow promo graphic — 'Pop Up Art Show / September 24 / One Night Only'" %}
 

@@ -1,14 +1,17 @@
 ---
 title: Vine Wars | Product Designer | Jonny McConnell
 pageHeadline: Vine Wars
-description: A working prototype for collecting, voting, ranking, and sharing the best Vines — built by scraping the Twitter API before Vine had one of their own, with 16-bit illustration throughout.
+description: A working prototype for collecting, voting, ranking, and sharing the best Vines - built by scraping the Twitter API before Vine their own, with 16-bit illustration throughout.
 category: Tether
 date: 2013-11-30
 permalink: /design/vine-wars/
 draft: false
+featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/vine-wars-thumb.png
 tags:
   - web
+  - ux
   - product
   - illustration
 images:
@@ -25,12 +28,12 @@ images:
   - src: "./content/design/vine-wars/vw-08.png"
     alt: "Illustration detail — 16-bit character design used throughout the Vine Wars identity"
 chart:
-  duration: 6
-  collaboration: 50
+  duration: 3
+  collaboration: 60
   medium: 50
 ---
 
-When Vine launched there was no way to surface the best videos, and no way to pull them into an interface outside the app itself. A working prototype for doing both — and turning it into a game.
+When Vine launched there was no way to surface the best videos, and no way to pull them into an interface outside the app itself. A working prototype for doing both - and turning it into a game.
 
 - **Role:** Product Designer
 - **Company:** Tether Labs
@@ -42,13 +45,13 @@ When Vine launched there was no way to surface the best videos, and no way to pu
 
 ## The Problem
 
-Vine was a closed ecosystem at launch. There was no native discovery layer, no ranking, no way to aggregate or share the best content outside of the app. The Twitter API was the only hook available — Vines were posted as tweets, which meant the data was there if you knew how to get it.
+Vine was a closed ecosystem at launch. There was no native discovery layer, no ranking, no way to aggregate or share the best content outside of the app. The Twitter API was the only hook available - Vines were posted as tweets, which meant the data was there if you knew how to get it.
 
 ## The Build
 
-Under the direction of Tether Labs, I partnered with Angel Samano to scrape the Twitter API and build a working prototype for the collection, voting, ranking, and sharing of the best Vines. The design language was 16-bit illustration throughout — pixel characters, game-style UI elements, a visual system that matched the competitive framing of the product.
+Under the direction of Tether Labs, I partnered with Angel Samano to scrape the Twitter API and build a working prototype for the collection, voting, ranking, and sharing of the best Vines. The design language was 16-bit illustration throughout - pixel characters, game-style UI elements, a visual system that matched the competitive framing of the product.
 
-The product worked: you could browse, vote, and share. Rankings were live. The game mechanic was real. It never went public, but sometimes the most useful outcome of a prototype is proving that the space is worth building in. Vine launched their own first-party API not long after. They eventually shut that down too.
+The product worked: you could browse, vote, and share. Rankings were live. The game mechanic was real. It never went public, but sometimes the most useful outcome of a prototype is proving that the space is worth building in. Vine launched their own first-party API not long after. 
 
 {% image "./vw-00.gif", "Vine Wars animated demo — browsing and voting interface in motion" %}
 
