@@ -93,5 +93,61 @@ The artist coordination system for 2014 was a Mailchimp campaign built on Google
 
 </div>
 
-<!-- Add list of participants -->
+## Participants
+
+- [Aaron Bloom](https://work.whoisaaronbloom.com)
+- [Alex McAdoo](https://www.alex-mcadoo.com)
+- [Ali Emre Doğramacı](https://www.aliemredo.com)
+- [Ally Creighton](https://allycreighton.com)
+- [Andrew Crawshaw](https://www.brokenpressdesignandprint.com)
+- [Andrew Saeger](https://factory43.com)
+- [Andy Stewart](http://andystewartdesign.com/)
+- [Battershell](https://heybattershell.com)
+- [Benjamin Hubbard](https://www.benbusy.com)
+- [Björn Soneson](https://www.bjornsoneson.com)
+- [Brad McNally](https://bradmcnally.com)
+- [Brandon Bay](https://www.clonepress.com)
+- [Bri Graff](https://brigraff.com)
+- [Brian Ralphs](https://brianralphs.com)
+- [Chad Lundberg](https://chadlundberg.com)
+- [Chelsey Scheffe](https://chelseyscheffe.com)
+- [Chip Baker & Mike Grigg](http://www.rangotang.com)
+- [Christopher Martin](https://christopherlmartin.com)
+- Claire Alyea
+- [Cory Schmitz](https://coryschmitz.com)
+- [Derek Vander Griend](https://dvandergriend.com)
+- [Ellis Latham-Brown](https://theyoungmensdangerclub.com)
+- [Emily Comfort](https://emilycomfort.com)
+- Frida Clement
+- [Gilbert Van Citters](http://cargocollective.com/gilbertvc)
+- [Glenn Newcomer](https://glennnandyou.com)
+- [J. Adam Brinson](http://jadambrinson.com)
+- [James Stipes](https://www.jamesstipes.com)
+- [Jessica Durkin](https://jessica-durkin.com)
+- [Jon Bell](http://lot43.com)
+- [Jordan Butcher](https://jordanbutcher.co)
+- [Junichi Tsuneoka](https://stubbornsideburn.com)
+- [Killorn O'Neill](https://partialartsstudio.com)
+- [Logan Sayles](https://cargocollective.com/logansayles)
+- [Madison Schneider](https://www.madisonschneider.com)
+- [Marla Moore](https://marlamakesstuff.con)
+- [Maxwell Churchill](http://cargocollective.com/maxwellchurchill)
+- [Meg O'Brien](https://www.itsmemeg.com)
+- [Meghan Hartley](https://www.meghanhartley.com)
+- Michelle Yang
+- [Nicole Ramirez](https://www.nclrmrz.com)
+- [Peter van Dam](https://flew-the-coop.com)
+- [Rob Stanton](https://uglybogus.com)
+- [Robert Zwiebel](mailto:robertzwiebel@gmail.com)
+- [Rosie Alyea](http://rosiealyea.com/)
+- [Selena Goodwin](https://www.selenagoodwin.com)
+- [Shan Foisy & Peter Miller](http://soupstandard.com/)
+- [Shane Long](https://www.uglybogus.com)
+- [Shogo Ota](https://www.tiremanstudio.com)
+- Simone
+- [Tiffany Jen](https://www.tiffanyjen.com)
+- [tim hubner](https://www.yrtheoneforme.com)
+- [Tomas de Carcer](https://elsolo.cl)
+- [Torin Kovach](https://torinkovach.com)
+- [Wyatt Carroll](https://wyattcarroll.com)
 
