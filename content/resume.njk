@@ -460,8 +460,17 @@ eleventyNavigation:
   }
 
   .resume-body {
-    gap: 0 0.45in;
-    grid-template-columns: minmax(0, 1fr) 2.2in;
+    display: block;
+  }
+
+  .resume-main-col {
+    float: left;
+    width: calc(100% - 2.65in);
+  }
+
+  .resume-side-col {
+    float: right;
+    width: 2.2in;
   }
 
   .resume-section {
