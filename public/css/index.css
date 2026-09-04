@@ -1,3 +1,9 @@
+/* 3D Axis Chart — WebGL canvas approach (Three.js) */
+.home-axis-stage {
+  perspective: none; /* no CSS 3D needed — Three.js owns the rendering */
+  transform-style: flat;
+}
+
 /* Defaults */
 :root {
 	color-scheme: light;
@@ -49,22 +55,120 @@
 	--color-gray-50: var(--anp-overlay0);
 	--color-gray-90: var(--anp-text);
 
-	--background-color: #e6e6e6;
+	/* Warm, de-grayed defaults pulled from new-colors.css palette */
+	--background-color: var(--color-peach-glow-50);
 	--surface-color: #f0ede8;
 	--surface-color-alt: #e6e2db;
 	--shadow-color: rgba(30, 25, 20, 0.10);
 	--shadow-color-strong: rgba(30, 25, 20, 0.18);
 
-	--text-color: #28251f;
-	--text-color-muted: var(--anp-subtext0);
-	--text-color-subtle: var(--anp-overlay0);
-	--text-color-link: var(--anp-blue);
-	--text-color-link-active: var(--anp-mauve);
-	--text-color-link-visited: var(--anp-maroon);
-	--text-color-on-accent: var(--anp-base);
+	--text-color: var(--color-black-900);
+	--text-color-muted: var(--color-black-600);
+	--text-color-subtle: var(--color-black-500);
+	--text-color-link: var(--color-sky-reflection-500);
+	--text-color-link-active: var(--color-sky-reflection-700);
+	--text-color-link-visited: var(--color-sky-reflection-800);
+	--text-color-on-accent: var(--color-peach-glow-50);
+	/* Header + footer nav links follow the page theme, not the content-page link blue. */
+	--nav-link-color: var(--text-color);
 	--lightbox-control-color: var(--anp-base);
 
+	/* Flat rounded-rectangle buttons — solid fill tinted from the ambient page
+	   --background-color, uniform corner radius, no gradient, no raised bevel. */
+	--btn-radius: 0.6rem;
+	--btn-face-top: color-mix(in srgb, var(--background-color) 84%, #ffffff);
+	--btn-face-bottom: var(--btn-face-top);
+	--btn-edge: color-mix(in srgb, var(--background-color) 60%, #000000);
+	--btn-top-highlight: transparent;
+	--btn-surface: var(--btn-face-top);
+	--btn-raise-shadow: none;
+	--btn-press-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.14);
+
 	--syntax-tab-size: 2;
+}
+
+/* =====================================================
+   Per-page-type palettes — background + text + links
+   swap by <html> class set in base.njk. Custom props
+   cascade to <body>, .site-wrapper, .post-content, etc.
+   ===================================================== */
+
+/* Home — medium jungle field, primary dark text, peach accents */
+html.theme-home {
+	--background-color: var(--color-medium-jungle-500);
+	--text-color: var(--color-black-900);
+	--text-color-muted: var(--color-peach-glow-700);
+	--text-color-subtle: var(--color-peach-glow-800);
+	--detail-color: var(--color-peach-glow-100);
+	--nav-link-color: var(--text-color);
+}
+
+/* Content (project detail) — light peach glow, rich dark text, darker sky links */
+html.theme-content {
+	--background-color: var(--color-peach-glow-100);
+	--text-color: var(--color-black-900);
+	--text-color-muted: var(--color-black-600);
+	--text-color-link: var(--color-sky-reflection-700);
+	--text-color-link-active: var(--color-sky-reflection-800);
+	--text-color-link-visited: var(--color-sky-reflection-700);
+	--nav-link-color: var(--text-color);
+	--content-reading-max-width: 50rem;
+	--content-reading-font-size: 1rem;
+	--content-reading-line-height: 1.68;
+	--content-reading-font-size-mobile: 1.02rem;
+	--content-reading-line-height-mobile: 1.55;
+	--content-block-font-size: 1.05rem;
+	--content-block-font-size-mobile: 0.96rem;
+	--content-pre-font-size-mobile: 0.8rem;
+	--content-list-indent: 1rem;
+	--content-pre-inline-padding: 1rem;
+}
+
+/* Resume — sky reflection field, dark text + dark links for contrast */
+html.theme-resume {
+	--background-color: var(--color-sky-reflection-500);
+	--text-color: var(--color-black-950);
+	--text-color-muted: var(--color-steel-blue-800);
+	--text-color-subtle: var(--color-steel-blue-800);
+	--text-color-link: var(--color-steel-blue-900);
+	--text-color-link-active: var(--color-black-900);
+	--text-color-link-visited: var(--color-steel-blue-900);
+	/* Nav matches the content-page background color (peach glow) */
+	--detail-color: var(--color-peach-glow-100);
+	--nav-link-color: var(--color-peach-glow-100);
+}
+
+/* Contact — deep black field with warm high-contrast text and cool link accents */
+html.theme-contact {
+	--background-color: var(--color-black-800);
+	--text-color: var(--color-peach-glow-50);
+	--text-color-muted: var(--color-peach-glow-200);
+	--text-color-subtle: var(--color-peach-glow-300);
+	--text-color-link: var(--color-sky-reflection-200);
+	--text-color-link-active: var(--color-peach-glow-300);
+	--text-color-link-visited: var(--color-sky-reflection-100);
+	--surface-color: var(--color-black-700);
+	--surface-color-alt: var(--color-black-600);
+	--anp-surface2: var(--color-black-500);
+	--nav-link-color: var(--text-color);
+}
+
+/* Header + footer nav links take each page theme's nav color (--nav-link-color)
+   rather than falling through to the default content-link blue. The [href]
+   selectors raise specificity above the global `a[href]` color rule. */
+.site-header nav a[href],
+.site-header nav a[href]:visited,
+.site-header nav a[href]:hover,
+.site-header nav a[href]:focus-visible,
+.nav-item a[href],
+.nav-item a[href]:visited,
+.nav-item a[href]:hover,
+.nav-item a[href]:focus-visible,
+.site-footer-link[href],
+.site-footer-link[href]:visited,
+.site-footer-link[href]:hover,
+.site-footer-link[href]:focus-visible {
+	color: var(--nav-link-color);
 }
 
 
@@ -79,8 +183,8 @@ body {
 	margin: 0;
 	font-family: var(--font-family);
 	font-weight: var(--font-weight-body);
-	font-size: 1rem;
-	line-height: 1.6;
+	font-size: 1.125rem;
+	line-height: 1.65;
 	color: var(--text-color);
 	background-color: var(--background-color);
 }
@@ -94,12 +198,13 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: var(--font-family-headline);
 	line-height: 1.15;
 	margin-top: 0;
+	margin-bottom: 0.6em;
 }
 
-h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-black); }
-h2 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: var(--font-weight-bold); }
-h3 { font-size: 1.125rem; font-weight: var(--font-weight-semibold); }
-h4 { font-size: 1rem; font-weight: var(--font-weight-semibold); }
+h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: var(--font-weight-black); }
+h2 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); font-weight: var(--font-weight-bold); }
+h3 { font-size: 1.3rem; font-weight: var(--font-weight-semibold); }
+h4 { font-size: 1.125rem; font-weight: var(--font-weight-semibold); }
 
 .nav-item a,
 .site-header nav a {
@@ -145,11 +250,13 @@ p:last-child {
 }
 
 p {
-	line-height: 1.5;
+	line-height: 1.65;
+	margin-block: 0 1.25rem;
 }
 
 li {
-	line-height: 1.5;
+	line-height: 1.65;
+	margin-bottom: 0.4rem;
 }
 
 a[href] {
@@ -174,7 +281,7 @@ main :first-child {
 }
 
 header {
-	border-bottom: 1px dashed var(--color-gray-20);
+	/* border-bottom: 1px solid var(--color-black-900); */
 }
 
 header:after {
@@ -184,9 +291,66 @@ header:after {
 }
 
 footer {
-	border-top: 1px dashed var(--color-gray-20);
+	border-top: 1px solid var(--nav-link-color);
 	padding: 0.75em;
 	margin-top: 2rem;
+}
+
+/* Shared site footer — contact links at the very bottom of every page. */
+.site-footer {
+	margin-top: 3rem;
+	padding: 0 1rem 1.5rem;
+	border-top: none;
+}
+
+/* Footer hosts the callout strip at its top edge, so the strip's bottom
+   border becomes the same visual separator line for the footer links. */
+.site-footer .home-callout-strip {
+	margin: 0 -1rem 1.25rem;
+}
+
+.site-footer-links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 1rem 2rem;
+}
+
+.site-footer-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 0.8rem;
+	font-weight: var(--font-weight-medium);
+	letter-spacing: 0.02em;
+	color: var(--nav-link-color);
+	text-decoration: none;
+}
+
+.site-footer-link:visited {
+	color: var(--nav-link-color);
+}
+
+.site-footer-link:hover,
+.site-footer-link:focus-visible {
+	color: var(--nav-link-color);
+	text-decoration: underline;
+}
+
+.site-footer-link-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 1rem;
+	height: 1rem;
+	flex: 0 0 auto;
+}
+
+.site-footer-link-icon svg {
+	display: block;
+	width: 100%;
+	height: 100%;
 }
 
 .links-nextprev {
@@ -401,127 +565,82 @@ header {
 	padding: 0.25rem 0 0;
 }
 
+/* Stage: contains the WebGL canvas + overlays */
 .home-axis-stage {
 	position: relative;
-	display: grid;
-	grid-template-columns: repeat(24, minmax(0, 1fr));
-	grid-template-rows: repeat(16, minmax(0, 1fr));
-	min-height: clamp(440px, 46vh, 600px);
-	max-height: clamp(440px, 46vh, 600px);
+	overflow: hidden;
+	min-height: clamp(520px, 70vh, 840px);
 	border-radius: 1rem;
-	overflow: visible;
-	padding: 1rem;
+	padding: 0;
+	cursor: grab;
 }
 
-.home-axis-stage::before {
-	content: "";
+.home-axis-stage:active {
+	cursor: grabbing;
+}
+
+/* WebGL canvas fills the stage */
+.home-axis-canvas {
 	position: absolute;
 	inset: 0;
+	width: 100% !important;
+	height: 100% !important;
+	display: block;
 	border-radius: 1rem;
+	z-index: 1;
+}
+
+/* Background image strip — shown on tube hover, stacked images behind canvas */
+.home-axis-bg-strip {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0;
+	overflow: hidden;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	border-radius: 1rem;
+}
+
+.home-axis-bg-img {
+	flex: 1 1 0;
+	min-width: 0;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	filter: brightness(0.72) saturate(0.8);
+}
+
+/* Headline overlay — screen-flat, tubes (z-index:1) pass in front */
+.home-axis-headline-overlay {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
 	pointer-events: none;
 	z-index: 0;
-	background:
-		radial-gradient(circle at 50% 52%, color-mix(in srgb, var(--anp-sky) 16%, transparent) 0%, transparent 46%),
-		linear-gradient(140deg, color-mix(in srgb, var(--surface-color-alt) 44%, transparent) 0%, transparent 44%),
-		linear-gradient(20deg, color-mix(in srgb, var(--surface-color) 84%, var(--background-color)) 0%, var(--background-color) 100%);
+	padding: 0.6em 0.5em 0 0.5em;
+	overflow: hidden;
 }
 
-.home-axis-grid {
-	position: absolute;
-	inset: 1rem;
-	pointer-events: none;
-	background-image:
-		linear-gradient(to right, color-mix(in srgb, var(--anp-overlay0) 20%, transparent) 1px, transparent 1px),
-		linear-gradient(to bottom, color-mix(in srgb, var(--anp-overlay0) 20%, transparent) 1px, transparent 1px);
-	background-size: calc(100% / 24) calc(100% / 16);
-	mask-image: radial-gradient(circle at 38% 72%, rgba(0, 0, 0, 1) 52%, rgba(0, 0, 0, 0.25) 100%);
+/* The headline is drawn as a WebGL billboard when the Three.js module runs; the
+   DOM <h1> is kept only as text data + a no-JS fallback. Hide it up-front when JS
+   is available so it never flashes before the module paints. `.is-fallback` is
+   re-added by the module's failure/timeout path to restore the DOM headline. */
+.js .home-axis-headline-overlay {
+	visibility: hidden;
 }
 
-.home-axis-line {
-	position: absolute;
-	display: block;
-	background: color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	opacity: 0.65;
+.js .home-axis-headline-overlay.is-fallback {
+	visibility: visible;
 }
 
-.home-axis-line-x {
-	left: 0.9rem;
-	right: 1.4rem;
-	bottom: 1.35rem;
-	height: 1px;
-}
-
-.home-axis-line-y {
-	left: 0.9rem;
-	top: 1.4rem;
-	bottom: 1.35rem;
-	width: 1px;
-}
-
-.home-axis-line-z {
-	left: 1rem;
-	bottom: 1.35rem;
-	width: 1px;
-	height: clamp(48%, 62%, 74%);
-	transform-origin: bottom left;
-	transform: rotate(45deg);
-}
-
-.home-axis-origin-point {
-	position: absolute;
-	left: 0.7rem;
-	bottom: 1.05rem;
-	width: 0.45rem;
-	height: 0.45rem;
-	border-radius: 50%;
-	background: color-mix(in srgb, var(--anp-text) 80%, var(--anp-overlay0));
-	box-shadow: 0 0 0 2px color-mix(in srgb, var(--surface-color) 72%, transparent);
-}
-
-.home-axis-label {
-	display: none;
-	position: absolute;
-	font-size: 0.85rem;
-	letter-spacing: 0.16em;
-	text-transform: uppercase;
-	font-weight: var(--font-weight-semibold);
-	color: color-mix(in srgb, var(--text-color) 70%, var(--anp-overlay0));
-	font-family: var(--font-family);
-	white-space: nowrap;
-}
-
-.home-axis-label-x {
-	right: 1rem;
-	bottom: 1.7rem;
-}
-
-.home-axis-label-y {
-	left: 1.7rem;
-	bottom: 3.25rem;
-	transform: rotate(-90deg);
-	transform-origin: left bottom;
-}
-
-.home-axis-label-z {
-	left: 4%;
-	bottom: 11%;
-	transform: rotate(-45deg);
-	transform-origin: left center;
-}
-
-.home-center-lockup {
-	grid-column: 2 / span 22;
-	grid-row: 6 / span 6;
-	align-self: center;
-	justify-self: center;
-	display: grid;
-	place-items: center;
-	text-align: center;
-	position: relative;
-	z-index: 4;
-}
-
-.homepage-headline-axis {
+.home-axis-headline-text {
 	margin: 0;
 	max-width: min(21ch, 88vw);
 	font-family: var(--font-family-headline-flex);
@@ -534,6 +653,153 @@ header {
 	color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base));
 	text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
 	text-transform: uppercase;
+	text-align: left;
+	pointer-events: none;
+	white-space: normal;
+	transition: color 0.18s ease, opacity 0.18s ease;
+	width: 100%;
+}
+
+.home-axis-headline-text[data-hovered] {
+	opacity: 0.68;
+}
+
+/* Portrait — DOM avatar pinned over the top of the WebGL stage, circle-cropped.
+   Pulled from the main branch's avatar treatment (border-radius:50% + ring). */
+.home-axis-avatar {
+	position: absolute;
+	top: clamp(1.25rem, 4vw, 2.75rem);
+	left: 50%;
+	transform: translateX(-50%);
+	width: clamp(96px, 9vw, 156px);
+	height: clamp(96px, 9vw, 156px);
+	z-index: 5;
+	pointer-events: none;
+	overflow: hidden;
+	border-radius: 50%;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.16);
+	border: 2px solid color-mix(in srgb, var(--anp-base) 78%, var(--surface-color-alt));
+	background: var(--surface-color);
+}
+
+.home-axis-avatar :is(picture, img) {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Axis labels — corner-anchored over canvas */
+.home-axis-labels {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 2;
+}
+
+.home-axis-label {
+	position: absolute;
+	font-size: 0.62rem;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	font-weight: var(--font-weight-semibold);
+	color: color-mix(in srgb, var(--text-color) 55%, var(--anp-overlay0));
+	font-family: var(--font-family);
+	white-space: nowrap;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.home-axis-stage:hover .home-axis-label {
+	opacity: 1;
+}
+
+.home-axis-label-x {
+	right: 1.25rem;
+	bottom: 1.5rem;
+}
+
+.home-axis-label-y {
+	left: 1.5rem;
+	top: 50%;
+	transform: translateY(-50%) rotate(-90deg);
+	transform-origin: left center;
+}
+
+.home-axis-label-z {
+	left: 1.5rem;
+	bottom: 2.5rem;
+}
+
+/* Project data carriers — invisible in DOM, data read by Three.js */
+.home-axis-project {
+	display: none; /* hidden — Three.js reads data-* attrs and renders to canvas */
+}
+
+/* The image carried inside each article — read by Three.js TextureLoader */
+.home-axis-dot-img {
+	display: none; /* used only as src carrier for JS */
+}
+
+/* Title labels — positioned by JS via screen-space projection each frame */
+.home-axis-project-title-label {
+	position: absolute;
+	transform: translateX(-50%);
+	white-space: nowrap;
+	font-family: var(--font-family);
+	font-size: 0.6rem;
+	font-weight: 500;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--text-color);
+	background: color-mix(in srgb, var(--surface-color) 88%, transparent);
+	padding: 0.18rem 0.45rem;
+	border-radius: 4px;
+	text-decoration: none;
+	pointer-events: auto;
+	opacity: 0;
+	transition: opacity 0.18s ease;
+	z-index: 3;
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
+
+.home-axis-stage:hover .home-axis-project-title-label {
+	opacity: 0.75;
+}
+
+.home-axis-project-title-label:hover {
+	opacity: 1 !important;
+}
+
+.home-center-lockup {
+	display: grid;
+	place-items: center;
+	text-align: center;
+	position: relative;
+	z-index: 4;
+}
+
+.home-chart-attribution {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem 0 2rem;
+}
+
+.homepage-headline-axis {
+	margin: 0 auto;
+	max-width: min(28ch, 90vw);
+	font-family: var(--font-family-headline-flex);
+	font-size: clamp(1.1rem, 2.2vw, 1.8rem);
+	line-height: 1.15;
+	font-weight: 580;
+	letter-spacing: -0.01em;
+	text-wrap: balance;
+	text-align: center;
+	color: color-mix(in srgb, var(--text-color) 70%, transparent);
+	text-transform: none;
 }
 
 .homepage-main-avatar {
@@ -546,13 +812,11 @@ header {
 }
 
 .homepage-main-avatar-overlay {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: clamp(96px, 8vw, 156px);
-	height: clamp(96px, 8vw, 156px);
-	z-index: 5;
+	position: static;
+	transform: none;
+	width: clamp(48px, 4vw, 72px);
+	height: clamp(48px, 4vw, 72px);
+	z-index: auto;
 }
 
 .homepage-main-avatar :is(picture, img) {
@@ -561,120 +825,6 @@ header {
 	height: 100%;
 	object-fit: cover;
 }
-
-.home-axis-project {
-	grid-column: var(--axis-col, 2) / span 3;
-	grid-row: var(--axis-row, 2) / span 3;
-	align-self: center;
-	justify-self: center;
-	position: relative;
-	z-index: 8;
-	width: min(190px, 18vw);
-}
-
-.home-axis-project:hover {
-	z-index: 20;
-}
-
-.home-axis-pile {
-	position: relative;
-	width: 100%;
-	aspect-ratio: 4/3;
-}
-
-.home-axis-pile-image {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	width: var(--w, 66%);
-	height: var(--h, 62%);
-	transform:
-		translate(-50%, -50%)
-		translate(var(--offset-x), var(--offset-y))
-		rotate(var(--rotation))
-		scale(var(--scale));
-	z-index: var(--z-index);
-	overflow: hidden;
-	box-shadow: 0 4px 14px var(--shadow-color-strong);
-	transition: transform 0.25s ease;
-}
-
-.home-axis-pile-image :is(img, picture) {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-}
-
-.home-axis-project-link:hover .home-axis-pile-image {
-	transform:
-		translate(-50%, -50%)
-		translate(calc(var(--offset-x) * 0.6), calc(var(--offset-y) * 0.6))
-		rotate(calc(var(--rotation) * 1.2))
-		scale(calc(var(--scale) * 1.02));
-}
-
-/* Temporarily commented out for performance - will revisit later
-.home-axis-project-title {
-	font-family: var(--font-family);
-	font-size: 0.66rem;
-	font-weight: var(--font-weight-semibold);
-	text-transform: uppercase;
-	letter-spacing: 0.08em;
-	line-height: 1.3;
-	text-align: left;
-	overflow-wrap: break-word;
-	color: color-mix(in srgb, var(--text-color) 90%, var(--anp-base));
-	text-shadow: 0 0 6px var(--surface-color), 0 1px 4px var(--surface-color), 0 0 12px var(--surface-color);
-	opacity: 0;
-	max-height: 0;
-	overflow: hidden;
-	transition: opacity 0.22s ease;
-}
-*/
-
-/* --- Axis dot (circle, composited for smooth hover) ---------------------- */
-
-.home-axis-dot {
-	flex-shrink: 0;
-	width: 28px;
-	height: 28px;
-	border-radius: 50%;
-	overflow: hidden;
-	will-change: width, height;
-	transition: width 0.22s ease, height 0.22s ease, border-radius 0.22s ease;
-	box-shadow: 0 2px 8px var(--shadow-color);
-	background: var(--surface-color-alt);
-}
-
-.home-axis-dot-img {
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-	display: block;
-}
-
-.home-axis-project-link {
-	display: flex;
-	align-items: flex-start;
-	gap: 0.5rem;
-	text-align: left;
-	text-decoration: none;
-	color: inherit;
-}
-
-.home-axis-project-link:hover .home-axis-dot {
-	width: 48px;
-	height: 48px;
-	border-radius: 50%;
-}
-
-/* Temporarily commented out for performance - will revisit later
-.home-axis-project-link:hover .home-axis-project-title {
-	opacity: 1;
-	max-height: 4rem;
-}
-*/
 
 /* --- Featured projects grid (semi-featured rows) ------------------------- */
 
@@ -694,7 +844,7 @@ header {
 	align-items: center;
 	height: clamp(4.75rem, 8vw, 6rem);
 	padding: 0 max(var(--site-gutter), 1.25rem);
-	border-top: 1px solid var(--anp-crust);
+	border-top: 1px solid var(--text-color);
 	background: transparent;
 	text-decoration: none;
 	color: inherit;
@@ -704,7 +854,7 @@ header {
 }
 
 .home-featured-row:last-child {
-	border-bottom: 1px solid var(--anp-crust);
+	border-bottom: 1px solid var(--text-color);
 }
 
 .home-featured-row::after {
@@ -838,17 +988,19 @@ header {
 	font-weight: var(--font-weight-semibold);
 	color: var(--text-color);
 	text-decoration: none;
-	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
-	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 	letter-spacing: 0.02em;
 	text-transform: uppercase;
 }
 
 .home-cta-row a:hover {
-	background: var(--text-color-link);
-	color: var(--text-color-on-accent);
-	border-color: var(--text-color-link);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+	color: var(--text-color);
 	text-decoration: none;
 }
 
@@ -857,12 +1009,12 @@ header {
 .home-podcast-feature {
 	margin: 2rem 0 0;
 	padding: 2rem 0;
-	border-top: 1px solid var(--surface-color);
+	border-top: 1px solid var(--text-color);
 }
 
 .home-podcast-grid {
 	display: grid;
-	grid-template-columns: 160px 1fr;
+	grid-template-columns: 1fr;
 	gap: 1.5rem;
 	align-items: start;
 }
@@ -898,7 +1050,7 @@ header {
 
 .home-podcast-desc {
 	font-size: 0.9375rem;
-	color: var(--text-color-muted);
+	color: var(--text-color);
 	line-height: 1.5;
 	max-width: 52ch;
 	margin: 0 0 1rem;
@@ -919,45 +1071,43 @@ header {
 	letter-spacing: 0.02em;
 	color: var(--text-color);
 	text-decoration: none;
-	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
-	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 	box-sizing: border-box;
 }
 
 .home-podcast-all-link:hover {
-	background: var(--text-color-link);
-	color: var(--surface-color);
-	border-color: var(--text-color-link);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+	color: var(--text-color);
 }
 
 @media (max-width: 640px) {
-	.home-podcast-grid { grid-template-columns: 100px 1fr; gap: 1rem; }
-	.home-podcast-cover { max-width: 100px; }
+	.home-podcast-grid { grid-template-columns: 1fr; gap: 1rem; }
 }
 
 /* --- Obsidian aside row -------------------------------------------------- */
 
 .home-aside-row {
-	display: flex;
-	flex-direction: column;
-	gap: 0.4rem;
-	align-items: center;
+	width: min(100%, 72rem);
 	padding: 0.8rem 1rem;
-	border: 1px solid #fff;
+	border: 1px solid rgb(124 58 237);
 	border-radius: 1rem;
-	background-color: transparent;
+	/* background-color: rgb(124 58 237); */
 	transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
 	font-size: 0.85rem;
-	color: var(--text-color-muted);
-	text-align: center;
+	color: var(--color-medium-jungle-800);
+	text-align: left;
 }
 
 .home-aside-header {
 	display: flex;
 	align-items: center;
 	gap: 0.45rem;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
 .home-aside-label {
@@ -985,8 +1135,37 @@ header {
 .home-aside-row a {
 	color: inherit;
 	text-decoration: none;
-	text-align: center;
-	align-self: center;
+	text-align: left;
+	align-self: stretch;
+}
+
+.home-aside-link {
+	display: grid;
+	grid-template-columns: 160px 1fr;
+	gap: 1.5rem;
+	align-items: start;
+	width: 100%;
+}
+
+.home-aside-copy {
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding-left: 0.5rem;
+}
+
+.home-aside-text {
+	font-size: 0.9375rem;
+	line-height: 1.5;
+	max-width: 52ch;
+}
+
+.home-aside-thumb {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	border-radius: 0.5rem;
+	display: block;
 }
 
 .home-aside-row:hover,
@@ -1006,22 +1185,19 @@ header {
 		border-radius: 1rem;
 		padding: 0.75rem 0.9rem;
 	}
+
+	.home-aside-link {
+		grid-template-columns: 100px 1fr;
+		gap: 1rem;
+	}
 }
 
 .home-supporting-content {
 	display: grid;
 	gap: 0.75rem;
-	margin: 1.5rem 0 1.5rem;
+	margin: -1.5rem 0 1.5rem;
 	justify-items: center;
 	text-align: center;
-}
-
-.homepage-about {
-	max-width: 72ch;
-	margin: 0;
-	font-size: clamp(1.05rem, 3vw, 2.4rem);
-	line-height: 1.45;
-	text-wrap: pretty;
 }
 
 .home-supporting-links {
@@ -1141,16 +1317,18 @@ header {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	/* padding: 0.45rem 0.85rem; */
+	padding: 0.6rem 1rem;
 	text-decoration: none;
 	font-size: 0.75rem;
 	font-weight: var(--font-weight-semibold);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--text-color);
-	border: 1px solid color-mix(in srgb, var(--anp-overlay0) 44%, transparent);
-	background: color-mix(in srgb, var(--surface-color) 70%, transparent);
-	transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 .home-supporting-link-icon {
@@ -1169,9 +1347,9 @@ header {
 }
 
 .home-supporting-link:hover {
-	background: var(--text-color-link);
-	color: var(--text-color-on-accent);
-	border-color: var(--text-color-link);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+	color: var(--text-color);
 }
 
 .home-supporting-links-footer a.home-supporting-link-footer {
@@ -1183,6 +1361,7 @@ header {
 	color: var(--text-color);
 	border: 0;
 	background: transparent;
+	box-shadow: none;
 }
 
 .home-supporting-links-footer a.home-supporting-link-footer:visited {
@@ -1200,6 +1379,35 @@ header {
 .home-semi-featured-grid {
 	margin: 2rem 0;
 	padding: 0;
+}
+
+/* Introduction text — borrows the semi-featured headline treatment
+   (condensed Google Sans Flex display, uppercase, tight leading). */
+.homepage-about {
+	position: relative;
+	z-index: 1;
+	/* Tuck the statement in under the testimonial notes above it. */
+	margin: 0 auto;
+	max-width: min(90ch, 100vw);
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0.75rem 1.5rem;
+	align-items: start;
+	font-family: var(--font-family-headline-flex);
+	font-size: clamp(1.2rem, 1vw, 2.5rem);
+	font-variation-settings: 'wght' 700, 'wdth' 100, 'opsz' 64;
+	color: var(--text-color)
+	/* letter-spacing: -0.02em; */
+	/* color: color-mix(in srgb, var(--text-color) 88%, var(--anp-base)); */
+	/* text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07); */
+	/* text-transform: uppercase; */
+	text-wrap: balance;
+}
+
+.homepage-about p {
+	margin: 1em 0 0 0;
+	line-height: 1.2;
+	text-align: left;
 }
 
 .home-see-all-link {
@@ -1339,60 +1547,38 @@ header {
 
 @media (max-width: 768px) {
 	.homepage-axis-hero {
-		padding-top: 0.75rem;
+		/* Full-bleed on mobile: canvas spans the whole viewport width and
+		   butts up against the header's bottom border (cancel main's top margin). */
+		width: 100vw;
+		width: 100dvw;
+		margin-left: calc(50% - 50vw);
+		margin-left: calc(50% - 50dvw);
+		margin-top: -2vw;
+		padding-top: 0;
 	}
 
 	.home-axis-stage {
-		min-height: clamp(260px, 28vh, 380px);
-		max-height: clamp(260px, 28vh, 380px);
-		grid-template-rows: repeat(12, minmax(0, 1fr));
-	}
-
-	.home-axis-grid {
-		background-size: calc(100% / 12) calc(100% / 12);
+		min-height: clamp(260px, 40vh, 500px);
+		/* Square edges so the canvas reaches the viewport edges. */
+		border-radius: 0;
 	}
 
 	.home-axis-label {
-		font-size: 0.58rem;
+		font-size: 0.52rem;
 	}
 
 	.home-axis-label-x {
-		right: 0.5rem;
-		bottom: 1.5rem;
+		right: 0.6rem;
+		bottom: 0.8rem;
 	}
 
 	.home-axis-label-y {
-		left: 1.05rem;
-		top: 0.9rem;
+		left: 0.6rem;
 	}
 
 	.home-axis-label-z {
-		top: 18%;
-		left: 42%;
-	}
-
-	.home-axis-line-x {
 		left: 0.6rem;
-		right: 0.8rem;
-		bottom: 1.1rem;
-	}
-
-	.home-axis-line-y {
-		left: 0.6rem;
-		top: 1rem;
-		bottom: 1.1rem;
-	}
-
-	.home-axis-line-z {
-		left: 0.7rem;
-		bottom: 1.1rem;
-		height: 50%;
-		transform: rotate(45deg);
-	}
-
-	.home-axis-origin-point {
-		left: 0.45rem;
-		bottom: 0.82rem;
+		bottom: 1.6rem;
 	}
 
 	.home-center-lockup {
@@ -1411,33 +1597,6 @@ header {
 		height: 88px;
 	}
 
-	.home-axis-project {
-		width: min(132px, 36vw);
-		grid-column: var(--axis-col, 2) / span 2;
-		grid-row: var(--axis-row, 2) / span 2;
-	}
-
-	/* Simplify mobile: keep only first four project piles for readability and paint cost. */
-	.home-axis-project:nth-of-type(n + 5) {
-		display: none;
-	}
-
-	/* Temporarily commented out for performance - will revisit later
-	.home-axis-project-title {
-		font-size: 0.58rem;
-	}
-	*/
-
-	.home-axis-dot {
-		width: 22px;
-		height: 22px;
-	}
-
-	.home-axis-project-link:hover .home-axis-dot {
-		width: 36px;
-		height: 36px;
-	}
-
 	.home-see-all-link {
 		grid-column: 4 / span 6;
 		grid-row: 9 / span 2;
@@ -1445,8 +1604,9 @@ header {
 
 	.homepage-about {
 		max-width: 100%;
-		font-size: 1.05rem;
-		text-align: left;
+		margin-top: -1rem;
+		grid-template-columns: 1fr;
+		gap: 0.75rem;
 	}
 
 	.home-supporting-content {
@@ -2012,9 +2172,9 @@ img {
 /* Projects Thumbnail Grid — 6-col fixed, fills rows */
 .thumb-grid {
 	display: grid;
-	grid-template-columns: repeat(6, 1fr);
+	grid-template-columns: repeat(4, 1fr);
 	gap: 4px;
-	margin: 0;
+	margin: -1rem 0 0;
 	width: 100%;
 }
 
@@ -2038,22 +2198,44 @@ img {
 	transform: scale(1.05);
 }
 
+.thumb-grid-item::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(90deg, rgba(24, 21, 16, 0.86) 0%, rgba(24, 21, 16, 0.58) 46%, rgba(24, 21, 16, 0.18) 100%);
+	opacity: 0;
+	transition: opacity 0.22s ease;
+	z-index: 1;
+}
+
+.thumb-grid-item:hover::after,
+.thumb-grid-item:focus-visible::after {
+	opacity: 1;
+}
+
 .thumb-grid-title {
 	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	padding: 1.5rem 0.75rem 0.5rem;
-	background: linear-gradient(transparent, color-mix(in srgb, var(--anp-crust) 60%, transparent));
-	color: var(--text-color);
-	font-size: 0.8rem;
-	line-height: 1.3;
+	inset: 0;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.75rem;
+	font-family: var(--font-family-headline-flex);
+	font-size: clamp(1rem, 2.2vw, 1.5rem);
+	line-height: 0.95;
+	font-variation-settings: 'wght' 800, 'wdth' 50, 'opsz' 64, 'slnt' -5;
+	letter-spacing: -0.02em;
+	color: var(--text-color-on-accent);
+	text-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+	text-transform: uppercase;
+	text-align: center;
 	opacity: 0;
-	transition: opacity 0.3s ease;
+	transition: opacity 0.22s ease;
 }
 
 .thumb-grid-item:hover .thumb-grid-title,
-.thumb-grid-item:focus .thumb-grid-title {
+.thumb-grid-item:focus-visible .thumb-grid-title {
 	opacity: 1;
 }
 
@@ -2061,6 +2243,11 @@ img {
 	.thumb-grid {
 		grid-template-columns: repeat(2, 1fr);
 		gap: 2px;
+		margin-top: 2rem;
+	}
+
+	.thumb-grid-title {
+		font-size: clamp(0.85rem, 4vw, 1.15rem);
 	}
 }
 
@@ -2347,18 +2534,29 @@ img {
 
 #password-form button,
 .nda-password-form button {
-	padding: 0.5rem 1rem;
+	padding: 0.55rem 1.1rem;
 	font-size: 0.9375rem;
 	font-family: var(--font-family);
+	font-weight: var(--font-weight-semibold);
 	cursor: pointer;
-	border: 1px solid var(--color-gray-50);
-	background: var(--background-color);
+	border: 1px solid var(--btn-edge);
+	border-radius: var(--btn-radius);
+	background: var(--btn-surface);
+	box-shadow: var(--btn-raise-shadow);
 	color: var(--text-color);
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
 }
 
 #password-form button:hover,
 .nda-password-form button:hover {
-	background: var(--color-gray-20);
+	transform: translateY(2px);
+	box-shadow: var(--btn-press-shadow);
+}
+
+#password-form button:active,
+.nda-password-form button:active {
+	transform: translateY(4px);
+	box-shadow: var(--btn-press-shadow);
 }
 
 .password-error {
@@ -2369,11 +2567,11 @@ img {
 
 /* Archive intro paragraph (e.g. /design/ page) — matches post-body reading column */
 .archive-intro {
-	max-width: 68ch;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-inline: auto;
-	font-size: 1.3rem;
-	line-height: 1.7;
-	margin-bottom: 2.5rem;
+	font-size: var(--content-reading-font-size, 1.45rem);
+	line-height: var(--content-reading-line-height, 1.75);
+	margin-bottom: 3rem;
 }
 
 /* =====================================================
@@ -2436,9 +2634,20 @@ img {
 	margin-bottom: 2rem;
 }
 
+/* Keep media rows on one full-width track so single images match two/three-column blocks. */
+.post-body .two-column,
+.post-body .three-column,
+.post-body > p:has(> img),
+.post-body > p:has(> picture),
+.post-body > figure {
+	width: 100%;
+	max-width: 100%;
+	margin-inline: auto;
+}
+
 /* Section headings in post body — constrained to reading column, centered */
 .post-body > :is(h2, h3, h4, h5, h6) {
-	max-width: 50ch;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-top: 2rem;
 	margin-bottom: 1rem;
 	margin-inline: auto;
@@ -2447,42 +2656,118 @@ img {
 
 /* Any direct paragraph in post body gets breathing room + optimal reading width, centered */
 .post-body > p {
-	margin-bottom: 1rem;
-	max-width: 68ch;
+	margin-bottom: 1.6rem;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-inline: auto;
-	font-size: 1.3rem;
-	line-height: 1.7;
+	font-size: var(--content-reading-font-size, 1.45rem);
+	line-height: var(--content-reading-line-height, 1.75);
 }
 
 /* Intro paragraph — same width, extra space before images */
 .post-body > p:first-child {
-	max-width: 68ch;
+	max-width: var(--content-reading-max-width, 68ch);
 	margin-inline: auto;
-	margin-bottom: 2.5rem;
+	margin-bottom: 3rem;
 }
 
-/* Align block-level content (code, quotes, lists) to the same reading column as body paragraphs (68ch of Outfit @ 1.3rem ≈ 58rem) */
+/* Align block-level content (code, quotes, lists) to the same reading column as body paragraphs. */
 .post-body > pre,
 .post-body > blockquote,
 .post-body > ul,
 .post-body > ol {
-	max-width: 58rem;
+	max-width: var(--content-reading-max-width, 50rem);
 	margin-inline: auto;
+	margin-block: 2rem;
+	font-size: var(--content-block-font-size, 1.15rem);
+	line-height: 1.7;
 }
 
-/* ─── Homepage Callout Strip ─────────────────────────────── */
+.post-body > ul,
+.post-body > ol {
+	padding-inline-start: var(--content-list-indent, 1rem);
+}
+
+.post-body > pre,
+.post-body > pre:not([class*="language-"]),
+.post-body > pre[class*="language-"] {
+	padding-inline: var(--content-pre-inline-padding, 1rem);
+}
+
+/* ─── Mobile reading typography ──────────────────────────────────────────────
+   Keep the content-page type scale coherent on small screens: body paragraphs
+   step down from their large desktop reading size, captions stay smaller than
+   body, and code blocks clamp to a size that fits the viewport (smaller type +
+   wrapping) instead of forcing a wide horizontal scroll. */
+@media (max-width: 768px) {
+	.post-body > p,
+	.post-body > p:first-child,
+	.archive-intro {
+		font-size: var(--content-reading-font-size-mobile, 1.15rem);
+		line-height: var(--content-reading-line-height-mobile, 1.6);
+	}
+
+	.post-body > blockquote,
+	.post-body > ul,
+	.post-body > ol {
+		font-size: var(--content-block-font-size-mobile, 1.05rem);
+	}
+
+	.post-body > pre {
+		font-size: var(--content-pre-font-size-mobile, 0.85rem);
+	}
+
+	pre:not([class*="language-"]),
+	pre[class*="language-"] {
+		white-space: pre-wrap;
+		word-break: break-word;
+		overflow-wrap: anywhere;
+	}
+
+	.post-body figcaption,
+	.post-body .image-caption {
+		font-size: 0.75rem;
+	}
+}
+
+/* ─── Homepage Callout Ticker (loops across the bottom of the page) ─────── */
 .home-callout-strip {
   width: 100%;
   min-width: 0; /* prevent max-content child from inflating parent grid column */
   overflow: hidden;
   overflow: clip; /* prevents iOS Safari bounce-scroll from exposing max-content child */
-  border-top: 1px solid var(--anp-crust);
-  border-bottom: 1px solid var(--anp-crust);
-  margin: 2rem 0 0 0;
+	border-top: 1px solid var(--nav-link-color);
+	border-bottom: 1px solid var(--nav-link-color);
+	margin: 0;
+}
+
+/* Two identical scroll groups sit side by side; the whole track slides left by
+   exactly one group width (-50%) and loops seamlessly. */
+.home-callout-track {
+  display: flex;
+  width: max-content;
+  animation: home-callout-ticker 75s linear infinite;
+}
+
+.home-callout-strip:hover .home-callout-track,
+.home-callout-strip:focus-within .home-callout-track {
+  animation-play-state: paused;
+}
+
+@keyframes home-callout-ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-callout-track {
+    animation: none;
+    overflow-x: auto;
+  }
 }
 
 .home-callout-scroll {
   display: flex;
+  flex: 0 0 auto;
   gap: 0;
   width: max-content;
 }
@@ -2490,117 +2775,151 @@ img {
 .home-callout {
   flex: 0 0 auto;
   margin: 0;
-  padding: 0.5rem 2rem 0.5rem 0;
+  padding: 0.4rem 1.5rem;
   border-left: none;
-  border-right: 1px solid var(--anp-crust);
+	border-right: 1px solid var(--nav-link-color);
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  min-width: 120px;
-  max-width: 320px;
   text-align: left;
-}
-
-.home-callout:last-child {
-  border-right: none;
-  padding-right: 0;
-}
-
-.home-callout + .home-callout {
-  padding-left: 2rem;
 }
 
 .home-callout-link {
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
+  align-items: baseline;
+  gap: 0.5rem;
   text-decoration: none;
-  color: inherit;
-  transition: transform 0.25s ease;
+	color: var(--nav-link-color);
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
 }
 
 .home-callout-link:hover,
 .home-callout-link:focus-visible {
-  transform: translateY(-2px);
+  opacity: 0.7;
 }
 
 .home-callout-link:focus-visible {
-  outline: 2px solid var(--text-color-link);
+	outline: 2px solid var(--nav-link-color);
   outline-offset: 4px;
 }
 
 .home-callout-quote {
-  font-size: clamp(0.95rem, 1.5vw, 0.8rem);
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-color-muted);
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-medium);
+	color: var(--nav-link-color);
   line-height: 1.25;
   margin: 0;
-  transition: color 0.25s ease;
+  white-space: nowrap;
 }
 
 .home-callout-source {
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-semibold);
-  color: var(--text-color-muted);
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-body);
+	color: var(--nav-link-color);
   font-style: normal;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  transition: color 0.25s ease;
+  white-space: nowrap;
+  opacity: 0.85;
 }
 
-.home-callout-link:hover .home-callout-quote,
-.home-callout-link:focus-visible .home-callout-quote {
-  color: var(--text-color);
-}
-
-.home-callout-link:hover .home-callout-source,
-.home-callout-link:focus-visible .home-callout-source {
-  color: var(--text-color-link);
+.home-callout-source::before {
+  content: "·";
+  margin-right: 0.5rem;
+  opacity: 0.7;
 }
 
 .home-testimonial-strip {
-  margin: 0 0 1.5rem;
+  position: relative;
+  z-index: 4;
+  /* Lift the strip up so the top card overlaps the bottom of the canvas,
+     and drop the bottom margin so the about statement below can tuck in. */
+  margin: -3rem 0 0;
 }
 
 .home-testimonial-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  /* Force both cards to the tallest card's height while side by side. */
-  align-items: stretch;
+	gap: 1rem;
+	/* Force both cards to the tallest card's height while side by side. */
+	align-items: stretch;
 }
 
 .home-testimonial {
-  margin: 0;
-  padding: 0.6rem 0.75rem;
-  border: 1px solid var(--anp-crust);
-  background: transparent;
-  text-align: left;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	margin: 0;
+	padding: 1.75rem 2rem;
+	border: 1px solid var(--color-peach-glow-400);
+	background: var(--color-peach-glow-100);
+	text-align: left;
+	/* Straight corners — square sticky-note edges. */
+	border-radius: 0;
+	/* Sticky-note lift. */
+	box-shadow: 0 10px 22px -8px rgba(30, 25, 20, 0.35), 0 3px 8px -3px rgba(30, 25, 20, 0.20);
+}
+
+/* Slightly different peach + rotation per card so they read like pinned sticky notes.
+   The second card is nudged down slightly so the pair reads as a loose,
+   overlapping stack rather than two flat, aligned cards. */
+.home-testimonial:nth-child(1) {
+	background: var(--color-peach-glow-100);
+	transform: rotate(-2.2deg);
+	z-index: 2;
+}
+
+.home-testimonial:nth-child(2) {
+	background: color-mix(in srgb, var(--color-peach-glow-200) 55%, var(--color-peach-glow-50));
+	transform: rotate(1.6deg);
+	margin-top: 1.5rem;
+	/* Pull the second card toward the first so their edges overlap slightly —
+	   the overlap stays within the card's own padding, so no quote text is covered. */
+	margin-left: -1.25rem;
+	z-index: 1;
 }
 
 .home-testimonial-quote {
-  margin: 0 0 0.6rem;
-  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
-  line-height: 1.5;
-  font-style: italic;
+	margin: 0 0 1.5rem;
+	font-size: clamp(1.1rem, 3.2vw, 2.5rem);
+	line-height: 1.2;
+	font-style: normal;
+}
+
+.home-testimonial:nth-child(1) .home-testimonial-quote {
+	/* Previous: 'Caveat' → 'Almendra Display' */
+	/* font-family: 'Gochi Hand', cursive; */
+	font-family: 'Almendra Display', cursive;
+	font-weight: bold;
+	line-height: 1.05;
+}
+
+.home-testimonial:nth-child(2) .home-testimonial-quote {
+font-family: 'Almendra Display', cursive;
+	font-weight: bold;
+	line-height: 1.05;
 }
 
 .home-testimonial-footer {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	margin-top: auto;
+	/* Tight lockup: avatar sits inline with the name/title, no reserved corner. */
+	padding: 1.25rem 0 0 0;
+	border-top: 0;
 }
 
 .home-testimonial-avatar {
+  position: static;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
-  border: 1px solid var(--anp-crust);
+  border: none;
   background: var(--surface-color-alt);
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -2622,43 +2941,65 @@ img {
 }
 
 .home-testimonial-attribution a {
-  color: var(--text-color-link);
-  font-size: 0.9rem;
-  font-weight: var(--font-weight-semibold);
-  text-decoration: none;
+	color: var(--text-color);
+	font-size: 0.82rem;
+	font-weight: 600;
+	text-decoration: none;
 }
 
 .home-testimonial-attribution a:hover,
 .home-testimonial-attribution a:active {
-  text-decoration: underline;
+	color: var(--text-color);
+	text-decoration: underline;
 }
 
 .home-testimonial-role {
-  color: var(--text-color-muted);
-  font-size: 0.75rem;
-  font-weight: var(--font-weight-semibold);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+	color: var(--text-color);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: none;
 }
 
 @media (max-width: 768px) {
-  .home-callout-strip {
-    /* allow horizontal scroll on mobile */
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding: 1.25rem 0;
-  }
-
-  .home-callout {
-    min-width: 180px;
-    max-width: 240px;
-  }
-
-  .home-callout-quote {
-    font-size: 0.9rem;
+  .home-callout-track {
+    /* Slower loop on smaller screens (was 30s). */
+    animation-duration: 55s;
   }
 
   .home-testimonial-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Pull the second card up so it overlaps the bottom of the first — the
+     overlap stays within the card's own bottom padding so the footer text
+     underneath is never covered. */
+  .home-testimonial:nth-child(2) {
+    margin-top: -1rem;
+    margin-left: 0;
+  }
+
+  /* Pull the first sticky note up so it overlaps the bottom of the canvas. */
+  .home-testimonial-strip {
+    margin-top: -4rem;
+  }
+
+  /* Size the sticky notes down on mobile while keeping the stacked layout. */
+  .home-testimonial {
+    padding: 1.1rem 1.25rem;
+  }
+
+  .home-testimonial-quote {
+    font-size: clamp(1.35rem, 6vw, 1.7rem);
+    margin-bottom: 1rem;
+  }
+
+  .home-testimonial-footer {
+    padding-top: 0.9rem;
+  }
+
+  .home-testimonial-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
   }
 }

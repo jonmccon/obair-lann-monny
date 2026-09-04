@@ -21,6 +21,10 @@ images:
     alt: Lettering workshop
   - src: "content/design/teaching/WWU-01-guest-lecture-series.png"
     alt: Guest lecture series
+chart:
+  duration: 6
+  collaboration: 50
+  medium: 50
 ---
 
 {%- css %}

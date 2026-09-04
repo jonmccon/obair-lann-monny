@@ -69,3 +69,17 @@ Draft handling is frontmatter-driven (`draft: true`), not folder-driven:
 
 - Vercel build config is in `vercel.json` (`npm run build`, publish `_site`)
 - GitHub Pages workflow starter remains in `.github/workflows/gh-pages.yml.sample`
+
+## Contact form webhook setup
+
+The `/contact/` page posts to `/api/contact`, which forwards inquiries to Discord without storing data in a database.
+If Discord delivery fails, the endpoint retries once and then returns an error to the form (which shows the direct-email fallback). Failed delivery attempts are written to Vercel function logs (`console.error`) with inquiry metadata.
+
+Set this environment variable in Vercel (Production and Preview):
+
+- `DISCORD_WEBHOOK_URL` — your private Discord incoming webhook URL
+- `DISCORD_WEBHOOK` — accepted as a legacy alias
+
+Optional:
+
+- `CONTACT_FORM_SOURCE` — source label included in Discord notifications (defaults to `jonmccon.com`)

@@ -47,6 +47,10 @@ images:
   alt: Erik Simkins Photography — Processing histogram algorithm
 - src: "content/design/early-work/thisUs-01.png"
   alt: This is Us — Tumblr design for Portland director
+chart:
+  duration: 24
+  collaboration: 10
+  medium: 85
 ---
 
 A collection of work from Western Washington University and the Pacific Northwest art scene, 2009–2011.
