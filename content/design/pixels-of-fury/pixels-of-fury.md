@@ -1,74 +1,82 @@
 ---
-title: Pixels of Fury
-description: Live design fights & the magic of cardboard
+title: Pixels of Fury | Event Producer | Jonny McConnell
+pageHeadline: Pixels of Fury
+description: Producing Seattle's first Pixels of Fury live design battle for AIGA Seattle and Shutterstock - six local designers, three rounds, twenty minutes each, and a 3D cardboard Adobe CC logo built just to be destroyed.
 category: AIGA
 date: 2012-11-15
-draft: true
+permalink: /design/pixels-of-fury/
+draft: false
+featured: false
+semiFeatured: false
 thumbnail: /img/thumbnails/pixels-of-fury-thumb.png
 tags:
   - event
   - community
   - branding
-images: 
-- src: "content/design/pixels-of-fury/pof-01.png"
-- src: "content/design/pixels-of-fury/pof-02.jpeg"
-- src: "content/design/pixels-of-fury/pof-03.jpeg"
-- src: "content/design/pixels-of-fury/pof-04.jpeg"
-- src: "content/design/pixels-of-fury/pof-05.jpg"
-- src: "content/design/pixels-of-fury/pof-06.jpg"
-- src: "content/design/pixels-of-fury/pof-07.jpeg"
-- src: "content/design/pixels-of-fury/pof-08.jpeg"
-- src: "content/design/pixels-of-fury/pof-09.jpeg"
+images:
+  - src: "./content/design/pixels-of-fury/pof-01.png"
+    alt: "Pixels of Fury event poster — Seattle AIGA chapter design battle announcement"
+  - src: "./content/design/pixels-of-fury/pof-02.jpeg"
+    alt: "Event photo — designers at work during a 20-minute live battle round at Makers Space"
+  - src: "./content/design/pixels-of-fury/pof-03.jpeg"
+    alt: "Event photo — audience watching live design battle projected on screen"
+  - src: "./content/design/pixels-of-fury/pof-04.jpeg"
+    alt: "Event photo — Terry Marks announcing the round prompts to the crowd"
+  - src: "./content/design/pixels-of-fury/pof-05.jpg"
+    alt: "Event photo — competitor focused on screen during timed design round"
+  - src: "./content/design/pixels-of-fury/pof-06.jpg"
+    alt: "Event photo — crowd gathered around competitors watching work in progress"
+  - src: "./content/design/pixels-of-fury/pof-07.jpeg"
+    alt: "Event photo — judges from Tether and Digital Kitchen reviewing round submissions"
+  - src: "./content/design/pixels-of-fury/pof-08.jpeg"
+    alt: "3D cardboard Adobe CC logo — built from cardboard and hot glue for the winner announcement"
+  - src: "./content/design/pixels-of-fury/pof-09.jpeg"
+    alt: "Event photo — winner receiving the crystal trophy after the final round"
 chart:
   duration: 2
   collaboration: 25
   medium: 90
 ---
 
-[] 2012 not listed on the shutterstock page! reach out to them
+Running Seattle's first Pixels of Fury live design battle - six designers, twenty-minute rounds, and a 3D cardboard Adobe CC logo built specifically to be destroyed at the end.
 
-Shutterstock wanted the Seattle AIGA chapter to host one of its first battles in the Pixels of Fury championship and I was able to play ringmaster at the lovely Makers Space for a night. 
--
-Fueled by pizza, cupcakes and Hilliards, six local designers duked it out in front of creative directors from Tether and Digital Kitchen in three rounds of 20 minute poster battles announced by Terry Marks. I built my own 3D cardboard & hot glue adaptation of the newly announced Adobe CC logo to have it disassembled in a festive mere seconds after announcing the final winner. Luckily we had a proper crystal trophy, just in case.
--
+- **Role:** Event Producer / Ringmaster
+- **Company:** AIGA Seattle / Shutterstock
+- **Timeline:** 2012
+- **Collaborators:** Neil Palmer (production), Terry Marks (host), Erik Simkins (photography)
+- **Venue:** Makers Space, Capitol Hill
+- **Status:** Produced and executed
+
+Shutterstock wanted the Seattle AIGA chapter to host one of its first regional Pixels of Fury battles. I produced the event and played ringmaster for the night.
+
+## The Night
+
+Six local designers competed in three rounds of 20-minute poster battles, fueled by pizza, cupcakes, and Hilliards. Creative directors from Tether and Digital Kitchen served as judges. Terry Marks announced the prompts. Erik Simkins shot double-exposure Polaroids throughout.
+
+The prop I built for the winner announcement was a 3D cardboard and hot glue adaptation of the newly-released Adobe CC logo - sized large enough to make an impression, engineered to be pulled apart in seconds once the winner was named. It lasted about as long as intended.
+
+A proper crystal trophy handled the actual prize. Sometimes the cardboard moment is for the crowd.
+
 Built with Neil Palmer.
--
-Double exposure Polaroids from Erik Simkins.
-Whole photoset is available here.
-
-https://www.shutterstock.com/
-https://seattle.aiga.org/
-https://www.shutterstock.com/design/design/design-inspiration/pixels-of-fury
-http://www.themakersspace.com/
-
-http://www.tetherinc.com/
-http://thisisdk.com/
-https://www.linkedin.com/pub/terry-marks/1/1b5/91b
-
-https://www.linkedin.com/pub/neil-palmer/48/215/245
-http://simkinsphotography.com/
-https://www.flickr.com/photos/aiga_seattle/sets/72157632061861162/
-
-
-
-{% image "./pof-01.png", "Pixels of Fury project image" %}
 
 <div class="two-column">
 
-{% image "./pof-02.jpeg", "Pixels of Fury project image" %}
+{% image "./pof-02.jpeg", "Event photo — designers at work during a 20-minute live battle round" %}
 
-{% image "./pof-03.jpeg", "Pixels of Fury project image" %}
+{% image "./pof-03.jpeg", "Event photo — audience watching live design battle projected on screen" %}
 
-{% image "./pof-04.jpeg", "Pixels of Fury project image" %}
+{% image "./pof-04.jpeg", "Event photo — Terry Marks announcing the round prompts to the crowd" %}
 
-{% image "./pof-05.jpg", "Pixels of Fury project image" %}
+{% image "./pof-05.jpg", "Event photo — competitor focused on screen during timed design round" %}
 
-{% image "./pof-06.jpg", "Pixels of Fury project image" %}
+{% image "./pof-06.jpg", "Event photo — crowd gathered around competitors watching work in progress" %}
 
-{% image "./pof-07.jpeg", "Pixels of Fury project image" %}
+{% image "./pof-07.jpeg", "Event photo — judges from Tether and Digital Kitchen reviewing round submissions" %}
 
-{% image "./pof-08.jpeg", "Pixels of Fury project image" %}
+{% image "./pof-08.jpeg", "3D cardboard Adobe CC logo — built from cardboard and hot glue for the winner announcement" %}
 
-{% image "./pof-09.jpeg", "Pixels of Fury project image" %}
+{% image "./pof-09.jpeg", "Event photo — winner receiving the crystal trophy after the final round" %}
 
 </div>
+
+{% image "./pof-01.png", "Pixels of Fury event poster — Seattle AIGA chapter design battle announcement" %}

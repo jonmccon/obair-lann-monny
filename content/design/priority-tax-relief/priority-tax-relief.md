@@ -73,8 +73,8 @@ images:
   - src: "./content/design/priority-tax-relief/PTR-60-ptr_brand_Final_logo_before_after_-_rd5-Artboard_2@8x_5008-8808.png"
   - src: "./content/design/priority-tax-relief/PTR-61-ptr_brand_Final_logo_before_after_-_rd5Artboard_2_copy_10@8x_1_5008-8807.png"
 chart:
-  duration: 6
-  collaboration: 50
+  duration: 18
+  collaboration: 15
   medium: 50
 ---
 
