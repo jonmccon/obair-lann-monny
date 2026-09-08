@@ -144,7 +144,6 @@ eleventyNavigation:
 			<label for="website">Website</label>
 			<input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
 		</div>
-		<input id="startedAt" name="startedAt" type="hidden">
 
 		<button class="contact-submit" type="submit">Send inquiry</button>
 		<p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
@@ -159,10 +158,6 @@ eleventyNavigation:
 	if (!form || !status) return;
 
 	const submitButton = form.querySelector('button[type="submit"]');
-	const startedAtField = form.querySelector('input[name="startedAt"]');
-	if (startedAtField) {
-		startedAtField.value = String(Date.now());
-	}
 
 	function setStatus(message, tone) {
 		status.textContent = message || "";
@@ -177,9 +172,6 @@ eleventyNavigation:
 		event.preventDefault();
 		setStatus("");
 		submitButton.disabled = true;
-		if (startedAtField && !startedAtField.value) {
-			startedAtField.value = String(Date.now());
-		}
 
 		const payload = Object.fromEntries(new FormData(form).entries());
 

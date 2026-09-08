@@ -1,12 +1,6 @@
 const EMAIL_PATTERN = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const EMBED_COLOR = 0x5865f2;
 const DISCORD_MAX_ATTEMPTS = 2;
-const MIN_SUBMIT_TIME_MS = 1500;
-const MAX_SUBMIT_AGE_MS = 1000 * 60 * 60 * 8;
-const RATE_LIMIT_WINDOW_MS = 1000 * 60 * 10;
-const RATE_LIMIT_MAX = 3;
-const RATE_LIMIT_RETENTION_MS = RATE_LIMIT_WINDOW_MS * 2;
-const submissionHistoryByIp = new Map();
 const MAX_LEN = {
 	name: 120,
 	email: 254,
@@ -47,50 +41,6 @@ function delay(ms) {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});
-}
-
-function getClientIp(req) {
-	const forwardedFor = req.headers?.["x-forwarded-for"];
-	if (typeof forwardedFor === "string" && forwardedFor.trim()) {
-		return forwardedFor.split(",")[0].trim().slice(0, 120);
-	}
-	if (Array.isArray(forwardedFor) && forwardedFor[0]) {
-		return String(forwardedFor[0]).trim().slice(0, 120);
-	}
-	return (
-		req.headers?.["x-real-ip"] ||
-		req.socket?.remoteAddress ||
-		req.connection?.remoteAddress ||
-		"unknown"
-	)
-		.toString()
-		.trim()
-		.slice(0, 120);
-}
-
-function isRateLimited(clientIp, now = Date.now()) {
-	const cutoff = now - RATE_LIMIT_WINDOW_MS;
-	const retentionCutoff = now - RATE_LIMIT_RETENTION_MS;
-
-	for (const [ip, timestamps] of submissionHistoryByIp.entries()) {
-		const recent = timestamps.filter((ts) => ts >= retentionCutoff);
-		if (recent.length === 0) {
-			submissionHistoryByIp.delete(ip);
-		} else if (recent.length !== timestamps.length) {
-			submissionHistoryByIp.set(ip, recent);
-		}
-	}
-
-	const timestamps = submissionHistoryByIp.get(clientIp) || [];
-	const recentSubmissions = timestamps.filter((ts) => ts >= cutoff);
-	if (recentSubmissions.length >= RATE_LIMIT_MAX) {
-		submissionHistoryByIp.set(clientIp, recentSubmissions);
-		return true;
-	}
-
-	recentSubmissions.push(now);
-	submissionHistoryByIp.set(clientIp, recentSubmissions);
-	return false;
 }
 
 async function postToDiscord(DISCORD_WEBHOOK, payload, maxAttempts) {
@@ -159,25 +109,6 @@ module.exports = async function handler(req, res) {
 		return res.status(200).json({ ok: true, message: "Message sent." });
 	}
 
-	const startedAtRaw = body.startedAt;
-	const startedAt = Number(startedAtRaw);
-	if (!Number.isFinite(startedAt) || startedAt <= 0) {
-		return res.status(400).json({ error: "Invalid form submission." });
-	}
-
-	const submissionAge = Date.now() - startedAt;
-	if (submissionAge < MIN_SUBMIT_TIME_MS) {
-		return res.status(400).json({ error: "Please take a moment before submitting the form." });
-	}
-	if (submissionAge > MAX_SUBMIT_AGE_MS) {
-		return res.status(400).json({ error: "Form expired. Please refresh and try again." });
-	}
-
-	const clientIp = getClientIp(req);
-	if (isRateLimited(clientIp)) {
-		return res.status(429).json({ error: "Too many submissions. Please wait and try again." });
-	}
-
 	const sourceHost = clean(process.env.CONTACT_FORM_SOURCE || "jonmccon.com", 120);
 
 	const safeInquiry = {
@@ -225,8 +156,4 @@ module.exports = async function handler(req, res) {
 	}
 
 	return res.status(200).json({ ok: true, message: "Message sent." });
-};
-
-module.exports.__resetContactRateLimitForTests = function resetContactRateLimitForTests() {
-	submissionHistoryByIp.clear();
 };
