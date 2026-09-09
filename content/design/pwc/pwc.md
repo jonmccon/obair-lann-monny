@@ -104,15 +104,15 @@ The other thing I'd carry forward: change management is a design problem. You're
 **Responsive Web — Mobile**
 
 <div class="three-column">
-{% image "./PWC-20-responsive-dashboard-mobile.png", "Dashboard Mobile" %}
-{% image "./PWC-19-responsive-dashboard-mobile-menu.png", "Dashboard Mobile — Nav Menu Open" %}
-{% image "./PWC-23-responsive-deliverables-mobile.png", "Deliverables Mobile" %}
+{% image "./PWC-20-responsive-dashboard-mobile.png", "Concourse mobile dashboard showing active project status, completion metrics, and engagement leaders" %}
+{% image "./PWC-19-responsive-dashboard-mobile-menu.png", "Concourse mobile navigation drawer expanded on dashboard view" %}
+{% image "./PWC-23-responsive-deliverables-mobile.png", "Mobile deliverables screen showing project deliverables list and stage cards" %}
 </div>
 
 <div class="three-column">
-{% image "./PWC-22-responsive-deliverables-mobile-menu.png", "Deliverables Mobile — Menu Open" %}
-{% image "./PWC-26-responsive-homepage-mobile.png", "Home Mobile" %}
-{% image "./PWC-25-responsive-homepage-mobile-menu.png", "Home Mobile — Menu Open" %}
+{% image "./PWC-22-responsive-deliverables-mobile-menu.png", "Concourse mobile navigation drawer expanded on deliverables view" %}
+{% image "./PWC-26-responsive-homepage-mobile.png", "Concourse mobile home view with recent workspaces and overdue item notifications" %}
+{% image "./PWC-25-responsive-homepage-mobile-menu.png", "Concourse mobile navigation menu open over home workspace" %}
 </div>
 
 --- -->
@@ -122,22 +122,22 @@ The other thing I'd carry forward: change management is a design problem. You're
 
 
 <div class="three-column">
-{% image "./PWC-01-mobile-10-login.png", "Login Step 1" %}
-{% image "./PWC-10-mobile-30-login-success.png", "Login Success" %}
-{% image "./PWC-15-mobile-80-workspace.png", "Workspace / Project Overview" %}
+{% image "./PWC-01-mobile-10-login.png", "Concourse mobile login screen with single sign-on authentication prompt" %}
+{% image "./PWC-10-mobile-30-login-success.png", "Mobile login verification success screen with authenticated user profile" %}
+{% image "./PWC-15-mobile-80-workspace.png", "Mobile workspace overview showing SAP Finance project details and engagement team" %}
 </div>
 
 <div class="three-column">
-{% image "./PWC-13-mobile-60-menu.png", "Navigation Menu" %}
-{% image "./PWC-12-mobile-50-expanded-overdue.png", "Expanded Overdue Items" %}
-{% image "./PWC-03-mobile-110-people.png", "People / Team View" %}
+{% image "./PWC-13-mobile-60-menu.png", "Concourse mobile sidebar navigation menu with links to Dashboard, Project Plan, Risks, Files, and Reports" %}
+{% image "./PWC-12-mobile-50-expanded-overdue.png", "Mobile workspace view with expanded overdue items panel and snooze options" %}
+{% image "./PWC-03-mobile-110-people.png", "Mobile deliverable people view displaying assigned owner, reviewer, and team members" %}
 
 </div>
 
 <div class="three-column">
-{% image "./PWC-06-mobile-120-work-item-status.png", "Work Item Status Panel" %}
-{% image "./PWC-07-mobile-130-work-item-menu.png", "Work Item Context Menu" %}
-{% image "./PWC-04-mobile-110-work-item-expanded.png", "Work Item Detail — Expanded" %}
+{% image "./PWC-06-mobile-120-work-item-status.png", "Mobile work item status selection sheet with in-progress and completion states" %}
+{% image "./PWC-07-mobile-130-work-item-menu.png", "Mobile work item action menu with duplicate, delete, and sharing options" %}
+{% image "./PWC-04-mobile-110-work-item-expanded.png", "Mobile work item expanded detail view with checklist items and file attachments" %}
 
 </div>
 

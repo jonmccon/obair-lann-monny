@@ -132,7 +132,7 @@ Before touching anything I needed to understand the landscape. I ran a full mult
 That analysis fed everything that came after, who we were talking to, what they needed to hear, what would build trust versus what would feel like a sales pitch. I used it to anchor every brand platform decision.
 
 <div class="two-column">
-{% image "./PTR-129-brand-customer-data.png", "Customer profile from survey research, demographics, psychographics, and debt ranges mapped across the paying customer base. This quantitative layer grounded every brand decision in real data." %}
+{% image "./PTR-129-brand-customer-data.png", "Customer demographics and persona research breakdown across paying client base" %}
 
 {% image "./PTR-81-brand-customer-profile.png", "Customer profile from survey research, demographics, psychographics, and debt ranges mapped across the paying customer base. This quantitative layer grounded every brand decision in real data." %}
 
@@ -164,9 +164,9 @@ Everything got collected into a brand guidelines document and a formal brand boo
 
 {% image "./PTR-98-logo-package.png", "Complete logo package, all lockup variants, file formats, and usage specifications delivered to the team." %}
 
-{% image "./PTR-00-brand-guide-v1.png", "Complete brand book, all lockup variants, file formats, and usage specifications delivered to the team." %}
+{% image "./PTR-00-brand-guide-v1.png", "Priority Tax Relief brand book cover and style guide documentation" %}
 
-{% image "./PTR-00-color-preso.png", "Complete brand book, all lockup variants, file formats, and usage specifications delivered to the team." %}
+{% image "./PTR-00-color-preso.png", "Brand presentation color palette slide comparing secondary and accent colors" %}
 
 ## Operations: the Surface Designers Usually Skip
 
@@ -232,7 +232,7 @@ This was an appropriately humble first step. It proved the concept, got buy-in f
 
 With research validated and an early win in hand, I moved to the full internal platform. Feature discovery sessions with stakeholders, design language exploration, and eventually a high-fidelity prototype modeling the complete case management workflow from intake through resolution.
 
-{% image "./feat-customer-access.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
+{% image "./feat-customer-access.png", "Customer portal and access feature mapping on FigJam whiteboard" %}
 
 {% image "./PTR-88-platform-feature-discovery-workshop.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
 
@@ -307,7 +307,7 @@ One of the primary marketing surfaces was a tax forgiveness estimator, a qualifi
 
 {% image "./PTR-02-calculator-design-Contact-A-1-5999.png", "Calculator contact step,  initial screen asking for preferred contact method." %}
 
-{% image "./PTR-06-calculator.png", "Calculator amount question, input for tax debt amount with navigation visible." %}
+{% image "./PTR-06-calculator.png", "Calculator qualification result screen showing potential savings and consultation call-to-action" %}
 
 </div>
 

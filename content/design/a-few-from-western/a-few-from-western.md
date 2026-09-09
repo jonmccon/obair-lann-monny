@@ -30,14 +30,14 @@ https://tether.com/
 
 <div class="two-column">
 
-{% image "./afew-01.png", "A Few from Western project image" %} 
+{% image "./afew-01.png", "A Few from Western gallery show catalogue cover with typographic title layout" %} 
 
-{% image "./afew-02.png", "A Few from Western project image" %} 
+{% image "./afew-02.png", "A Few from Western exhibition catalogue interior spread showing project grid and student bios" %} 
 
-{% image "./afew-03.png", "A Few from Western project image" %} 
+{% image "./afew-03.png", "A Few from Western catalogue spread detail with student project feature" %} 
 
-{% image "./afew-04.png", "A Few from Western project image" %} 
+{% image "./afew-04.png", "A Few from Western exhibition catalogue back cover and colophon" %} 
 
 </div>
 
-{% image "./afew-00.jpg", "A Few from Western project image" %}
+{% image "./afew-00.jpg", "Crowd of attendees and students at the A Few from Western graduating showcase in the Tether Gallery" %}

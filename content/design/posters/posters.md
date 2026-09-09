@@ -13,26 +13,26 @@ tags:
   - print
   - illustration
 images:
-  - src: "./content/design/posters/post-01.png"
-    alt: "Large-format scanned self-portrait printed on Epson with screen-printed clear thermographic lettering"
-  - src: "./content/design/posters/post-02.png"
-    alt: "Nacho Picasso for Sasquatch! — two-color print on brown package paper"
-  - src: "./content/design/posters/post-03.png"
-    alt: "STRFKR for Sasquatch! poster — with Nicole Mills"
-  - src: "./content/design/posters/post-10.jpeg"
-    alt: "Campus promotional poster — tabloid format for WWU event"
-  - src: "./content/design/posters/post-06.png"
-    alt: "Split fountain progression demo — showing ink gradation technique for screen printing"
-  - src: "./content/design/posters/post-07.png"
-    alt: "Campus promotional poster — tabloid format"
-  - src: "./content/design/posters/post-05.png"
-    alt: "Campus promotional poster — tabloid format"
-  - src: "./content/design/posters/post-04.png"
-    alt: "Campus promotional poster — tabloid format"
-  - src: "./content/design/posters/post-08.jpeg"
-    alt: "Print work — event poster with hand-drawn illustration"
-  - src: "./content/design/posters/post-09.jpeg"
-    alt: "Print work — event poster, large format"
+- src: "content/design/posters/post-01.png"
+  alt: "Large-format scanned self-portrait printed on Epson with screen-printed clear thermographic lettering"
+- src: "content/design/posters/post-02.png"
+  alt: "Nacho Picasso for Sasquatch! — two-color print on brown package paper"
+- src: "content/design/posters/post-03.png"
+  alt: "STRFKR for Sasquatch! poster — with Nicole Mills"
+- src: "content/design/posters/post-10.jpeg"
+  alt: "WWU Department of Art spring speaker series event poster"
+- src: "content/design/posters/post-06.png"
+  alt: "Split fountain progression demo — showing ink gradation technique for screen printing"
+- src: "content/design/posters/post-07.png"
+  alt: "B-Side campus music event promotional poster with colorful abstract graphic shapes"
+- src: "content/design/posters/post-05.png"
+  alt: "Western Washington University B-Side concert series poster with halftone patterns"
+- src: "content/design/posters/post-04.png"
+  alt: "WWU student event poster with bold typographic layout and geometric grid"
+- src: "content/design/posters/post-08.jpeg"
+  alt: "Print work — event poster with hand-drawn illustration"
+- src: "content/design/posters/post-09.jpeg"
+  alt: "Print work — event poster, large format"
 chart:
   duration: 6
   collaboration: 50
@@ -65,15 +65,15 @@ The split fountain piece was a demo for getting other students up to the printin
 
 {% image "./post-03.png", "STRFKR for Sasquatch! poster — with Nicole Mills" %}
 
-{% image "./post-10.jpeg", "Campus promotional poster — tabloid format for WWU event" %}
+{% image "./post-10.jpeg", "WWU Department of Art spring speaker series event poster" %}
 
 {% image "./post-06.png", "Split fountain progression demo — showing ink gradation technique for screen printing" %}
 
-{% image "./post-07.png", "Campus promotional poster — tabloid format" %}
+{% image "./post-07.png", "B-Side campus music event promotional poster with colorful abstract graphic shapes" %}
 
-{% image "./post-05.png", "Campus promotional poster — tabloid format" %}
+{% image "./post-05.png", "Western Washington University B-Side concert series poster with halftone patterns" %}
 
-{% image "./post-04.png", "Campus promotional poster — tabloid format" %}
+{% image "./post-04.png", "WWU student event poster with bold typographic layout and geometric grid" %}
 
 {% image "./post-08.jpeg", "Print work — event poster with hand-drawn illustration" %}
 
