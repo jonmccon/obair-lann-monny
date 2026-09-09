@@ -6,6 +6,7 @@ layout: layouts/base.njk
 {%- css %}{% include "public/css/prism-diff.css" %}{%- endcss %}
 
 <article class="post-content page-shell section-stack{% if bgColor %} bg-{{ bgColor }}{% endif %}">
+  {% include "breadcrumbs.njk" %}
   <header class="post-header page-header">
     <h1>{{ pageHeadline or title }}</h1>
   </header>
