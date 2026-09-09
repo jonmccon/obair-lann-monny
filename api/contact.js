@@ -104,6 +104,11 @@ module.exports = async function handler(req, res) {
 		return res.status(400).json({ error: "Please provide a valid email address." });
 	}
 
+	const trapField = clean(body.website, 120);
+	if (trapField) {
+		return res.status(200).json({ ok: true, message: "Message sent." });
+	}
+
 	const sourceHost = clean(process.env.CONTACT_FORM_SOURCE || "jonmccon.com", 120);
 
 	const safeInquiry = {

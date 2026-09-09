@@ -86,6 +86,15 @@ eleventyNavigation:
 	color: var(--text-color-muted);
 	font-size: 0.95rem;
 }
+
+.contact-hp {
+	position: absolute;
+	left: -10000px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
 {% endcss %}
 
 <section class="contact-shell rich-text">
@@ -129,6 +138,11 @@ eleventyNavigation:
 		<div class="contact-row">
 			<label for="details">Project details</label>
 			<textarea id="details" name="details" required placeholder="What are you working on, who is it for, and what support do you need?"></textarea>
+		</div>
+
+		<div class="contact-hp" aria-hidden="true">
+			<label for="website">Website</label>
+			<input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
 		</div>
 
 		<button class="contact-submit" type="submit">Send inquiry</button>
