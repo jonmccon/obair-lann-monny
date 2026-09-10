@@ -11,6 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
+import { JSDOM } from 'jsdom';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -135,8 +136,9 @@ describe('homepage integration', () => {
 	});
 
 	test('Vercel analytics and GA4 scripts coexist on the homepage', () => {
-		assert.ok(html.includes('/_vercel/insights/script.js'), 'Vercel Analytics script missing');
-		assert.ok(html.includes('/_vercel/speed-insights/script.js'), 'Vercel Speed Insights script missing');
-		assert.ok(html.includes('https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG'), 'GA4 script missing');
+		const document = new JSDOM(html).window.document;
+		assert.ok(document.querySelector('script[src="/_vercel/insights/script.js"]'), 'Vercel Analytics script missing');
+		assert.ok(document.querySelector('script[src="/_vercel/speed-insights/script.js"]'), 'Vercel Speed Insights script missing');
+		assert.ok(document.querySelector('script[src="https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG"]'), 'GA4 script missing');
 	});
 });
