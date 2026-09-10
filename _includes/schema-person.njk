@@ -1,0 +1,16 @@
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "Person",
+	"name": {{ metadata.author.name | dump | safe }},
+	"url": {{ metadata.author.url | dump | safe }},
+	"jobTitle": "Product Designer & Creative Technologist",
+	"description": {{ profile.headline | dump | safe }},
+	"image": {{ profile.portraitUrl | dump | safe }},
+	"sameAs": [
+		"https://github.com/jonmccon",
+		"https://www.linkedin.com/in/jonmccon",
+		"https://www.seattlecreative.directory"
+	]
+}
+</script>

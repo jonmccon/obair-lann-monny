@@ -2,6 +2,7 @@
 layout: layouts/base.njk
 ---
 {% if page.url == "/" %}
+{% include "schema-person.njk" %}
 {% set homeOptions = home | default({}) %}
 {% set introductionHeading = homeOptions.introductionHeading | default(profile.headline) %}
 {% set introductionText = homeOptions.introductionText | default(profile.aboutBio) %}
