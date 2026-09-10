@@ -70,9 +70,9 @@ The badge is probably my favorite piece. The circular ring type runs the tagline
 {% image "./BRB-08-sketches-01.jpg", "Logo sketches, early explorations" %}
 
 <div class="three-column">
-{% image "./BRB-04-card-d.png", "Business card, badge small application" %}
-{% image "./BRB-03-card-c.png", "Business card, badge full with ring type" %}
-{% image "./BRB-01-card-a.png", "Business card, primary wordmark layout" %}
+{% image "./BRB-04-card-d.png", "Business card layout — small badge monogram application" %}
+{% image "./BRB-03-card-c.png", "Business card layout — full circular badge with perimeter tagline" %}
+{% image "./BRB-01-card-a.png", "Business card layout — primary bold wordmark" %}
 </div>
 
 ## Color & Typography
@@ -104,9 +104,9 @@ The semantic token table is probably the most useful piece for a developer, it m
 The business card system covers multiple stakeholders without requiring a full redesign for each person with the layout is fixed, the variables are name, title, and contact info. That kind of repeatability is what makes a brand system actually work for a small company.
 
 <div class="three-column">
-{% image "./BRB-02-card-b.png", "Business card, contact variant" %}
-{% image "./card b-1.png", "Business card, secondary variant" %}
-{% image "./card c.png", "Business card, badge layout" %}
+{% image "./BRB-02-card-b.png", "Business card layout — contact information variant" %}
+{% image "./card b-1.png", "Business card layout — secondary contact and phone styling" %}
+{% image "./card c.png", "Business card layout — centered badge composition" %}
 </div>
 
 {% image "./BRB-07-mockups.png", "Brand mockups, van wrap and environmental applications" %}

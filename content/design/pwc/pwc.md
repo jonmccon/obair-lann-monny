@@ -64,7 +64,7 @@ Concourse was PwC's answer: a single platform to standardize how engagements wer
 
 The access model added its own constraints. This wasn't a public product it lived behind the company VPN on managed devices, with IT as a gatekeeper for non-managed access. Every screen needed to carry robust permission logic: what you could see, edit, comment on, or approve depended on your role, your office, and where you were in a project lifecycle. Localization for international offices layered on top of that. These weren't edge cases, they were the product.
 
-{% image "./PWC-24-responsive-homepage-1440px.png", "Home — Workspace Overview at 1440px" %}
+{% image "./PWC-24-responsive-homepage-1440px.png", "Concourse web platform — Workspace Overview dashboard at 1440px desktop breakpoint" %}
 
 ## Scope
 
@@ -72,7 +72,7 @@ I was the sole designer dedicated to the responsive build, working directly with
 
 The design system work was particularly significant. The existing system was built desktop-first and web-only. Extending it to mobile touch required thinking through how every interaction pattern changed, tap targets, swipe gestures, navigation hierarchies, information density, and the loss of hover states. These contributions didn't just serve Concourse. They became the baseline for all mobile work across PwC's internal product ecosystem.
 
-{% image "./PWC-21-responsive-deliverables-1440px.png", "Deliverables — List, Gantt, and Board views at 1440px" %}
+{% image "./PWC-21-responsive-deliverables-1440px.png", "Concourse web platform — Deliverables management interface featuring List, Gantt, and Board views" %}
 
 ## Research & Direction
 
@@ -96,7 +96,7 @@ The other thing I'd carry forward: change management is a design problem. You're
 
 <!-- 
 
-{% image "./PWC-18-responsive-dashboard-1440px.png", "Dashboard — Work Items and Analytics at 1440px" %}
+{% image "./PWC-18-responsive-dashboard-1440px.png", "Concourse web platform — Project analytics dashboard showing work item status charts and team allocation" %}
 
 
 ---
@@ -146,9 +146,9 @@ The other thing I'd carry forward: change management is a design problem. You're
 </div>
 
 <!-- <div class="three-column">
-{% image "./PWC-05-mobile-120-work-item-detail.png", "Work Item Detail" %}
+{% image "./PWC-05-mobile-120-work-item-detail.png", "Mobile work item detailed configuration panel with stage selector and tag inputs" %}
 
 
-{% image "./PWC-08-mobile-140-document.png", "Document Detail View" %}
+{% image "./PWC-08-mobile-140-document.png", "Mobile document preview and revision history view" %}
 
 </div> -->

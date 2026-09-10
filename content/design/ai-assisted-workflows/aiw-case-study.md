@@ -103,24 +103,24 @@ Possible constraints
 Actionables
 ```
 
-{% image "../priority-tax-relief/feat-customer-access.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
+{% image "../priority-tax-relief/feat-customer-access.png", "Platform feature discovery workshop — initial FigJam stickies mapping client access and operational friction" %}
 
 **After:**
 
 ```
-Customer portal and self-service solutions  
-Customer service operations and support models  
-Document management and sharing  
-Scalability and operational efficiency  
-Process transparency and workflow management  
-Client communication and status tracking pain points  
-Client experience and engagement  
-Communication channels and methods  
-Account access and data rights  
+Customer portal and self-service solutions
+Customer service operations and support models
+Document management and sharing
+Scalability and operational efficiency
+Process transparency and workflow management
+Client communication and status tracking pain points
+Client experience and engagement
+Communication channels and methods
+Account access and data rights
 Budget and resource constraints
 ```
 
-{% image "../priority-tax-relief/PTR-88-platform-feature-discovery-workshop.png", "Platform feature discovery workshop, the FigJam board from the cross-functional scoping session." %}
+{% image "../priority-tax-relief/PTR-88-platform-feature-discovery-workshop.png", "Platform feature discovery workshop — structured synthesis clustering sticky notes into core design pillars" %}
 
 *Discovery session synthesis, instead of going through every recording manually, AI boils it down into key design questions and themes. I can jump straight to "people wrote the most about information transparency and client confidence" and map that to a feature prototype.*
 
