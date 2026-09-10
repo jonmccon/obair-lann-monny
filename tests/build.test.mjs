@@ -133,4 +133,10 @@ describe('homepage integration', () => {
 	test('at least one project has data-chart-duration set', () => {
 		assert.ok(html.includes('data-chart-duration'), 'no duration attributes found');
 	});
+
+	test('Vercel analytics and GA4 scripts coexist on the homepage', () => {
+		assert.ok(html.includes('/_vercel/insights/script.js'), 'Vercel Analytics script missing');
+		assert.ok(html.includes('/_vercel/speed-insights/script.js'), 'Vercel Speed Insights script missing');
+		assert.ok(html.includes('https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG'), 'GA4 script missing');
+	});
 });
