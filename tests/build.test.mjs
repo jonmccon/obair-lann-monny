@@ -138,10 +138,23 @@ describe('homepage integration', () => {
 	test('Vercel analytics and GA4 scripts coexist on the homepage', () => {
 		const document = new JSDOM(html).window.document;
 		const scripts = [...document.querySelectorAll('script')];
+		const analyticsBootstrapIndex = html.indexOf('window.va = window.va || function');
+		const analyticsScriptIndex = html.indexOf('/_vercel/insights/script.js');
+		const speedBootstrapIndex = html.indexOf('window.si = window.si || function');
+		const speedScriptIndex = html.indexOf('/_vercel/speed-insights/script.js');
+		const ga4ScriptIndex = html.indexOf('https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG');
+
 		assert.ok(document.querySelector('script[src="/_vercel/insights/script.js"]'), 'Vercel Analytics script missing');
 		assert.ok(document.querySelector('script[src="/_vercel/speed-insights/script.js"]'), 'Vercel Speed Insights script missing');
 		assert.ok(document.querySelector('script[src="https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG"]'), 'GA4 script missing');
 		assert.ok(scripts.some((script) => script.textContent.includes('window.va = window.va || function')), 'Vercel Analytics bootstrap missing');
 		assert.ok(scripts.some((script) => script.textContent.includes('window.si = window.si || function')), 'Vercel Speed Insights bootstrap missing');
+		assert.ok(
+			analyticsBootstrapIndex < analyticsScriptIndex &&
+			analyticsScriptIndex < speedBootstrapIndex &&
+			speedBootstrapIndex < speedScriptIndex &&
+			speedScriptIndex < ga4ScriptIndex,
+			'analytics and GA4 scripts are not in the expected homepage order',
+		);
 	});
 });
