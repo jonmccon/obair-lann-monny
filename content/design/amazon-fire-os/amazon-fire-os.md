@@ -78,29 +78,29 @@ The answer we landed on was a deliberate simplification: not cutting features, b
 
 <div class="two-column">
 
-{% image "./ama-01.png", "Fire OS 7 home screen and App Shelf redesign" %}
+{% image "./ama-01.png", "Fire OS 7 home screen with redesigned App Shelf and media recommendations" %}
 
-{% image "./ama-02.png", "Pane Navigation layout" %}
+{% image "./ama-02.png", "Pane Navigation layout showing multi-column content panels and increased ASIN density" %}
 
-{% image "./ama-03.png", "Quick Settings drop-down panel" %}
+{% image "./ama-03.png", "Quick Settings drop-down panel with profile switcher and single-tap controls" %}
 
-{% image "./ama-04.png", "Settings app reorganization" %}
+{% image "./ama-04.png", "Settings app reorganization highlighting Alexa integration and priority notification controls" %}
 
 </div>
 
 <div class="two-column">
 
-{% image "./ama-05.png", "Visual accessibility updates — font and icon system" %}
+{% image "./ama-05.png", "Visual accessibility updates — scalable system font stack and refreshed icon system" %}
 
-{% image "./ama-06.png", "Silk Browser search priority redesign" %}
+{% image "./ama-06.png", "Silk Browser search priority redesign prioritizing Amazon Shopping and personal media over general web" %}
 
-{% image "./ama-07.png", "Show Mode kiosk UI toggle" %}
+{% image "./ama-07.png", "Show Mode toggle transforming the tablet into a hands-free Alexa kiosk UI" %}
 
-{% image "./ama-08.png", "Fire OS 7 system UI detail" %}
+{% image "./ama-08.png", "Fire OS 7 system UI detail showing status alert styling and dark theme treatments" %}
 
 </div>
 
-{% image "./ama-09.png", "Fire OS 7 — shipped to 40M+ active Amazon tablet devices" %}
+{% image "./ama-09.png", "Fire OS 7 update banner — system software baseline deployed across 40 million active Amazon tablets" %}
 
 ## Impact
 
