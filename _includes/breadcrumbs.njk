@@ -12,7 +12,13 @@
 
 	Usage: {% include "breadcrumbs.njk" %} from within a layout that has
 	page.url, title/pageHeadline, and metadata in scope.
+
+	page.url is falsy (false) for draft content excluded from the build
+	(see eleventy.config.drafts.js — draft: true resolves permalink to
+	false outside serve/watch), so the whole include is guarded below and
+	renders nothing for those pages.
 #}
+{%- if page.url -%}
 {%- set _pathParts = page.url.split('/') -%}
 {%- set _topSegment = _pathParts[1] if _pathParts.length > 1 else '' -%}
 
@@ -88,4 +94,5 @@
 	]
 }
 </script>
+{%- endif -%}
 {%- endif -%}
