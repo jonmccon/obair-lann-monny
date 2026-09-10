@@ -117,27 +117,27 @@ We built what we set out to do. Preserving the friendship was more important tha
 </figure>
 
 <figure>
-  {% image "./ms-80.png", "User flow diagrams — drawn by Jonny McConnell" %}
+  {% image "./ms-80.png", "Metastream user flow diagram mapping post creation, channel navigation, and content expiration states" %}
   <figcaption>User flow diagrams — drawn by Jonny McConnell.</figcaption>
 </figure>
 
 <figure>
-  {% image "./ms-85.png", "User flow diagrams — drawn by Jonny McConnell" %}
+  {% image "./ms-85.png", "Metastream user flow diagram showing search typeahead, favorites, and proximity-based result display" %}
   <figcaption>User flow diagrams — drawn by Jonny McConnell.</figcaption>
 </figure>
 
 <figure>
-  {% image "./ms-86.png", "User flow diagrams — drawn by Jonny McConnell" %}
+  {% image "./ms-86.png", "Metastream system flow architecture mapping mobile client interaction and database state" %}
   <figcaption>User flow diagrams — drawn by Jonny McConnell.</figcaption>
 </figure>
 
 <figure>
-  {% image "./ms-90.png", "Map interaction and messaging studies — drawn by Jonny McConnell" %}
+  {% image "./ms-90.png", "Metastream mobile interface studies exploring map overlays, onboarding, and place-based chat threads" %}
   <figcaption>Map interaction and messaging studies — drawn by Jonny McConnell.</figcaption>
 </figure>
 
 <figure>
-  {% image "./ms-95.png", "Map interaction and messaging studies — drawn by Jonny McConnell" %}
+  {% image "./ms-95.png", "Metastream UI iterations testing geofenced message density, post frequency metrics, and restaurant menus" %}
   <figcaption>Map interaction and messaging studies — drawn by Jonny McConnell.</figcaption>
 </figure>
 

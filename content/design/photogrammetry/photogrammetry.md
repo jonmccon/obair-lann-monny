@@ -40,19 +40,19 @@ https://www.arduino.cc/
 https://synthetos.myshopify.com/products/gshield-v5
 
 
-{% image "./plot-30.png", "Photogrammetry on a Pen Plotter project image" %}
+{% image "./plot-30.png", "Digital photogrammetry 3D point cloud mesh and extracted vector wireframes" %}
 
-{% image "./plot-110.png", "Photogrammetry on a Pen Plotter project image" %}
+{% image "./plot-110.png", "Close-up detail of pen-plotted vector line drawing on paper" %}
 
 <div class="two-column">
 
-{% image "./plot-02.jpeg", "Photogrammetry on a Pen Plotter project image" %}
+{% image "./plot-02.jpeg", "Custom pen plotter printhead with ballpoint pen drawing contour lines on paper" %}
 
-{% image "./plot-15.jpeg", "Photogrammetry on a Pen Plotter project image" %}
+{% image "./plot-15.jpeg", "Ballpoint pen plotter drawing intricate topographical contour patterns" %}
 
-{% image "./plot-01.jpg", "Photogrammetry on a Pen Plotter project image" %}
+{% image "./plot-01.jpg", "Framed pen-plotted photogrammetry artwork displayed on wooden tabletop" %}
 
-{% image "./plot-00.jpg", "Photogrammetry on a Pen Plotter project image" %}
+{% image "./plot-00.jpg", "Multiple framed pen-plotted line art prints arranged in an exhibition display" %}
 
 </div>
 

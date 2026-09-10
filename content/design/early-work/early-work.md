@@ -14,31 +14,45 @@ images:
 - src: "content/design/early-work/TFiF-01.png"
   alt: This Film is Free — packaging based on a Fedex dieline
 - src: "content/design/early-work/TFiF-02.png"
-  alt: This Film is Free project image
+  alt: This Film is Free packaging interior showing 35mm film roll and mission statement
 - src: "content/design/early-work/TFiF-03.png"
-  alt: This Film is Free project image
+  alt: This Film is Free participant kit unboxed with film canister and instructions
 - src: "content/design/early-work/TFiF-06.png"
-  alt: This Film is Free project image
+  alt: This Film is Free promotional posters and participant photography catalog
 - src: "content/design/early-work/bs-01.png"
   alt: Blackspot Collective 4 — screen printing art show
 - src: "content/design/early-work/bs-02.png"
-  alt: Blackspot Collective 4 project image
+  alt: Blackspot Collective 4 art show gallery space with hanging screen-printed posters
 - src: "content/design/early-work/bs-03.png"
-  alt: Blackspot Collective 4 project image
+  alt: Attendees gathered at the Blackspot Collective 4 screen printing exhibition
+- src: "content/design/early-work/bs-04.png"
+  alt: Interior view of Georgetown gallery storefront during Blackspot Collective 4 show
 - src: "content/design/early-work/dD09-01.jpeg"
   alt: WWU Design Day 09 — campus workshops
 - src: "content/design/early-work/dD09-02.jpeg"
-  alt: WWU Design Day 09 project image
+  alt: WWU Design Day 09 campus fountain installation with floating balloons and signage
 - src: "content/design/early-work/dD09-03.jpeg"
-  alt: WWU Design Day 09 project image
+  alt: WWU Design Day 09 student design workshop and outdoor installation activity
 - src: "content/design/early-work/klipsun-01.png"
   alt: Klipsun magazine cover
 - src: "content/design/early-work/klipsun-02.jpeg"
-  alt: Klipsun magazine spread
+  alt: Klipsun magazine interior feature spread with investigative photojournalism
+- src: "content/design/early-work/klipsun-03.jpeg"
+  alt: Klipsun magazine article spread with typography and editorial photography
 - src: "content/design/early-work/dr-01.jpeg"
   alt: WWU Dean's Report — editorial design
 - src: "content/design/early-work/dr-02.jpeg"
-  alt: WWU Dean's Report spread
+  alt: WWU Dean's Report interior spread with photo collage and timeline of student culture
+- src: "content/design/early-work/dr-03.jpeg"
+  alt: WWU Dean's Report spread exploring campus history and archival imagery
+- src: "content/design/early-work/dr-04.jpeg"
+  alt: WWU Dean's Report spread highlighting student union activities and campus life
+- src: "content/design/early-work/dr-05.jpeg"
+  alt: WWU Dean's Report editorial spread with infographic data and photo series
+- src: "content/design/early-work/dr-06.jpeg"
+  alt: WWU Dean's Report spread with student portraits and historical narrative
+- src: "content/design/early-work/dr-07.png"
+  alt: WWU Dean's Report publication layout and graphic typography overview
 - src: "content/design/early-work/un-01.png"
   alt: Unosolo — pasta packaging
 - src: "content/design/early-work/un-02.png"
@@ -75,26 +89,26 @@ A collection of work from Western Washington University and the Pacific Northwes
 <div class="two-column">
 
 {% image "./TFiF-01.png", "This Film is Free — packaging" %}
-{% image "./TFiF-02.png", "This Film is Free project image" %}
-{% image "./TFiF-03.png", "This Film is Free project image" %}
-{% image "./TFiF-06.png", "This Film is Free project image" %}
+{% image "./TFiF-02.png", "This Film is Free packaging interior showing 35mm film roll and mission statement" %}
+{% image "./TFiF-03.png", "This Film is Free participant kit unboxed with film canister and instructions" %}
+{% image "./TFiF-06.png", "This Film is Free promotional posters and participant photography catalog" %}
 {% image "./bs-01.png", "Blackspot Collective 4 — screen printing art show" %}
-{% image "./bs-02.png", "Blackspot Collective 4 project image" %}
-{% image "./bs-03.png", "Blackspot Collective 4 project image" %}
-{% image "./bs-04.png", "Blackspot Collective 4 project image" %}
+{% image "./bs-02.png", "Blackspot Collective 4 art show gallery space with hanging screen-printed posters" %}
+{% image "./bs-03.png", "Attendees gathered at the Blackspot Collective 4 screen printing exhibition" %}
+{% image "./bs-04.png", "Interior view of Georgetown gallery storefront during Blackspot Collective 4 show" %}
 {% image "./dD09-01.jpeg", "WWU Design Day 09" %}
-{% image "./dD09-02.jpeg", "WWU Design Day 09 project image" %}
-{% image "./dD09-03.jpeg", "WWU Design Day 09 project image" %}
+{% image "./dD09-02.jpeg", "WWU Design Day 09 campus fountain installation with floating balloons and signage" %}
+{% image "./dD09-03.jpeg", "WWU Design Day 09 student design workshop and outdoor installation activity" %}
 {% image "./klipsun-01.png", "Klipsun magazine cover" %}
-{% image "./klipsun-02.jpeg", "Klipsun magazine spread" %}
-{% image "./klipsun-03.jpeg", "Klipsun magazine spread" %}
+{% image "./klipsun-02.jpeg", "Klipsun magazine interior feature spread with investigative photojournalism" %}
+{% image "./klipsun-03.jpeg", "Klipsun magazine article spread with typography and editorial photography" %}
 {% image "./dr-01.jpeg", "WWU Dean's Report" %}
-{% image "./dr-02.jpeg", "WWU Dean's Report spread" %}
-{% image "./dr-03.jpeg", "WWU Dean's Report spread" %}
-{% image "./dr-04.jpeg", "WWU Dean's Report spread" %}
-{% image "./dr-05.jpeg", "WWU Dean's Report spread" %}
-{% image "./dr-06.jpeg", "WWU Dean's Report spread" %}
-{% image "./dr-07.png", "WWU Dean's Report spread" %}
+{% image "./dr-02.jpeg", "WWU Dean's Report interior spread with photo collage and timeline of student culture" %}
+{% image "./dr-03.jpeg", "WWU Dean's Report spread exploring campus history and archival imagery" %}
+{% image "./dr-04.jpeg", "WWU Dean's Report spread highlighting student union activities and campus life" %}
+{% image "./dr-05.jpeg", "WWU Dean's Report editorial spread with infographic data and photo series" %}
+{% image "./dr-06.jpeg", "WWU Dean's Report spread with student portraits and historical narrative" %}
+{% image "./dr-07.png", "WWU Dean's Report publication layout and graphic typography overview" %}
 {% image "./un-01.png", "Unosolo pasta packaging" %}
 {% image "./un-02.png", "Unosolo packaging detail" %}
 {% image "./sim-01.png", "Erik Simkins Photography" %}
