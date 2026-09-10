@@ -137,8 +137,11 @@ describe('homepage integration', () => {
 
 	test('Vercel analytics and GA4 scripts coexist on the homepage', () => {
 		const document = new JSDOM(html).window.document;
+		const scripts = [...document.querySelectorAll('script')];
 		assert.ok(document.querySelector('script[src="/_vercel/insights/script.js"]'), 'Vercel Analytics script missing');
 		assert.ok(document.querySelector('script[src="/_vercel/speed-insights/script.js"]'), 'Vercel Speed Insights script missing');
 		assert.ok(document.querySelector('script[src="https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG"]'), 'GA4 script missing');
+		assert.ok(scripts.some((script) => script.textContent.includes('window.va = window.va || function')), 'Vercel Analytics bootstrap missing');
+		assert.ok(scripts.some((script) => script.textContent.includes('window.si = window.si || function')), 'Vercel Speed Insights bootstrap missing');
 	});
 });
