@@ -9,6 +9,7 @@ const pluginNavigation = require("@11ty/eleventy-navigation");
 const { EleventyHtmlBasePlugin } = require("@11ty/eleventy");
 
 const path = require("path");
+const fs = require("fs");
 const { JSDOM } = require("jsdom");
 
 const pluginDrafts = require("./eleventy.config.drafts.js");
@@ -41,10 +42,26 @@ module.exports = function(eleventyConfig) {
 	// For example, `./public/css/` ends up in `_site/css/`
 	eleventyConfig.addPassthroughCopy({
 		"./public/": "/",
-		"./node_modules/prismjs/themes/prism-okaidia.css": "/css/prism-okaidia.css",
 		"./node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js": "/js/photoswipe-lightbox.esm.min.js",
 		"./node_modules/photoswipe/dist/photoswipe.esm.min.js": "/js/photoswipe.esm.min.js",
 		"./node_modules/photoswipe/dist/photoswipe.css": "/css/photoswipe.css"
+	});
+
+	// Minify prism-okaidia.css into _site/css/ on build
+	eleventyConfig.on("eleventy.after", async ({ dir }) => {
+		const srcPath = path.resolve("./node_modules/prismjs/themes/prism-okaidia.css");
+		if (fs.existsSync(srcPath)) {
+			const rawCss = fs.readFileSync(srcPath, "utf-8");
+			const minifiedCss = rawCss
+				.replace(/\/\*[\s\S]*?\*\//g, "")
+				.replace(/\s+/g, " ")
+				.replace(/\s*([{}:;,>+~])\s*/g, "$1")
+				.replace(/;}/g, "}")
+				.trim();
+			const outDir = path.join(dir.output, "css");
+			fs.mkdirSync(outDir, { recursive: true });
+			fs.writeFileSync(path.join(outDir, "prism-okaidia.css"), minifiedCss, "utf-8");
+		}
 	});
 
 	// Run Eleventy when these files change:
@@ -55,6 +72,17 @@ module.exports = function(eleventyConfig) {
 
 	// Watch css for hotlreload.
 	eleventyConfig.addWatchTarget("public/**/*.css");
+
+	// Minify prism-okaidia.css and prism-diff.css for syntax highlighting
+	const minifyCss = (content) => {
+		if (typeof content !== "string") return content;
+		return content
+			.replace(/\/\*[\s\S]*?\*\//g, "")
+			.replace(/\s+/g, " ")
+			.replace(/\s*([{}:;,>+~])\s*/g, "$1")
+			.replace(/;}/g, "}")
+			.trim();
+	};
 
 	// App plugins
 	eleventyConfig.addPlugin(pluginDrafts);
@@ -67,7 +95,9 @@ module.exports = function(eleventyConfig) {
 	});
 	eleventyConfig.addPlugin(pluginNavigation);
 	eleventyConfig.addPlugin(EleventyHtmlBasePlugin);
-	eleventyConfig.addPlugin(pluginBundle);
+	eleventyConfig.addPlugin(pluginBundle, {
+		transforms: [minifyCss]
+	});
 
 	// Filters
 	eleventyConfig.addFilter("readableDate", (dateObj, format, zone) => {
