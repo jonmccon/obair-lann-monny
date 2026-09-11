@@ -1,0 +1,64 @@
+/* Self-hosted Google Fonts (L2 Lighthouse fix — see CHANGES.md)
+   Replaces the render-blocking <link href="https://fonts.googleapis.com/css2?..."> in
+   base.njk. Files live in public/fonts/ (copied to /fonts/ by Eleventy's passthrough
+   copy of public/) and were downloaded directly from fonts.gstatic.com — same bytes
+   Google would have served, just fetched from our own origin so there's no extra
+   DNS/TLS handshake to fonts.googleapis.com + fonts.gstatic.com blocking first paint.
+
+   Subsetting: only the `latin` unicode-range subset was kept (dropped latin-ext,
+   cyrillic, greek, vietnamese, etc.) — this codebase is English-only copy, so the
+   the extra subsets Google normally ships are unused weight. Latin-ext also covers
+   a few accented forms (e.g. "é") but none of these five families are used on any
+   accented glyphs anywhere in content/ or _includes/, so it was safe to drop.
+
+   font-display: swap on every rule so text renders immediately in a fallback
+   face and swaps to the webfont once it loads (no invisible-text flash). */
+
+@font-face {
+	font-family: 'Outfit';
+	font-style: normal;
+	font-weight: 300 900;
+	font-display: swap;
+	src: url('/fonts/outfit-v15-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Google Sans Flex';
+	font-style: oblique 0deg 10deg;
+	font-weight: 100 1000;
+	font-stretch: 25% 151%;
+	font-display: swap;
+	src: url('/fonts/google-sans-flex-v22-latin-variable.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Space Mono';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/space-mono-v17-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Space Mono';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('/fonts/space-mono-v17-latin-700-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Almendra Display';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/almendra-display-v33-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Jacquard 24';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/fonts/jacquard-24-v4-latin-400-normal.woff2') format('woff2');
+}
