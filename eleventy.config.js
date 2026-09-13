@@ -36,6 +36,16 @@ function relativeToInputPath(inputPath, relativeFilePath) {
 	return path.resolve(split.join(path.sep), relativeFilePath);
 }
 
+function minifyCssContent(content) {
+	if (typeof content !== "string") return content;
+	return content
+		.replace(/\/\*[\s\S]*?\*\//g, "")
+		.replace(/\s+/g, " ")
+		.replace(/\s*([{}:;>~])\s*/g, "$1")
+		.replace(/;}/g, "}")
+		.trim();
+}
+
 /** @param {import('@11ty/eleventy').UserConfig} eleventyConfig */
 module.exports = function(eleventyConfig) {
 	// Copy the contents of the `public` folder to the output folder
@@ -52,12 +62,7 @@ module.exports = function(eleventyConfig) {
 		const srcPath = path.resolve("./node_modules/prismjs/themes/prism-okaidia.css");
 		if (fs.existsSync(srcPath)) {
 			const rawCss = fs.readFileSync(srcPath, "utf-8");
-			const minifiedCss = rawCss
-				.replace(/\/\*[\s\S]*?\*\//g, "")
-				.replace(/\s+/g, " ")
-				.replace(/\s*([{}:;,>~])\s*/g, "$1")
-				.replace(/;}/g, "}")
-				.trim();
+			const minifiedCss = minifyCssContent(rawCss);
 			const outDir = path.join(dir.output, "css");
 			fs.mkdirSync(outDir, { recursive: true });
 			fs.writeFileSync(path.join(outDir, "prism-okaidia.css"), minifiedCss, "utf-8");
@@ -75,14 +80,8 @@ module.exports = function(eleventyConfig) {
 
 	// Minify prism-okaidia.css and prism-diff.css for syntax highlighting
 	const minifyCss = function(content) {
-		if (typeof content !== "string") return content;
 		if (this?.type !== "css") return content;
-		return content
-			.replace(/\/\*[\s\S]*?\*\//g, "")
-			.replace(/\s+/g, " ")
-			.replace(/\s*([{}:;,>~])\s*/g, "$1")
-			.replace(/;}/g, "}")
-			.trim();
+		return minifyCssContent(content);
 	};
 
 	// App plugins
