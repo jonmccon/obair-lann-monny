@@ -9,7 +9,7 @@ File touched: _includes/layouts/base.njk (plus new public/css/fonts.css, public/
 Approach taken: SELF-HOST (not the fallback preload/media=print pattern).
 
 Why: after pulling the actual `fonts.googleapis.com/css2?...` response for the
-5 families in use (Almendra Display, Jacquard 24, Google Sans Flex, Outfit,
+4 families in use (Almendra Display, Google Sans Flex, Outfit,
 Space Mono), the real payload was small enough that self-hosting was clearly
 the better fix, not just the "preferred" one:
 
@@ -27,9 +27,9 @@ the better fix, not just the "preferred" one:
   slnt in public/css/index.css) — the site relies on continuous axis values,
   not fixed weights, so subsetting to specific weights wasn't an option; the
   single latin-only variable file (527KB) was downloaded as-is.
-- Space Mono and Almendra Display and Jacquard 24 are static (non-variable)
-  fonts — only their exact weights in use (Space Mono 400+700; Almendra
-  Display 400; Jacquard 24 400) were kept.
+- Space Mono and Almendra Display are static (non-variable) fonts — only
+  their exact weights in use (Space Mono 400+700; Almendra Display 400) were
+  kept.
 - No pyftsubset re-subsetting was needed on top of Google's own latin split —
   the files Google serves for the `latin` unicode-range are already what a
   from-scratch subset run would produce (confirmed via fonttools/ttx: none of
@@ -42,8 +42,7 @@ Files added:
 - public/fonts/space-mono-v17-latin-400-normal.woff2 (9,464 bytes)
 - public/fonts/space-mono-v17-latin-700-normal.woff2 (9,552 bytes)
 - public/fonts/almendra-display-v33-latin-400-normal.woff2 (10,612 bytes)
-- public/fonts/jacquard-24-v4-latin-400-normal.woff2 (7,340 bytes)
-- public/css/fonts.css — new @font-face rules for all 6 files above, each with
+- public/css/fonts.css — new @font-face rules for all 5 files above, each with
   font-display: swap. Included in base.njk's existing CSS bundle
   ({% css %}{% include "public/css/fonts.css" %}{% endcss %}) so it's inlined
   alongside index.css/new-colors.css/tailwind.css exactly the way the rest of
@@ -83,10 +82,10 @@ After (self-hosted):
 - 0 requests to fonts.googleapis.com / fonts.gstatic.com (confirmed via
   performance.getEntriesByType('resource') in a live page load — see
   Verification below)
-- 6 woff2 files served from same-origin /fonts/, total 596,328 bytes
-  (~582 KB) — inlined @font-face CSS ships in the existing bundled <style>
+- 5 woff2 files served from same-origin /fonts/, total 588,988 bytes
+  (~575 KB) — inlined @font-face CSS ships in the existing bundled <style>
   (zero extra requests for the CSS itself)
-- 2 of those 6 files are preloaded (Outfit always, Google Sans Flex on `/`
+- 2 of those 5 files are preloaded (Outfit always, Google Sans Flex on `/`
   only) so the browser starts fetching them in parallel with everything else
   instead of discovering them only after CSSOM is built
 - font-display: swap on every rule — text renders immediately in the

@@ -55,10 +55,3 @@
 	src: url('/fonts/almendra-display-v33-latin-400-normal.woff2') format('woff2');
 }
 
-@font-face {
-	font-family: 'Jacquard 24';
-	font-style: normal;
-	font-weight: 400;
-	font-display: swap;
-	src: url('/fonts/jacquard-24-v4-latin-400-normal.woff2') format('woff2');
-}
