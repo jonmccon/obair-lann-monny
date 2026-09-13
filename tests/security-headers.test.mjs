@@ -44,6 +44,9 @@ describe('Security Headers (vercel.json)', () => {
 		assert.match(value, /style-src[^;]*https:\/\/fonts\.googleapis\.com/, 'style-src must allow fonts.googleapis.com');
 		assert.match(value, /font-src[^;]*https:\/\/fonts\.gstatic\.com/, 'font-src must allow fonts.gstatic.com');
 		assert.match(value, /connect-src[^;]*https:\/\/www\.google-analytics\.com/, 'connect-src must allow google-analytics.com');
+		assert.match(value, /connect-src[^;]*https:\/\/analytics\.google\.com/, 'connect-src must allow analytics.google.com');
+		assert.match(value, /connect-src[^;]*https:\/\/\*\.google-analytics\.com/, 'connect-src must allow subdomains of google-analytics.com');
+		assert.match(value, /connect-src[^;]*https:\/\/\*\.analytics\.google\.com/, 'connect-src must allow subdomains of analytics.google.com');
 		assert.match(value, /connect-src[^;]*https:\/\/esm\.sh/, 'connect-src must allow esm.sh');
 		assert.match(value, /frame-src[^;]*https:\/\/player\.simplecast\.com/, 'frame-src must allow simplecast player');
 	});
