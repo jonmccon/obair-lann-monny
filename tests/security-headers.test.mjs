@@ -45,6 +45,11 @@ describe('Security Headers (vercel.json)', () => {
 		assert.match(value, /script-src[^;]*https:\/\/www\.googletagmanager\.com/, 'script-src must allow googletagmanager.com');
 		assert.match(value, /script-src[^;]*https:\/\/esm\.sh/, 'script-src must allow esm.sh');
 		assert.match(value, /style-src[^;]*https:\/\/fonts\.googleapis\.com/, 'style-src must allow fonts.googleapis.com');
+		assert.match(value, /img-src[^;]*'self'/, 'img-src must include self');
+		assert.match(value, /img-src[^;]*data:/, 'img-src must include data');
+		assert.match(value, /img-src[^;]*https:/, 'img-src must include https');
+		assert.match(value, /font-src[^;]*'self'/, 'font-src must include self');
+		assert.match(value, /font-src[^;]*data:/, 'font-src must include data');
 		assert.match(value, /font-src[^;]*https:\/\/fonts\.gstatic\.com/, 'font-src must allow fonts.gstatic.com');
 		assert.match(value, /connect-src[^;]*https:\/\/www\.google-analytics\.com/, 'connect-src must allow google-analytics.com');
 		assert.match(value, /connect-src[^;]*https:\/\/analytics\.google\.com/, 'connect-src must allow analytics.google.com');
@@ -52,5 +57,6 @@ describe('Security Headers (vercel.json)', () => {
 		assert.match(value, /connect-src[^;]*https:\/\/\*\.analytics\.google\.com/, 'connect-src must allow subdomains of analytics.google.com');
 		assert.match(value, /connect-src[^;]*https:\/\/esm\.sh/, 'connect-src must allow esm.sh');
 		assert.match(value, /frame-src[^;]*https:\/\/player\.simplecast\.com/, 'frame-src must allow simplecast player');
+		assert.match(value, /object-src\s+'none'/, 'object-src should be set to none');
 	});
 });

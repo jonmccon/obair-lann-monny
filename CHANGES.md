@@ -7,7 +7,7 @@ Added HTTP security headers to `vercel.json` for all routes (`/(.*)`) to harden 
 
 ### 1. Content-Security-Policy (CSP)
 ```
-default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://*.analytics.google.com https://esm.sh; frame-src https://player.simplecast.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
+default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://esm.sh; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://*.analytics.google.com https://esm.sh; frame-src https://player.simplecast.com; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'
 ```
 
 #### Directive Rationale & Domain Analysis:
@@ -31,6 +31,8 @@ default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanag
   - Allows GA4 analytics beacon requests and Three.js module fetching / dependency resolution via `esm.sh`.
 - `frame-src https://player.simplecast.com`:
   - Required for embedded Simplecast podcast episode players on `_includes/layouts/home.njk`.
+- `object-src 'none'`:
+  - Disables legacy plugin/object/embed content to reduce unnecessary attack surface.
 - `frame-ancestors 'none'`:
   - Disallows embedding the site in iframes anywhere, resolving clickjacking vulnerabilities (L1 finding).
 - `base-uri 'self'`: Prevents `<base>` tag injection attacks.
