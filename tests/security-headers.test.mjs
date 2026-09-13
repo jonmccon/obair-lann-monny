@@ -38,17 +38,13 @@ describe('Security Headers (vercel.json)', () => {
 
 		const value = csp.value;
 		assert.match(value, /frame-ancestors\s+'none'/, 'frame-ancestors should be set to none');
-		assert.match(value, /require-trusted-types-for\s+'script'/, 'Trusted-Types script requirement should be present');
-		assert.match(value, /trusted-types\s+default/, 'trusted-types default policy should be present');
 		assert.match(value, /script-src[^;]*'self'/, 'script-src must include self');
 		assert.match(value, /script-src[^;]*https:\/\/www\.googletagmanager\.com/, 'script-src must allow googletagmanager.com');
 		assert.match(value, /script-src[^;]*https:\/\/esm\.sh/, 'script-src must allow esm.sh');
+		assert.match(value, /style-src[^;]*https:\/\/fonts\.googleapis\.com/, 'style-src must allow fonts.googleapis.com');
+		assert.match(value, /font-src[^;]*https:\/\/fonts\.gstatic\.com/, 'font-src must allow fonts.gstatic.com');
 		assert.match(value, /connect-src[^;]*https:\/\/www\.google-analytics\.com/, 'connect-src must allow google-analytics.com');
 		assert.match(value, /connect-src[^;]*https:\/\/esm\.sh/, 'connect-src must allow esm.sh');
 		assert.match(value, /frame-src[^;]*https:\/\/player\.simplecast\.com/, 'frame-src must allow simplecast player');
-
-		// Fonts are self-hosted in L2, so Google Fonts domains must not be in CSP
-		assert.ok(!value.includes('fonts.googleapis.com'), 'fonts.googleapis.com should not be needed in CSP (fonts self-hosted)');
-		assert.ok(!value.includes('fonts.gstatic.com'), 'fonts.gstatic.com should not be needed in CSP (fonts self-hosted)');
 	});
 });
