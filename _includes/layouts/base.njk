@@ -65,7 +65,7 @@
 		   homepage headline exploration, Space Mono for code, Almendra Display
 		   for testimonial quotes. Previously loaded render-blocking from fonts.googleapis.com
 		   (~1540ms FCP/LCP cost); now self-hosted from /fonts/ via public/css/fonts.css so
-		   there's no cross-origin DNS/TLS handshake blocking first paint. See CHANGES.md. #}
+		   there's no cross-origin DNS/TLS handshake blocking first paint. See docs/ARCHITECTURE.md. #}
 		<link rel="preload" href="/fonts/outfit-v15-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
 		{% if page.url == "/" %}
 		<link rel="preload" href="/fonts/google-sans-flex-v22-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
@@ -174,7 +174,7 @@
 		   the actual gtag.js script tag is only injected once the browser is idle (or after
 		   a 2s fallback timeout for browsers without requestIdleCallback), so its fetch +
 		   parse + execute no longer competes with the critical rendering path. See
-		   CHANGES.md. #}
+		   docs/ARCHITECTURE.md. #}
 		<script>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}

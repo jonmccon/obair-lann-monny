@@ -1,4 +1,4 @@
-/* Self-hosted Google Fonts (L2 Lighthouse fix — see CHANGES.md)
+/* Self-hosted Google Fonts (L2 Lighthouse fix — see docs/ARCHITECTURE.md)
    Replaces the render-blocking <link href="https://fonts.googleapis.com/css2?..."> in
    base.njk. Files live in public/fonts/ (copied to /fonts/ by Eleventy's passthrough
    copy of public/) and were downloaded directly from fonts.gstatic.com — same bytes
