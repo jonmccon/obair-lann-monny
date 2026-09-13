@@ -37,7 +37,10 @@ describe('Security Headers (vercel.json)', () => {
 		assert.ok(csp, 'Content-Security-Policy header must exist');
 
 		const value = csp.value;
+		assert.match(value, /default-src\s+'self'/, 'default-src should be set to self');
 		assert.match(value, /frame-ancestors\s+'none'/, 'frame-ancestors should be set to none');
+		assert.match(value, /base-uri\s+'self'/, 'base-uri should be set to self');
+		assert.match(value, /form-action\s+'self'/, 'form-action should be set to self');
 		assert.match(value, /script-src[^;]*'self'/, 'script-src must include self');
 		assert.match(value, /script-src[^;]*https:\/\/www\.googletagmanager\.com/, 'script-src must allow googletagmanager.com');
 		assert.match(value, /script-src[^;]*https:\/\/esm\.sh/, 'script-src must allow esm.sh');

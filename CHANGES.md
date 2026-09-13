@@ -54,5 +54,5 @@ Enforces HTTPS with a 2-year max-age, covers subdomains, and qualifies for HSTS 
   2. `Strict-Transport-Security` includes `max-age`, `includeSubDomains`, and `preload`.
   3. `Cross-Origin-Opener-Policy` is `same-origin`.
   4. `Content-Security-Policy` has all required directives (`frame-ancestors 'none'`, `googletagmanager.com`, `esm.sh`, `simplecast.com`) and allows required Google Fonts domains currently used by templates.
-- Full test suite passed: `109 pass, 0 fail, 7 skipped` (out of 116 tests).
-- Build succeeded: `1062 files written`.
+- Test suite passed at validation time.
+- Build succeeded at validation time.
