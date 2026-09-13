@@ -55,7 +55,7 @@ module.exports = function(eleventyConfig) {
 			const minifiedCss = rawCss
 				.replace(/\/\*[\s\S]*?\*\//g, "")
 				.replace(/\s+/g, " ")
-				.replace(/\s*([{}:;,>+~])\s*/g, "$1")
+				.replace(/\s*([{}:;,>~])\s*/g, "$1")
 				.replace(/;}/g, "}")
 				.trim();
 			const outDir = path.join(dir.output, "css");
@@ -74,12 +74,13 @@ module.exports = function(eleventyConfig) {
 	eleventyConfig.addWatchTarget("public/**/*.css");
 
 	// Minify prism-okaidia.css and prism-diff.css for syntax highlighting
-	const minifyCss = (content) => {
+	const minifyCss = function(content) {
 		if (typeof content !== "string") return content;
+		if (this?.type !== "css") return content;
 		return content
 			.replace(/\/\*[\s\S]*?\*\//g, "")
 			.replace(/\s+/g, " ")
-			.replace(/\s*([{}:;,>+~])\s*/g, "$1")
+			.replace(/\s*([{}:;,>~])\s*/g, "$1")
 			.replace(/;}/g, "}")
 			.trim();
 	};
