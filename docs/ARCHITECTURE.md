@@ -356,7 +356,7 @@ Image path resolution rules (in `eleventy.config.images.js` `image` shortcode):
 
 ## CSS architecture
 
-All CSS lives in `public/css/` and is passed through to `_site/css/`.
+All CSS lives in `public/css/` and is passed through to `_site/css/` (or generated at build time into `_site/css/`).
 
 | File | Purpose |
 |---|---|
@@ -366,10 +366,11 @@ All CSS lives in `public/css/` and is passed through to `_site/css/`.
 | `stacked.css` | Full stacked-papers layout (`stacked.njk`) |
 | `photoswipe-gallery.css` | Photo gallery grid layout |
 | `prism-diff.css` | Syntax highlighting diff overrides |
+| `prism-okaidia.css` | Prism theme stylesheet — generated/minified into `_site/css/` from `node_modules/prismjs/themes/prism-okaidia.css` via an `eleventy.after` build hook |
 | `message-box.css` | Message/notification box styles |
 
-Some CSS is injected inline via Eleventy's bundle plugin (`{%- css %}{% include ... %}{% endcss %}`). This is used in layout files to conditionally include page-specific CSS:
-- `post.njk` inlines Prism and diff CSS
+Some CSS is injected inline via Eleventy's bundle plugin (`{%- css %}{% include ... %}{% endcss %}`). The bundle plugin is configured with a `minifyCss` transform in `eleventy.config.js` to strip comments and redundant whitespace from bundled/inlined CSS blocks. This is used in layout files to conditionally include page-specific CSS:
+- `post.njk` inlines Prism (`node_modules/prismjs/themes/prism-okaidia.css`) and diff CSS
 - `gallery.njk` inlines `photoswipe-gallery.css`
 - `design.njk` inlines `project-piles.css`
 - `stacked.njk` inlines `stacked.css`
