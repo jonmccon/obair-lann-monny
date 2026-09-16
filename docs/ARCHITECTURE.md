@@ -79,14 +79,19 @@ obair-lann-monny/
 │
 ├── public/                    # Static assets (passthrough copied to _site root)
 │   ├── css/
+│   │   ├── fonts.css          # Self-hosted @font-face rules (Outfit, Google Sans Flex, Space Mono, Almendra Display)
 │   │   ├── index.css          # Main stylesheet
 │   │   ├── message-box.css    # Message/alert box styles
+│   │   ├── new-colors.css     # CSS color variables and theme tokens
 │   │   ├── photoswipe-gallery.css  # Gallery grid layout styles
 │   │   ├── prism-diff.css     # Prism diff syntax highlight override
 │   │   ├── project-piles.css  # Piled image stacks design archive styles
 │   │   ├── project-stacks.css # Stacked-paper grid styles
-│   │   └── stacked.css        # Stacked-papers layout styles
+│   │   ├── stacked.css        # Stacked-papers layout styles
+│   │   └── tailwind.css       # Built Tailwind CSS utilities and components
+│   ├── fonts/                 # Self-hosted WOFF2 font files (latin subset)
 │   ├── js/
+│   │   ├── gallery-init.js    # Gallery and lightbox initialization
 │   │   ├── stacked.js         # Stacked-papers client-side navigation
 │   │   └── view-transitions.js # View Transitions API helper
 │   └── img/                   # Static images (logos etc.)
@@ -360,7 +365,10 @@ All CSS lives in `public/css/` and is passed through to `_site/css/`.
 
 | File | Purpose |
 |---|---|
+| `fonts.css` | Self-hosted `@font-face` declarations (`Outfit`, `Google Sans Flex`, `Space Mono`, `Almendra Display`) with `font-display: swap` |
 | `index.css` | Main stylesheet: base styles, typography, nav, homepage newspaper grid, post layout |
+| `new-colors.css` | Theme color variables and CSS tokens |
+| `tailwind.css` | Compiled Tailwind utilities and component classes |
 | `project-piles.css` | Piled image stacks for design archive (`projectsPilesGrid.njk`) |
 | `project-stacks.css` | Stacked-paper mini preview grid (`projectsStackGrid.njk`) |
 | `stacked.css` | Full stacked-papers layout (`stacked.njk`) |
@@ -368,23 +376,44 @@ All CSS lives in `public/css/` and is passed through to `_site/css/`.
 | `prism-diff.css` | Syntax highlighting diff overrides |
 | `message-box.css` | Message/notification box styles |
 
-Some CSS is injected inline via Eleventy's bundle plugin (`{%- css %}{% include ... %}{% endcss %}`). This is used in layout files to conditionally include page-specific CSS:
+Some CSS is injected inline via Eleventy's bundle plugin (`{%- css %}{% include ... %}{% endcss %}`). This is used in `base.njk` and layout files to conditionally or globally include CSS without extra blocking HTTP requests:
+- `base.njk` inlines `fonts.css`, `new-colors.css`, `index.css`, and `tailwind.css` into a single `<style>` block in `<head>`
 - `post.njk` inlines Prism and diff CSS
 - `gallery.njk` inlines `photoswipe-gallery.css`
 - `design.njk` inlines `project-piles.css`
 - `stacked.njk` inlines `stacked.css`
 
+### Typography and font loading
+
+Fonts are self-hosted locally from `/fonts/*.woff2` rather than loaded cross-origin from Google Fonts (`fonts.googleapis.com` / `fonts.gstatic.com`). This avoids blocking render on external DNS/TLS handshakes and font stylesheet downloads.
+
+- **Families in use:**
+  - `Outfit` (variable 300–900, latin subset): loaded sitewide for primary typography. Preloaded via `<link rel="preload" as="font" type="font/woff2" crossorigin>` in `base.njk`.
+  - `Google Sans Flex` (variable 100–1000 with `opsz`, `slnt`, `wdth`, `wght` axes, latin subset): used for dynamic headline treatments on the homepage (`font-variation-settings`). Preloaded conditionally in `base.njk` only when `page.url == "/"`.
+  - `Space Mono` (static 400 & 700, latin subset): monospace styling for code blocks.
+  - `Almendra Display` (static 400, latin subset): display script styling for testimonial quotes.
+- **Subsetting:** Only the `latin` unicode-range subset is retained since all site content is in English.
+- **Display strategy:** `font-display: swap` on all `@font-face` rules in `public/css/fonts.css` ensures immediate text rendering with system fallbacks while font assets load.
+
 ---
 
 ## JavaScript
 
-| File | Loaded via | Purpose |
+| File / Snippet | Loaded via | Purpose |
 |---|---|---|
 | `public/js/stacked.js` | `<script src>` in `stacked.njk` | Stacked-papers nav: prev/next/reset, keyboard shortcuts, flip animation |
+| `public/js/gallery-init.js` | `<script src>` in `gallery.njk` | Gallery and lightbox initialization |
 | `public/js/view-transitions.js` | `base.njk` (assumed) | View Transitions API for page navigation animations |
 | `node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js` | passthrough → `/js/` | PhotoSwipe lightbox init |
 | `node_modules/photoswipe/dist/photoswipe.esm.min.js` | passthrough → `/js/` | PhotoSwipe core |
 | Inline in `projectsPilesGrid.njk` | embedded `<script>` | Piled image layout: deterministic hash-based transform, tag filtering |
+| GA4 / GTM inline loader | embedded `<script>` in `base.njk` | Deferred Google Tag Manager (`gtag.js`) bootstrap via `requestIdleCallback` |
+
+### Analytics and deferred loading
+
+The site runs Vercel Analytics, Vercel Speed Insights, and Google Analytics 4 (GA4):
+- **Vercel Analytics & Speed Insights:** Loaded as `defer` scripts (`/_vercel/insights/script.js`, `/_vercel/speed-insights/script.js`).
+- **Google Tag Manager / GA4 (`G-173P35S0MG`):** Initialized synchronously (`window.dataLayer` and `window.gtag` stub) so measurement calls queue immediately without data loss. The external `gtag.js` payload (~67KB) is deferred until after the critical rendering window using `requestIdleCallback(loadGtagScript, { timeout: 2000 })` with a `setTimeout` 2-second fallback. This prevents third-party analytics script fetching from competing with critical resources during first contentful paint.
 
 ---
 
