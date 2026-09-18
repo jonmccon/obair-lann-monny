@@ -44,13 +44,13 @@ describe('Security Headers (vercel.json)', () => {
 		assert.match(value, /script-src[^;]*'self'/, 'script-src must include self');
 		assert.match(value, /script-src[^;]*https:\/\/www\.googletagmanager\.com/, 'script-src must allow googletagmanager.com');
 		assert.match(value, /script-src[^;]*https:\/\/esm\.sh/, 'script-src must allow esm.sh');
-		assert.match(value, /style-src[^;]*https:\/\/fonts\.googleapis\.com/, 'style-src must allow fonts.googleapis.com');
+		assert.doesNotMatch(value, /style-src[^;]*https:\/\/fonts\.googleapis\.com/, 'style-src should not allow fonts.googleapis.com once fonts are self-hosted');
 		assert.match(value, /img-src[^;]*'self'/, 'img-src must include self');
 		assert.match(value, /img-src[^;]*data:/, 'img-src must include data');
 		assert.match(value, /img-src[^;]*https:/, 'img-src must include https');
 		assert.match(value, /font-src[^;]*'self'/, 'font-src must include self');
 		assert.match(value, /font-src[^;]*data:/, 'font-src must include data');
-		assert.match(value, /font-src[^;]*https:\/\/fonts\.gstatic\.com/, 'font-src must allow fonts.gstatic.com');
+		assert.doesNotMatch(value, /font-src[^;]*https:\/\/fonts\.gstatic\.com/, 'font-src should not allow fonts.gstatic.com once fonts are self-hosted');
 		assert.match(value, /connect-src[^;]*https:\/\/www\.google-analytics\.com/, 'connect-src must allow google-analytics.com');
 		assert.match(value, /connect-src[^;]*https:\/\/analytics\.google\.com/, 'connect-src must allow analytics.google.com');
 		assert.match(value, /connect-src[^;]*https:\/\/\*\.google-analytics\.com/, 'connect-src must allow subdomains of google-analytics.com');

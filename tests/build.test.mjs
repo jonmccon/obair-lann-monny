@@ -142,18 +142,28 @@ describe('homepage integration', () => {
 		const analyticsScriptIndex = html.indexOf('/_vercel/insights/script.js');
 		const speedBootstrapIndex = html.indexOf('window.si = window.si || function');
 		const speedScriptIndex = html.indexOf('/_vercel/speed-insights/script.js');
-		const ga4ScriptIndex = html.indexOf('https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG');
+		// L3 Lighthouse fix (defer GTM): gtag.js is no longer a static <script src>
+		// tag — it's injected via requestIdleCallback/setTimeout so its 67KB fetch
+		// doesn't compete with the critical rendering path. GA4 stays wired: the
+		// dataLayer/gtag() stub + gtag('config', ...) call are still synchronous,
+		// and the gtag.js URL still appears in the idle-loader source.
+		const ga4UrlIndex = html.indexOf('https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG');
+		const ga4ConfigIndex = html.indexOf("gtag('config', 'G-173P35S0MG')");
+		const idleLoaderIndex = html.indexOf('requestIdleCallback');
 
 		assert.ok(document.querySelector('script[src="/_vercel/insights/script.js"]'), 'Vercel Analytics script missing');
 		assert.ok(document.querySelector('script[src="/_vercel/speed-insights/script.js"]'), 'Vercel Speed Insights script missing');
-		assert.ok(document.querySelector('script[src="https://www.googletagmanager.com/gtag/js?id=G-173P35S0MG"]'), 'GA4 script missing');
+		assert.ok(ga4UrlIndex !== -1, 'GA4 gtag.js URL missing (should be present in the deferred loader script)');
+		assert.ok(ga4ConfigIndex !== -1, "GA4 gtag('config', ...) call missing");
+		assert.ok(idleLoaderIndex !== -1, 'requestIdleCallback/idle-load pattern missing for GTM');
 		assert.ok(scripts.some((script) => script.textContent.includes('window.va = window.va || function')), 'Vercel Analytics bootstrap missing');
 		assert.ok(scripts.some((script) => script.textContent.includes('window.si = window.si || function')), 'Vercel Speed Insights bootstrap missing');
 		assert.ok(
 			analyticsBootstrapIndex < analyticsScriptIndex &&
 			analyticsScriptIndex < speedBootstrapIndex &&
 			speedBootstrapIndex < speedScriptIndex &&
-			speedScriptIndex < ga4ScriptIndex,
+			speedScriptIndex < ga4ConfigIndex &&
+			ga4ConfigIndex < ga4UrlIndex,
 			'analytics and GA4 scripts are not in the expected homepage order',
 		);
 	});
