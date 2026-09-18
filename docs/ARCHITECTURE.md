@@ -430,7 +430,7 @@ Configured in `vercel.json` for all routes (`/(.*)`):
 | `style-src` | `'self'`, `'unsafe-inline'`, `https://fonts.googleapis.com` | Same-origin CSS, bundled inlined `<style>` blocks, and Google Fonts stylesheets |
 | `font-src` | `'self'`, `data:`, `https://fonts.gstatic.com` | Local fonts (`/fonts/*.woff2`), data URIs, and Google Fonts files |
 | `img-src` | `'self'`, `data:`, `https:` | Local images, data URIs, and external images / CDN assets |
-| `connect-src` | `'self'`, `https://www.google-analytics.com`, `https://analytics.google.com`, `https://*.google-analytics.com`, `https://*.analytics.google.com`, `https://esm.sh` | GA4 telemetry and `esm.sh` module fetching |
+| `connect-src` | `'self'`, `https://www.google-analytics.com`, `https://analytics.google.com`, `https://*.google-analytics.com`, `https://*.analytics.google.com`, `https://vitals.vercel-insights.com`, `https://esm.sh` | GA4 telemetry, Vercel Insights/Speed Insights telemetry, and `esm.sh` module fetching |
 | `frame-src` | `https://player.simplecast.com` | Embedded Simplecast podcast players |
 | `object-src` | `'none'` | Blocks legacy plugins/embeds |
 | `frame-ancestors` | `'none'` | Mitigates clickjacking (disallows iframe embedding) |

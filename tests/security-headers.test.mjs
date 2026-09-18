@@ -55,6 +55,7 @@ describe('Security Headers (vercel.json)', () => {
 		assert.match(value, /connect-src[^;]*https:\/\/analytics\.google\.com/, 'connect-src must allow analytics.google.com');
 		assert.match(value, /connect-src[^;]*https:\/\/\*\.google-analytics\.com/, 'connect-src must allow subdomains of google-analytics.com');
 		assert.match(value, /connect-src[^;]*https:\/\/\*\.analytics\.google\.com/, 'connect-src must allow subdomains of analytics.google.com');
+		assert.match(value, /connect-src[^;]*https:\/\/vitals\.vercel-insights\.com/, 'connect-src must allow vitals.vercel-insights.com');
 		assert.match(value, /connect-src[^;]*https:\/\/esm\.sh/, 'connect-src must allow esm.sh');
 		assert.match(value, /frame-src[^;]*https:\/\/player\.simplecast\.com/, 'frame-src must allow simplecast player');
 		assert.match(value, /object-src\s+'none'/, 'object-src should be set to none');
