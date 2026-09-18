@@ -440,6 +440,34 @@ Navigation rendering is in `base.njk`.
 - **Config:** `vercel.json`
 - **GitHub Actions:** a sample workflow (`gh-pages.yml.sample`) exists for GitHub Pages but is not active
 
+### Security headers
+
+Configured in `vercel.json` for all routes (`/(.*)`):
+
+| Header | Value | Purpose |
+|---|---|---|
+| `Strict-Transport-Security` | `max-age=63072000; includeSubDomains; preload` | Enforces HTTPS for 2 years across all subdomains; preload list eligible |
+| `Cross-Origin-Opener-Policy` | `same-origin` | Isolates browsing context from cross-origin documents |
+| `Content-Security-Policy` | *(see directives below)* | Restricts origins for scripts, styles, fonts, frames, and connections |
+
+#### Content Security Policy (CSP) Directives
+
+| Directive | Allowed Sources | Rationale |
+|---|---|---|
+| `default-src` | `'self'` | Fallback default to same-origin |
+| `script-src` | `'self'`, `'unsafe-inline'`, `https://www.googletagmanager.com`, `https://esm.sh` | Site scripts, inline template scripts (e.g. GA4 idle loader, JSON-LD, piles layout), GTM/GA4 loader, and Three.js via `esm.sh` |
+| `style-src` | `'self'`, `'unsafe-inline'` | Same-origin CSS and bundled inlined `<style>` blocks |
+| `font-src` | `'self'`, `data:` | Local fonts (`/fonts/*.woff2`) and data URIs |
+| `img-src` | `'self'`, `data:`, `https:` | Local images, data URIs, and external images / CDN assets |
+| `connect-src` | `'self'`, `https://www.google-analytics.com`, `https://analytics.google.com`, `https://*.google-analytics.com`, `https://*.analytics.google.com`, `https://vitals.vercel-insights.com`, `https://esm.sh` | GA4 telemetry, Vercel Insights/Speed Insights telemetry, and `esm.sh` module fetching |
+| `frame-src` | `https://player.simplecast.com` | Embedded Simplecast podcast players |
+| `object-src` | `'none'` | Blocks legacy plugins/embeds |
+| `frame-ancestors` | `'none'` | Mitigates clickjacking (disallows iframe embedding) |
+| `base-uri` | `'self'` | Prevents `<base>` tag injection |
+| `form-action` | `'self'` | Restricts form submissions to same-origin |
+
+Automated tests for headers reside in `tests/security-headers.test.mjs`.
+
 ---
 
 ## Design archive component variants
