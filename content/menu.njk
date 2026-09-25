@@ -88,13 +88,27 @@ eleventyNavigation:
   margin-bottom: 0;
 }
 
-.menu-entry-header {
+.menu-entry-link {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 1rem;
+  align-items: start;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu-entry-thumb {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+.menu-entry-copy {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.25rem;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .menu-entry-title {
@@ -106,27 +120,17 @@ eleventyNavigation:
   margin: 0;
 }
 
-.menu-entry-status {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--text-color-muted, var(--text-color));
-  white-space: nowrap;
-  flex-shrink: 0;
+.menu-entry-link:hover .menu-entry-title,
+.menu-entry-link:focus-visible .menu-entry-title {
+  color: var(--text-color-link);
 }
 
 .menu-entry-body {
   font-size: 0.875rem;
   color: var(--text-color);
   line-height: 1.6;
-  margin: 0 0 0.35rem;
-  max-width: 72ch;
-}
-
-.menu-entry-focus {
-  font-size: 0.75rem;
-  color: var(--text-color-muted, var(--text-color));
   margin: 0;
-  line-height: 1.4;
+  max-width: 72ch;
 }
 
 /* ── Full Engagements & CTA ─────────────────────────────── */
@@ -213,39 +217,43 @@ eleventyNavigation:
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Portfolio Feedback Hour</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Live 1:1 teardown of a portfolio or case study — structure, narrative, visual craft.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Designers job-hunting, students, career-switchers.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/portfolio-feedback-hour-thumb.png" alt="Speech bubble with conversation lines representing portfolio teardowns and design feedback" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Portfolio Feedback Hour</p>
+          <p class="menu-entry-body">Live 1:1 teardown of a portfolio or case study — structure, narrative, visual craft. Good for designers job-hunting, students, and career-switchers.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Website Audit</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Heuristic + accessibility + narrative pass on a live site, delivered as annotated screenshots or a short recorded walkthrough.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Founders/small biz before a redesign or fundraise.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/website-audit-thumb.png" alt="Magnifying glass inspecting a browser window representing heuristic website audits" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Website Audit</p>
+          <p class="menu-entry-body">Heuristic + accessibility + narrative pass on a live site, delivered as annotated screenshots or a short recorded walkthrough. Good for founders/small biz before a redesign or fundraise.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Brand Gut-Check</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">45 min reacting to a logo/identity in progress — keep/kill/fix format.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Early-stage founders, side-project builders.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/brand-gut-check-thumb.png" alt="Checkmark evaluation badge representing brand identity review" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Brand Gut-Check</p>
+          <p class="menu-entry-body">45 min reacting to a logo/identity in progress — keep/kill/fix format. Good for early-stage founders and side-project builders.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Resume / Case-Study Punch-Up</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Tighten one story to interview-ready.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Job seekers.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/resume-punch-up-thumb.png" alt="Document with pencil editing representing resume and case study polishing" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Resume / Case-Study Punch-Up</p>
+          <p class="menu-entry-body">Tighten one story to interview-ready. Good for job seekers.</p>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -257,39 +265,43 @@ eleventyNavigation:
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Portrait Session</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Mini photo shoot: headshot, brand portrait, or event coverage.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Founders, teams, creatives needing fresh photos.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/portrait-session-thumb.png" alt="Camera icon representing mini portrait and headshot photo sessions" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Portrait Session</p>
+          <p class="menu-entry-body">Mini photo shoot: headshot, brand portrait, or event coverage. Good for founders, teams, and creatives needing fresh photos.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Custom Plotted Illustration</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">One machine-aided printmaking piece, ships physical + digital file.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Gifts, launch art, collectors of the Whidbey studio work.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/posters-thumb.png" alt="Geometric plotted poster art representing custom machine-aided illustration" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Custom Plotted Illustration</p>
+          <p class="menu-entry-body">One machine-aided printmaking piece, ships physical + digital file. Good for gifts, launch art, and collectors of the Whidbey studio work.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Landing Page Facelift</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Redesign of a single page, not the whole site.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Anyone with one broken funnel step.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/landing-page-facelift-thumb.png" alt="Webpage wireframe wire layout representing landing page redesigns" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Landing Page Facelift</p>
+          <p class="menu-entry-body">Redesign of a single page, not the whole site. Good for anyone with one broken funnel step.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Brand-in-a-Day</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Logo, palette, type, one-pager identity kit.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Very early side projects, events, pop-ups.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/brand-in-a-day-thumb.png" alt="Geometric identity emblem representing rapid brand-in-a-day design" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Brand-in-a-Day</p>
+          <p class="menu-entry-body">Logo, palette, type, one-pager identity kit. Good for very early side projects, events, and pop-ups.</p>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -301,39 +313,43 @@ eleventyNavigation:
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Brand-in-a-Week</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Full identity + starter component kit (PTR Design Kit-style).</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Startups needing a real system fast.</p>
+      <a class="menu-entry-link" href="/design/priority-tax-relief/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/ptr-thumb.png" alt="Priority Tax Relief brand identity mark" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Brand-in-a-Week</p>
+          <p class="menu-entry-body">Full identity + starter component kit (PTR Design Kit-style). Good for startups needing a real system fast.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Design Sprint</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">5-day problem-to-prototype for a founder or small team.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Validating a feature/product direction.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/design-sprint-thumb.png" alt="Sprint timer and dial representing a 5-day rapid prototyping design sprint" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Design Sprint</p>
+          <p class="menu-entry-body">5-day problem-to-prototype for a founder or small team. Good for validating a feature or product direction.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Studio Shoot Package</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Multi-look portrait/brand photography, retouched set.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Teams, personal brand refreshes.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/studio-shoot-package-thumb.png" alt="Studio lighting softbox setup representing full multi-look photography packages" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Studio Shoot Package</p>
+          <p class="menu-entry-body">Multi-look portrait/brand photography, retouched set. Good for teams and personal brand refreshes.</p>
+        </div>
+      </a>
     </div>
 
     <div class="menu-entry">
-      <div class="menu-entry-header">
-        <p class="menu-entry-title">Plotted Print Series</p>
-        <span class="menu-entry-status">Available as a booking</span>
-      </div>
-      <p class="menu-entry-body">Small numbered edition run.</p>
-      <p class="menu-entry-focus"><strong>Good for:</strong> Launches, events, gifting at scale.</p>
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/posters-thumb.png" alt="Plotted geometric posters representing numbered edition print series" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Plotted Print Series</p>
+          <p class="menu-entry-body">Small numbered edition run. Good for launches, events, and gifting at scale.</p>
+        </div>
+      </a>
     </div>
   </section>
 
