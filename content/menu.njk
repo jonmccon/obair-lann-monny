@@ -1,0 +1,370 @@
+---
+layout: layouts/base.njk
+title: Menu
+description: A lighter, bookable menu of smaller offers that sits alongside case studies — quick bites through full engagements.
+permalink: /menu/
+eleventyNavigation:
+  key: Menu
+  order: 4
+---
+
+{%- css %}
+/* ─── Menu page layout ─────────────────────────────────── */
+
+.menu-shell {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ── Page Header ───────────────────────────────────────── */
+
+.menu-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  padding-top: 0.25rem;
+  border-bottom: 2px solid var(--color-sky-reflection-800);
+}
+
+.menu-title {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-color);
+  margin: 0 0 0.75rem;
+  line-height: 1.15;
+}
+
+.menu-intro {
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--text-color);
+  line-height: 1.6;
+  max-width: 68ch;
+  margin: 0;
+}
+
+/* ── Section blocks ─────────────────────────────────────── */
+
+.menu-section {
+  margin-bottom: 2.75rem;
+}
+
+.menu-section-header {
+  margin-bottom: 1.25rem;
+}
+
+.menu-section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #1a1814;
+  padding: 0.2rem 0.6rem;
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  border-radius: 4px;
+  line-height: 1.3;
+}
+
+.menu-section-note {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-color-muted, var(--text-color));
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Menu entries ───────────────────────────────────────── */
+
+.menu-entry {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--color-sky-reflection-800);
+}
+
+.menu-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.menu-entry-link {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 1rem;
+  align-items: start;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu-entry-thumb {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  display: block;
+}
+
+.menu-entry-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.menu-entry-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.menu-entry-link:hover .menu-entry-title,
+.menu-entry-link:focus-visible .menu-entry-title {
+  color: var(--text-color-link);
+}
+
+.menu-entry-body {
+  font-size: 0.875rem;
+  color: var(--text-color);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 72ch;
+}
+
+/* ── Full Engagements & CTA ─────────────────────────────── */
+
+.menu-full-body {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  line-height: 1.65;
+  margin: 0 0 1.25rem;
+  max-width: 72ch;
+}
+
+.menu-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  font-weight: 600;
+  border: 1px solid var(--btn-edge);
+  border-radius: var(--btn-radius, 4px);
+  background: var(--surface-color);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
+  text-decoration: none;
+}
+
+.menu-btn:hover {
+  transform: translateY(2px);
+  box-shadow: var(--btn-press-shadow);
+  color: var(--text-color);
+}
+
+.menu-btn-primary {
+  background: var(--text-color);
+  color: var(--background-color);
+}
+
+.menu-btn-primary:hover {
+  color: var(--background-color);
+}
+
+/* ─── Mobile: responsive collapse ───────────────────────── */
+@media (max-width: 640px) {
+  .menu-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+  }
+
+  .menu-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .menu-btn {
+    text-align: center;
+  }
+}
+{% endcss %}
+
+<div class="menu-shell">
+
+  <header class="menu-header">
+    <h1 class="menu-title">Menu</h1>
+    <p class="menu-intro">A lighter, bookable menu of smaller offers that sits alongside the case studies below — quick bites through full engagements, tiered by time and commitment.</p>
+  </header>
+
+  {# ── 1. Quick Bites ── #}
+  <section class="menu-section" aria-labelledby="section-quick-bites">
+    <div class="menu-section-header">
+      <h2 id="section-quick-bites" class="menu-section-label">Quick Bites</h2>
+      <p class="menu-section-note">Flat rate, $75-125/hour.</p>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/portfolio-feedback-hour-thumb.png" alt="Speech bubble with conversation lines representing portfolio teardowns and design feedback" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Portfolio Feedback Hour</p>
+          <p class="menu-entry-body">Live 1:1 teardown of a portfolio or case study — structure, narrative, visual craft. Good for designers job-hunting, students, and career-switchers.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/website-audit-thumb.png" alt="Magnifying glass inspecting a browser window representing heuristic website audits" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Website Audit</p>
+          <p class="menu-entry-body">Heuristic + accessibility + narrative pass on a live site, delivered as annotated screenshots or a short recorded walkthrough. Good for founders/small biz before a redesign or fundraise.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/brand-gut-check-thumb.png" alt="Checkmark evaluation badge representing brand identity review" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Brand Gut-Check</p>
+          <p class="menu-entry-body">45 min reacting to a logo/identity in progress — keep/kill/fix format. Good for early-stage founders and side-project builders.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/resume-punch-up-thumb.png" alt="Document with pencil editing representing resume and case study polishing" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Resume / Case-Study Punch-Up</p>
+          <p class="menu-entry-body">Tighten one story to interview-ready. Good for job seekers.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  {# ── 2. Small Plates ── #}
+  <section class="menu-section" aria-labelledby="section-small-plates">
+    <div class="menu-section-header">
+      <h2 id="section-small-plates" class="menu-section-label">Small Plates</h2>
+      <p class="menu-section-note">Starting at a day rate of $800.</p>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/portrait-session-thumb.png" alt="Camera icon representing mini portrait and headshot photo sessions" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Portrait Session</p>
+          <p class="menu-entry-body">Mini photo shoot: headshot, brand portrait, or event coverage. Good for founders, teams, and creatives needing fresh photos.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/posters-thumb.png" alt="Geometric plotted poster art representing custom machine-aided illustration" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Custom Plotted Illustration</p>
+          <p class="menu-entry-body">One machine-aided printmaking piece, ships physical + digital file. Good for gifts, launch art, and collectors of the Whidbey studio work.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/landing-page-facelift-thumb.png" alt="Webpage wireframe wire layout representing landing page redesigns" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Landing Page Facelift</p>
+          <p class="menu-entry-body">Redesign of a single page, not the whole site. Good for anyone with one broken funnel step.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/brand-in-a-day-thumb.png" alt="Geometric identity emblem representing rapid brand-in-a-day design" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Brand-in-a-Day</p>
+          <p class="menu-entry-body">Logo, palette, type, one-pager identity kit. Good for very early side projects, events, and pop-ups.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  {# ── 3. Signature Sets ── #}
+  <section class="menu-section" aria-labelledby="section-signature-sets">
+    <div class="menu-section-header">
+      <h2 id="section-signature-sets" class="menu-section-label">Signature Sets</h2>
+      <p class="menu-section-note">Discounted day rate.</p>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/design/priority-tax-relief/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/ptr-thumb.png" alt="Priority Tax Relief brand identity mark" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Brand-in-a-Week</p>
+          <p class="menu-entry-body">Full identity + starter component kit (PTR Design Kit-style). Good for startups needing a real system fast.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/design-sprint-thumb.png" alt="Sprint timer and dial representing a 5-day rapid prototyping design sprint" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Design Sprint</p>
+          <p class="menu-entry-body">5-day problem-to-prototype for a founder or small team. Good for validating a feature or product direction.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/studio-shoot-package-thumb.png" alt="Studio lighting softbox setup representing full multi-look photography packages" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Studio Shoot Package</p>
+          <p class="menu-entry-body">Multi-look portrait/brand photography, retouched set. Good for teams and personal brand refreshes.</p>
+        </div>
+      </a>
+    </div>
+
+    <div class="menu-entry">
+      <a class="menu-entry-link" href="/contact/">
+        <img class="menu-entry-thumb" src="/img/thumbnails/posters-thumb.png" alt="Plotted geometric posters representing numbered edition print series" width="120" loading="lazy">
+        <div class="menu-entry-copy">
+          <p class="menu-entry-title">Plotted Print Series</p>
+          <p class="menu-entry-body">Small numbered edition run. Good for launches, events, and gifting at scale.</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  {# ── 4. Full Engagements ── #}
+  <section class="menu-section" aria-labelledby="section-full-engagements">
+    <div class="menu-section-header">
+      <h2 id="section-full-engagements" class="menu-section-label">Full Engagements</h2>
+    </div>
+
+    <p class="menu-full-body">Everything already on jonmccon.com — PTR, Resonance AI, Lumedic, Providence, Amazon and Google-scale work. The menu above is the on-ramp into these.</p>
+
+    <div class="menu-actions">
+      <a href="/contact/" class="menu-btn menu-btn-primary">Book a Service / Get in Touch</a>
+      <a href="/" class="menu-btn">View Full Case Studies</a>
+    </div>
+  </section>
+
+</div>
