@@ -9,6 +9,8 @@ thumbnail: /img/thumbnails/pwc-thumb.png
 draft: false
 featured: true
 semiFeatured: false
+homeFeatured: true
+featuredOrder: 5
 protected: true
 tags:
   - ux

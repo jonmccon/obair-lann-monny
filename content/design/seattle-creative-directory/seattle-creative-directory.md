@@ -9,6 +9,8 @@ thumbnail: /img/thumbnails/scd-thumb.png
 draft: false
 featured: true
 semiFeatured: false
+homeFeatured: true
+featuredOrder: 2
 tags:
   - web
   - product

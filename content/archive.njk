@@ -1,0 +1,172 @@
+---
+layout: layouts/base.njk
+title: Archive
+description: "Earlier, smaller, and sideways work from 2009 to present — branding, events, print, teaching, and self-directed projects that live outside the seven featured case studies, browsable by tag like a flat file."
+permalink: /archive/
+---
+
+{#- Visual direction: Pinterest review §7 -- filing-cabinet / index-tab
+    treatment. Monospace for the meta line, count, and filter tabs; the site's
+    existing serif/sans body type for the narrative paragraphs; one muted
+    accent (reusing the existing peach-glow palette already in
+    public/css/new-colors.css, scoped to .archive-page only -- this is NOT a
+    sitewide accent change, that's PR2's call once the homepage direction is
+    applied everywhere). Dense, unstructured grid below the intro, per the
+    copy doc's own direction note for this page. #}
+{%- css %}
+.archive-page {
+	--archive-accent: var(--color-peach-glow-600);
+	--archive-accent-on-dark: var(--color-peach-glow-400);
+	max-width: 76rem;
+	margin: 0 auto;
+}
+
+.archive-header {
+	margin-bottom: 2.5rem;
+}
+
+.archive-title {
+	margin-bottom: 0.5rem;
+}
+
+.archive-meta {
+	font-family: var(--font-family-mono);
+	font-size: 0.875rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--archive-accent);
+	white-space: pre-wrap;
+	margin: 0 0 1.5rem;
+}
+
+.archive-intro {
+	max-width: 60ch;
+	font-size: 1.05rem;
+	line-height: 1.65;
+}
+
+.archive-intro p {
+	margin: 0 0 1rem;
+}
+
+.archive-filter-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin: 2rem 0 2rem;
+	padding: 1rem 0;
+	border-top: 1px solid var(--anp-crust);
+	border-bottom: 1px solid var(--anp-crust);
+}
+
+.archive-tab {
+	font-family: var(--font-family-mono);
+	font-size: 0.75rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	background: transparent;
+	color: var(--text-color-muted);
+	border: 1px solid var(--anp-surface2);
+	border-radius: 999px;
+	padding: 0.35rem 0.85rem;
+	cursor: pointer;
+	transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.archive-tab:hover,
+.archive-tab:focus-visible {
+	color: var(--text-color);
+	border-color: var(--archive-accent);
+}
+
+.archive-tab.is-active {
+	color: var(--background-color);
+	background: var(--archive-accent);
+	border-color: var(--archive-accent);
+}
+
+.archive-grid .thumb-grid-item[hidden] {
+	display: none;
+}
+
+.archive-entry-note {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 0.35rem;
+	text-align: left;
+	padding: 1rem;
+}
+
+.archive-entry-tag {
+	font-family: var(--font-family-mono);
+	font-size: 0.7rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--archive-accent-on-dark);
+}
+
+.archive-entry-line {
+	font-size: 0.95rem;
+	line-height: 1.4;
+}
+{% endcss %}
+
+<section class="archive-page">
+	{% include "breadcrumbs.njk" %}
+
+	<header class="archive-header">
+		<h1 class="archive-title">Archive</h1>
+		<p class="archive-meta">INDEX&nbsp;&nbsp;&nbsp;Everything else &mdash; 2009 to present</p>
+		<div class="archive-intro rich-text">
+			<p>Some of this is older. Some of it is smaller, or sideways, or inside systems that already existed &mdash; operating systems, video calls, brand work, teaching, side projects I couldn't stop building.</p>
+			<p>Browse it like a flat file.</p>
+		</div>
+	</header>
+
+	{% set archiveItems = collections.projects | archiveProjects %}
+	{% set tagTabs = archiveItems | archiveTagTabs %}
+
+	<nav class="archive-filter-tabs" aria-label="Filter archive by tag">
+		<button type="button" class="archive-tab is-active" data-filter-tag="all" aria-pressed="true">ALL</button>
+		{%- for tag in tagTabs %}
+		<button type="button" class="archive-tab" data-filter-tag="{{ tag }}" aria-pressed="false">{{ tag | upper }}</button>
+		{%- endfor %}
+	</nav>
+
+	{% include "archiveThumbGrid.njk" %}
+</section>
+
+<script>
+(function () {
+	// Single-select, client-side tag filter for the Archive grid. Reads the
+	// data-tags attribute each grid item already carries (same shape the old
+	// 3D hero used). No URL params in this pass -- see Coordination A.3 of
+	// the 2026-11-11 homepage-narrative-redesign handoff for the deferred
+	// query-param work this is laying groundwork for, not implementing.
+	var tabs = document.querySelectorAll(".archive-tab");
+	var items = document.querySelectorAll(".archive-grid .thumb-grid-item");
+	if (!tabs.length || !items.length) return;
+
+	tabs.forEach(function (tab) {
+		tab.addEventListener("click", function () {
+			var selected = tab.getAttribute("data-filter-tag");
+
+			tabs.forEach(function (t) {
+				var isActive = t === tab;
+				t.classList.toggle("is-active", isActive);
+				t.setAttribute("aria-pressed", isActive ? "true" : "false");
+			});
+
+			items.forEach(function (item) {
+				if (selected === "all") {
+					item.hidden = false;
+					return;
+				}
+				var itemTags = (item.getAttribute("data-tags") || "").split(",");
+				item.hidden = itemTags.indexOf(selected) === -1;
+			});
+		});
+	});
+})();
+</script>

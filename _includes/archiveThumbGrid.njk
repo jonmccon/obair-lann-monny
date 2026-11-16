@@ -1,0 +1,43 @@
+{# Archive grid for /archive/ -- same 4-col dense thumbnail layout and markup
+   pattern as projectsThumbGrid.njk, but as its own include rather than an
+   edit to that file: projectsThumbGrid.njk is still rendered unmodified on
+   the live homepage (home.njk, over ALL collections.projects) in this PR,
+   and editing it here would change homepage output, which PR1 must not do.
+
+   Adds, per Coordination A.3 of the 2026-11-11 homepage-narrative-redesign
+   handoff (data attributes for a later, deferred query-param filtering
+   handoff -- not wired to anything yet):
+     - data-tags: same lowercased filterTagList-joined shape the old 3D hero used
+     - data-project-slug: post.fileSlug, additive only
+
+   Usage: {% set archiveItems = collections.projects | archiveProjects %}
+          {% include "archiveThumbGrid.njk" %}
+#}
+<div class="thumb-grid archive-grid">
+  {% for post in archiveItems %}
+    {% set tagString = (post.data.tags | filterTagList | join(',')) | lower %}
+    {% set isAiw = post.url == "/design/ai-assisted-workflows/" %}
+    {% set thumbnail = post.data.thumbnail %}
+    {% if not thumbnail %}
+      {% set thumbnail = "" %}
+      {% for image in collections.images %}
+        {% if image.url == post.url and thumbnail == "" %}
+          {% set thumbnail = image.src %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% if thumbnail %}
+      <a href="{{ post.url }}" class="thumb-grid-item" data-tags="{{ tagString }}" data-project-slug="{{ post.fileSlug }}">
+        <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async"{% if post.data.thumbnail %} width="300" height="300"{% endif %}>
+        {% if isAiw %}
+        <span class="thumb-grid-title archive-entry-note">
+          <span class="archive-entry-tag">AI-ASSISTED WORKFLOWS / JOB INTELLIGENCE&nbsp;&nbsp;&nbsp;2025&ndash;present</span>
+          <span class="archive-entry-line">A multi-agent system I built to run my own research-to-decision pipeline &mdash; in daily use.</span>
+        </span>
+        {% else %}
+        <span class="thumb-grid-title">{{ post.data.pageHeadline or post.data.title }}</span>
+        {% endif %}
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
