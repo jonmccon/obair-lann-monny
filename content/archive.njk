@@ -19,10 +19,23 @@ permalink: /archive/
 	--archive-accent-on-dark: var(--color-peach-glow-400);
 	max-width: 76rem;
 	margin: 0 auto;
+	padding: 1.5rem 1rem;
+}
+
+@media (min-width: 48rem) {
+	.archive-page {
+		padding: 2.5rem 1.5rem;
+	}
 }
 
 .archive-header {
-	margin-bottom: 2.5rem;
+	margin-bottom: 2rem;
+}
+
+@media (min-width: 48rem) {
+	.archive-header {
+		margin-bottom: 2.5rem;
+	}
 }
 
 .archive-title {
@@ -53,16 +66,14 @@ permalink: /archive/
 	display: flex;
 	flex-wrap: wrap;
 	gap: 0.5rem;
-	margin: 2rem 0 2rem;
-	padding: 1rem 0;
-	border-top: 1px solid var(--anp-crust);
-	border-bottom: 1px solid var(--anp-crust);
+	margin: 2rem 0;
+	padding: 0;
 }
 
 .archive-tab {
 	font-family: var(--font-family-mono);
-	font-size: 0.75rem;
-	letter-spacing: 0.06em;
+	font-size: 0.68rem;
+	letter-spacing: 0.04em;
 	text-transform: uppercase;
 	background: transparent;
 	color: var(--text-color-muted);
@@ -113,8 +124,6 @@ permalink: /archive/
 {% endcss %}
 
 <section class="archive-page">
-	{% include "breadcrumbs.njk" %}
-
 	<header class="archive-header">
 		<h1 class="archive-title">Archive</h1>
 		<p class="archive-meta">INDEX&nbsp;&nbsp;&nbsp;Everything else &mdash; 2009 to present</p>
@@ -130,7 +139,7 @@ permalink: /archive/
 	<nav class="archive-filter-tabs" aria-label="Filter archive by tag">
 		<button type="button" class="archive-tab is-active" data-filter-tag="all" aria-pressed="true">ALL</button>
 		{%- for tag in tagTabs %}
-		<button type="button" class="archive-tab" data-filter-tag="{{ tag }}" aria-pressed="false">{{ tag | upper }}</button>
+		<button type="button" class="archive-tab" data-filter-tag="{{ tag }}" aria-pressed="false">{{ tag }}</button>
 		{%- endfor %}
 	</nav>
 
