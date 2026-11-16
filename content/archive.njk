@@ -6,7 +6,7 @@ permalink: /archive/
 ---
 
 {#- Visual direction: Pinterest review §7 -- filing-cabinet / index-tab
-    treatment. Monospace for the meta line, count, and filter tabs; the site's
+    treatment. Monospace for the filter tabs; the site's
     existing serif/sans body type for the narrative paragraphs; one muted
     accent (reusing the existing peach-glow palette already in
     public/css/new-colors.css, scoped to .archive-page only -- this is NOT a
@@ -14,22 +14,22 @@ permalink: /archive/
     applied everywhere). Dense, unstructured grid below the intro, per the
     copy doc's own direction note for this page. #}
 {%- css %}
+.page-shell:has(> .archive-page) {
+	max-width: 80rem;
+	padding-inline: 0;
+}
+
 .archive-page {
 	--archive-accent: var(--color-peach-glow-700);
 	--archive-accent-on-dark: var(--color-peach-glow-400);
-	max-width: 76rem;
+	max-width: 80rem;
 	margin: 0 auto;
-	padding: 1.5rem 1rem;
-}
-
-@media (min-width: 48rem) {
-	.archive-page {
-		padding: 2.5rem 1.5rem;
-	}
 }
 
 .archive-header {
+	display: block;
 	margin-bottom: 2rem;
+	padding: 0;
 }
 
 @media (min-width: 48rem) {
@@ -40,20 +40,12 @@ permalink: /archive/
 
 .archive-title {
 	margin-bottom: 0.5rem;
+	text-align: center;
 }
 
-.archive-meta {
-	font-family: var(--font-family-mono);
-	font-size: 0.875rem;
-	letter-spacing: 0.04em;
-	text-transform: uppercase;
-	color: var(--archive-accent);
-	white-space: pre-wrap;
-	margin: 0 0 1.5rem;
-}
-
-.archive-intro {
-	max-width: 60ch;
+.archive-page .archive-intro {
+	max-width: none;
+	margin-inline: 0;
 	font-size: 1.05rem;
 	line-height: 1.65;
 }
@@ -126,7 +118,6 @@ permalink: /archive/
 <section class="archive-page">
 	<header class="archive-header">
 		<h1 class="archive-title">Archive</h1>
-		<p class="archive-meta">INDEX&nbsp;&nbsp;&nbsp;Everything else &mdash; 2009 to present</p>
 		<div class="archive-intro rich-text">
 			<p>Some of this is older. Some of it is smaller, or sideways, or inside systems that already existed &mdash; operating systems, video calls, brand work, teaching, side projects I couldn't stop building.</p>
 			<p>Browse it like a flat file.</p>
