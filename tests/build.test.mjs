@@ -126,13 +126,22 @@ describe('homepage integration', () => {
 		console.log('Warning: _site/index.html not found for integration tests');
 	}
 
-	test('headline and 3D chart present', () => {
-		assert.ok(html.includes('data-chart-headline'), 'headline overlay missing');
-		assert.ok(html.includes('data-axis-canvas'), '3D canvas (WebGL target) missing');
+	test('single hero <h1> present, old Three.js chart scaffolding gone', () => {
+		// Homepage narrative rebuild (PR2, 2026-11-17): the Three.js
+		// headline/chart was replaced by a single server-rendered <h1>.
+		// Use JSDOM, not a raw regex match -- an inline CSS comment
+		// literally contains the text "<h1>" and would be miscounted.
+		const document = new JSDOM(html).window.document;
+		const h1Elements = document.querySelectorAll('h1');
+		assert.equal(h1Elements.length, 1, `expected exactly one <h1>, found ${h1Elements.length}`);
+		assert.ok(!html.includes('data-chart-headline'), 'stale headline overlay still present');
+		assert.ok(!html.includes('data-axis-canvas'), 'stale 3D canvas (WebGL target) still present');
 	});
 
-	test('at least one project has data-chart-duration set', () => {
-		assert.ok(html.includes('data-chart-duration'), 'no duration attributes found');
+	test('all 7 featured case-study blocks are present', () => {
+		assert.ok(html.includes('data-project-slug="priority-tax-relief"'), 'priority-tax-relief block missing');
+		assert.ok(html.includes('data-project-slug="providence"'), 'providence block missing');
+		assert.ok(!html.includes('data-chart-duration'), 'stale data-chart-duration attribute still present');
 	});
 
 	test('Vercel analytics and GA4 scripts coexist on the homepage', () => {

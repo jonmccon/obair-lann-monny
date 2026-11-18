@@ -134,6 +134,14 @@ module.exports = function(eleventyConfig) {
 		return array.slice(0, n);
 	});
 
+	// Zero-pad a number to `width` digits (e.g. 1 -> "01"). Used by the
+	// homepage narrative rebuild (PR2) to compute "01 / 07" ... "07 / 07"
+	// sequence indicators from the loop index rather than hardcoding them
+	// per project.
+	eleventyConfig.addFilter("zeroPad", (value, width = 2) => {
+		return String(value).padStart(width, "0");
+	});
+
 	// Return the smallest number argument
 	eleventyConfig.addFilter("min", (...numbers) => {
 		return Math.min.apply(null, numbers);
