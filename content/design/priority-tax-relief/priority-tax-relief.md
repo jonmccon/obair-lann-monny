@@ -9,6 +9,8 @@ permalink: /design/priority-tax-relief/
 draft: false
 featured: true
 semiFeatured: false
+homeFeatured: true
+featuredOrder: 1
 thumbnail: /img/thumbnails/ptr-thumb.png
 tags:
   - branding

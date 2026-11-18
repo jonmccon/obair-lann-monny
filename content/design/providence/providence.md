@@ -8,6 +8,8 @@ permalink: /design/providence-telestroke-platform/
 draft: false
 featured: true
 semiFeatured: true
+homeFeatured: true
+featuredOrder: 7
 thumbnail: /img/thumbnails/providence-thumb.png
 tags:
   - ux

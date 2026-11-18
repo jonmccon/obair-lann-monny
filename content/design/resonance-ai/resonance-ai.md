@@ -9,6 +9,8 @@ permalink: /design/resonance-ai-ml-platform/
 draft: false
 featured: true
 semiFeatured: false
+homeFeatured: true
+featuredOrder: 4
 thumbnail: /img/thumbnails/resai-thumb.png
 tags:
   - data-visualization

@@ -157,8 +157,34 @@ module.exports = function(eleventyConfig) {
 	// 	return Array.from(categorySet);
 	// });
 
-	eleventyConfig.addFilter("filterTagList", function filterTagList(tags) {
+	function filterTagList(tags) {
 		return (tags || []).filter(tag => ["all", "nav", "post", "posts", "galleries"].indexOf(tag) === -1);
+	}
+	eleventyConfig.addFilter("filterTagList", filterTagList);
+
+	// Archive page (content/archive.njk) helpers -- additive for the
+	// homepage narrative redesign PR1. Kept separate from projectsThumbGrid.njk
+	// / the "projects" collection so the live homepage (which still renders
+	// ALL collections.projects via the unmodified projectsThumbGrid.njk) is
+	// untouched by this PR. Both reuse filterTagList above rather than
+	// re-implementing tag normalization.
+	eleventyConfig.addFilter("archiveProjects", function(allProjects) {
+		return (allProjects || []).filter(item => item.data.homeFeatured !== true).reverse();
+	});
+
+	eleventyConfig.addFilter("archiveTagTabs", function(archiveItems) {
+		const counts = {};
+		(archiveItems || []).forEach(item => {
+			const lowered = filterTagList(item.data.tags).map(tag => String(tag).toLowerCase());
+			const unique = Array.from(new Set(lowered));
+			unique.forEach(tag => {
+				counts[tag] = (counts[tag] || 0) + 1;
+			});
+		});
+		return Object.entries(counts)
+			.filter(([, count]) => count >= 2)
+			.sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+			.map(([tag]) => tag);
 	});
 
 	// eleventyConfig.addFilter("filterCategoryList", function filterCategoryList(category) {
@@ -428,6 +454,17 @@ module.exports = function(eleventyConfig) {
 
 	eleventyConfig.addCollection("semiFeaturedProjects", function(collectionApi) {
 		return collectionApi.getAll().filter(item => item.data.semiFeatured === true);
+	});
+
+	// Additive data model for the homepage narrative redesign (PR1 of 3).
+	// Does NOT replace featuredProjects/semiFeaturedProjects above -- those
+	// still drive the live homepage until PR2 switches it over. Sorted
+	// ascending by featuredOrder (1-7) so the narrative sequence is explicit
+	// rather than relying on date sort.
+	eleventyConfig.addCollection("homeFeaturedProjects", function(collectionApi) {
+		return collectionApi.getAll()
+			.filter(item => item.data.homeFeatured === true)
+			.sort((a, b) => a.data.featuredOrder - b.data.featuredOrder);
 	});
 
 	eleventyConfig.addCollection("process", function(collectionApi) {

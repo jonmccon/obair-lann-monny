@@ -8,6 +8,8 @@ permalink: /design/android-gemini-interaction/
 draft: false
 featured: true
 semiFeatured: true
+homeFeatured: true
+featuredOrder: 3
 protected: true
 thumbnail: /img/thumbnails/android-gemini-thumb.png
 tags:
