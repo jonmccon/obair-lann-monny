@@ -293,7 +293,7 @@ Experiment → Pattern → Component → System
 
 With Figma MCP running locally, I can pull any changes to the theme variables and update the tokens used to generate the Daisy UI theme. The goal: bidirectional sync. Design tokens in Figma (colors, spacing, fonts) exactly match the actual project. Components named the same. Build out a new button or form series in Figma, go directly into prototyping with real components instead of static HTML pages.
 
-I can be on a call with stakeholders: real-time changes in Figma become a pull request instead of email back-and-forth. Avoiding rounds of 'I meant this, I meant that.' The goal here is speeding up the feedback loop between product, design, and engineering. [See the full hosted brand-kit package](https://jonmccon.github.io/ptr-design-kit/)
+I can be on a call with stakeholders: real-time changes in Figma become a pull request instead of email back-and-forth. Avoiding rounds of 'I meant this, I meant that.' The goal here is speeding up the feedback loop between product, design, and engineering. [See the full hosted brand-kit package](https://jonmccon.github.io/ptr-design-kit-archive/)
 
 ## Hermes as Orchestration Layer
 
