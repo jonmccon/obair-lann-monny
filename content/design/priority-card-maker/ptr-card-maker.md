@@ -32,7 +32,7 @@ A browser-based business card generator built for Priority Tax Relief. Staff fil
 - **Role:** Designer & Developer (solo)
 - **Project:** Priority Tax Relief (internal tool)
 - **Platform:** GitHub Pages
-- **Status:** 🟢 Live, [available to demo](https://jonmccon.github.io/ptr-business-card-maker/)
+- **Status:** 🟢 Live, [available to demo](https://jonmccon.github.io/ptr-business-card-maker-archive/)
 
 ## The Problem
 
