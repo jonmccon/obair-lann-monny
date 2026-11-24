@@ -16,7 +16,6 @@
 <div class="thumb-grid archive-grid">
   {% for post in archiveItems %}
     {% set tagString = (post.data.tags | filterTagList | join(',')) | lower %}
-    {% set isAiw = post.url == "/design/ai-assisted-workflows/" %}
     {% set thumbnail = post.data.thumbnail %}
     {% if not thumbnail %}
       {% set thumbnail = "" %}
@@ -29,14 +28,7 @@
     {% if thumbnail %}
       <a href="{{ post.url }}" class="thumb-grid-item" data-tags="{{ tagString }}" data-project-slug="{{ post.fileSlug }}">
         <img src="{{ thumbnail }}" alt="{{ post.data.title }}" loading="lazy" decoding="async"{% if post.data.thumbnail %} width="300" height="300"{% endif %}>
-        {% if isAiw %}
-        <span class="thumb-grid-title archive-entry-note">
-          <span class="archive-entry-tag">AI-ASSISTED WORKFLOWS / JOB INTELLIGENCE&nbsp;&nbsp;&nbsp;2025&ndash;present</span>
-          <span class="archive-entry-line">A multi-agent system I built to run my own research-to-decision pipeline &mdash; in daily use.</span>
-        </span>
-        {% else %}
         <span class="thumb-grid-title">{{ post.data.pageHeadline or post.data.title }}</span>
-        {% endif %}
       </a>
     {% endif %}
   {% endfor %}
