@@ -81,14 +81,6 @@ layout: layouts/base.njk
 	border-top: 3px solid var(--home-accent-edge);
 }
 
-.home-case-study-seq {
-	font-family: var(--font-family-mono);
-	font-size: 0.8rem;
-	letter-spacing: 0.08em;
-	color: var(--home-accent-void);
-	margin-bottom: 0.75rem;
-}
-
 .home-case-study-title {
 	color: var(--home-void-text);
 	margin: 0 0 0.5rem;
@@ -137,61 +129,29 @@ layout: layouts/base.njk
 	margin: 0 0 1.75rem;
 }
 
-.home-case-study-media {
-	display: grid;
-	grid-template-columns: 1.4fr 1fr;
-	gap: 1.25rem;
+.home-case-study-banner {
+	display: block;
 	margin: 0 0 1.5rem;
+	border-radius: 0.375rem;
+	overflow: hidden;
+	line-height: 0;
 }
 
-@media (max-width: 42rem) {
-	.home-case-study-media {
-		grid-template-columns: 1fr;
-	}
+.home-case-study-banner:focus-visible {
+	outline: 3px solid var(--home-accent-void);
+	outline-offset: 3px;
 }
 
-.home-case-study-artifact {
-	margin: 0;
-}
-
-.home-case-study-artifact-img {
+.home-case-study-banner-img {
 	display: block;
 	width: 100%;
 	height: auto;
-	border-radius: 0.375rem;
+	aspect-ratio: 16 / 7;
+	transition: transform 0.3s ease;
 }
 
-.home-case-study-artifact figcaption {
-	margin-top: 0.4rem;
-	font-size: 0.72rem;
-	font-family: var(--font-family-mono);
-	color: var(--home-accent-void);
-}
-
-.home-case-study-artifact-placeholder {
-	aspect-ratio: 4 / 3;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	padding: 1rem;
-	font-family: var(--font-family-mono);
-	font-size: 0.75rem;
-	color: var(--home-void-text);
-	border: 1px dashed color-mix(in srgb, var(--home-void-text) 35%, transparent);
-	border-radius: 0.375rem;
-}
-
-.home-case-study-link {
-	display: inline-block;
-	font-weight: var(--font-weight-semibold);
-	color: var(--home-void-text);
-	text-underline-offset: 0.2em;
-}
-
-.home-case-study-link:hover,
-.home-case-study-link:focus-visible {
-	color: var(--home-accent-void);
+.home-case-study-banner:hover .home-case-study-banner-img {
+	transform: scale(1.015);
 }
 
 .home-transition {
@@ -214,9 +174,12 @@ layout: layouts/base.njk
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.home-case-study-link,
+	.home-case-study-banner-img,
 	.home-transition-link {
 		transition: none;
+	}
+	.home-case-study-banner:hover .home-case-study-banner-img {
+		transform: none;
 	}
 }
 {% endcss %}
@@ -252,7 +215,6 @@ layout: layouts/base.njk
 <section class="home-supporting-content" aria-label="Homepage supporting content">
 
   <section class="home-case-studies" aria-label="Featured case studies">
-    {%- set totalBlocks = collections.homeFeaturedProjects.length %}
     {%- for post in collections.homeFeaturedProjects %}
     {%- set block = homeBlocks[post.fileSlug] %}
     <article class="home-case-study"
@@ -260,7 +222,9 @@ layout: layouts/base.njk
       data-project-tags="{{ (post.data.tags | filterTagList | join(',')) | lower }}"
       aria-labelledby="case-study-{{ post.fileSlug }}-title">
 
-      <div class="home-case-study-seq" aria-hidden="true">{{ loop.index | zeroPad }} / {{ totalBlocks | zeroPad }}</div>
+      <a class="home-case-study-banner" href="{{ post.url }}" aria-label="View the {{ block.title }} case study">
+        <img class="home-case-study-banner-img" src="/img/home/{{ post.fileSlug }}.webp" alt="{{ block.bannerAlt }}" width="1600" height="700" loading="lazy" decoding="async">
+      </a>
 
       <h2 class="home-case-study-title" id="case-study-{{ post.fileSlug }}-title">{{ block.title }}</h2>
       <p class="home-case-study-hero-sentence">{{ block.heroSentence }}</p>
@@ -276,23 +240,6 @@ layout: layouts/base.njk
 
       <p class="home-case-study-body">{{ block.body }}</p>
 
-      <div class="home-case-study-media">
-        <figure class="home-case-study-artifact home-case-study-artifact-hero">
-          {% homepageImage block.heroArtifact.src, block.heroArtifact.alt, block.heroArtifact.width, "home-case-study-artifact-img" %}
-          <figcaption>{{ block.heroArtifact.alt }}</figcaption>
-        </figure>
-        <figure class="home-case-study-artifact home-case-study-artifact-process">
-          {% if block.processArtifact %}
-          {% homepageImage block.processArtifact.src, block.processArtifact.alt, block.processArtifact.width, "home-case-study-artifact-img" %}
-          <figcaption>{{ block.processArtifact.alt }}</figcaption>
-          {% else %}
-          <div class="home-case-study-artifact-placeholder" role="img" aria-label="Process artifact not yet selected for this project">Process artifact pending &mdash; see PR notes</div>
-          <figcaption>Placeholder &mdash; no suitable existing process image found in content/design/{{ post.fileSlug }}/</figcaption>
-          {% endif %}
-        </figure>
-      </div>
-
-      <a class="home-case-study-link" href="{{ post.url }}">View case study &rarr;</a>
     </article>
     {%- endfor %}
   </section>

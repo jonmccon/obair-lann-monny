@@ -10,7 +10,7 @@ draft: false
 featured: true
 semiFeatured: false
 homeFeatured: true
-featuredOrder: 4
+featuredOrder: 5
 thumbnail: /img/thumbnails/resai-thumb.png
 tags:
   - data-visualization

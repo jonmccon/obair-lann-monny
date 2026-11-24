@@ -10,7 +10,7 @@ draft: false
 featured: true
 semiFeatured: false
 homeFeatured: true
-featuredOrder: 5
+featuredOrder: 6
 protected: true
 tags:
   - ux

@@ -10,7 +10,7 @@ draft: false
 featured: true
 semiFeatured: false
 homeFeatured: true
-featuredOrder: 6
+featuredOrder: 7
 thumbnail: /img/thumbnails/lumedic-thumb.png
 tags:
   - ux

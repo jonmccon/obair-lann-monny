@@ -9,7 +9,7 @@ draft: false
 featured: true
 semiFeatured: true
 homeFeatured: true
-featuredOrder: 7
+featuredOrder: 3
 thumbnail: /img/thumbnails/providence-thumb.png
 tags:
   - ux

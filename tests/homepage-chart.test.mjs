@@ -38,10 +38,17 @@ describe('homepage narrative blocks', () => {
     assert.ok(/data-project-tags="[^"]*"/.test(html), 'no data-project-tags attribute found');
   });
 
-  it('renders sequence indicators 01 / 07 through 07 / 07', () => {
-    for (let i = 1; i <= 7; i++) {
-      const seq = `${String(i).padStart(2, '0')} / 07`;
-      assert.ok(html.includes(seq), `sequence indicator "${seq}" not found`);
+  it('renders one linked banner per case study and no sequence eyebrow or figcaptions', () => {
+    const slugs = ['priority-tax-relief','seattle-creative-directory','providence','android-gemini','resonance-ai','pwc','lumedic'];
+    let last = -1;
+    for (const slug of slugs) {
+      const i = html.indexOf(`/img/home/${slug}.webp`);
+      assert.ok(i > last, `banner for ${slug} missing or out of order`);
+      last = i;
     }
+    assert.equal((html.match(/class="home-case-study-banner"/g) || []).length, 7);
+    assert.ok(!/\d\d \/ 07/.test(html), 'sequence eyebrow still present');
+    assert.ok(!html.includes('home-case-study-artifact'), 'artifact figures still present');
+    assert.ok(!html.includes('View case study &rarr;'), 'extra text link still present');
   });
 });
