@@ -338,6 +338,14 @@ eleventyNavigation:
 
 /* ─── Print styles ───────────────────────────────────── */
 @media print {
+  html.theme-resume {
+    --text-color: var(--color-black-950);
+    --text-color-muted: var(--color-steel-blue-800);
+    --text-color-subtle: var(--color-steel-blue-800);
+    --text-color-link: var(--color-steel-blue-900);
+    --surface-color: #f0ede8;
+  }
+
   @page {
     size: letter;
     margin: 0.5in;

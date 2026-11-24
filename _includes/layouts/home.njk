@@ -11,13 +11,8 @@ layout: layouts/base.njk
    split:
      --home-accent-void  (peach-glow-400, 7.6:1 on black-900) for TEXT
        inside the dark "dossier card" artifact panels (void background).
-     --home-accent-edge  (peach-glow-800, 4.3:1 contrast, >=3:1 non-text
-       UI-component threshold) for borders/rules on the page's own
-       green (jungle-500) field -- the home theme's field color is a
-       saturated green, not a light neutral, so peach-glow TEXT directly
-       on it fails normal-text AA; non-text accents (borders) only need
-       3:1 (WCAG 1.4.11) and pass comfortably. All body text on the green
-       field uses the existing --text-color (black-900, 7.0:1, unchanged).
+     --home-accent-edge  (peach-glow-800) for borders/rules on the
+       light peach page field. Body text uses the existing --text-color.
    Monospace: existing --font-family-mono (Space Mono, already
    self-hosted + preloaded in base.njk). Narrative body: existing
    --font-family (Outfit) -- the site already uses one sans family for

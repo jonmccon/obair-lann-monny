@@ -23,8 +23,8 @@ eleventyNavigation:
 }
 
 .archive-page {
-	--archive-accent: var(--color-peach-glow-700);
-	--archive-accent-on-dark: var(--color-peach-glow-400);
+	--archive-accent: var(--color-peach-glow-300);
+	--archive-accent-on-dark: var(--color-peach-glow-200);
 	max-width: 80rem;
 	margin: 0 auto;
 }
@@ -93,6 +93,10 @@ eleventyNavigation:
 
 .archive-grid .thumb-grid-item[hidden] {
 	display: none;
+}
+
+.archive-grid .thumb-grid-item::after {
+	background: rgba(28, 23, 23, 0.9);
 }
 
 .archive-entry-note {
