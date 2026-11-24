@@ -219,3 +219,31 @@ describe('archive integration', () => {
 		assert.ok(items.every(item => !item.hidden));
 	});
 });
+
+describe('site navigation and photography output', () => {
+	test('shows the requested menu in order on each main page', () => {
+		for (const [file, current] of [
+			['index.html', '/'],
+			['resume/index.html', '/resume/'],
+			['contact/index.html', '/contact/'],
+			['archive/index.html', '/archive/'],
+		]) {
+			const html = fs.readFileSync(path.join(ROOT, '_site', file), 'utf8');
+			const document = new JSDOM(html).window.document;
+			const links = [...document.querySelectorAll('header .site-nav a')];
+			assert.deepEqual(links.map(link => link.textContent.trim()),
+				['Jonny McConnell', 'Podcast', 'Resume', 'Contact', 'Archive']);
+			assert.deepEqual(links.map(link => link.getAttribute('href')),
+				['/', 'https://seattlecreative.simplecast.com/', '/resume/', '/contact/', '/archive/']);
+			assert.equal(links.filter(link => link.getAttribute('aria-current') === 'page').length, 1);
+			assert.equal(links.find(link => link.getAttribute('aria-current') === 'page').getAttribute('href'), current);
+		}
+	});
+
+	test('does not generate photography pages or list them in the sitemap', () => {
+		const sitemap = fs.readFileSync(path.join(ROOT, '_site', 'sitemap.xml'), 'utf8');
+		assert.ok(!fs.existsSync(path.join(ROOT, '_site', 'galleries')),
+			'gallery output should be absent after a clean build');
+		assert.doesNotMatch(sitemap, /<loc>https?:\/\/[^/]+\/galleries(?:\/|<)/);
+	});
+});

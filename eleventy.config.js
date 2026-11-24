@@ -550,6 +550,11 @@ module.exports = function(eleventyConfig) {
 		return (new Date()).toISOString();
 	})
 
+	// Temporarily disable photography pages; comment out these ignores to restore them.
+	eleventyConfig.ignores.add("content/galleries.njk");
+	eleventyConfig.ignores.add("content/galleries/**");
+	eleventyConfig.ignores.add("content/gallery-photo.njk");
+
 	// Skip galleries in dev mode if requested
 	if (process.env.SKIP_GALLERIES) {
 		eleventyConfig.ignores.add("content/galleries/**");
