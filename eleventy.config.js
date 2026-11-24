@@ -170,14 +170,9 @@ module.exports = function(eleventyConfig) {
 	}
 	eleventyConfig.addFilter("filterTagList", filterTagList);
 
-	// Archive page (content/archive.njk) helpers -- additive for the
-	// homepage narrative redesign PR1. Kept separate from projectsThumbGrid.njk
-	// / the "projects" collection so the live homepage (which still renders
-	// ALL collections.projects via the unmodified projectsThumbGrid.njk) is
-	// untouched by this PR. Both reuse filterTagList above rather than
-	// re-implementing tag normalization.
+	// Archive page (content/archive.njk) helpers.
 	eleventyConfig.addFilter("archiveProjects", function(allProjects) {
-		return (allProjects || []).filter(item => item.data.homeFeatured !== true).reverse();
+		return (allProjects || []).slice().reverse();
 	});
 
 	eleventyConfig.addFilter("archiveTagTabs", function(archiveItems) {

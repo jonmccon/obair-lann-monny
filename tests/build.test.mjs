@@ -177,3 +177,45 @@ describe('homepage integration', () => {
 		);
 	});
 });
+
+describe('archive integration', () => {
+	const homeHtml = fs.readFileSync(path.join(ROOT, '_site', 'index.html'), 'utf8');
+	const archiveHtml = fs.readFileSync(path.join(ROOT, '_site', 'archive', 'index.html'), 'utf8');
+
+	test('includes every homepage case study alongside other projects', () => {
+		const home = new JSDOM(homeHtml).window.document;
+		const archive = new JSDOM(archiveHtml).window.document;
+		const featured = [...home.querySelectorAll('.home-case-study')];
+		const items = [...archive.querySelectorAll('.archive-grid .thumb-grid-item')];
+
+		assert.equal(featured.length, 7);
+		for (const project of featured) {
+			const slug = project.dataset.projectSlug;
+			const matches = items.filter(item => item.dataset.projectSlug === slug);
+			assert.equal(matches.length, 1, `${slug} should appear exactly once in the archive`);
+			assert.equal(matches[0].getAttribute('href'), project.querySelector('.home-case-study-banner').getAttribute('href'));
+		}
+		assert.ok(items.some(item => !featured.some(project => project.dataset.projectSlug === item.dataset.projectSlug)),
+			'non-featured projects should remain in the archive');
+	});
+
+	test('tag filters and the ALL tab work with the expanded archive', () => {
+		const dom = new JSDOM(archiveHtml, { runScripts: 'outside-only' });
+		const document = dom.window.document;
+		const script = [...document.querySelectorAll('script')].find(element =>
+			element.textContent.includes('document.querySelectorAll(".archive-tab")'));
+		assert.ok(script, 'archive filter script missing');
+		dom.window.eval(script.textContent);
+
+		const items = [...document.querySelectorAll('.archive-grid .thumb-grid-item')];
+		const tab = document.querySelector('.archive-tab:not([data-filter-tag="all"])');
+		assert.ok(tab, 'archive tag tab missing');
+		tab.click();
+		for (const item of items) {
+			assert.equal(item.hidden, !item.dataset.tags.split(',').includes(tab.dataset.filterTag));
+		}
+		assert.equal(tab.getAttribute('aria-pressed'), 'true');
+		document.querySelector('.archive-tab[data-filter-tag="all"]').click();
+		assert.ok(items.every(item => !item.hidden));
+	});
+});
