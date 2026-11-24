@@ -2,16 +2,16 @@
   "_comment": "Homepage narrative rebuild (PR2). Copy locked verbatim from the vault doc: 20-projects/BOOK/Feedback/Homepage-Copy-Draft-2026-10-30.md — 'Final featured set (2026-11-11) — 7 projects' order, and the 'Revision 2026-11-11' Gemini/Lumedic blocks. Keyed by post.fileSlug. Artifact src paths point at EXISTING images already committed under content/design/<slug>/ — none fabricated. A null processArtifact (pwc) means no suitable existing image was found for that slot; home.njk renders a labeled placeholder and it is listed as a gap in the PR description.",
   "priority-tax-relief": {
     "title": "Priority Tax Relief",
-    "heroSentence": "First design hire at a 200-person, $7M MRR tax relief firm. Rebuilt the brand, established product and design strategy, released foundation design system for print and screens, solo.",
+    "heroSentence": "First design hire. 14× more conversion opportunities, and a design kit engineering runs without me.",
     "dossier": {
-      "role": "Brand & Product Designer — first dedicated design hire",
+      "role": "Brand & Product Designer, first design hire",
       "company": "Priority Tax Relief",
       "timeline": "2025–2026",
-      "team": "Solo — embedded with engineering, marketing, and senior leadership",
-      "stakes": "$7M MRR national tax relief firm, no prior design function",
-      "status": "Shipped — live brand system, component library, replatformed site"
+      "team": "Solo, embedded with engineering, marketing, and leadership",
+      "stakes": "$7M MRR national firm, 200 people, no prior design function",
+      "status": "Live: brand system, component library, replatformed site"
     },
-    "body": "There was no design system, no component library, and no evidence-based process — decisions were made on opinion. I analyzed the full paying-customer database in Jupyter and ran cross-department stakeholder interviews to ground brand and product decisions in real data. Then built the infrastructure the company had never had: a brand system, a component library engineering could use without a designer in the room, and a redesigned customer funnel that increased conversion opportunities 14×. I also led the marketing site's replatform from WordPress to Django/Wagtail — Lighthouse performance went from 68 to 91–100, accessibility from 64 open issues to AA WCAG compliant.",
+    "body": "There was no design system, and decisions ran on opinion. I analyzed the full paying-customer database and interviewed stakeholders across departments, then built the brand system and component library engineering now uses without a designer in the room. I also led the WordPress to Django/Wagtail replatform: Lighthouse performance 68 → 91–100, accessibility from 64 issues to AA WCAG.",
     "heroArtifact": {
       "src": "./content/design/priority-tax-relief/PTR-132-brand-guide-v1-all-pages.png",
       "alt": "Priority Tax Relief brand guideline pages — logo lockups, color system, usage rules",
@@ -25,16 +25,16 @@
   },
   "seattle-creative-directory": {
     "title": "Seattle Creative Directory",
-    "heroSentence": "A self-initiated, full-stack platform mapping the Pacific Northwest creative tech ecosystem — still running, six years in, because nobody asked me to build it.",
+    "heroSentence": "Nobody asked me to build this. Six years later, it's still running.",
     "dossier": {
       "role": "Founder & Builder",
       "company": "Seattle Creative Directory — Independent Product",
       "timeline": "2020–Present",
-      "team": "Solo — product, design, engineering, and research",
-      "stakes": "Self-funded, self-directed; no external mandate",
+      "team": "Solo: product, design, engineering, research",
+      "stakes": "Self-funded, self-directed",
       "status": "Live and ongoing"
     },
-    "body": "No platform existed connecting Seattle's creative and technology community, so I built one — designed, developed, and still manage a full-stack directory using Next.js, PostgreSQL, Prisma, and Vercel, with an information architecture supporting hundreds of creative businesses across location, discipline, and organization type. I run ongoing qualitative research into the community through interviews and podcast production (50K+ plays), and own the product vision, technical architecture, and long-term platform direction myself.",
+    "body": "No platform connected Seattle's creative and technology community, so I designed and built one: Next.js, PostgreSQL, Prisma, Vercel, with an information architecture covering hundreds of businesses by location, discipline, and organization type. Ongoing community interviews and a podcast (50K+ plays) feed the product direction.",
     "heroArtifact": {
       "src": "./content/design/seattle-creative-directory/scd-01.png",
       "alt": "Seattle Creative Directory homepage — podcast guest quote grid",
@@ -48,7 +48,7 @@
   },
   "android-gemini": {
     "title": "Android Gemini Studies",
-    "heroSentence": "Before Android had a native model for AI, I spent six weeks working out what it should feel like in your hand — gesture first, not a chat box.",
+    "heroSentence": "Gesture first, not a chat box: seven interaction-pattern families for Gemini on Android.",
     "dossier": {
       "role": "Interaction Designer / UX Concept Lead (freelance)",
       "company": "BUCK, for Google",
@@ -57,7 +57,7 @@
       "stakes": "Early Gemini: capability with no native UX paradigm on Android",
       "status": "Internal concept exploration for Google's Gemini team"
     },
-    "body": "In late 2023 Google had early Gemini capabilities but no interface model for a phone — AI meant a chat box, which is wrong for a device that is physical, gestural, and contextual. I took a loose body of early thinking and pressure-tested it into seven interaction-pattern families across four scenario clusters: drive-to-output flows, camera-as-AI-interface, contextual web actions, and AI personality tuning. The through-line was Dots & Handles — AI shouldn't just generate output, it should give you something to grab onto afterward.",
+    "body": "In late 2023 Gemini had capability but no interface model on a phone, and a chat box is wrong for a device that is physical and contextual. I pressure-tested early thinking into seven pattern families across four scenarios: drive-to-output, camera as AI interface, contextual web actions, and AI personality tuning. The through-line was Dots & Handles: AI shouldn't just generate output, it should give you something to grab onto afterward.",
     "heroArtifact": {
       "src": "./content/design/android-gemini/GEMINI-05-05-whats-that-a.png",
       "alt": "Whats That style-spectrum slider concept frame",
@@ -71,16 +71,16 @@
   },
   "resonance-ai": {
     "title": "Resonance AI",
-    "heroSentence": "The sole product designer building trust into an AI product — where people had to act on machine-generated insight they couldn't independently verify.",
+    "heroSentence": "Cut analyst reporting time 95% on an AI product whose output users couldn't verify.",
     "dossier": {
       "role": "Product Designer — sole designer",
       "company": "Resonance AI",
       "timeline": "2021",
-      "team": "Solo design, cross-functional with engineering/data science",
-      "stakes": "Users acting on machine-generated insights with no way to verify them",
-      "status": "Shipped to all active clients — drove an acquihire outcome"
+      "team": "Solo designer, working with engineering and data science",
+      "stakes": "Users acting on insights they couldn't independently verify",
+      "status": "Shipped to all active clients; drove an acquihire"
     },
-    "body": "No design system or visual language existed for the product's AI output, so I built one from scratch: type, iconography, chart language, and color system to support a growing product, plus the workflows that helped people interpret, validate, and act on machine-generated insight rather than just stare at it skeptically. Automated report compilation reduced analyst task time by 95% and moved reporting cadence from weekly to daily. The product's value drove an acquihire outcome for the company.",
+    "body": "Users had to act on machine-generated insight with no way to check it. As sole designer I built the visual language from scratch (type, iconography, chart language, color) and the workflows to interpret, validate, and act on that output. Reporting moved from weekly to daily, and the product's value drove an acquihire.",
     "heroArtifact": {
       "src": "./content/design/resonance-ai/RAI-03-platform-dashboard-amhq.png",
       "alt": "Resonance AI platform dashboard",
@@ -94,16 +94,16 @@
   },
   "pwc": {
     "title": "PwC Concourse",
-    "heroSentence": "Built the mobile foundation an enterprise platform never had — adopted as the baseline across PwC's internal product ecosystem.",
+    "heroSentence": "My touch components became the mobile baseline across PwC's internal products.",
     "dossier": {
       "role": "Senior UX Designer",
       "company": "PwC — Concourse Innovation Group",
       "timeline": "2021–2023",
       "team": "Sole designer on the responsive build, within a 12-person design team",
       "stakes": "Enterprise collaboration platform, US and British offices",
-      "status": "Shipped — adopted as mobile baseline platform-wide"
+      "status": "Shipped: adopted as the mobile baseline platform-wide"
     },
-    "body": "No mobile strategy existed for this enterprise collaboration platform — it was desktop-only. I researched how distributed teams across US and British offices actually managed complex projects and communication, then translated that organizational complexity into interaction models, reusable patterns, and a responsive mobile adaptation. The touch-adapted components I built were adopted as the baseline for all mobile work across PwC's internal product ecosystem — not just this product.",
+    "body": "The enterprise collaboration platform was desktop-only. I researched how distributed teams in US and British offices manage projects and communication, then turned that into interaction models, reusable patterns, and a responsive adaptation from mobile through 1900px desktop. The components were adopted well beyond this one product.",
     "heroArtifact": {
       "src": "./content/design/pwc/PWC-18-responsive-dashboard-1440px.png",
       "alt": "PwC Concourse responsive dashboard, anonymized per existing NDA guidance",
@@ -113,16 +113,16 @@
   },
   "lumedic": {
     "title": "Lumedic",
-    "heroSentence": "In spring 2020, tens of thousands of hospital employees needed to prove their COVID status to get into work, and no trustworthy patient-controlled system existed. I designed it.",
+    "heroSentence": "Spring 2020: tens of thousands of hospital employees had to prove COVID status to get to work. I designed the wallet they used.",
     "dossier": {
       "role": "Product Designer — primary designer on the patient wallet",
       "company": "Lumedic, a Providence St. Joseph Health portfolio company",
       "timeline": "2019–2021",
       "team": "Primary designer on this platform within a 5-person design team",
       "stakes": "Trust handshake between patients, hospital verifiers, and issuers",
-      "status": "Shipped on iOS, Android, and web — used across the Providence network"
+      "status": "Shipped on iOS, Android, and web across the Providence network"
     },
-    "body": "Medical records live behind institutional firewalls; patients aren't parties to their own records. Lumedic inverted that: the patient holds their own verified credentials and shares them selectively. I owned the design across three releases — a UX audit of an Evernym boilerplate wallet, a multimodal architecture (phone-to-phone, phone-to-kiosk), and a Carbon Design System adaptation for native mobile — plus the issuer dashboard clinics used to bulk-upload vaccine records. Research with hospital employees showed people didn't need to understand the credential system, only the outcome. We dropped \"blockchain\" and most explanatory copy, and trust went up.",
+    "body": "Patients weren't parties to their own medical records. Lumedic inverted that: the patient holds verified credentials and shares them selectively. I designed three releases across web, iOS, and Android, plus the issuer dashboard clinics used for bulk uploads. Research showed people needed the outcome, not the credential system, so we dropped \"blockchain\" and most explanatory copy, and trust went up.",
     "heroArtifact": {
       "src": "./content/design/lumedic/lum-130.png",
       "alt": "Lumedic verification kiosk — verified COVID-19 status state",
@@ -136,16 +136,16 @@
   },
   "providence": {
     "title": "Providence Telestroke & Express Care",
-    "heroSentence": "Designed real-time clinical workflows where a slow or wrong interface had patient-safety consequences — not a hypothetical stakes claim, a literal one.",
+    "heroSentence": "Real-time stroke-response workflows, where a slow or wrong interface affects patient outcomes.",
     "dossier": {
       "role": "UX Designer",
       "company": "Providence Health & Services",
       "timeline": "2016–2018",
       "team": "Design + engineering, Digital Innovation Group",
       "stakes": "Real-time clinical workflow — patient outcomes during stroke response",
-      "status": "Shipped — design system adopted by subsequent teams"
+      "status": "Shipped: design system adopted by subsequent teams"
     },
-    "body": "No clinician-tested information architecture existed for this telestroke workflow — field research with clinicians revealed the assumptions baked into the existing design were wrong, and inverted the information hierarchy entirely. I integrated the Epic API to bring live patient records into the workflow, adapted Material Design for a healthcare context with warmer, empathy-driven decisions, and worked directly in Storybook with engineering to eliminate handoff gaps. The resulting design system was adopted by subsequent teams in the Digital Innovation Group — it outlasted my time on the project.",
+    "body": "Field research with clinicians showed the assumptions behind the existing design were wrong, and inverted the information hierarchy. I integrated the Epic API for live patient records, adapted Material Design for healthcare, and worked in Storybook with engineering to close handoff gaps. The design system outlasted my time on the project and was adopted by subsequent teams.",
     "heroArtifact": {
       "src": "./content/design/providence/prov-27.jpg",
       "alt": "Express Care Virtual information-architecture and workflow diagram",

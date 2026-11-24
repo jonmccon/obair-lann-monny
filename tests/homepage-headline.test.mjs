@@ -20,11 +20,11 @@ describe('homepage headline', () => {
     const h1Elements = document.querySelectorAll('h1');
     assert.equal(h1Elements.length, 1, `expected exactly one <h1>, found ${h1Elements.length}`);
     assert.ok(
-      html.includes('Designer for places with no infrastructure and real stakes.'),
+      html.includes('I build what&rsquo;s missing.'),
       'approved hero line (first line) not found in the <h1>'
     );
     assert.ok(
-      html.includes('I build what&rsquo;s missing'),
+      html.includes('Then I leave something your team can run without me.'),
       'approved hero line (second line) not found in the <h1>'
     );
   });
