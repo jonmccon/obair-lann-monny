@@ -23,7 +23,7 @@ describe('homepage headline', () => {
       [...h1Elements[0].querySelectorAll('.home-hero-line')].map(line => line.textContent.trim()),
       [
         'I work where you work: in the field, on the sales floor, in the emergency room.',
-        'I build what’s missing, from first research to something your team can run without me.',
+        'I build what’s missing, from first research to resources your team can run on their own.',
       ]
     );
   });
