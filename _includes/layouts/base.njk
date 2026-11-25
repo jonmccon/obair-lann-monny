@@ -67,21 +67,17 @@
 		   (~1540ms FCP/LCP cost); now self-hosted from /fonts/ via public/css/fonts.css so
 		   there's no cross-origin DNS/TLS handshake blocking first paint. See docs/ARCHITECTURE.md. #}
 		<link rel="preload" href="/fonts/outfit-v15-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-		{#- Google Sans Flex preload used to be gated to "/" because the old
-		    Three.js hero's headline canvas + .homepage-about used it there.
-		    Homepage narrative rebuild (PR2, 2026-11-17) removed both from "/" --
-		    the font is still used elsewhere (.thumb-grid-title on /archive/ and
-		    the tag pages), but no longer on the homepage itself, so the
-		    page.url == "/" preload gate is now dead weight on "/" and is
-		    removed here. Nothing else references this preload. #}
+		{#- Google Sans Flex preload used to be gated to "/" for the old
+		    Three.js hero's headline canvas. PR2 (2026-11-17) removed that
+		    hero from "/" -- the font is still used elsewhere (.thumb-grid-title
+		    on /archive/ and the tag pages), so the page.url == "/" gate was
+		    dead weight and is removed here. #}
 
-		{#- The esm.sh preconnect + Three.js modulepreload existed solely to warm
-		    the old homepage-axis-hero's WebGL module load. PR2 (2026-11-17)
-		    removed that hero from "/" entirely (replaced by the narrative hero +
-		    7 case-study blocks) -- Three.js is no longer imported anywhere on the
-		    site, so this hint is now pure dead weight. Three.js source/CSS are
-		    intentionally NOT deleted (PR3 cleanup scope); this is just the now-
-		    unused resource hint for the module that no longer loads. #}
+		{#- esm.sh preconnect + Three.js modulepreload hints for the old
+		    homepage-axis-hero were removed here in PR2 (2026-11-17) once
+		    that hero (and Three.js) left "/" entirely. CSP `esm.sh` allowances
+		    in vercel.json remain for now (PR3, 2026-11-25) pending a dedicated
+		    security-header pass -- see PR3 notes. #}
 
 		{#-
 		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
