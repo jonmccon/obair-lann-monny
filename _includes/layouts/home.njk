@@ -37,13 +37,12 @@ layout: layouts/base.njk
 
 .home-hero {
 	position: relative;
-	/* fill the viewport under the header, leaving ~4rem of the first
-	   case-study card's fill peeking above the fold */
-	min-height: max(24rem, calc(100svh - 8rem));
-	padding: 1.5rem clamp(1.25rem, 4vw, 3.5rem) 2.5rem;
+	max-width: 76rem;
+	margin-inline: auto;
+	padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 4vw, 3.5rem);
 	display: flex;
 	align-items: center;
-	background: radial-gradient(120% 100% at 18% 30%, #3b2d2d 0%, var(--color-black-900) 58%, #0b0808 100%);
+	background: radial-gradient(110% 100% at 18% 30%, color-mix(in srgb, var(--color-black-800), #fff 7%) 0%, var(--color-black-800) 62%);
 	color: var(--color-black-50);
 	border-radius: 0.5rem;
 }
@@ -60,7 +59,7 @@ layout: layouts/base.njk
 
 .home-orbit {
 	position: relative;
-	width: 82%;
+	width: 74%;
 	margin: 0 auto;
 	aspect-ratio: 1 / 0.78;
 }
