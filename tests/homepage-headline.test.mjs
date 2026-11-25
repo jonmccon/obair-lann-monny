@@ -19,13 +19,12 @@ describe('homepage headline', () => {
   it('renders exactly one <h1> on the homepage, with the approved hero line', () => {
     const h1Elements = document.querySelectorAll('h1');
     assert.equal(h1Elements.length, 1, `expected exactly one <h1>, found ${h1Elements.length}`);
-    assert.ok(
-      html.includes('I build what&rsquo;s missing.'),
-      'approved hero line (first line) not found in the <h1>'
-    );
-    assert.ok(
-      html.includes('Then I leave something your team can run without me.'),
-      'approved hero line (second line) not found in the <h1>'
+    assert.deepEqual(
+      [...h1Elements[0].querySelectorAll('.home-hero-line')].map(line => line.textContent.trim()),
+      [
+        'I work where you work: in the field, on the sales floor, in the emergency room.',
+        'I build what’s missing, from first research to something your team can run without me.',
+      ]
     );
   });
 
