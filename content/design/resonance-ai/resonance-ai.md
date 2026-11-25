@@ -35,14 +35,6 @@ chart:
 
 Machine learning had never been translated into something a TV producer could act on. I designed the end-to-end product experience for Resonance AI's machine learning platform focused on transforming ML-generated video analysis into actionable audience intelligence for live TV production studios, and building the automated reporting pipeline that replaced days of manual analyst work.
 
-- **Role:** Product Designer
-- **Company:** Resonance AI, local tech startup
-- **Timeline:** 2021
-- **Team:** 15 person company, solo designer
-- **Platform:** Responsive Web, Email ·
-- **Tools:** Figma, Databricks, Python, HTML, CSS, JS
-- **Status:** Shipped, acquihired
-
 Production teams at broadcast news stations made scheduling, talent, and content decisions largely blind. Nielsen TV Ratings provided a score, but it was self-reported by viewers, not truly representative of how audiences actually behaved in front of their TVs.
 
 Resonance AI had built something different: a machine learning pipeline that extracted dozens of previously unavailable metrics directly from video (people and object recognition, topic and sentiment analysis, lighting and set design scoring) then correlated that against real set-top-box behavior from DVR havior data, channel by channel, to understand when someone was watching and why. The data was real, the signal was strong, and the product was compelling. The problem was it wasn't being communicated that way.
@@ -144,3 +136,11 @@ In collaboration with Dan Wiegand, I helped build data visualizations that were 
 https://twitter.com/stopitdan
 
 -->
+
+- **Role:** Product Designer
+- **Company:** Resonance AI, local tech startup
+- **Timeline:** 2021
+- **Team:** 15 person company, solo designer
+- **Platform:** Responsive Web, Email ·
+- **Tools:** Figma, Databricks, Python, HTML, CSS, JS
+- **Status:** Shipped, acquihired

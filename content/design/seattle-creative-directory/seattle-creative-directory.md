@@ -32,13 +32,6 @@ chart:
 
 The Pacific Northwest has a dense, proud creative community and no single place to find it. So I built one. The Seattle Creative Directory is a living resource connecting creative businesses across the region, paired with an interview series where the people behind those businesses tell their own stories.
 
-- **Role:** Founder, designer, developer, researcher, producer
-- **Company:** Seattle Creative Directory
-- **Timeline:** 2020 – Present
-- **Platform:** Responsive web, podcast, Google Ads, social media
-- **Tools:** Figma, Audition, Descript, Next.js, Notion, Typeform, Mapbox, Simplecast, Vercel, NeonDB
-- **Status:** 268 live listings, 15 episodes on iTunes and Spotify
-
 ## The Design Problem
 
 The [Seattle Creative Directory](https://www.seattlecreative.directory/) covers design studios, creative agencies, and creative businesses across the Pacific Northwest. The community here has a fiercely strong identity and its data is scattered. Resources existed but they were incomplete, hard to find, or years out of date. There was no single place that let you filter by neighborhood, size, or specialty, or see the whole community on a map.
@@ -53,7 +46,6 @@ What was a series of disparate mailing lists is made tangible and open.
 {% image "./SCD-01-dark-filters.png", "The map view plots the whole community geographically — useful for patrons looking by neighborhood, or anyone who thinks spatially about the city's creative scene." %}
 
 </div>
-
 
 ## My Role
 
@@ -76,7 +68,6 @@ It grew until I had to rebuild from scratch. The static Gatsby site meant one fi
 {% image "./scd-02.png", "The rebuilt filter system: Size, Neighborhood, City, and Tags — four axes that let different users find what they need without seeing everything at once." %}
 
 </div>
-
 
 ## Where It's Going
 
@@ -115,3 +106,10 @@ https://github.com/jonmccon/seattle-creative-directory
 https://seattlecreative.directory/
 https://seattlecreative.show/
 -->
+
+- **Role:** Founder, designer, developer, researcher, producer
+- **Company:** Seattle Creative Directory
+- **Timeline:** 2020 – Present
+- **Platform:** Responsive web, podcast, Google Ads, social media
+- **Tools:** Figma, Audition, Descript, Next.js, Notion, Typeform, Mapbox, Simplecast, Vercel, NeonDB
+- **Status:** 268 live listings, 15 episodes on iTunes and Spotify

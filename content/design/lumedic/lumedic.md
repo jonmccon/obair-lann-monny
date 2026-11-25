@@ -37,14 +37,6 @@ chart:
 
 In early 2020, tens of thousands of hospital employees needed a way to prove their COVID-19 status to get into work and no trustworthy, patient-controlled system existed to do it. I designed the multiplatform experience that filled that gap: a digital health wallet letting patients hold and share their own verified medical records, used across iOS, Android, and web within the Providence Health network.
 
-- **Role:** Product Designer
-- **Company:** Lumedic, a Providence St. Joseph Health portfolio company
-- **Timeline:** 2019–2021
-- **Team:** Primary designer on this platform within a 5-person design team
-- **Platform:** Web, iOS, Android
-- **Tools:** Figma, Miro, IBM Carbon Design System
-- **Status:** Shipped, previously available on App Store and Google Play
-
 ## The Problem
 
 Medical records are controlled by healthcare systems for good reason. FHIR-compliant APIs live behind institutional firewalls, accessible only to licensed staff at licensed facilities. Patients are not parties to their own records. That architecture works for billing and clinical workflow, but it breaks entirely when a hospital employee needs to prove their vaccination status to enter a facility at 6am.
@@ -100,7 +92,6 @@ Custom illustration was developed in parallel with Seattle studio Smashing Ideas
 <div class="three-column">
 
 {% image "./lum-110.png", "Verifier kiosk web interface — the Lumedic Connect verification kiosk for hospital staff, showing the QR code display waiting for employee scan." %}
-
 
 {% image "./lum-120.png", "Verifier kiosk — active state with \"Waiting for record holder to share information\" banner while QR code is being scanned." %}
 
@@ -160,3 +151,11 @@ https://www.carbondesignsystem.com/
 https://apps.apple.com/us/app/lumedic-connect/id1519412921
 https://play.google.com/store/apps/details?id=io.lumedicidconnect.lumedicid
 -->
+
+- **Role:** Product Designer
+- **Company:** Lumedic, a Providence St. Joseph Health portfolio company
+- **Timeline:** 2019–2021
+- **Team:** Primary designer on this platform within a 5-person design team
+- **Platform:** Web, iOS, Android
+- **Tools:** Figma, Miro, IBM Carbon Design System
+- **Status:** Shipped, previously available on App Store and Google Play

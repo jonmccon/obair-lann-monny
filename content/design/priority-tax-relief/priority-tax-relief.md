@@ -82,14 +82,6 @@ chart:
 
 Solo designer for a 200-person, $7M MRR national tax relief company. I owned the brand, every marketing surface, and the internal product simultaneously, for about a year, and built a design system that tied all three together.
 
-- **Role:** Brand & Product Designer
-- **Company:** Priority Tax Relief, national tax attorney services firm 
-- **Timeline:** 2025–2026
-- **Platform:** Responsive web, digital advertising, email, print, broadcast TV, social media, internal CRM
-- **Team:** Solo designer embedded with engineering, marketing, and senior leadership
-- **Tools:** Figma, Adobe Suite, Claude, VS Code, Jupyter Notebooks, Django/Wagtail, WordPress, npm, Microsoft Office
-- **Outcome:** Shipped rebrand, design system released, replatformed website, Chrome extension, internal CRM prototype.
-
 ## Two briefs wearing the same coat
 
 The brand was fragmented and inconsistent across every channel I could find: TV spots, PPC ads, website, emails, letterhead, merch. It had good ideas and decent bones, but no steward, no guidelines, no system. That inconsistency was bleeding credibility in a category where trust is the entire product. There was a real opportunity to raise the professional bar above competitors and build something the internal teams could rally around.
@@ -111,7 +103,6 @@ Fix the face. Fix the engine. Both at once. Solo.
 {% image "./PTR-86-brand-survey-results.png", "Brand survey results, stakeholder and customer feedback aggregated into key themes. The survey validated the brand direction and surfaced unexpected priorities around trust signals and clarity." %}
 
 {% image "./PTR-82-brand-goals.png", "Brand goals visualized, the decision-making criteria framed as a working reference for the team. Increase readability, retain market recognition, develop brand voice, consistent representation." %}
-
 
 ## My Role
 
@@ -218,7 +209,6 @@ I ran the qualitative interview data through AI-assisted analysis grouping conce
 
 </div>
 
-
 ## The First Product Move: a Chrome Extension
 
 Rather than blowing up the existing Logics CRM and replacing it, we started with a targeted intervention. I designed a Chrome extension that injected new functionality directly into the Logics CRM interface no migration, no retraining, just new capability sitting on top of what people already knew how to use.
@@ -228,7 +218,6 @@ The idea was to start *putting the data to work for people* rather than making p
 {% image "./PTR-10-chrome-plugin-design-Logics-Extension-Menu-77-11796.png", "Chrome extension design, the Logics CRM with the new PTR extension menu injected into the interface. Additional actions and data visibility added at the point of use. The 'minimum viable improvement' move before a full platform rebuild." %}
 
 This was an appropriately humble first step. It proved the concept, got buy-in from users who saw immediate value, and gave us a real behavioral baseline before designing the next phase.
-
 
 ## Building Toward a Platform
 
@@ -274,7 +263,6 @@ I used the design system and a DaisyUI-based theme to build a clickable HTML pro
 
 </div>
 
-
 ## Marketing Across Every Surface
 
 Brand and product were running in parallel, and marketing was running alongside both of them constantly. PPC was the primary acquisition channel as a high-volume, cost-sensitive environment where ad creative had to be consistent with the new brand while also performing against direct response metrics.
@@ -293,13 +281,11 @@ I built a full email component system covering the complete funnel with modular 
 
 </div>
 
-
 ## The Tax Forgiveness Calculator
 
 One of the primary marketing surfaces was a tax forgiveness estimator, a qualification tool that pre-qualifies prospects before they ever see the brand. The original was a linear step-through form. I redesigned it as a modular multi-step modal, reducing the apparent burden of the form and increasing completion rates.
 
 {% image "./PTR-136-modular-estimator-v1.png", "Calculator landing page with modal variant, A/B test version showing modal approach reducing friction in the qualification flow." %}
-
 
 {% image "./PTR-87-calculator-landing-page-modal.png", "Calculator landing page with modal variant, A/B test version showing modal approach reducing friction in the qualification flow." %}
 
@@ -312,7 +298,6 @@ One of the primary marketing surfaces was a tax forgiveness estimator, a qualifi
 {% image "./PTR-06-calculator.png", "Calculator qualification result screen showing potential savings and consultation call-to-action" %}
 
 </div>
-
 
 ## Replatforming the Marketing Site
 
@@ -340,7 +325,6 @@ The handoff package is a static build that engineering can lift into production 
 
 {% image "./PTR-43-ptr-handoff.png", "Engineering handoff package, the complete static build hosted on GitHub Pages with annotated pages, decision log, component inventory, and full asset structure." %}
 
-
 ## Outcomes
 
 - Increased customer conversion opportunities by 14× through funnel redesign
@@ -351,7 +335,6 @@ The handoff package is a static build that engineering can lift into production 
 - Published design system, standardizing engineering and design expectations across teams
 - Rebuilt 80+ operational documents on the new brand template system
 
-
 ## Reflection
 
 There was a lot of ground to cover and I moved through it fast. But I don't think I brought the ownership group along with me consistently enough.
@@ -361,3 +344,11 @@ The gap wasn't the work. It was the governance model for how decisions got surfa
 What I'd do differently: establish a decision-rights framework at the start of any embedded solo engagement. What I decide, what I present, how often, and what requires sign-off before moving. That structure protects both sides.
 
 The system thinking was right. The stakeholder communication needed more structure.
+
+- **Role:** Brand & Product Designer
+- **Company:** Priority Tax Relief, national tax attorney services firm 
+- **Timeline:** 2025–2026
+- **Platform:** Responsive web, digital advertising, email, print, broadcast TV, social media, internal CRM
+- **Team:** Solo designer embedded with engineering, marketing, and senior leadership
+- **Tools:** Figma, Adobe Suite, Claude, VS Code, Jupyter Notebooks, Django/Wagtail, WordPress, npm, Microsoft Office
+- **Outcome:** Shipped rebrand, design system released, replatformed website, Chrome extension, internal CRM prototype.

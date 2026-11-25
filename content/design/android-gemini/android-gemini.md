@@ -94,14 +94,6 @@ images:
 
 Early Gemini was a capability in search of an interface. This was me spending a few weeks figuring out what that interface might actually feel like not in theory, but in your hand, on your phone.
 
-- **Role:** Interaction Designer / UX Concept Lead  
-- **Company:** BUCK (for Google)  
-- **Timeline:** November – December 2023  
-- **Platform:** Android (mobile)  
-- **Tools:** Figma, hand sketching, concept diagramming  
-- **Status:** Delivered as internal concept exploration for Google's early Gemini product team. Several interaction patterns and mechanics from this work have since surfaced in Gemini features across Android OS releases.
-- **Team:** Freelance engagement within a BUCK concept team: Creative Director, two motion designers, and a rotating group of additional designers. I was the dedicated interaction designer on the project, brought in to develop as many of these concepts through to defined interaction patterns as possible.
-
 ## The brief
 
 In late 2023, Google had early Gemini capabilities but no clear native UX model for Android. The question wasn't "can AI do this," it was "how does a person *reach* for this on a phone." BUCK was engaged to pressure-test that question through real interaction patterns: not a spec, not a feature list, a working exploration of what the paradigm could actually be.
@@ -228,7 +220,6 @@ The **Supercut persona screen** was a different direction in the same session, G
 {% image "./GEMINI-34-s1-phone-403-richest.png", "Supercut persona screen, Gemini contextual collage from phone data: people, places, books, cities" %}
 {% image %}
 
-
 </div>
 
 ## Whats That & Refine
@@ -274,3 +265,11 @@ The stuff that didn't land as clearly was anything framed as "here's an existing
 There was more to do with the physical gesture language: hold, fling, pinch, shake, rotate. Android already has a rich physical vocabulary and this was starting to use it, but didn't fully commit. The rotate to landscape → timeline edit flow was probably the clearest version of that. That's the direction I'd want to push further.
 
 Working in this space early, before the production constraints settled, before the platform conventions hardened, is a particular kind of design opportunity. You're not solving a problem yet. You're deciding what problems are worth solving.
+
+- **Role:** Interaction Designer / UX Concept Lead  
+- **Company:** BUCK (for Google)  
+- **Timeline:** November – December 2023  
+- **Platform:** Android (mobile)  
+- **Tools:** Figma, hand sketching, concept diagramming  
+- **Status:** Delivered as internal concept exploration for Google's early Gemini product team. Several interaction patterns and mechanics from this work have since surfaced in Gemini features across Android OS releases.
+- **Team:** Freelance engagement within a BUCK concept team: Creative Director, two motion designers, and a rotating group of additional designers. I was the dedicated interaction designer on the project, brought in to develop as many of these concepts through to defined interaction patterns as possible.

@@ -50,14 +50,6 @@ chart:
 
 Designed the responsive web experience for Concourse, PwC's internal platform for managing consulting engagements. As the designer on this workstream, I extended a desktop-first enterprise tool into a fully responsive web application, covering mobile through large desktop. The work touched login flows, the home workspace overview, a multi-view deliverables system, dashboard analytics, files, digital assets, tools, and reports, and produced a suite of touch-adapted design system components that were adopted across all mobile work at PwC.
 
-- **Role:** Senior UX Designer
-- **Company:** PwC (PricewaterhouseCoopers)
-- **Timeline:** 2021–2023
-- **Team:** 12-person design team across broader platform and design system capacities
-- **Platform:** Responsive Web (mobile through 1900px)
-- **Tools:** Figma, React (web), Storybook
-- **Status:** Internal only, NDA
-
 ## The Problem
 
 Every PwC office had its own way of running consulting projects. That independence made sense locally but it created friction the moment a project crossed borders or business units. There was no shared language for scope, timeline, or delivery status. Resources couldn't be onboarded without teaching them a new process. The same work was being duplicated across offices that couldn't see each other's output.
@@ -100,7 +92,6 @@ The other thing I'd carry forward: change management is a design problem. You're
 
 {% image "./PWC-18-responsive-dashboard-1440px.png", "Concourse web platform — Project analytics dashboard showing work item status charts and team allocation" %}
 
-
 ---
 
 **Responsive Web — Mobile**
@@ -121,7 +112,6 @@ The other thing I'd carry forward: change management is a design problem. You're
 <!-- {% image "./PWC-11-mobile-40-home.png", "Home — My Workspaces" %} -->
 <!-- {% image "./PWC-14-mobile-70-notifications.png", "Notifications" %} -->
 <!-- {% image "./PWC-16-mobile-90-overdue-filter.png", "Overdue Filter" %} -->
-
 
 <div class="three-column">
 {% image "./PWC-01-mobile-10-login.png", "Concourse mobile login screen with single sign-on authentication prompt" %}
@@ -150,7 +140,14 @@ The other thing I'd carry forward: change management is a design problem. You're
 <!-- <div class="three-column">
 {% image "./PWC-05-mobile-120-work-item-detail.png", "Mobile work item detailed configuration panel with stage selector and tag inputs" %}
 
-
 {% image "./PWC-08-mobile-140-document.png", "Mobile document preview and revision history view" %}
 
 </div> -->
+
+- **Role:** Senior UX Designer
+- **Company:** PwC (PricewaterhouseCoopers)
+- **Timeline:** 2021–2023
+- **Team:** 12-person design team across broader platform and design system capacities
+- **Platform:** Responsive Web (mobile through 1900px)
+- **Tools:** Figma, React (web), Storybook
+- **Status:** Internal only, NDA
