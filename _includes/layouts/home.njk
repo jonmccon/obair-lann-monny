@@ -19,8 +19,7 @@ layout: layouts/base.njk
    both headline and body, which already satisfies "distinct mono vs.
    narrative" without introducing a new font. No new fonts added. */
 .home-hero,
-.home-case-studies,
-.home-transition {
+.home-case-studies {
 	--home-accent-void: var(--color-peach-glow-400);
 	--home-accent-edge: var(--color-peach-glow-800);
 	--home-void-bg: var(--color-black-800);
@@ -150,28 +149,8 @@ layout: layouts/base.njk
 	transform: scale(1.015);
 }
 
-.home-transition {
-	max-width: min(64rem, 92vw);
-	margin: clamp(2rem, 5vw, 3.5rem) auto;
-	padding-top: clamp(1.5rem, 4vw, 2.5rem);
-	border-top: 1px solid color-mix(in srgb, var(--text-color) 15%, transparent);
-}
-
-.home-transition-line {
-	max-width: 62ch;
-	line-height: 1.6;
-	margin: 0 0 1rem;
-}
-
-.home-transition-link {
-	display: inline-block;
-	font-weight: var(--font-weight-bold);
-	border-bottom: 2px solid var(--home-accent-edge);
-}
-
 @media (prefers-reduced-motion: reduce) {
-	.home-case-study-banner-img,
-	.home-transition-link {
+	.home-case-study-banner-img {
 		transition: none;
 	}
 	.home-case-study-banner:hover .home-case-study-banner-img {
@@ -285,11 +264,6 @@ layout: layouts/base.njk
         </div>
       </a>
   </section>  
-
-  <section class="home-transition" aria-label="Transition to Archive">
-    <p class="home-transition-line">Earlier work in branding, events, print, and interactive lives in the archive.</p>
-    <a class="home-transition-link" href="/archive/">Everything else &rarr;</a>
-  </section>
 
   <aside class="home-aside-row">
     <a class="home-aside-link" href="https://community.obsidian.md/plugins/time-blocks" target="_blank" rel="noreferrer">
