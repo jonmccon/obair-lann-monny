@@ -36,23 +36,21 @@ layout: layouts/base.njk
 }
 
 .home-hero {
-	max-width: min(64rem, 92vw);
-	margin: 0 auto;
-	padding: clamp(2rem, 6vw, 4.5rem) 0 clamp(1.5rem, 4vw, 2.5rem);
+	position: relative;
+	/* fill the viewport under the header, leaving ~4rem of the first
+	   case-study card's fill peeking above the fold */
+	min-height: max(24rem, calc(100svh - 12rem));
+	padding: 1.5rem 0 2.5rem;
+	display: flex;
+	align-items: center;
 }
 
 .home-hero-top {
-	position: relative;
+	width: 100%;
 	display: grid;
-	grid-template-columns: minmax(18rem, 30rem) 1fr;
-	gap: clamp(1rem, 4vw, 3rem);
+	grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 1fr);
+	gap: clamp(2rem, 6vw, 5rem);
 	align-items: center;
-	margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-	padding: clamp(2.25rem, 5vw, 3.25rem) clamp(1.25rem, 4vw, 3rem);
-	background: var(--color-black-900);
-	color: var(--color-black-50);
-	border-radius: 0.5rem;
-	overflow: hidden;
 }
 
 .home-hero-headline { margin: 0; display: contents; }
@@ -60,7 +58,7 @@ layout: layouts/base.njk
 .home-orbit {
 	position: relative;
 	width: 100%;
-	aspect-ratio: 1 / 0.72;
+	aspect-ratio: 1 / 0.7;
 }
 
 .home-orbit-tilt {
@@ -68,7 +66,7 @@ layout: layouts/base.njk
 	left: 0; top: 50%;
 	width: 100%;
 	aspect-ratio: 1;
-	transform: translateY(-50%) rotate(-17deg) scaleY(0.5);
+	transform: translateY(-50%) rotate(-15deg) scaleY(0.46);
 }
 
 .home-orbit-back { z-index: 1; }
@@ -81,90 +79,94 @@ layout: layouts/base.njk
 	width: 100%;
 	height: 100%;
 	overflow: visible;
-	animation: home-orbit-spin 40s linear infinite;
+	animation: home-orbit-spin 44s linear infinite;
 }
+.home-orbit-ring--2 { animation-duration: 30s; }
 
-.home-orbit-ring text {
+.home-orbit-ring text { fill: var(--text-color); }
+.home-orbit-ring .ring-1 {
 	font-family: var(--font-family);
 	font-weight: 900;
-	font-size: 50px;
+	font-size: 46px;
 	word-spacing: 0.15em;
-	letter-spacing: 5px;
-	fill: #fff;
+}
+.home-orbit-ring .ring-2 {
+	font-family: var(--font-family-mono);
+	font-weight: 700;
+	font-size: 19px;
 }
 
-.home-orbit-back .home-orbit-ring text { fill: rgba(255,255,255,0.55); }
+.home-orbit-back .home-orbit-ring text { opacity: 0.5; }
 
 .home-orbit-sphere {
 	position: absolute;
 	z-index: 2;
-	left: 28%; top: 50%;
-	width: 44%;
+	left: 29%; top: 50%;
+	width: 42%;
 	height: auto;
 	aspect-ratio: 1;
-	margin-top: -22%;
+	transform: translateY(-50%);
 	image-rendering: pixelated;
 	border-radius: 50%;
 }
 
 @keyframes home-orbit-spin { to { transform: rotate(360deg); } }
 
-.home-hero-support {
+.home-hero-column {
 	display: flex;
 	flex-direction: column;
-	gap: 1.25rem;
-	font-family: var(--font-family-mono);
-	text-transform: uppercase;
-	letter-spacing: 0.06em;
-	color: rgba(255, 255, 255, 0.72);
+	gap: 1.5rem;
+	max-width: 30rem;
+	padding: 2.5rem 0 1.5rem;
 }
 
-.home-support-big {
-	display: block;
-	font-family: var(--font-family);
+.home-hero-statement {
+	margin: 0;
 	font-weight: 300;
-	font-size: clamp(1.6rem, 4vw, 2.8rem);
-	line-height: 1.05;
+	font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+	line-height: 1.12;
 	letter-spacing: -0.01em;
-	text-transform: none;
 }
-.home-support-small { display: block; font-size: 0.78rem; line-height: 1.6; max-width: 38ch; }
+
+.home-hero-rule {
+	width: 3rem;
+	border: 0;
+	border-top: 2px solid var(--text-color);
+	margin: 0;
+}
+
+.home-hero-bio { font-size: 1rem; line-height: 1.6; }
+.home-hero-bio p { margin: 0 0 1em; }
+.home-hero-bio p:last-child { margin: 0; }
 
 .home-hero-meta {
 	position: absolute;
 	font-family: var(--font-family-mono);
-	font-size: 0.66rem;
+	font-size: 0.68rem;
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
 	line-height: 1.5;
-	color: rgba(255, 255, 255, 0.6);
+	color: var(--text-color);
+	opacity: 0.7;
 }
-.home-hero-meta--tr { top: 1rem; right: 1.25rem; text-align: right; }
-.home-hero-meta--bl { bottom: 1rem; left: 1.25rem; }
-.home-hero-meta--br { bottom: 1rem; right: 1.25rem; text-align: right; }
+.home-hero-meta--tr { top: 0; right: 0; text-align: right; }
+.home-hero-meta--bl { bottom: 0.5rem; left: 0; }
+.home-hero-meta--br { bottom: 0.5rem; right: 0; text-align: right; }
 
 .home-visually-hidden {
 	position: absolute; width: 1px; height: 1px; overflow: hidden;
 	clip: rect(0 0 0 0); white-space: nowrap;
 }
 
-@media (max-width: 40rem) {
+@media (max-width: 48rem) {
+	.home-hero { min-height: 0; }
 	.home-hero-top { grid-template-columns: 1fr; }
-	.home-orbit { max-width: 24rem; margin: 0 auto; }
+	.home-orbit { max-width: 32rem; margin: 0 auto; }
+	.home-hero-meta--bl, .home-hero-meta--br { position: static; }
 }
 
 @media (prefers-reduced-motion: reduce) {
 	.home-orbit-ring { animation: none; }
-}
-
-.home-hero-bio {
-	max-width: 62ch;
-	font-size: 1.05rem;
-	line-height: 1.6;
-}
-
-.home-hero-bio p {
-	margin: 0 0 1em;
 }
 
 .home-case-studies {
@@ -289,24 +291,34 @@ layout: layouts/base.njk
     <span class="home-visually-hidden"><span class="home-hero-line">I work where you work: in the field, on the sales floor, in the emergency room.</span> <span class="home-hero-line">I build what&rsquo;s missing, from first research to something your team can run without me.</span></span>
     <span class="home-orbit" aria-hidden="true">
       <span class="home-orbit-tilt home-orbit-back"><span class="home-orbit-half">
-        <svg class="home-orbit-ring" viewBox="-200 -200 400 400"><defs><path id="home-orbit-path-back" d="M0,-140 a140,140 0 1,1 0,280 a140,140 0 1,1 0,-280"/></defs>
-        <text><textPath href="#home-orbit-path-back">I WORK WHERE YOU WORK &bull;&nbsp;</textPath></text></svg>
+        <svg class="home-orbit-ring" viewBox="-200 -200 400 400"><defs><path id="orb1-back" d="M0,-128 a128,128 0 1,1 0,256 a128,128 0 1,1 0,-256"/></defs>
+        <text class="ring-1"><textPath href="#orb1-back" data-fit="804">I WORK WHERE YOU WORK&nbsp;</textPath></text></svg>
+      </span><span class="home-orbit-half home-orbit-half--2">
+        <svg class="home-orbit-ring home-orbit-ring--2" viewBox="-200 -200 400 400"><defs><path id="orb2-back" d="M0,-184 a184,184 0 1,1 0,368 a184,184 0 1,1 0,-368"/></defs>
+        <text class="ring-2"><textPath href="#orb2-back" data-fit="1156">in the field ~ on the sales floor ~ in the emergency room ~&nbsp;</textPath></text></svg>
       </span></span>
       <canvas class="home-orbit-sphere" id="home-orbit-sphere" width="48" height="48"></canvas>
       <span class="home-orbit-tilt home-orbit-front"><span class="home-orbit-half">
-        <svg class="home-orbit-ring" viewBox="-200 -200 400 400"><defs><path id="home-orbit-path-front" d="M0,-140 a140,140 0 1,1 0,280 a140,140 0 1,1 0,-280"/></defs>
-        <text><textPath href="#home-orbit-path-front">I WORK WHERE YOU WORK &bull;&nbsp;</textPath></text></svg>
+        <svg class="home-orbit-ring" viewBox="-200 -200 400 400"><defs><path id="orb1-front" d="M0,-128 a128,128 0 1,1 0,256 a128,128 0 1,1 0,-256"/></defs>
+        <text class="ring-1"><textPath href="#orb1-front" data-fit="804">I WORK WHERE YOU WORK&nbsp;</textPath></text></svg>
+      </span><span class="home-orbit-half home-orbit-half--2">
+        <svg class="home-orbit-ring home-orbit-ring--2" viewBox="-200 -200 400 400"><defs><path id="orb2-front" d="M0,-184 a184,184 0 1,1 0,368 a184,184 0 1,1 0,-368"/></defs>
+        <text class="ring-2"><textPath href="#orb2-front" data-fit="1156">in the field ~ on the sales floor ~ in the emergency room ~&nbsp;</textPath></text></svg>
       </span></span>
     </span>
-    <span class="home-hero-support" aria-hidden="true">
-      <span class="home-support-big">in the field, on the sales floor, in the emergency room.</span>
-      <span class="home-support-small">I build what&rsquo;s missing, from first research to something your team can run without me.</span>
-    </span>
   </h1>
+  <div class="home-hero-column">
+    <p class="home-hero-statement" aria-hidden="true">I build what&rsquo;s missing, from first research to something your team can run without me.</p>
+    <hr class="home-hero-rule">
+    <div class="home-hero-bio">
+      <p>I&rsquo;m a product designer and creative technologist. Over 15 years I&rsquo;ve shipped operating system experiences to 40M+ users at Amazon, real-time communication tools at Google, and healthcare platforms for clinical teams at Providence. Lately I&rsquo;m the first designer in the room, working out what the product should be and building it.</p>
+      <p>Away from the screen: photography, sailing, cooking, teaching. I like learning how things are made.</p>
+    </div>
+  </div>
+  </div>
   <span class="home-hero-meta home-hero-meta--tr" aria-hidden="true">Product design<br>Creative technology</span>
   <span class="home-hero-meta home-hero-meta--bl" aria-hidden="true">Amazon &middot; Google &middot; Providence</span>
   <span class="home-hero-meta home-hero-meta--br" aria-hidden="true">15+ years &middot; 2009 &ndash; now</span>
-  </div>
   <script>
   (function(){var c=document.getElementById('home-orbit-sphere');if(!c)return;var x=c.getContext('2d'),N=48,r=N/2-1,
   pal=['#3a1d2e','#a8334f','#f0643a','#ffb27a'],B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],
@@ -314,11 +326,11 @@ layout: layouts/base.njk
   for(var j=0;j<N;j++)for(var i=0;i<N;i++){var u=(i+.5-N/2)/r,v=(j+.5-N/2)/r,d=u*u+v*v;if(d>1)continue;
   var z=Math.sqrt(1-d),l=Math.max(0,u*L[0]+v*L[1]+z*L[2]);l=Math.pow(l,.9)*3.2;
   var t=B[(j%4)*4+(i%4)]/16,k=Math.min(3,Math.floor(l+t));x.fillStyle=pal[k];x.fillRect(i,j,1,1);}})();
+  (function(){function fit(){document.querySelectorAll('.home-orbit textPath[data-fit]').forEach(function(t){
+  var C=+t.getAttribute('data-fit'),tx=t.parentNode;tx.style.letterSpacing='0px';
+  var n=t.getNumberOfChars(),w=t.getComputedTextLength();if(n)tx.style.letterSpacing=((C-w)/n)+'px';});}
+  fit();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);})();
   </script>
-  <div class="home-hero-bio">
-    <p>I&rsquo;m a product designer and creative technologist. Over 15 years I&rsquo;ve shipped operating system experiences to 40M+ users at Amazon, real-time communication tools at Google, and healthcare platforms for clinical teams at Providence. Lately I&rsquo;m the first designer in the room, working out what the product should be and building it.</p>
-    <p>Away from the screen: photography, sailing, cooking, teaching. I like learning how things are made.</p>
-  </div>
 </section>
 
 <section class="home-supporting-content" aria-label="Homepage supporting content">
