@@ -193,7 +193,7 @@ describe('archive integration', () => {
 			const slug = project.dataset.projectSlug;
 			const matches = items.filter(item => item.dataset.projectSlug === slug);
 			assert.equal(matches.length, 1, `${slug} should appear exactly once in the archive`);
-			assert.equal(matches[0].getAttribute('href'), project.querySelector('.home-case-study-link').getAttribute('href'));
+			assert.equal(matches[0].getAttribute('href'), project.querySelector('.home-case-study-banner').getAttribute('href'));
 		}
 		assert.ok(items.some(item => !featured.some(project => project.dataset.projectSlug === item.dataset.projectSlug)),
 			'non-featured projects should remain in the archive');

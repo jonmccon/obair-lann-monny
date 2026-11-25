@@ -49,6 +49,12 @@ chart:
 
 Designing high-stakes clinical workflows for on-demand emergency care. From a real-time telestroke platform with remote diagnostic hardware to a multi-product Express Care scheduling suite used by patients across Providence's network.
 
+- **Role:** Product Designer
+- **Company:** Providence Health & Services, Digital Innovation Group
+- **Timeline:** 2017–2018
+- **Platform:** Web, iOS, Android
+- **Tools:** Sketch, InVision (Craft), Zeplin, Abstract, Adobe Creative Cloud, Storybook, React Toolbox, Source Sans Pro
+
 ## The Problem
 
 Providence's Digital Innovation Group was building two distinct healthcare products simultaneously, each with fundamentally different users and stakes. On one side: emergency clinicians managing time-critical stroke alerts across a distributed hospital network, switching between four separate systems during a patient handoff, every second of context-switching a clinical risk. On the other: patients trying to navigate between four separate care services (Urgent Care, Virtual, Primary, Same-Day) that had no shared scheduling layer, no common identity, and no consistent experience.
@@ -167,9 +173,3 @@ I also helped develop a visual language for the suite of provider & patient heal
 [Raw URLs and image blocks from old stub omitted]
 
 -->
-
-- **Role:** Product Designer
-- **Company:** Providence Health & Services, Digital Innovation Group
-- **Timeline:** 2017–2018
-- **Platform:** Web, iOS, Android
-- **Tools:** Sketch, InVision (Craft), Zeplin, Abstract, Adobe Creative Cloud, Storybook, React Toolbox, Source Sans Pro
