@@ -42,11 +42,17 @@ layout: layouts/base.njk
 }
 
 .home-hero-top {
+	position: relative;
 	display: grid;
-	grid-template-columns: minmax(16rem, 24rem) 1fr;
-	gap: clamp(1.5rem, 5vw, 3.5rem);
+	grid-template-columns: minmax(18rem, 30rem) 1fr;
+	gap: clamp(1rem, 4vw, 3rem);
 	align-items: center;
 	margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+	padding: clamp(2.25rem, 5vw, 3.25rem) clamp(1.25rem, 4vw, 3rem);
+	background: var(--color-black-900);
+	color: var(--color-black-50);
+	border-radius: 0.5rem;
+	overflow: hidden;
 }
 
 .home-hero-headline { margin: 0; display: contents; }
@@ -54,32 +60,49 @@ layout: layouts/base.njk
 .home-orbit {
 	position: relative;
 	width: 100%;
-	aspect-ratio: 1;
+	aspect-ratio: 1 / 0.72;
 }
 
-.home-orbit-ring {
+.home-orbit-tilt {
 	position: absolute;
-	inset: 0;
+	left: 0; top: 50%;
+	width: 100%;
+	aspect-ratio: 1;
+	transform: translateY(-50%) rotate(-17deg) scaleY(0.5);
+}
+
+.home-orbit-back { z-index: 1; }
+.home-orbit-front { z-index: 3; }
+.home-orbit-half { position: absolute; inset: 0; }
+.home-orbit-back .home-orbit-half { clip-path: inset(0 0 50% 0); }
+.home-orbit-front .home-orbit-half { clip-path: inset(50% 0 0 0); }
+
+.home-orbit-ring {
 	width: 100%;
 	height: 100%;
 	overflow: visible;
-	animation: home-orbit-spin 48s linear infinite;
+	animation: home-orbit-spin 40s linear infinite;
 }
 
 .home-orbit-ring text {
 	font-family: var(--font-family);
 	font-weight: 900;
-	font-size: 60px;
+	font-size: 50px;
 	word-spacing: 0.15em;
-	letter-spacing: 4px;
-	fill: var(--text-color);
+	letter-spacing: 5px;
+	fill: #fff;
 }
+
+.home-orbit-back .home-orbit-ring text { fill: rgba(255,255,255,0.55); }
 
 .home-orbit-sphere {
 	position: absolute;
-	inset: 20%;
-	width: 60%;
-	height: 60%;
+	z-index: 2;
+	left: 28%; top: 50%;
+	width: 44%;
+	height: auto;
+	aspect-ratio: 1;
+	margin-top: -22%;
 	image-rendering: pixelated;
 	border-radius: 50%;
 }
@@ -93,21 +116,32 @@ layout: layouts/base.njk
 	font-family: var(--font-family-mono);
 	text-transform: uppercase;
 	letter-spacing: 0.06em;
-	color: var(--text-color-muted, var(--text-color));
-	opacity: 0.85;
+	color: rgba(255, 255, 255, 0.72);
 }
 
 .home-support-big {
 	display: block;
 	font-family: var(--font-family);
 	font-weight: 300;
-	font-size: clamp(1.6rem, 4.2vw, 2.9rem);
+	font-size: clamp(1.6rem, 4vw, 2.8rem);
 	line-height: 1.05;
 	letter-spacing: -0.01em;
 	text-transform: none;
 }
-.home-support-small {
-	display: block; font-size: 0.8rem; line-height: 1.6; max-width: 38ch; }
+.home-support-small { display: block; font-size: 0.78rem; line-height: 1.6; max-width: 38ch; }
+
+.home-hero-meta {
+	position: absolute;
+	font-family: var(--font-family-mono);
+	font-size: 0.66rem;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	line-height: 1.5;
+	color: rgba(255, 255, 255, 0.6);
+}
+.home-hero-meta--tr { top: 1rem; right: 1.25rem; text-align: right; }
+.home-hero-meta--bl { bottom: 1rem; left: 1.25rem; }
+.home-hero-meta--br { bottom: 1rem; right: 1.25rem; text-align: right; }
 
 .home-visually-hidden {
 	position: absolute; width: 1px; height: 1px; overflow: hidden;
@@ -116,7 +150,7 @@ layout: layouts/base.njk
 
 @media (max-width: 40rem) {
 	.home-hero-top { grid-template-columns: 1fr; }
-	.home-orbit { max-width: 20rem; margin: 0 auto; }
+	.home-orbit { max-width: 24rem; margin: 0 auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -254,21 +288,28 @@ layout: layouts/base.njk
   <h1 class="home-hero-headline">
     <span class="home-visually-hidden"><span class="home-hero-line">I work where you work: in the field, on the sales floor, in the emergency room.</span> <span class="home-hero-line">I build what&rsquo;s missing, from first research to something your team can run without me.</span></span>
     <span class="home-orbit" aria-hidden="true">
-      <svg class="home-orbit-ring" viewBox="-200 -200 400 400">
-        <defs><path id="home-orbit-path" d="M0,-158 a158,158 0 1,1 0,316 a158,158 0 1,1 0,-316"/></defs>
-        <text><textPath href="#home-orbit-path">I WORK WHERE YOU WORK &bull;&nbsp;</textPath></text>
-      </svg>
+      <span class="home-orbit-tilt home-orbit-back"><span class="home-orbit-half">
+        <svg class="home-orbit-ring" viewBox="-200 -200 400 400"><defs><path id="home-orbit-path-back" d="M0,-140 a140,140 0 1,1 0,280 a140,140 0 1,1 0,-280"/></defs>
+        <text><textPath href="#home-orbit-path-back">I WORK WHERE YOU WORK &bull;&nbsp;</textPath></text></svg>
+      </span></span>
       <canvas class="home-orbit-sphere" id="home-orbit-sphere" width="48" height="48"></canvas>
+      <span class="home-orbit-tilt home-orbit-front"><span class="home-orbit-half">
+        <svg class="home-orbit-ring" viewBox="-200 -200 400 400"><defs><path id="home-orbit-path-front" d="M0,-140 a140,140 0 1,1 0,280 a140,140 0 1,1 0,-280"/></defs>
+        <text><textPath href="#home-orbit-path-front">I WORK WHERE YOU WORK &bull;&nbsp;</textPath></text></svg>
+      </span></span>
     </span>
     <span class="home-hero-support" aria-hidden="true">
       <span class="home-support-big">in the field, on the sales floor, in the emergency room.</span>
       <span class="home-support-small">I build what&rsquo;s missing, from first research to something your team can run without me.</span>
     </span>
   </h1>
+  <span class="home-hero-meta home-hero-meta--tr" aria-hidden="true">Product design<br>Creative technology</span>
+  <span class="home-hero-meta home-hero-meta--bl" aria-hidden="true">Amazon &middot; Google &middot; Providence</span>
+  <span class="home-hero-meta home-hero-meta--br" aria-hidden="true">15+ years &middot; 2009 &ndash; now</span>
   </div>
   <script>
   (function(){var c=document.getElementById('home-orbit-sphere');if(!c)return;var x=c.getContext('2d'),N=48,r=N/2-1,
-  pal=['#4a3430','#7a5246','#b9795c','#f0b594'],B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],
+  pal=['#3a1d2e','#a8334f','#f0643a','#ffb27a'],B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],
   L=[-0.55,-0.6,0.58],m=Math.hypot(L[0],L[1],L[2]);L=L.map(function(v){return v/m});
   for(var j=0;j<N;j++)for(var i=0;i<N;i++){var u=(i+.5-N/2)/r,v=(j+.5-N/2)/r,d=u*u+v*v;if(d>1)continue;
   var z=Math.sqrt(1-d),l=Math.max(0,u*L[0]+v*L[1]+z*L[2]);l=Math.pow(l,.9)*3.2;
