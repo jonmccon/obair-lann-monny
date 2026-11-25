@@ -126,13 +126,22 @@ describe('homepage integration', () => {
 		console.log('Warning: _site/index.html not found for integration tests');
 	}
 
-	test('headline and 3D chart present', () => {
-		assert.ok(html.includes('data-chart-headline'), 'headline overlay missing');
-		assert.ok(html.includes('data-axis-canvas'), '3D canvas (WebGL target) missing');
+	test('single hero <h1> present, old Three.js chart scaffolding gone', () => {
+		// Homepage narrative rebuild (PR2, 2026-11-17): the Three.js
+		// headline/chart was replaced by a single server-rendered <h1>.
+		// Use JSDOM, not a raw regex match -- an inline CSS comment
+		// literally contains the text "<h1>" and would be miscounted.
+		const document = new JSDOM(html).window.document;
+		const h1Elements = document.querySelectorAll('h1');
+		assert.equal(h1Elements.length, 1, `expected exactly one <h1>, found ${h1Elements.length}`);
+		assert.ok(!html.includes('data-chart-headline'), 'stale headline overlay still present');
+		assert.ok(!html.includes('data-axis-canvas'), 'stale 3D canvas (WebGL target) still present');
 	});
 
-	test('at least one project has data-chart-duration set', () => {
-		assert.ok(html.includes('data-chart-duration'), 'no duration attributes found');
+	test('all 7 featured case-study blocks are present', () => {
+		assert.ok(html.includes('data-project-slug="priority-tax-relief"'), 'priority-tax-relief block missing');
+		assert.ok(html.includes('data-project-slug="providence"'), 'providence block missing');
+		assert.ok(!html.includes('data-chart-duration'), 'stale data-chart-duration attribute still present');
 	});
 
 	test('Vercel analytics and GA4 scripts coexist on the homepage', () => {
@@ -166,5 +175,75 @@ describe('homepage integration', () => {
 			ga4ConfigIndex < ga4UrlIndex,
 			'analytics and GA4 scripts are not in the expected homepage order',
 		);
+	});
+});
+
+describe('archive integration', () => {
+	const homeHtml = fs.readFileSync(path.join(ROOT, '_site', 'index.html'), 'utf8');
+	const archiveHtml = fs.readFileSync(path.join(ROOT, '_site', 'archive', 'index.html'), 'utf8');
+
+	test('includes every homepage case study alongside other projects', () => {
+		const home = new JSDOM(homeHtml).window.document;
+		const archive = new JSDOM(archiveHtml).window.document;
+		const featured = [...home.querySelectorAll('.home-case-study')];
+		const items = [...archive.querySelectorAll('.archive-grid .thumb-grid-item')];
+
+		assert.equal(featured.length, 7);
+		for (const project of featured) {
+			const slug = project.dataset.projectSlug;
+			const matches = items.filter(item => item.dataset.projectSlug === slug);
+			assert.equal(matches.length, 1, `${slug} should appear exactly once in the archive`);
+			assert.equal(matches[0].getAttribute('href'), project.querySelector('.home-case-study-banner').getAttribute('href'));
+		}
+		assert.ok(items.some(item => !featured.some(project => project.dataset.projectSlug === item.dataset.projectSlug)),
+			'non-featured projects should remain in the archive');
+	});
+
+	test('tag filters and the ALL tab work with the expanded archive', () => {
+		const dom = new JSDOM(archiveHtml, { runScripts: 'outside-only' });
+		const document = dom.window.document;
+		const script = [...document.querySelectorAll('script')].find(element =>
+			element.textContent.includes('document.querySelectorAll(".archive-tab")'));
+		assert.ok(script, 'archive filter script missing');
+		dom.window.eval(script.textContent);
+
+		const items = [...document.querySelectorAll('.archive-grid .thumb-grid-item')];
+		const tab = document.querySelector('.archive-tab:not([data-filter-tag="all"])');
+		assert.ok(tab, 'archive tag tab missing');
+		tab.click();
+		for (const item of items) {
+			assert.equal(item.hidden, !item.dataset.tags.split(',').includes(tab.dataset.filterTag));
+		}
+		assert.equal(tab.getAttribute('aria-pressed'), 'true');
+		document.querySelector('.archive-tab[data-filter-tag="all"]').click();
+		assert.ok(items.every(item => !item.hidden));
+	});
+});
+
+describe('site navigation and photography output', () => {
+	test('shows the requested menu in order on each main page', () => {
+		for (const [file, current] of [
+			['index.html', '/'],
+			['resume/index.html', '/resume/'],
+			['contact/index.html', '/contact/'],
+			['archive/index.html', '/archive/'],
+		]) {
+			const html = fs.readFileSync(path.join(ROOT, '_site', file), 'utf8');
+			const document = new JSDOM(html).window.document;
+			const links = [...document.querySelectorAll('header .site-nav a')];
+			assert.deepEqual(links.map(link => link.textContent.trim()),
+				['Jonny McConnell', 'Podcast', 'Resume', 'Contact', 'Archive']);
+			assert.deepEqual(links.map(link => link.getAttribute('href')),
+				['/', 'https://seattlecreative.simplecast.com/', '/resume/', '/contact/', '/archive/']);
+			assert.equal(links.filter(link => link.getAttribute('aria-current') === 'page').length, 1);
+			assert.equal(links.find(link => link.getAttribute('aria-current') === 'page').getAttribute('href'), current);
+		}
+	});
+
+	test.skip('does not generate photography pages or list them in the sitemap', () => { // TODO: re-enable when gallery pages return
+		const sitemap = fs.readFileSync(path.join(ROOT, '_site', 'sitemap.xml'), 'utf8');
+		assert.ok(!fs.existsSync(path.join(ROOT, '_site', 'galleries')),
+			'gallery output should be absent after a clean build');
+		assert.doesNotMatch(sitemap, /<loc>https?:\/\/[^/]+\/galleries(?:\/|<)/);
 	});
 });

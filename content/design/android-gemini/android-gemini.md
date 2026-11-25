@@ -9,7 +9,7 @@ draft: false
 featured: true
 semiFeatured: true
 homeFeatured: true
-featuredOrder: 3
+featuredOrder: 4
 protected: true
 thumbnail: /img/thumbnails/android-gemini-thumb.png
 tags:

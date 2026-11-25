@@ -93,12 +93,15 @@
    cascade to <body>, .site-wrapper, .post-content, etc.
    ===================================================== */
 
-/* Home — medium jungle field, primary dark text, peach accents */
+/* Home — light peach field, primary dark text, peach accents */
 html.theme-home {
-	--background-color: var(--color-medium-jungle-500);
+	--background-color: var(--color-peach-glow-100);
 	--text-color: var(--color-black-900);
 	--text-color-muted: var(--color-peach-glow-700);
 	--text-color-subtle: var(--color-peach-glow-800);
+	--text-color-link: var(--color-sky-reflection-700);
+	--text-color-link-active: var(--color-sky-reflection-800);
+	--text-color-link-visited: var(--color-sky-reflection-700);
 	--detail-color: var(--color-peach-glow-100);
 	--nav-link-color: var(--text-color);
 }
@@ -108,6 +111,7 @@ html.theme-content {
 	--background-color: var(--color-peach-glow-100);
 	--text-color: var(--color-black-900);
 	--text-color-muted: var(--color-black-600);
+	--text-color-subtle: var(--color-black-600);
 	--text-color-link: var(--color-sky-reflection-700);
 	--text-color-link-active: var(--color-sky-reflection-800);
 	--text-color-link-visited: var(--color-sky-reflection-700);
@@ -124,22 +128,10 @@ html.theme-content {
 	--content-pre-inline-padding: 1rem;
 }
 
-/* Resume — sky reflection field, dark text + dark links for contrast */
-html.theme-resume {
-	--background-color: var(--color-sky-reflection-500);
-	--text-color: var(--color-black-950);
-	--text-color-muted: var(--color-steel-blue-800);
-	--text-color-subtle: var(--color-steel-blue-800);
-	--text-color-link: var(--color-steel-blue-900);
-	--text-color-link-active: var(--color-black-900);
-	--text-color-link-visited: var(--color-steel-blue-900);
-	/* Nav matches the content-page background color (peach glow) */
-	--detail-color: var(--color-peach-glow-100);
-	--nav-link-color: var(--color-peach-glow-100);
-}
-
-/* Contact — deep black field with warm high-contrast text and cool link accents */
-html.theme-contact {
+/* Resume, contact, and archive — warm dark field with high-contrast text */
+html.theme-resume,
+html.theme-contact,
+html.theme-archive {
 	--background-color: var(--color-black-800);
 	--text-color: var(--color-peach-glow-50);
 	--text-color-muted: var(--color-peach-glow-200);
@@ -150,6 +142,8 @@ html.theme-contact {
 	--surface-color: var(--color-black-700);
 	--surface-color-alt: var(--color-black-600);
 	--anp-surface2: var(--color-black-500);
+	--anp-subtext1: var(--color-peach-glow-200);
+	--anp-subtext0: var(--color-peach-glow-200);
 	--nav-link-color: var(--text-color);
 }
 
@@ -2425,16 +2419,16 @@ img {
 }
 
 .post-content.bg-black a[href] {
-	color: var(--anp-blue);
+	color: var(--text-color-link);
 }
 
 .post-content.bg-black a[href]:visited {
-	color: var(--anp-subtext1);
+	color: var(--text-color-link-visited);
 }
 
 .post-content.bg-black a[href]:hover,
 .post-content.bg-black a[href]:active {
-	color: var(--anp-sky);
+	color: var(--text-color-link-active);
 }
 
 .post-header {

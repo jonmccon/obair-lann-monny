@@ -5,7 +5,7 @@
 	{%- set canonicalUrl -%}{{ page.url | htmlBaseUrl(metadata.url) }}{%- endset %}
 {%- endif -%}
 <!doctype html>
-<html lang="{{ metadata.language }}" class="no-js{% if page.url == '/' %} theme-home{% elif layout == 'layouts/post.njk' %} theme-content{% elif page.url == '/resume/' %} theme-resume{% elif page.url == '/contact/' %} theme-contact{% endif %}">
+<html lang="{{ metadata.language }}" class="no-js{% if page.url == '/' %} theme-home{% elif layout == 'layouts/post.njk' %} theme-content{% elif page.url == '/resume/' %} theme-resume{% elif page.url == '/contact/' %} theme-contact{% elif page.url == '/archive/' %} theme-archive{% endif %}">
 	<head>
 		<meta charset="utf-8">
 		{#- Swap no-js→js before first paint so JS-only UI (e.g. the WebGL homepage
@@ -67,18 +67,21 @@
 		   (~1540ms FCP/LCP cost); now self-hosted from /fonts/ via public/css/fonts.css so
 		   there's no cross-origin DNS/TLS handshake blocking first paint. See docs/ARCHITECTURE.md. #}
 		<link rel="preload" href="/fonts/outfit-v15-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-		{% if page.url == "/" %}
-		<link rel="preload" href="/fonts/google-sans-flex-v22-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-		{% endif %}
-		
+		{#- Google Sans Flex preload used to be gated to "/" because the old
+		    Three.js hero's headline canvas + .homepage-about used it there.
+		    Homepage narrative rebuild (PR2, 2026-11-17) removed both from "/" --
+		    the font is still used elsewhere (.thumb-grid-title on /archive/ and
+		    the tag pages), but no longer on the homepage itself, so the
+		    page.url == "/" preload gate is now dead weight on "/" and is
+		    removed here. Nothing else references this preload. #}
 
-		{#- Warm the connection to esm.sh and start fetching Three.js as early as
-		    possible on the homepage, so the WebGL headline module executes sooner
-		    and the DOM-headline fallback window shrinks. #}
-		{% if page.url == "/" %}
-		<link rel="preconnect" href="https://esm.sh" crossorigin>
-		<link rel="modulepreload" href="https://esm.sh/three@0.169.0" crossorigin>
-		{% endif %}
+		{#- The esm.sh preconnect + Three.js modulepreload existed solely to warm
+		    the old homepage-axis-hero's WebGL module load. PR2 (2026-11-17)
+		    removed that hero from "/" entirely (replaced by the narrative hero +
+		    7 case-study blocks) -- Three.js is no longer imported anywhere on the
+		    site, so this hint is now pure dead weight. Three.js source/CSS are
+		    intentionally NOT deleted (PR3 cleanup scope); this is just the now-
+		    unused resource hint for the module that no longer loads. #}
 
 		{#-
 		CSS bundles are provided via the `eleventy-plugin-bundle` plugin:
