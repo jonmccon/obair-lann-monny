@@ -249,20 +249,19 @@ layout: layouts/base.njk
 {% if page.url == "/" %}
 {% include "schema-person.njk" %}
 
-{#- Homepage narrative rebuild (PR2, 2026-11-17). Replaces the Three.js
-    homepage-axis-hero (radial career-clock chart) with a single hero
-    (ONE <h1> on the page) + bio, followed by the 7 narrative case-study
-    blocks driven by collections.homeFeaturedProjects (sorted by
-    featuredOrder in eleventy.config.js -- not re-sorted here) and
-    _data/homeBlocks.json for the locked, verbatim copy-doc text per
-    project. Testimonials + podcast keep their existing markup, moved
-    below block 7 and above the Archive transition/link per the
-    2026-11-11 handoff's default decision. Three.js script blocks, the
-    featuredProjects/semiFeaturedProjects-driven projectsThumbGrid
-    include, and the old introductionHeading/introductionText "about"
-    paragraph (superseded by the new locked bio copy -- rendering both
-    would duplicate the same bio facts in two different wordings) are
-    removed from "/" only; nothing is deleted from the repo (PR3 scope). #}
+{#- Homepage narrative rebuild (PR2, 2026-11-17). Replaces the old
+    Three.js homepage-axis-hero (radial career-clock chart) with a single
+    hero (ONE <h1> on the page) + bio, followed by the 7 narrative
+    case-study blocks driven by collections.homeFeaturedProjects (sorted by
+    featuredOrder in eleventy.config.js) and _data/homeBlocks.json for the
+    locked, verbatim copy-doc text per project. Testimonials + podcast keep
+    their existing markup, moved below block 7 and above the Archive
+    transition/link. The Three.js script, the old
+    featuredProjects/semiFeaturedProjects-driven projectsThumbGrid include,
+    and the old introductionHeading/introductionText paragraph are removed
+    from "/" only (superseded by the locked bio copy). Three.js source and
+    the projectsThumbGrid/homeFeaturedProjects include files themselves were
+    deleted repo-wide in PR3 (dead-code cleanup, 2026-11-25). #}
 
 <section class="home-hero" aria-label="Homepage hero">
   <div class="home-hero-top">

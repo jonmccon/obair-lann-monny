@@ -1,8 +1,9 @@
 {# Archive grid for /archive/ -- same 4-col dense thumbnail layout and markup
-   pattern as projectsThumbGrid.njk, but as its own include rather than an
-   edit to that file: projectsThumbGrid.njk is still rendered unmodified on
-   the live homepage (home.njk, over ALL collections.projects) in this PR,
-   and editing it here would change homepage output, which PR1 must not do.
+   pattern the old projectsThumbGrid.njk used, kept as its own include so
+   this file could be edited without touching the (then-live) homepage.
+   projectsThumbGrid.njk was later orphaned by the PR2 homepage narrative
+   rebuild and removed entirely in PR3 (dead-code cleanup, 2026-11-25) --
+   this file is the only surviving renderer of that grid pattern now.
 
    Adds, per Coordination A.3 of the 2026-11-11 homepage-narrative-redesign
    handoff (data attributes for a later, deferred query-param filtering

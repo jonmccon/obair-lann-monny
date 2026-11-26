@@ -65,7 +65,6 @@ obair-lann-monny/
 │   ├── projectsPilesGrid.njk  # Active design archive: randomly piled image stacks
 │   ├── projectsGrid.njk       # Card grid with thumbnail + metadata
 │   ├── projectsList.njk       # Compact text+thumbnail list
-│   ├── projectsThumbGrid.njk  # Dense image-only thumbnail grid
 │   ├── projectsStackGrid.njk  # Stacked-paper preview grid (includes demo card)
 │   ├── projectStackPreview.njk # Macro: mini stacked papers card for a single project
 │   ├── postslist.njk          # Simple `<ul>` list of posts (used by archive/tags)
@@ -479,7 +478,6 @@ The design archive (`/design/`) currently uses `projectsPilesGrid.njk`. Several 
 | `projectsPilesGrid.njk` | **Active** — randomly piled image stacks with tag filtering | `design.njk` → `/design/` |
 | `projectsGrid.njk` | Card grid with thumbnail + title + description + year | Available for use |
 | `projectsList.njk` | Compact thumbnail + title rows | Available for use |
-| `projectsThumbGrid.njk` | Dense image-only thumbnail grid | Available for use |
 | `projectsStackGrid.njk` | Stacked-paper mini previews | Available for use |
 
 To swap the design archive layout, edit `design.njk` and replace the included component.
