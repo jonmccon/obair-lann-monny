@@ -39,7 +39,7 @@ layout: layouts/base.njk
 	position: relative;
 	/* Centered in the viewport under the header: generous top/bottom
 	   margin, composition stacked and centered (planet over intro). */
-	min-height: calc(100svh - 8rem);
+	min-height: calc(80svh - 8rem);
 	margin: clamp(1rem, 3vh, 2.5rem) auto calc(clamp(1rem, 3vh, 2.5rem) + 1.5rem); /* +1.5rem offsets the shared -1.5rem on .home-supporting-content */
 	display: flex;
 	align-items: center;
@@ -104,16 +104,14 @@ layout: layouts/base.njk
 .home-orbit-sphere {
 	position: absolute;
 	z-index: 2;
-	left: 29%; top: 50%;
-	width: 42%;
+	left: 30%; top: 50%;
+	width: 40%;
 	height: auto;
 	aspect-ratio: 1;
 	transform: translateY(-50%);
-	image-rendering: pixelated;
 	border-radius: 50%;
-	opacity: 0.8;
-	filter: blur(0.7px);
-	box-shadow: 0 0 3rem 1.25rem rgba(236, 140, 110, 0.3);
+	object-fit: cover;
+	box-shadow: 0 0 2.5rem 0.75rem rgba(236, 140, 110, 0.28);
 }
 
 @keyframes home-orbit-spin { to { transform: rotate(360deg); } }
@@ -139,14 +137,7 @@ layout: layouts/base.njk
 
 .home-hero-bio { font-size: 0.9rem; line-height: 1.5; max-width: 38rem; }
 .home-hero-bio p { margin: 0 0 0.6em; }
-.home-hero-bio p:last-child {
-	margin: 0;
-	font-family: var(--font-family-mono);
-	font-size: 0.72rem;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	opacity: 0.65;
-}
+.home-hero-bio p:last-child { margin: 0; }
 
 .home-visually-hidden {
 	position: absolute; width: 1px; height: 1px; overflow: hidden;
@@ -285,7 +276,7 @@ layout: layouts/base.njk
         <svg class="home-orbit-ring home-orbit-ring--2" viewBox="-200 -200 400 400"><defs><path id="orb2-back" d="M0,-184 a184,184 0 1,1 0,368 a184,184 0 1,1 0,-368"/></defs>
         <text class="ring-2"><textPath href="#orb2-back" data-fit="1156">IN THE FIELD ~ ON THE SALES FLOOR ~ IN THE EMERGENCY ROOM ~&nbsp;</textPath></text></svg>
       </span></span>
-      <canvas class="home-orbit-sphere" id="home-orbit-sphere" width="48" height="48"></canvas>
+      <img class="home-orbit-sphere" src="/img/home/avatar-round.webp" alt="" width="640" height="640" decoding="async">
       <span class="home-orbit-tilt home-orbit-front"><span class="home-orbit-half">
         <svg class="home-orbit-ring" viewBox="-200 -200 400 400"><defs><path id="orb1-front" d="M0,-128 a128,128 0 1,1 0,256 a128,128 0 1,1 0,-256"/></defs>
         <text class="ring-1"><textPath href="#orb1-front" data-fit="804">I WORK WHERE YOU WORK&nbsp;</textPath></text></svg>
@@ -300,17 +291,10 @@ layout: layouts/base.njk
     <hr class="home-hero-rule">
     <div class="home-hero-bio">
       <p>I&rsquo;m a product designer and creative technologist. Over 15 years I&rsquo;ve shipped operating system experiences to 40M+ users at Amazon, real-time communication tools at Google, and healthcare platforms for clinical teams at Providence. Lately I&rsquo;m the first designer in the room, working out what the product should be and building it.</p>
-      <p>Away from the screen: photography, sailing, cooking, teaching. I like learning how things are made.</p>
     </div>
   </div>
   </div>
   <script>
-  (function(){var c=document.getElementById('home-orbit-sphere');if(!c)return;var x=c.getContext('2d'),N=48,r=N/2-1,
-  pal=['#c2705f','#d98c76','#ebaa8e','#f6c9ac'],B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],
-  L=[-0.55,-0.6,0.58],m=Math.hypot(L[0],L[1],L[2]);L=L.map(function(v){return v/m});
-  for(var j=0;j<N;j++)for(var i=0;i<N;i++){var u=(i+.5-N/2)/r,v=(j+.5-N/2)/r,d=u*u+v*v;if(d>1)continue;
-  var z=Math.sqrt(1-d),l=Math.max(0,u*L[0]+v*L[1]+z*L[2]);l=Math.pow(l,.9)*3.2;
-  var t=B[(j%4)*4+(i%4)]/16,k=Math.min(3,Math.floor(l+t));x.fillStyle=pal[k];x.fillRect(i,j,1,1);}})();
   (function(){function fit(){document.querySelectorAll('.home-orbit textPath[data-fit]').forEach(function(t){
   var C=+t.getAttribute('data-fit'),tx=t.parentNode;tx.style.letterSpacing='0px';
   var n=t.getNumberOfChars(),w=t.getComputedTextLength();if(n)tx.style.letterSpacing=((C-w)/n)+'px';});}
