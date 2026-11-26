@@ -37,31 +37,30 @@ layout: layouts/base.njk
 
 .home-hero {
 	position: relative;
-	max-width: 76rem;
-	margin-inline: auto;
-	padding: clamp(1.5rem, 3vw, 2.25rem) clamp(1.25rem, 4vw, 3.5rem);
+	/* Centered in the viewport under the header: generous top/bottom
+	   margin, composition stacked and centered (planet over intro). */
+	min-height: calc(100svh - 8rem);
+	margin: clamp(1rem, 3vh, 2.5rem) auto calc(clamp(1rem, 3vh, 2.5rem) + 1.5rem); /* +1.5rem offsets the shared -1.5rem on .home-supporting-content */
 	display: flex;
 	align-items: center;
-	background: radial-gradient(110% 100% at 18% 30%, color-mix(in srgb, var(--color-black-800), #fff 7%) 0%, var(--color-black-800) 62%);
-	color: var(--color-black-50);
-	border-radius: 0.5rem;
+	justify-content: center;
 }
 
 .home-hero-top {
 	width: 100%;
-	display: grid;
-	grid-template-columns: minmax(0, 1.35fr) minmax(16rem, 1fr);
-	gap: clamp(2rem, 6vw, 5rem);
+	display: flex;
+	flex-direction: column;
 	align-items: center;
+	gap: clamp(0.75rem, 2vh, 1.25rem);
+	text-align: center;
 }
 
 .home-hero-headline { margin: 0; display: contents; }
 
 .home-orbit {
 	position: relative;
-	width: 74%;
-	margin: 0 auto;
-	aspect-ratio: 1 / 0.78;
+	width: min(19rem, 62vw);
+	aspect-ratio: 1 / 0.66;
 }
 
 .home-orbit-tilt {
@@ -86,7 +85,7 @@ layout: layouts/base.njk
 }
 .home-orbit-ring--2 { animation-duration: 30s; }
 
-.home-orbit-ring text { fill: var(--color-black-50); }
+.home-orbit-ring text { fill: var(--text-color); }
 .home-orbit-ring .ring-1 {
 	font-family: var(--font-family);
 	font-weight: 900;
@@ -100,7 +99,7 @@ layout: layouts/base.njk
 	letter-spacing: 0;
 }
 
-.home-orbit-back .home-orbit-ring text { opacity: 0.58; }
+.home-orbit-back .home-orbit-ring text { opacity: 0.45; }
 
 .home-orbit-sphere {
 	position: absolute;
@@ -112,6 +111,9 @@ layout: layouts/base.njk
 	transform: translateY(-50%);
 	image-rendering: pixelated;
 	border-radius: 50%;
+	opacity: 0.8;
+	filter: blur(0.7px);
+	box-shadow: 0 0 3rem 1.25rem rgba(236, 140, 110, 0.3);
 }
 
 @keyframes home-orbit-spin { to { transform: rotate(360deg); } }
@@ -119,28 +121,32 @@ layout: layouts/base.njk
 .home-hero-column {
 	display: flex;
 	flex-direction: column;
-	gap: 1.1rem;
-	max-width: 32rem;
+	align-items: center;
+	gap: 0.9rem;
+	max-width: 40rem;
 }
 
 .home-hero-statement {
 	margin: 0;
-	font-weight: 300;
-	font-size: clamp(1.35rem, 2.3vw, 1.95rem);
-	line-height: 1.12;
+	font-weight: 400;
+	font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+	line-height: 1.18;
 	letter-spacing: -0.01em;
+	text-wrap: balance;
 }
 
-.home-hero-rule {
-	width: 3rem;
-	border: 0;
-	border-top: 2px solid var(--color-black-50);
+.home-hero-rule { display: none; }
+
+.home-hero-bio { font-size: 0.9rem; line-height: 1.5; max-width: 38rem; }
+.home-hero-bio p { margin: 0 0 0.6em; }
+.home-hero-bio p:last-child {
 	margin: 0;
+	font-family: var(--font-family-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	opacity: 0.65;
 }
-
-.home-hero-bio { font-size: 0.92rem; line-height: 1.6; }
-.home-hero-bio p { margin: 0 0 1em; }
-.home-hero-bio p:last-child { margin: 0; }
 
 .home-visually-hidden {
 	position: absolute; width: 1px; height: 1px; overflow: hidden;
@@ -149,12 +155,6 @@ layout: layouts/base.njk
 
 @media (max-width: 48rem) {
 	.home-hero { min-height: 0; }
-	.home-hero-top { grid-template-columns: 1fr; }
-	.home-orbit { max-width: 32rem; margin: 0 auto; }
-	}
-
-@media (prefers-reduced-motion: reduce) {
-	.home-orbit-ring { animation: none; }
 }
 
 .home-case-studies {
@@ -306,7 +306,7 @@ layout: layouts/base.njk
   </div>
   <script>
   (function(){var c=document.getElementById('home-orbit-sphere');if(!c)return;var x=c.getContext('2d'),N=48,r=N/2-1,
-  pal=['#3a1d2e','#a8334f','#f0643a','#ffb27a'],B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],
+  pal=['#c2705f','#d98c76','#ebaa8e','#f6c9ac'],B=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5],
   L=[-0.55,-0.6,0.58],m=Math.hypot(L[0],L[1],L[2]);L=L.map(function(v){return v/m});
   for(var j=0;j<N;j++)for(var i=0;i<N;i++){var u=(i+.5-N/2)/r,v=(j+.5-N/2)/r,d=u*u+v*v;if(d>1)continue;
   var z=Math.sqrt(1-d),l=Math.max(0,u*L[0]+v*L[1]+z*L[2]);l=Math.pow(l,.9)*3.2;
